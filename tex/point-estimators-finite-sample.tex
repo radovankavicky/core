@@ -1,0 +1,254 @@
+% Created 2013-05-17 Fri 14:08
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage[margin=1in]{geometry}
+\setcounter{secnumdepth}{8}
+\providecommand{\alert}[1]{\textbf{#1}}
+\DeclareMathOperator{\E}{E}
+
+\title{Finite sample evaluation of point estimators}
+\author{Gray Calhoun}
+\date{\today}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.8.02}}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+\vspace*{1cm}
+\begin{itemize}
+\item Covered on
+\begin{itemize}
+\item \textit{2009-09-23 Wed}, \textit{2009-09-28 Mon},
+\item \textit{2010-09-23 Thu}
+\item \textit{2011-09-15 Thu}
+\item \textit{2012-09-13 Thu}, \textit{2012-09-18 Tue}
+\end{itemize}
+\item Reading
+\begin{itemize}
+\item CB 7.3
+\item Greene C.5
+\end{itemize}
+\end{itemize}
+\section{Intro}
+\label{sec-1}
+
+\begin{itemize}
+\item given that we have a ``goal'' for our estimator, how do we judge
+     whether it measures the parameter it is supposed to well or not?
+\item So, we derive the theoretical properties of the estimator.
+\begin{itemize}
+\item remember, an estimator is a function of data, $g(x_1,\dots,x_n)$
+\item we look at the distribution of the \emph{random variable} $g(X_1,\dots,X_n)$
+\item this distribution is called the \emph{sample distribution}
+\item we usually care about the properties of $\hat \theta -
+       \theta_0$ where $\theta_0$ is the population parameter that
+       we're trying to measure.
+\end{itemize}
+\item generally want
+\begin{itemize}
+\item correct location (more or less)
+\item low dispersion (ie variance)
+\end{itemize}
+\end{itemize}
+\section{Unbiasedness}
+\label{sec-2}
+
+\begin{itemize}
+\item definition: If $\hat \theta$ is an estimator of $\theta_0$,
+       the bias of $\hat \theta$ equals $E \hat \theta - \theta_0$.
+       An estimator is \emph{unbiased} if its bias equals zero for any
+       value of $\theta_0$
+\item motivates definition of efficient: If $\hat \theta_1$ and $\hat
+       \theta_2$ are two unbiased estimators of a parameter $\theta$,
+       $\hat \theta_1$ is more efficient than $\hat \theta_2$ if the
+       variance of $\hat \theta_1$ is less than that of $\hat \theta_2$.
+\begin{itemize}
+\item for multivariate $\hat\theta$, we need $Var(\hat\theta_2) -
+         Var(\hat\theta_1)$ to be positive definite.
+\end{itemize}
+\item An estimator $\hat\theta$ of $\theta$ is the best unbiased
+       estimator if it is unbiased and has smaller variance than any
+       other unbiased estimator
+\item an interesting question is, what is the smallest variance that
+       an unbiased estimator could have?
+\begin{itemize}
+\item if we have an unbiased estimator that has that variance, we
+         know that it is ``the best'' estimator possible in a certain sense.
+\end{itemize}
+\end{itemize}
+\section{Cramer-Rao Lower bound}
+\label{sec-3}
+
+\begin{itemize}
+\item Statement of result:
+\begin{itemize}
+\item Suppose $X_1,\dots,X_n$ have a joint density with likelihood
+         $L(\theta; X)$ and let $\hat\theta$ be an estimator of
+         $\theta$ with finite variance and \[\tfrac{d}{d\theta} \int_\mathcal{X} \hat\theta(x) L(\theta; x) dx = \int_\mathcal{X} \hat\theta(x) \tfrac{d}{d\theta} L(\theta; x) dx\]
+         where $\mathcal{X}$ is the support of $X_1,\dots,X_n$.
+\item Then \[var(\hat\theta) \geq \frac{(\tfrac{d}{d\theta} E \hat\theta(X))^2}{E (\tfrac{d}{d\theta} \log L(\theta; X))^2}\]
+\item If $X_i \sim i.i.d. f$, then this becomes
+         \[var(\hat\theta) \geq \frac{(\tfrac{d}{d\theta} E \hat\theta(X))^2}{n E (\tfrac{d}{d\theta} \log f(x; \theta))^2}\]
+\end{itemize}
+\item $X_1,\dots,X_n \sim$ i.i.d. $N(\mu, \sigma^2)$
+\begin{itemize}
+\item MLE is sample mean; mean $\mu$ variance $\sigma^2/n$
+\item $d/d\mu \log L(\mu, \sigma^2; X) = \sum_i (x_i - \mu)/\sigma^2$
+\item So CR lower-bound is $\dfrac{1}{n \E (x_i-\mu)^2/\sigma^4} = \sigma^2/n$
+\item And sample mean achieves the CR lower bound, so it's the best
+         unbiased estimator.
+\end{itemize}
+\item Proof: students should read the Casella-Berger proofs on their own.
+\item Multivariate version (for unbiased estimators):
+       \[var(\hat\theta) \geq (E \Big[\tfrac{d}{d\theta} \log L(\theta; X)) (\tfrac{d}{d\theta} \log L(\theta; X))'\Big]^{-1}\]
+\item Discussion
+\begin{itemize}
+\item If any unbiased estimator attains this variance, it is MVUE and
+         we should use it.
+\item The inequality may be strict (bound might not be obtained by any estimator or by the best estimator)
+\end{itemize}
+\item Example (skip in the future)
+\begin{itemize}
+\item usual setup
+\begin{itemize}
+\item \$(X$_i$,Y$_i$) $\sim$ i.i.d.\$
+\item $Y_i \mid X_i \sim N(\beta_0 + \beta_1 X_i, \sigma^2)$
+\item $X_i \sim f$
+\item $\hat\beta = (X'X)^{-1} X'Y$ with
+\begin{itemize}
+\item $X = \begin{pmatrix} 1 & X_1 \\ \vdots \\ 1 & X_n \end{pmatrix}$
+\item $Y = (Y_1, \dots, Y_n)$
+\end{itemize}
+\end{itemize}
+\item $\hat\beta$ is unbiased:
+\begin{itemize}
+\item even stronger, $E(\hat\beta \mid X) = \beta$ (which implies unbiasedness)
+\item $E(\hat\beta \mid X) = E((X'X)^{-1} X'Y \mid X)$
+\begin{itemize}
+\item $=(X'X)^{-1}X' \E(Y \mid X)$
+\item $=(X'X)^{-1}X'X\beta$
+\item $=\beta$
+\end{itemize}
+\end{itemize}
+\item We can calculate conditional and unconditional variance of $\hat\beta$:
+\begin{itemize}
+\item $var(\hat\beta \mid X) = E((\hat\beta - \beta)(\hat\beta - \beta)' \mid X)$
+\begin{itemize}
+\item $E((X'X)^{-1}X'\varepsilon\varepsilon'X(X'X)^{-1} \mid X)$
+\item $(X'X)^{-1}X' E(\varepsilon\varepsilon' \mid X) X(X'X)^{-1}$
+\item $\sigma^2 (X'X)^{-1}$
+\end{itemize}
+\item $var(\hat\beta) = E var(\hat\beta \mid X) + var(E(\hat\beta \mid X)) = \sigma^2 E(X'X)^{-1}$
+\end{itemize}
+\item Is this the best unbiased estimator?
+\begin{itemize}
+\item unconditional exercise:
+\begin{itemize}
+\item we know that any unbiased estimator has variance greater than or equal to
+\begin{description}
+\item[→] $\Big[E \Big[\tfrac{d}{d\theta} \log L(\theta; X)) (\tfrac{d}{d\theta} \log L(\theta; X))'\Big]\Big]^{-1}$
+\begin{description}
+\item[→] $=\Big[\sigma^{-4} \sum_i E (y_i - \beta_0 - \beta_1 x_i \mid x_i)^2 \begin{pmatrix} 1 & x_i \\ x_i & x_i^2 \end{pmatrix}\Big]^{-1}$
+\item[→] $= \sigma^2 (E\ X'X)^{-1}$
+\end{description}
+\end{description}
+\item so we don't know.
+\item But, this equals the variance if $X$ is deterministic
+\item Suggests that we co this conditional on $X$
+\end{itemize}
+\item conditional exercise\{
+\begin{itemize}
+\item we know that any estimator $b$ s.t. $E(b \mid X) = \beta$ has conditional variance greater than or equal to
+\begin{description}
+\item[→] $\Big[E\Big(\tfrac{d}{d\theta} \log L(\theta; X)) (\tfrac{d}{d\theta} \log L(\theta; X))' \mid X\Big)\Big]^{-1}$
+\begin{description}
+\item[→] $= \sigma^2 (X'X)^{-1}$
+\end{description}
+\end{description}
+\item so $\hat\beta$ achieves lower bound conditional on $X$
+\item holds unconditonally as well, too.
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\section{loss function based optimality:}
+\label{sec-4}
+
+\begin{itemize}
+\item Suppose that we have some measure of dis-utility: if our
+       estimator is far from the true value, it causes us some
+       (hypothetical) pain.
+\item how should we think about this?
+\begin{itemize}
+\item take a convex function $L$.
+\item The pain we feel from mis-estimating $\theta_0$ is
+         $L(\hat\theta - \theta_0)$
+\item we can compare the \emph{risk} of two estimators, and choose the
+         estimator with the smallest risk
+\begin{itemize}
+\item risk is defined as expected loss
+\item if $E L(\hat\theta_1 - \theta_0)$ is smaller than $E
+           L(\hat\theta_2 - \theta_0)$, we're going to be better off on
+           average by using estimator 1
+\item can be motivated by utility theory and expected utility;
+           then the best estimator is linked to certainty equivalence.
+           (see \emph{The Handbook of Economic Forecasting} (2006) chapter
+           by Machina and Granger
+\end{itemize}
+\end{itemize}
+\item one loss function that is very popular: $L(x) = x^2$
+\begin{itemize}
+\item gives MSE criterion.
+\end{itemize}
+\item another: L(x) = abs(x)
+\item usually loss functions are used to compare estimators only when
+       you have a specific situation where you know that certain types
+       of errors are more costly than others.
+\end{itemize}
+\subsection{another problem:}
+\label{sec-4-1}
+
+\begin{itemize}
+\item when  you're explicitly worried about the loss, imposing
+        unbiasedness doesn't make sense
+\item the same problem we ran into when we didn't impose it and just
+        looked at variance shows up
+\begin{itemize}
+\item $p_1 = \bar X$
+\item $p_2 = 1/2$
+\item $mse(p_1) = bias(p_1)^2 + variance(p_1) = p(1-p)/n$
+\item $mse(p_2) = (1/2 - p)^2$
+\end{itemize}
+\item sometimes $p_1$ will have smaller mse; sometimes $p_2$ will.
+\item so, not really a good general way to construct estimators, but
+        you'll often see estimators that are otherwise ``reasonable''
+        compared by MSE too
+\item if you have a good idea about what $p$ is going to be, MSE can
+        be more useful
+\begin{itemize}
+\item seen in Bayesian statistics.
+\end{itemize}
+\end{itemize}
+
+\end{document}

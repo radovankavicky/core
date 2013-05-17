@@ -1,0 +1,148 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage[margin=1in]{geometry}
+\setcounter{secnumdepth}{8}
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{Asymptotic inference}
+\author{Gray Calhoun}
+\date{\today}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.8.02}}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+\vspace*{1cm}
+\begin{itemize}
+\item Covered on
+\begin{itemize}
+\item \textit{2010-10-05 Tue}
+\item \textit{2011-10-18 Tue}
+\end{itemize}
+\end{itemize}
+\section{Introduction and definitions}
+\label{sec-1}
+
+\begin{itemize}
+\item One problem with the testing results we've done so far
+\begin{itemize}
+\item need to know the DGP (up to unknown constants) to get the
+        distribution of the statistic.
+\begin{itemize}
+\item An example would be nice (maybe X1+X2 from normal vs. uniform)
+\end{itemize}
+\item this is unrealistic in practice
+\end{itemize}
+\item CLT suggests taht, for a lot of DGPs and statistics, the exact
+      distribution isn't going to matter much, as long as we have a
+      lot of observations
+\item So we can use the CLT to derive an approximate distribution for
+      our statistics, and use approximate critical values.
+\item Definition: let $\{T_n\}$ be a sequence of test statistics for
+      $\theta \in \Theta_0$ against $\theta \in \Theta_A$.  The
+      sequence of tests has asymptotic size $\alpha$ if 
+      \[\lim_{n \to \infty} \sup_{\theta \in \Theta_0} \Pr_\theta[T_n \text{ rejects}] = \alpha\]
+\begin{itemize}
+\item asymptotic level if the equality is an inequality.
+\end{itemize}
+\item The same idea holds for confidence intervals
+\begin{itemize}
+\item Let $\{[L_n, U_n\}$ be a sequence of interval estimators for a
+        parameter $\theta$.  The asymptotic confidence level for this
+        sequence of statistics is
+        \[\lim_{n\to\infty} \inf_\theta \Pr_{\theta}[\theta \in [L_n, U_n]]\]
+\item important that the limit is outside the inf or sup
+\item you should think of a good question or example to address that
+\begin{itemize}
+\item maybe from delta method?
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\section{Wald Test}
+\label{sec-2}
+
+\begin{itemize}
+\item The Wald tests is built on the CLT explicitly
+\end{itemize}
+\subsection{Main idea}
+\label{sec-2-1}
+
+\begin{itemize}
+\item Suppose we want to test the null $\theta = \theta_0$ and we have
+      an asymptotically normal estimator $\hat\theta_n$: $\sqrt{n}
+      (\hat\theta_n - \theta) \to^d N(0,\eta^2)$ for all $\theta$.
+\item Then we can base a test on $\frac{\sqrt{n}}{\hat\eta}
+      (\hat\theta - \theta_0)$ as long as $\hat\eta$ is a consistent
+      estimator of $\eta$. (i.e. a $t$-test or something derived from it.
+\begin{itemize}
+\item often get a chi-squared distribution
+\end{itemize}
+\end{itemize}
+\subsection{Example}
+\label{sec-2-2}
+
+\begin{itemize}
+\item Suppose $(Y_i, X_i) \sim i.i.d$ with unknown density
+\begin{itemize}
+\item $E(Y_i \mid X_i) = \beta_0 + \beta_1 X_i$
+\item $var(Y_i \mid X_i) = \sigma^2$
+\end{itemize}
+\item Want to test the null that $\beta_0 = \beta_1 = 0$ against
+       two-sided alternatives.
+\begin{itemize}
+\item Use our MLE $\hat\beta$ = $(X'X)^{-1} X'Y$
+\end{itemize}
+\item Step 1, prove that $\sqrt{n}(\hat\beta - \beta) \to N(0, \Sigma = \sigma^2 (E x_i x_i')^{-1})$
+\item step 2, prove that $\hat\sigma^2$ converges in prob to $\sigma^2$
+\item Step 3, argue that $\frac{n}{\hat\sigma^2}
+       \hat\beta'\hat\Sigma^{-1} \hat\beta$ is asymptotically
+       chi-square with 2 degrees of freedom.
+\item Step 4, explain test statistic.
+\end{itemize}
+\section{LRT result}
+\label{sec-3}
+
+\begin{itemize}
+\item The chi-square limit distribution comes up a lot
+\item A nice result for the LRT gives us a chi-square limit as well
+\item Let $X_1,\dots,X_n \sim i.i.d.\ f(x; \theta)$ adn let
+      $\lambda(X)$ be the LR statistic for the test $\theta \in
+      \Theta_0$ vs. $\theta \notin \Theta_0$.  Under appropriate
+      regularity conditions,
+      \[-2 \log \lambda(X) \to^d \chi_p^2\]
+      under the null, where $p$ is the number of restrictions imposed
+      by the null (in the wald test example, there wre two
+      restrictions)
+\end{itemize}
+\section{Other miscellaneous points}
+\label{sec-4}
+
+\begin{itemize}
+\item You can also get a test from the first order conditions (called
+      the ``score'' or ``LM'' test)
+\item results for testing immediately translate into results for
+      confidence intervals/sets.
+\end{itemize}
+
+\end{document}

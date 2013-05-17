@@ -1,0 +1,234 @@
+% Created 2013-05-17 Fri 14:07
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage[margin=1in]{geometry}
+\setcounter{secnumdepth}{8}
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\DeclareMathOperator{\E}{E}
+
+\title{Linear regression and Method of Moments}
+\author{Gray Calhoun}
+\date{\today}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.8.02}}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+\vspace*{1cm}
+\begin{itemize}
+\item Cover on
+\begin{itemize}
+\item \textit{2009-09-28 Mon}
+\item \textit{2010-09-28 Tue}
+\item \textit{2011-09-08 Thu}, \textit{2011-09-13 Tue}
+\item \textit{2012-09-11 Tue}
+\end{itemize}
+\item Reading
+\end{itemize}
+\section{Description}
+\label{sec-1}
+
+\begin{itemize}
+\item Suppose we have $X_1,\dots,X_n \sim f(x; \theta)$
+\begin{itemize}
+\item $f$ is known
+\item $\theta$ is an unknown $p$-vector that we want to estimate
+\end{itemize}
+\item estimator is based on a simple idea:
+\begin{itemize}
+\item if we want to estimate an expectation, use a sample average
+\item $P[X_i \leq c]$ for known $c$
+\begin{itemize}
+\item $=E 1\{X_i \leq x\}$
+\item estimate with $n^{-1} \sum_{i=1}^n 1\{X_i \leq c\}$
+\end{itemize}
+\item Estimate $\E X_i$ with $n^{-1} \sum_{i=1}^n X_i$
+\item etc
+\end{itemize}
+\item in general, relate $\theta$ to the population moments:
+\begin{itemize}
+\item if $\theta$ has $p$ elements, we calculate the first $p$ moments
+        of $X_i$
+\begin{itemize}
+\item $\mu_1 = g_1(\theta)$
+\item $\mu_2 = g_2(\theta)$
+\item dot dot dot
+\item $\mu_p = g_p(\theta)$
+\end{itemize}
+\end{itemize}
+\item calculate the sample moments:
+\begin{itemize}
+\item $\hat \mu_1 = n^{-1}\sum_{i=1}^n X_i$
+\item $\hat \mu_2 = n^{-1}\sum_{i=1}^n X_i^2$
+\item dot dot dot
+\item $\hat \mu_p = n^{-1}\sum_{i=1}^n X_i^p$
+\end{itemize}
+\item estimate $\theta$ by setting the equations equal:
+\begin{itemize}
+\item $g_1(\hat\theta) = \hat\mu_1 = n^{-1}\sum_{i=1} X_i$
+\item dots
+\item $g_p(\hat\theta) = \hat\mu_p = n^{-1}\sum_{i=1} X_i^p$
+\item then $\hat\theta = g^{-1}(n^{-1}\sum_{i=1}^n
+        X_i,\dots,n^{-1}\sum X_i^p)$
+\begin{itemize}
+\item obviously, $g$ needs to be invertible for this to work.
+\end{itemize}
+\end{itemize}
+\item Sometimes $\hat\theta$ is easy to write out analytically as a
+      function of the sample averages
+\begin{itemize}
+\item when it's not, you can find $\hat \theta$ numerically.
+\end{itemize}
+\item if each sample moment is close to the population moment and
+      $g^{-1}$ is continuous, then $\hat\theta$ should be close to $\theta$.
+\end{itemize}
+\section{Examples}
+\label{sec-2}
+
+\begin{itemize}
+\item normal$(\mu,\sigma^2)$
+\begin{itemize}
+\item first moment of a normal random variable is $E X_i = \mu$
+\item second moment is $E X_i^2 = \sigma^2 + \mu^2$
+\item method of moments estimator is
+\begin{itemize}
+\item $\hat \mu = n^{-1} \sum_i X_i$
+\item $\hat \sigma^2 = n^{-1} \sum_i X_i^2 - (n^{-1}\sum_i X_i)^2
+           = n^{-1} \sum_i(X_i - \bar X)^2$
+\item which is not the usual estimator, but is close.
+\end{itemize}
+\end{itemize}
+\item uniform(a,b)
+\begin{itemize}
+\item Let's say that $X_1,\dots,X_n$ are iid uniform$(a,b)$, and we want
+         to calculate the method of moments estimator for $a$ and $b$.
+\begin{itemize}
+\item density of $X_i$ is $1/(b-a)$ in $[a,b]$, zero otherwise.
+\end{itemize}
+\item Calculate the first two moments:
+\begin{itemize}
+\item $E X_i = \int_a^b x /(b-a) dx = \frac{b+a}{2}$
+\item $E X_i^2 = \int_a^b x^2 /(b-a) dx = \frac{b^3 - a^3}{3(b - a)} = \frac{b + ab + a^2}{3}$
+\end{itemize}
+\item Gives the estimators:
+\begin{itemize}
+\item $\hat b+\hat a = 2 n^{-1} \sum_i X_i$
+\item ${\hat b^3-\hat a^3 \over (\hat b- \hat a)} = 3 n^{-1} \sum_i X_i^2$
+\item solve for $\hat b$ and $\hat a$, gives
+\begin{itemize}
+\item $\hat b = \bar X + s \sqrt{3}$
+\item $\hat a = \bar X - s \sqrt{3}$
+\item $s = \sqrt{n^{-1} \sum_i (X_i - \bar X)^2}$
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\item linear regression
+\begin{itemize}
+\item setup
+\begin{itemize}
+\item \$(Y$_i$, X$_i$) $\sim$ i.i.d.\$
+\item $X_i \sim f$ (unspecified)
+\item $Y_i \mid X_i \sim N(\beta_0 + \beta_1 X_i, \sigma^2)$
+\item want to estimate $\beta_0$ and $\beta_1$
+\item draw scatterplot (this is like estimating the slope and intercept)
+\item We'll often see this as $Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i$
+\begin{itemize}
+\item $\varepsilon_i \mid X_i \sim N(0, \sigma^2)$
+\item i.e. define $\varepsilon_i = Y_i - \beta_0 - \beta_1 X_i$
+\end{itemize}
+\end{itemize}
+\item MoM estimator
+\begin{itemize}
+\item we know $E \binom{Y_i}{X_i Y_i} = \begin{pmatrix} \beta_0 + \beta_1 E X_i \\ \beta_0 E X_i + \beta_1 E X_i^2 \end{pmatrix}$
+\begin{itemize}
+\item $= \begin{pmatrix} 1 & E X_i \\ E X_i & E X_i^2 \end{pmatrix} \begin{pmatrix}\beta_0 \\ \beta_1\end{pmatrix}$
+\end{itemize}
+\item Assuming invertibility, $\begin{pmatrix}\beta_0\\\beta_1\end{pmatrix} = \begin{pmatrix}1&EX_i\\EX_i&EX_i^2\end{pmatrix}^{-1} \begin{pmatrix}EY_i\\EX_iY_i\end{pmatrix}$
+\item This makes our estimator, $\begin{pmatrix}\hat\beta_0\\\hat\beta_1\end{pmatrix}=\begin{pmatrix}1&\sum_i x_i/n\\\sum_i x_i/n&\sum_ix_i^2/n\end{pmatrix}^{-1}\begin{pmatrix}\sum_iy_i/n\\\sum_ix_iy_i/n\end{pmatrix}$
+\begin{itemize}
+\item $=\begin{pmatrix}1&\sum_i x_i\\\sum_i x_i&\sum_ix_i^2\end{pmatrix}^{-1}\begin{pmatrix}\sum_iy_i\\\sum_ix_iy_i\end{pmatrix}$
+\item (write in matrix notation and explain)
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\section{Discussion}
+\label{sec-3}
+
+\begin{itemize}
+\item advantages
+\begin{itemize}
+\item it gets you an estimator
+\item easy to derive asymptotic properties of the estimator (it's a
+         function of averages, which usually obey CLTs and LLNs).
+\end{itemize}
+\item disadvantages
+\begin{itemize}
+\item can be very inefficient
+\item for it to be useful, requires that the moments tell you a lot
+         about the distribution (for the uniform, they don't
+         necessarily -- we're trying to estimate the endpoints, but our
+         estimator is to look for the center and double it.)
+\begin{itemize}
+\item a big problem with our estimates here, is we might have \$X\$s
+           in our data that are outside the interval $[a,b]$
+\end{itemize}
+\item kind of ad hoc.
+\item for the uniform distribution, we have \emph{all} of the moments
+         defined\ldots{} should we calculate the first $p$ moments and
+         average all of them?
+\begin{itemize}
+\item how do we pick $p$?
+\item are some moments better than others?
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\section{GMM}
+\label{sec-4}
+
+\begin{itemize}
+\item Hansen (1982) shows that a modification of the method of
+         moments can be very useful in macro:
+\begin{itemize}
+\item have periods $t=1,\dots,T$
+\item macro models tell you that $E_t g(X_t, \theta) = 0$ where
+           $g(x_t, \theta)$ is coming from Euler equations (ie, an
+           agent is optimizing in period $t$, and $g$ captures the
+           difference between what they expect to happen in period
+           $t+1$ and what actually happens in period $t+1$ -- under
+           rationality, they choose an action that makes that
+           difference unpredictable.
+\item LIE tells you that $E g(X_t, \theta) = E E_t g(X_t,\theta)$
+           which equals zero, so you have the condition
+           \[E g(X_t, \theta) = 0\]
+\item Hansen shows that you can often estimate $\theta$ by solving
+           \[ T^{-1} \sum_{t=1}^T g(X_t,\theta) = 0 \]
+           for $\theta$. (and says how)
+\item when you have more moments than parameters, gives a
+           weighting scheme.
+\end{itemize}
+\end{itemize}
+
+\end{document}

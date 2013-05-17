@@ -1,0 +1,326 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage[margin=1in]{geometry}
+\setcounter{secnumdepth}{8}
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{Central Limit Theorem}
+\author{Gray Calhoun}
+\date{\today}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.8.02}}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+\vspace*{1cm}
+\begin{itemize}
+\item Cover on
+\begin{itemize}
+\item \textit{2009-09-16 Wed}, \textit{2009-09-21 Mon}
+\item \textit{2010-09-21 Tue}
+\item \textit{2011-10-18 Tue}, \textit{2011-10-13 Thu}
+\item \textit{2012-10-23 Tue}, \textit{2012-10-25 Thu}, \textit{2012-10-18 Thu}
+\end{itemize}
+\end{itemize}
+\section{Introduction}
+\label{sec-1}
+
+    we've been talking about convergence to random variables or
+    constants.  Sometimes that's too limiting a concept: we often have
+    cases where there's not a particular \emph{variable} that our sequence
+    converges to, but instead its behavior gets closer and closer to
+    that of another random variable.  
+\subsection{example}
+\label{sec-1-1}
+
+     Let $X_n =$ 0 with probability $1/2 + 1/n$ and 1 with probability
+     $1/2 - 1/n$.  Let $Y_n = - 1$ or 2 with probability $1/2n$ each and
+     0 or 1 with probability $(1-n)/2$ each.  Also let $X_n$ and $Y_n$
+     be independent of each other.
+\begin{itemize}
+\item Draw pictures
+\item in a sense, we want $X_n$ and $Y_n$ to converge to each other --
+       as $n$ increases, they behave increasingly like each other.
+\item but, if we look at $X_n - Y_n$, the random variable is
+\begin{itemize}
+\item --1 with prob $(1/2 + 1/n)/2n$
+\item 0 with prob $(1/2 + 1/n)(1 - n)/2 + (1/2-1/n)/2n$
+\item 1 with prob $(1 - n)/2$
+\item 2 with prob $(1/2 + 1/n)(1-n)/2 + (1/2+1/n)/2n$
+\end{itemize}
+\item and this random variable clearly does not converge to zero in any
+       sense.
+\end{itemize}
+\subsection{discussion}
+\label{sec-1-2}
+
+\begin{itemize}
+\item This example is (obviously) contrived, but as you know, there are
+       many situations where we have a random sequence like $Y_n$ that
+       has a distribution that is either unknown or difficult to work
+       with, and another sequence $X_n$ that is known and easy to work
+       with.
+\item We'd like to be able to say that the sequences ``converge'' somehow
+       and use the easier sequence in our application.
+\item motivates convergence in distribution
+\end{itemize}
+\section{convergence in distribution}
+\label{sec-2}
+
+    We're going to talk about ``distributions'' here because (remember)
+    they are guaranteed to exist while densities are not.
+\subsection{definition}
+\label{sec-2-1}
+
+     Let $\{X_n\}$ be a sequence of random variables with cdfs $F_n$.
+     $X_n$ converges in distribution to a random variable $X$ with cdf
+     $F(\cdot)$ if $$\lim_{n\to\infty} \lvert F_n(c) - F(c) \rvert = 0$$
+     for all continuitiy points $c$ of $F(\cdot)$.
+\subsection{discussion \textbf{:hw:}}
+\label{sec-2-2}
+
+\begin{itemize}
+\item Discuss point of continuity with a picture.
+\item written (usually) $X_n \xrightarrow{d} F$ or $X_n
+       \xrightarrow{d} X$.
+\item A few useful results (Greene D.16)
+\begin{enumerate}
+\item If $X_n \xrightarrow{d} X$ and $Y_n \xrightarrow{p} c$ (a
+          constant) then $X_n Y_n \xrightarrow{d} c X$ and $X_n + Y_n
+          \xrightarrow{d} X + c$
+\item If $X_n \xrightarrow{d} X$ and $g(\cdot)$ is a continuous
+          function, then $g(X_n)\xrightarrow{d} g(X)$
+\item If $Y_n \xrightarrow{d} Y$ and $X_n - Y_n \xrightarrow{p} 0$
+          then $X_n \xrightarrow{d} Y$.
+\begin{itemize}
+\item give intuitive proof.
+\end{itemize}
+\end{enumerate}
+\item for convergence to a constant only: If $Y_n \xrightarrow{d} c$
+       for $c$ a constant, then $Y_n \xrightarrow{p} c$.
+\item how does one prove convergence in distribution?
+\begin{itemize}
+\item don't usually sit down with the distribution functions.
+\item remember for convergence in probability -- when you can, use
+         Chebychev's inequality to turn the statement about
+         probabilities into a statement about expectations, and then
+         prove convergence for the expectations.
+\item there's a similar approach for densities/distributions (we
+         don't have time to get into this in detail)
+\begin{description}
+\item[moment generating function] The moment generating function
+              of a random vector $X$ is defined as $E e^{t'X}$
+\begin{itemize}
+\item doesn't always exist.
+\end{itemize}
+\item[characteristic function] The characteristic function of a
+              random vector $X$ is defined as $E e^{it'X}$
+\begin{itemize}
+\item always exists
+\item requires that you know some complex analysis.
+\end{itemize}
+\item[Useful fact] if two random variables have the same moment
+                          generating function or characteristc function
+                          then they have the same distribution
+                          function.
+\begin{itemize}
+\item Add proof
+\end{itemize}
+\item[cramer-wold device] (one version of it) Let $X$ be a
+             random $k$-vector.  $a'X$ is normally distributed for
+             every deterministic $k$-vector $a$ iff $X$ is
+             multivariate normal.
+\begin{itemize}
+\item have students prove for homework
+\end{itemize}
+\item[so] convergence in distribution (as in a central limit
+                 theorem) is established by proving that the
+                 characteristic function of the series you are
+                 interested in converges to the characteristic fucntion
+                 of the limiting distribution.
+\end{description}
+\end{itemize}
+\end{itemize}
+\section{Central limit theorem}
+\label{sec-3}
+
+    The biggest application of convergence in distribution is the
+    central limit theorem.  (I assume you're familiar).
+\subsection{Overview}
+\label{sec-3-1}
+
+\begin{itemize}
+\item I'm not going to go through each specific CLT that greene
+       presents (you are responsible for them).
+\item We'll talk about the simplest case and then talk about how
+       differences come into play.
+\end{itemize}
+\subsection{Lindberg-Levy Central Limit Theorem (want to leave up)}
+\label{sec-3-2}
+
+     If $X_1,\dots,X_n$ are iid $(\mu, \sigma^2)$ then 
+     \[\sqrt{n} (\bar X - \mu) \xrightarrow{d} N(0,\sigma^2).\]
+
+\begin{itemize}
+\item illustrate with pictures what this means (distribution of $\bar
+       X$), then blow it up.
+\end{itemize}
+\subsection{Lindberg-Feller CLT (a variation)}
+\label{sec-3-3}
+
+     Suppose that $X_1,\dots,X_n$ are independent random variables with
+     $X_i \sim (\mu_i, \sigma_i^2)$ and $\bar \mu = n^{-1}\sum_{i=1}^n
+     \mu_i$ and $\bar{\sigma^2} = n^{-1} \sum_{i=1}^n \sigma_i^2$.  If
+     $\bar{\sigma}^2$ converges and if
+     \[\lim_{n\to\infty} \max(\sigma_i^2)/(n\sqrt{\bar{\sigma}^2}) = 0\]
+     then $$\sqrt{n}(\bar x - \bar \mu)/\sqrt{\bar{\sigma^2}} \xrightarrow{d} N(0,1)$$
+\begin{itemize}
+\item illustrate with pictures what this means
+\item counter example for variance assumption:
+\begin{itemize}
+\item suppose that $\sigma_i^2 = 2^{-i}$.
+\item $\bar{\sigma^2} = n^{-1} \sum_{i=1}^n 2^{-i} = n^{-1}(1 - (1/2)^n)$
+\item $\max(\sigma_i^2)/(n\bar{\sigma}^2) = 1/(1-0.5^n) \to 1$.
+\item problem in this example: the first few random variables are
+         going to have a large influence on the average; compare to
+         $\sigma_i^2 = 4$ if $i$ is even and 1 if $i$ is odd.
+\end{itemize}
+\end{itemize}
+\subsection{multivariate Lindberg-Levy CLT}
+\label{sec-3-4}
+
+     If $X_1,\dots,X_n$ are iid random vectors with mean $\mu$ and vcv
+     $\Sigma$, then $$\sqrt{n}(\bar X - \mu) \xrightarrow{d}
+     N(0,\Sigma)$$.
+\begin{description}
+\item[proof] Want to use the Cramer-Wold device.
+\begin{description}
+\item[statement] Let $X$ be a random $k$-vector.  If $a'X$
+                  is normally distributed for every deterministic
+                  $k$-vector $a$, then $X$ is multivariate normal.
+\item[implication] if $a'(\sqrt{n}(\bar X - \mu))$ is
+                  asymptotically normal with mean zero and variance
+                  $a'\Sigma a$ for any choice of $a$, then conclusion
+                  holds.
+\item[first] Let $a$ be an arbitrary vector of constants
+                           with the same dimension as $X_i$.
+\item[argument] consider the sequence $a'X_1, \dots,
+                              a'X_n$.
+\begin{itemize}
+\item iid $(a'\mu, a'\Sigma a)$
+\item this sequence satisfies the Lindeberg-Levy CLT,
+                    so $$\sqrt{n}(a'\bar X - a'\mu) \xrightarrow{d}
+                    N(0,a'\Sigma a)$$
+\item This holds for any choice of $a$, so we're done.
+\end{itemize}
+\end{description}
+\end{description}
+\subsection{remarks}
+\label{sec-3-5}
+
+\begin{itemize}
+\item this is used as an ``approximation''
+\item remember that if each $X_i$ is normally distributed, this is the
+       \emph{exact} distribution
+\begin{itemize}
+\item follows that if the $X_i$ s are close to the normal
+         distribution, the approximation will be very accurate, and if
+         they are far from the normal distribution the approximation
+         will be poor.
+\item features of the normal:
+\begin{itemize}
+\item symmetric
+\item ``thin tails''
+\end{itemize}
+\end{itemize}
+\item the ``independence'' assumption can be weakened.  We're really
+       trying to rule out cases like this one:
+\begin{itemize}
+\item let $Z$ be bernoulli(1/2)
+\item let $\varepsilon_i$ be iid (0,1)
+\item define $X_i = Z + \varepsilon_i$ (and we only see the $X$ s).
+\item Then the mean of $X_i$ is 1/2, the variance is $var(Z +
+         \varepsilon_i) = 1/4 + 1 = 5/4$.
+\item obviously, this does not converge to a normal r.v.
+\begin{itemize}
+\item plot graphs
+\item if $Z = 0$ converges to normal at mean 0
+\item if $Z = 1$ converges to normal at mean 1
+\item converges to a mixture of normals
+\end{itemize}
+\item what's happening?
+\begin{itemize}
+\item suppose we see $X_1 = 4$.  Makes it extremely unlikely that
+           $Z = 1$ (can calculate from Bayes rule).
+\item so if we see $X_i = 4$, we know that different values of
+           $X_2$ are likely.
+\item more imporantly, we know that different values of $X_n$ are
+           likely -- the density of $X_i$ depends on $X_1$, no matter
+           how far apart in time they are.
+\end{itemize}
+\item caveat :: there's a sense that even this result should be
+                   considered a ``central limit theorem'';
+\end{itemize}
+\end{itemize}
+\section{delta method}
+\label{sec-4}
+\subsection{introduction}
+\label{sec-4-1}
+
+     Suppose we have have a sequence of random variables that obeys a
+     central limit theorem (an estimator, for example).  We might want
+     to know the distribution of functions of that r.v.  Our previous
+     result is sometimes awkward if the function is awkward, so there's
+     a simpler approximation we can usually use.
+\begin{itemize}
+\item draw picture (behavior of $\bar X$ and smooth function $g$).
+\item two random sequences:
+\begin{itemize}
+\item $g(\bar X) - g(\mu)$ and $g'(\mu) (\bar X - \mu)$
+\item Taylor expansion suggests
+         \[g(\bar X) = g(\mu) + g'(\mu) (\bar X - \mu) + remainder\]
+         so
+         \[\sqrt{n} (g(\bar X) - g(\mu)) = g'(\mu) \sqrt{n} (\bar X - \mu) + \sqrt{n} remainder\]
+\item we know that $\sqrt{n} g'(\mu) (\bar X - \mu)$ is
+         asymptotically normal.
+\item suggests that $\sqrt{n}(g(\bar X) - g(\mu))$ is asymptotically
+         normal as well.
+\end{itemize}
+\end{itemize}
+\subsection{statement (Casella and Berger)}
+\label{sec-4-2}
+
+     Let $\{Y_n\}$ be a sequence of random variables that satisfies
+     \[\sqrt{n}(Y_n - \theta) \xrightarrow{d} N(0,\sigma^2).\]  Suppose
+     that the function $g$ is differentiable at $\theta$ and $g'(\theta)
+     \neq 0$.  Then
+     \[\sqrt{n}[g(Y_n) - g(\theta)] \xrightarrow{d} N(0,
+     \sigma^2[g'(\theta)]^2).\]
+\begin{description}
+\item[note] follows from a Taylor expansion of $g(Y_n)$ around
+               $g(\theta)$.  If $g'(\theta)=0$, you can get a
+               distributional result by taking a second order expansion.
+\end{description}
+
+\end{document}

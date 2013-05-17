@@ -1,0 +1,618 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage[margin=1in]{geometry}
+\setcounter{secnumdepth}{8}
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{Issues in modeling}
+\author{Gray Calhoun}
+\date{\today}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.8.02}}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+\vspace*{1cm}
+\begin{itemize}
+\item Covered this material on \textit{2009-11-18 Wed}, \textit{2009-11-30 Mon},
+     \textit{2009-12-02 Wed}
+\item \textit{2011-11-29 Tue}
+\end{itemize}
+\section{functional form of regression models}
+\label{sec-1}
+
+\begin{itemize}
+\item Reading for lectures is 6.1 (intro), 6.2, and 6.5 (conclusion)
+\item Students are responsible for reading 6.3 and 6.4 on their own
+\item Plan to cover on \textit{2010-11-11 Thu}
+\end{itemize}
+\subsection{polynomial regression}
+\label{sec-1-1}
+\subsubsection{motivation}
+\label{sec-1-1-1}
+
+\begin{itemize}
+\item We can get some flexibility while keeping the OLS framework
+\item Linear model is
+        \[y_i = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_k x_{ik} +
+        \epsilon_i\]
+\begin{itemize}
+\item The regressors $x_{ij}$ can be transformations of the same
+          underlying ``variable''
+\end{itemize}
+\end{itemize}
+\subsubsection{two degree polynomial}
+\label{sec-1-1-2}
+
+\begin{itemize}
+\item draw scatterplot of parabola
+\item might think that the model
+        \[y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 +
+        \varepsilon_i\]
+        is a good description of the data
+\item This model can be estimated by OLS directly
+\item More generally, models of the form
+        \[y_i = \beta_0 + \beta_1 g_1(x_i) + \beta_2 g_2(x_i) + \cdots +
+        \beta_k g_k(x_k) + \varepsilon_i\]
+        can be estimated by OLS if
+\begin{itemize}
+\item conditional mean of $\epsilon$$_i$ given X is zero
+\item each $g_j$ is known.
+\end{itemize}
+\end{itemize}
+\subsection{Binary regressors}
+\label{sec-1-2}
+\subsubsection{intro}
+\label{sec-1-2-1}
+
+\begin{itemize}
+\item This is basic, and you probably already know it
+\item Non-numeric data can arrive as numbers
+\begin{itemize}
+\item just because the data arrive as numbers, doesn't mean that
+          they are \emph{really} numbers.
+\end{itemize}
+\end{itemize}
+\subsubsection{Example from Greene: education data}
+\label{sec-1-2-2}
+
+\begin{itemize}
+\item y$_i$ is income
+\item x$_{\mathrm{i1}}$ (say) represents highest level of education and has
+          values
+\begin{enumerate}
+\item if individual i has not completed high school
+\item if individual i has completed high school but no higher
+             degree
+\item if individual i has completed college but no higher
+             degree
+\item if individual i has completed a master's degree (or
+             advanced to candidacy in a Ph.D. program) but no higher
+             degree
+\item if individual i has completed a ph.d. program
+\end{enumerate}
+\end{itemize}
+\subsubsection{Common example from ``satisfaction surveys''}
+\label{sec-1-2-3}
+
+\begin{itemize}
+\item rate the following questions on a scale from 1 to 5
+\begin{enumerate}
+\item Strongly agree
+\item Agree
+\item neutral
+\item Disagree
+\item Strongly disagree
+\end{enumerate}
+\end{itemize}
+\subsubsection{How to proceed}
+\label{sec-1-2-4}
+
+\begin{itemize}
+\item \textbf{do not} regress y on x$_1$! (draw scatterplot of y vs. x$_1$)
+\begin{itemize}
+\item assumes that the difference between expected income w/
+          Ph.D. vs Masters degree is the same as the difference for
+          college degree vs. highschool.
+\item Even worse, assumes that the expected difference between
+          income with Ph.D. and high school degree is \underline{exactly} three
+          times the difference between expected income with college
+          vs. high school degree.
+\end{itemize}
+\item Instead, create four dummy variables
+\begin{itemize}
+\item remember from undergrad, creating 5 and including a constant
+          means the design matrix doesn't have full rank
+\item D$_1$ :: 1 if x$_{\mathrm{i1}}$ = 2, 3, 4, or 5; zero otherwise
+\item D$_2$ :: 1 if x$_{\mathrm{i1}}$ = 3, 4, or 5; zero otherwise
+\item D$_3$ :: 1 if x$_{\mathrm{i1}}$ = 4, or 5; zero otherwise
+\item D$_4$ :: 1 if x$_{\mathrm{i1}}$ = 5; zero otherwise
+\item note :: There are other ways that you could code it, but
+                  this will make the comparisons we want to make easy.
+\end{itemize}
+\end{itemize}
+\subsubsection{Estimation}
+\label{sec-1-2-5}
+
+\begin{itemize}
+\item Now, regress y$_i$ on D$_{\mathrm{i1}}$, D$_{\mathrm{i2}}$, D$_{\mathrm{i3}}$, D$_{\mathrm{i4}}$, and a constant:
+        \[ y_i = \beta_0 + \beta_1 D_{i1} + \beta_2 D_{i2} + \beta_3
+        D_{i3} + \beta_4 D_{i4} + \epsilon_i \]
+\item Interpretation of this model
+\begin{itemize}
+\item Expected income of a worker with a masters degree but no
+          higher degree:
+\begin{itemize}
+\item masters degree means that D$_1$, D$_2$, and D$_3$ all equal 1;
+            D$_4$ equals zero is
+            \[ E(y_i \mid D_{i1}=1,D_{i2}=1,D_{i3}=1,D_{i4}=0) =
+            \beta_0 + \beta_1 + \beta_2 + \beta_3 \]
+\item Estimate of expected income for those workers is $\hat
+            \beta_0 + \hat\beta_1 + \hat\beta_2 + \hat\beta_3$
+\end{itemize}
+\item Difference in expected income of people with college degree
+          vs. those with masters degree:
+\begin{itemize}
+\item $E(y_i \mid \text{college}) = \beta_0 + \beta_1 + \beta_2$
+\item $E(y_i \mid \text{masters}) = \beta_0 + \beta_1 +
+            \beta_2 + \beta_3$
+\item difference in expected values is just $\beta_3$
+\item Estimated difference is $\hat\beta_3$
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\subsection{loosening ``linearity''}
+\label{sec-1-3}
+\subsubsection{splines}
+\label{sec-1-3-1}
+\paragraph{motivation}
+\label{sec-1-3-1-1}
+
+\begin{itemize}
+\item Draw scatter plot for y vs. 1-5 (education) again
+\item have a general relationship between expected value of income
+         and observed level of education (not linear)
+\item transformed that relationship to something we can estimate by
+         OLS
+\item Can we do the same thing if the regressors are \underline{not}
+         discrete?
+\end{itemize}
+\paragraph{basic idea}
+\label{sec-1-3-1-2}
+
+\begin{itemize}
+\item Suppose x is unrestricted
+\item draw nonlinear function $E(y \mid x)$
+\item We can discretize the regressors (draw blocks) and fit
+         separate OLS regressions within each block
+\begin{itemize}
+\item gives a better fit than OLS alone
+\item may be biased, but bias will be small if you have small
+           blocks
+\item decreasing the size of the block will increase the variance
+           of each estimate, so there is a tradeoff.
+\end{itemize}
+\end{itemize}
+\paragraph{improvements on the basic idea}
+\label{sec-1-3-1-3}
+
+\begin{itemize}
+\item may (probably) want to impose that $E(y_i \mid x_i)$ is
+         continuous in $x_i$.
+\item formally, we can get our model from (assuming p different blocks)
+         \[ y_i = \delta_0 + \gamma_0 x_i + \sum\nolimits_{j=1}^{p-1} (\delta_j + \gamma_j x_i) 1\{c_j \leq
+         x_i\} + \epsilon_i\]
+\begin{itemize}
+\item continuity implies that
+           \[ \delta_0 + \gamma_0 c_l + \sum\nolimits_{j=1}^l (\delta_j +
+           \gamma_j c_l) = \delta_0 + \gamma_0 c_l + \sum\nolimits_{j=1}^{l+1}
+           (\delta_j + \gamma_l c_l)\] 
+           for $l = 1,\dots,p-1$, which implies that $\delta_j = -
+           \gamma_j c_j$ for all $l$
+\item plugging this in to the initial equation gives
+           \[ y_i = \delta_0 + \gamma_0 x_i + \sum\nolimits_{j=1}^{p-1}
+           \gamma_j (x_i - c_j) 1\{c_j \leq x_i\} + \epsilon_i\]
+\end{itemize}
+\item we can estimate the model by regressing $y_i$ on a constant,
+         $x_i$, and the variables $(x_i - c_j) 1\{c_j \leq x_i\}$
+\end{itemize}
+\paragraph{another improvement}
+\label{sec-1-3-1-4}
+
+\begin{itemize}
+\item We can combine this idea with the polynomial regression we
+         looked at earlier
+\begin{itemize}
+\item We could fit a quadratic or cubic polynomial in each block
+           instead of a straight line
+\item now we could impose that the function is continuous and
+           continuously differentiable
+\begin{itemize}
+\item requires additional restrictions on the coefficients
+\item no longer is OLS, but gives a similar estimator
+\end{itemize}
+\end{itemize}
+\item approach is called ``splines''
+\item formal discussion is beyond the scope of this class
+\end{itemize}
+\subsubsection{local linear models}
+\label{sec-1-3-2}
+
+\begin{itemize}
+\item draw scatter plot again
+\item instead of setting up boxes first, we might just try to
+        estimate the regression model at this point
+\item create a box around the point and fit
+\item could do the same thing at each possible point and build up
+        the conditional expectation that way
+\item Obviously, could be improved by using a weighting scheme
+\item example of ``local linear regression''
+\item also beyond the scope of the class
+\end{itemize}
+\subsubsection{common themes and discussion}
+\label{sec-1-3-3}
+
+\begin{itemize}
+\item Splines are an example of a ``semi-parametric'' estimator
+\begin{itemize}
+\item trying to estimate an unspecified function, but using a
+          finite number of parameters to do so
+\end{itemize}
+\item Local linear regression is an example of a nonparametric estimator
+\begin{itemize}
+\item estimating the unknown function directly
+\item different coefficient values for each possible value of the
+          function
+\end{itemize}
+\item For both, the coefficients themselves aren't very useful
+\begin{itemize}
+\item want to interpret changes in the expected value given
+          chagnges in the coefficient
+\item can derive them from the unknown coefficients (like we saw
+          with the binary regressor case
+\item use tools like the delta method to calculate standard errors.
+\end{itemize}
+\end{itemize}
+\section{model selection}
+\label{sec-2}
+
+\begin{itemize}
+\item Reading for lectures is 7.1 (intro), 7.2, and 7.4
+\item Read 7.5 and 7.6 on your own
+\item not responsible for 7.3
+\item Plan to cover on \textit{2010-11-12 Fri}
+\end{itemize}
+\subsection{problems in modeling}
+\label{sec-2-1}
+\subsubsection{Omitted variables}
+\label{sec-2-1-1}
+
+\begin{itemize}
+\item We've assumed so far that $Y = X\beta + \varepsilon$
+        with $E(\varepsilon \mid X) = 0$.
+\item Suppose that the true model is
+        \[ Y = X\beta + Z\alpha + \varepsilon \] with $E(\varepsilon
+        \mid X, Z) = 0$
+\begin{itemize}
+\item but you regress $Y$ on $X$ (and not $Z$)
+\item e.g. $Y$ is income, $X$ is education and experience, and
+          $Z$ is some numeric measure of ability.
+\item maybe $Z$ is unobserved
+\item maybe there are other reasons you omit it (ignorance, possibly)
+\end{itemize}
+\item Is the OLS estimator consistent for $\beta$?
+\end{itemize}
+\paragraph{mathematical consequences}
+\label{sec-2-1-1-1}
+
+\begin{itemize}
+\item Rewrite the true relationship
+         \[ Y = X\beta + (Z\alpha + \varepsilon) \equiv X\beta + u \]
+\item we know that (under reasonable assumptions ensuring LLNs)
+         \[\hat{\beta} - \beta = (n^{-1} X'X)^{-1}(n^{-1} X'u) \to
+         (E(x_{i}x_{i}'))^{-1} \lim n^{-1} \sum_{i=1}^{n} x_{i}
+         E(u_{i} \mid X)\]
+\item \textbf{But} we can't assume that $E(u_{i}\mid X) = 0$ (a.s.)
+\begin{itemize}
+\item $E(u_{i} \mid X) = E(\alpha z_{i} \mid X) +
+           E(\varepsilon_{i} \mid X)$
+\begin{itemize}
+\item The second term is zero since (by the
+             L.I.E.) \[E(\varepsilon_{i} \mid X) =
+             E(E(\varepsilon_{i}\mid X, Z) \mid X) = 0\]
+\item The first term is zero only if
+\begin{itemize}
+\item $\alpha = 0$
+\item $E(x_{i} z_{i}) = 0$
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\item Think back to our example
+\begin{itemize}
+\item $E(ability \mid education, experience)$ is probably not zero
+\item $\alpha = 0$ only if ability doesn't affect income, after
+           taking education and experience into account
+\item both are probably not zero
+\item OLS on just $X$ is going to give you a biased and
+           inconsistent estimate.
+\end{itemize}
+\end{itemize}
+\paragraph{remedies}
+\label{sec-2-1-1-2}
+\subparagraph{include the variable!}
+\label{sec-2-1-1-2-1}
+
+\begin{itemize}
+\item If you observe $Z$, it's usually a good idea to include it
+          in the regression.
+\begin{itemize}
+\item a caveat with small sample sizes: when $\alpha$ is close
+            to zero, this can increase the variance of your estimator
+            enough that including the variable is a bad idea
+\item when $\alpha$ is close to zero, the bias is small too.
+\end{itemize}
+\item we'll discuss ways to determine whether or not you should
+          include a variable soon
+\end{itemize}
+\subparagraph{proxies -- see Greene 12.5}
+\label{sec-2-1-1-2-2}
+
+\begin{itemize}
+\item What if you can't include the variable?
+\begin{itemize}
+\item ability might be impossible to directly observe, for
+            example.
+\end{itemize}
+\item Suppose you included a different variable that is a measure
+          of the missing variable
+\begin{itemize}
+\item A test score instead of ability
+\item Call that variable $W$; moreover, suppose that
+            \[W = \gamma_{0} + Z \gamma_{1} + \delta\]
+            so $W$ is unrelated to the $X$ variables
+\end{itemize}
+\item What happens if you regress $Y$ on $X$ and $W$?
+\end{itemize}
+\begin{itemize}
+
+\item mathematical representation of proxies
+\label{sec-2-1-1-2-2-1}%
+\begin{itemize}
+\item We can solve for $Z$ in the previous relationship:
+           \[ Z = (W - \gamma_{0} - \delta ) / \gamma_{1} \]
+\item We can rewrite the true relationship as
+  \begin{multline} 
+    Y = X \beta + Z \alpha + \varepsilon = \beta_{0} + X\beta + (W -
+    \gamma_{0} - \delta) \alpha/\gamma_{1} \\ = (\beta_{0} -
+    \gamma_{0}\alpha/\gamma_{1}) + X\beta + W
+    \alpha/\gamma_{1} + (\varepsilon - \alpha/\gamma_{1} \delta)
+  \end{multline}
+\item If $E(\delta \mid X, W) = 0$ (which may be reasonable), we
+           can use OLS to get consistent estimates of
+\begin{itemize}
+\item $\beta-\gamma_{0}\alpha/\gamma_{1}$ (the new intercept)
+\item $\beta$
+\item $\alpha/\gamma_{1}$ (the slope on W)
+\end{itemize}
+\item In our setup, we only care about $\beta$, and we can
+           estimate it consistently by OLS (and unbiased, too).
+\item The same concept applies with more than one variable
+\begin{itemize}
+\item Note that $\alpha/\gamma_{1}$ is complicated
+\item Will be more complicated with more variables
+\item In particular, it can have a \textbf{different sign} than $\alpha$.
+\end{itemize}
+\end{itemize}
+\end{itemize} % ends low level
+\subsubsection{Inclusion of too many variables}
+\label{sec-2-1-2}
+
+\begin{itemize}
+\item We saw this earlier in the lecture
+\item If we include variables that have population coefficients equal
+        to zero, the variance of our estimator increases and the model
+        is less accurate
+\item The coefficients are still unbiased, though.
+\end{itemize}
+\subsection{choosing a model}
+\label{sec-2-2}
+\subsubsection{$R^{2}$}
+\label{sec-2-2-1}
+
+\begin{itemize}
+\item We know that $R^{2}$ increases if we include more regressors:
+        \[R^{2} = \frac{SSR}{SST} = 1 -
+        \frac{\hat{\varepsilon}'\hat{\varepsilon}}{y'M_{0}y}\]
+        with $M_{0} = I - n^{-1} \i \i'$
+\begin{itemize}
+\item If we add regressors, the numerator,
+          $\hat{\varepsilon}'\hat{\varepsilon}$, decreases.
+\end{itemize}
+\item motivates adjusted $R^{2}$:
+        \[ \bar{R}^{2} = 1 - \frac{n-1}{n-K}(1-R^{2})\]
+\begin{itemize}
+\item if we add a regressor, $K$ increases too, so the decrease in
+          $R^{2}$ is offset.
+\end{itemize}
+\end{itemize}
+\subsubsection{Information criteria}
+\label{sec-2-2-2}
+
+\begin{itemize}
+\item In general, it's nice to have a somewhat automatic approach.
+\item Suppose you have a set of regressors you think is plausible,
+        $x_{1},\dots,x_{p}$
+\item Is there a general (ie popularly accepted) procedure to get a
+        set of regressors to apply OLS?
+\item In practice, both the AIC and BIC amount to increasing the
+        penalty term on $\bar{R}^{2}$ (they have more formal
+        derivations, but we don't have time to go through them
+\item AIC :: $s_{y}^{2} (1 - R^{2}) e^{2K/n}$
+\item BIC :: $s_{y}^{2} (1 - R^{2}) n^{2K/n}$
+\item note :: \underline{smaller} values mean that the model is a better fit
+\end{itemize}
+\paragraph{use}
+\label{sec-2-2-2-1}
+
+\begin{itemize}
+\item presentation
+\begin{itemize}
+\item usually these are presented in logs (so the numbers don't get
+           too large)
+\item AIC is often reported as ]$\ln(\hat{\varepsilon}'\hat{\varepsilon}/n) + 2K/n$
+\item BIC is often reported as
+           $\ln(\hat{\varepsilon}'\hat{\varepsilon}/n) + K\ln n/n$
+\item read the help of the software you're using to be sure
+\end{itemize}
+\item workflow
+\begin{itemize}
+\item calculate the AIC (or BIC) for all of the models you're considering.
+\item choose the one that minimizes the criterion.
+\item these are commonly used in timeseries/macro, less so (that
+           I'm aware of) in cross-section/micro
+\end{itemize}
+\end{itemize}
+\subsubsection{homework \textbf{:hw:}}
+\label{sec-2-2-3}
+
+\begin{itemize}
+\item Consider this situation: you are interested in the effect of a
+        variable $X_1$ (say, education level) on $Y$ (say, earnings),
+        so you want to test whether the coefficient $\beta_{1}$ is
+        significant in the equation
+        \[ Y_{i} = \beta_{0} + \beta_{1} X_{i1} + \varepsilon_{i}. \]
+        But, you don't know whether or not you should include a second
+        regressor, $X_{2}$ (maybe some measure of ability, like a test
+        score).
+
+        Three of the approaches we've discussed are:
+\begin{enumerate}
+\item regress $Y$ on $X_{1}$ and test for significance.
+\item regress $Y$ on $X_{1}$ and $X_{2}$ and test $\beta_{1}$ for
+           significance.
+\item regress $Y$ on $X_{1}$ and $X_{2}$ and test $\beta_{2}$ for
+           significance.
+\begin{itemize}
+\item If $\beta_{2}$ is significant, test $\beta_{1}$ for
+             significance.
+\item If $\beta_{2}$ is \textbf{not} significant, regress $Y$ on only
+             $X_{1}$ and test $\beta_{1}$ for significance in that
+             model.
+\end{itemize}
+\end{enumerate}
+\item Please design a monte carlo experiment in R that would let you
+        study how well each of these approaches would work.
+\end{itemize}
+\subsection{Shrinkage}
+\label{sec-2-3}
+
+\begin{itemize}
+\item Why is having irrelevant regressors bad?
+\begin{itemize}
+\item increases the variance of our estimators
+\end{itemize}
+\item One approach: drop regressors
+\begin{itemize}
+\item sets the coefficients on some of the regressors equal to zero
+\item introduces bias
+\end{itemize}
+\item Another approach
+\begin{itemize}
+\item shift the coefficients on all of the regressors closer to zero
+\item decreases the variance on the coefficients
+\item introduces bias as well
+\end{itemize}
+\end{itemize}
+\subsubsection{intuition}
+\label{sec-2-3-1}
+
+\begin{itemize}
+\item For OLS:
+\begin{itemize}
+\item $\hat{\beta} = (X'X)^{-1}X'Y$
+\item $E(\hat{\beta} \mid X) = (X'X)^{-1}X'X\beta$
+\item $var(\hat{\beta} \mid X) = \sigma^{2}(X'X)^{-1} X'X (X'X)^{-1}$
+\end{itemize}
+\item Another possibility
+\begin{itemize}
+\item $\hat{\beta}_{2} = (X'X + V)^{-1}X'Y$
+\begin{itemize}
+\item $V$ is some positive definite matrix
+\item Assume $V$ is a function of $X$
+\item Say $V = X'X$ (for example); then $\hat{\beta}_{2} =
+            \hat{\beta} / 2$
+\end{itemize}
+\item $E(\hat{\beta}_{2} \mid X) = (X'X + V)^{-1}X'X\beta$
+\begin{itemize}
+\item So the estimator is biased
+\item in our example, $E(\hat{\beta} \mid X) = \beta/2$
+\end{itemize}
+\item $var(\hat{\beta}_{2} \mid X) = \sigma^{2} (X'X +
+          V)^{-1}X'X(X'X + V)^{-1}$
+\begin{itemize}
+\item in our example, $var(\hat{\beta}_{2} \mid X) = (\sigma^{2}/4) (X'X)^{-1}$
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\subsubsection{variance reduction of this estimator}
+\label{sec-2-3-2}
+
+\begin{itemize}
+\item We can see that $var(\hat{\beta}_{2} \mid X) \leq
+        var(\hat{\beta} \mid X)$:
+\begin{itemize}
+\item Take inverses and look at difference:
+          \begin{multline*}(var(\hat{\beta}_{2} \mid X)^{-1} -
+          (var(\hat{\beta} \mid X))^{-1} = \sigma^{2}((X'X +
+          V)(X'X)^{-1}(X'X + V) - X'X) ]\\= \sigma (X'X + V +
+          V(X'X)^{-1}(X'X + V)) = \sigma^{2} (X'X + 2 V +
+          V(X'X)^{-1}V) 
+          \end{multline*}
+\item This last term is positive definite
+\end{itemize}
+\end{itemize}
+\subsubsection{The ridge regression estimator}
+\label{sec-2-3-3}
+
+\begin{itemize}
+\item To get a convenient expression for our estimator, we should center and scale the regressors
+\begin{description}
+\item[$\tilde{X}$] centered and scaled $X$
+\begin{itemize}
+\item $X = [1, X_{1}, X_{2}, \dots, X_{k}]$
+\item $\tilde{X} = [1, (X_{1} - \i \bar{X}_{1}) / sd(X_{1}), \dots]$
+\end{itemize}
+\end{description}
+\item The ridge regression estimator is
+        \[ \hat{\beta}_{ridge} = (\tilde{X}'\tilde{X} + \l I)^{-1} \tilde{X}'Y\]
+\begin{itemize}
+\item For uncentered/unscaled regressors, either
+\begin{itemize}
+\item adjust the formula
+\item transform the scaled/centered coefficients
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,493 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage[margin=1in]{geometry}
+\setcounter{secnumdepth}{8}
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{heteroskedasticity}
+\author{Gray Calhoun}
+\date{\today}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.8.02}}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+\vspace*{1cm}
+\begin{itemize}
+\item \textit{2009-11-04 Wed}, \textit{2009-11-09 Mon},  \textit{2009-11-11 Wed}, \textit{2009-11-16 Mon}
+\item Plan to cover on \textit{2010-11-30 Tue}, \textit{2010-12-02 Thu}
+\item \textit{2011-12-01 Thu}, \textit{2011-12-06 Tue}
+\end{itemize}
+\section{Robust standard errors}
+\label{sec-1}
+
+\begin{itemize}
+\item Reading for this section is Greene 8.1, 8.2, 8.4
+\end{itemize}
+\subsection{introduction}
+\label{sec-1-1}
+
+\begin{itemize}
+\item what happens if $E(\epsilon \epsilon' \mid X) \neq \sigma^2 I$?
+\item maybe instead we have
+\begin{description}
+\item[zero correlation] $E(\epsilon_i \epsilon_j \mid X) = 0$
+\item[heteroskedasticity] $E(\epsilon_i^2 \mid X) =
+            \sigma_i^2(x_i)$ where the $\sigma_i^2$ are all
+            (uniformly) finite and positive.
+\end{description}
+\item we want to know which of our previous conclusions hold
+\end{itemize}
+\subsubsection{examples}
+\label{sec-1-1-1}
+
+\begin{itemize}
+\item may have (say) quarterly earnings data on different firms, and
+        you might expect that earnings in certain industries are more
+        volatile than others
+\item may have GDP data; we'd expect that percent-change in GDP is
+        going to be more volatile some quarters compared to others
+\end{itemize}
+\subsubsection{unbiasedness}
+\label{sec-1-1-2}
+
+\begin{itemize}
+\item For unbiasedness, we just used the fact that $E(\epsilon \mid
+        X) = 0$
+\begin{itemize}
+\item exogeneity of the regressors
+\end{itemize}
+\item unbiasedness holds with heteroskedasticy errors
+\end{itemize}
+\subsubsection{consistency}
+\label{sec-1-1-3}
+
+\begin{itemize}
+\item To prove consistency, we just needed to show that
+        $n^{-1}\sum_{i=1}^n x_i \epsilon_i$ has mean zero and obeys a
+        law of large numbers
+\item zero mean holds just like it does for unbiasedness
+\item for LLN, we can show that each $x_i \epsilon_i$ has finite
+        variance;
+\item observe that
+        \[var(x_i \epsilon_i) = E var(x_i \epsilon_i \mid X) = E(x_i
+        x_i') \sigma_i^2\]
+        which is finite
+\item so $\hat\beta$ is consistent even under heteroskedasticity
+\end{itemize}
+\subsubsection{formula for the variance}
+\label{sec-1-1-4}
+
+\begin{itemize}
+\item our original formula for the variance of $\hat\beta$ is
+        $\sigma^2 (X'X)^{-1}$
+\begin{itemize}
+\item obviously, this is a problem since we don't have a constant
+          value of $\sigma^2$ any more.
+\end{itemize}
+\item we can calculate the variance of $\hat\beta$ under our new
+        assumption:
+\begin{itemize}
+\item $E((\hat\beta - \beta)(\hat\beta - \beta)' \mid X) =
+          (X'X)^{-1} E(X'\epsilon \epsilon'X \mid X) (X'X)^{-1}$
+\begin{itemize}
+\item $= (X'X)^{-1} X'DX (X'X)^{-1}$
+\begin{itemize}
+\item $D$ denotes the diagonal matrix with elements $\sigma_i^2$
+\end{itemize}
+\item $= (X'X)^{-1} (\sum_{i=1}^n x_i x_i' \sigma_i^2)(X'X)^{-1}$
+\end{itemize}
+\end{itemize}
+\item This matrix is different than $\sigma^2(X'X)^{-1}$
+\item any hypothesis tests that we conduct assuming homoskedasticity
+        will be invalid under heteroskedasticity
+\end{itemize}
+\subsubsection{finite sample normality}
+\label{sec-1-1-5}
+
+\begin{itemize}
+\item Suppose now that $\epsilon_i \sim N(0, \sigma_i^2)$ given X
+\item We know that $\hat\beta - \beta = (X'X)^{-1}X'\epsilon$ which
+        is still just a linear transformation of normal random variables
+\item So $\hat\beta$ is still normal (given X)
+\begin{itemize}
+\item variance-covariance matrix is obviously different than it was
+          earlier
+\item $\hat \beta \sim N\left(0, (X'X)^{-1} \left(\sum_{i=1}^n x_i x_i' \sigma_i^2 \right)
+          (X'X)^{-1}\right)$ given $X$
+\end{itemize}
+\end{itemize}
+\subsubsection{asymptotic normality}
+\label{sec-1-1-6}
+
+\begin{itemize}
+\item To prove asymptotic normality, we needed to show that
+\begin{itemize}
+\item $n^{-1} X'X$ obeyed a law of large numbers
+\begin{itemize}
+\item we assumed this
+\item doesn't have anything to do with the errors
+\end{itemize}
+\item $n^{-1/2} \sum_{i=1}^n x_i \epsilon_i$ obeys a central limit
+          theorem
+\end{itemize}
+\item If you look back at the proof, $x_i \epsilon_i$ has
+        heteroskedasticity even if $\epsilon_i$ has constant variances
+\item The exact same CLT we used earlier applies here
+\begin{itemize}
+\item we used the Lindeberg-Feller CLT earlier
+\end{itemize}
+\item So we have asymptotic normality under heteroskedasticity
+\begin{itemize}
+\item let $Q = \lim n^{-1} X'X$
+\item let $\Omega = \lim n^{-1} \sum_i x_i x_i' \sigma_i^2$
+\item $\sqrt{n}(\hat\beta - \beta) \to N(0, Q^{-1} \Omega Q^{-1})$ in
+          distribution.
+\end{itemize}
+\end{itemize}
+\subsubsection{summary}
+\label{sec-1-1-7}
+
+\begin{itemize}
+\item heteroskedasticity only affects the variance of $\hat\beta$
+\item it will make the tests we've studied invalid
+\item if we can estimate the new variance
+\begin{itemize}
+\item we can replace the old variance in formulae for test statistics
+\item these new tests will be (asymptotically) valid
+\end{itemize}
+\end{itemize}
+\subsection{White's heteroscedasticity robust estimator}
+\label{sec-1-2}
+
+\begin{itemize}
+\item The goal is going to be getting new test statistics
+\item To do that, we're going to work out an estimator for the
+       asymptotic variance-covariance matrix, $Q^{-1} \Omega Q^{-1}$
+\item We can replace $s^2(X'X)^{-1}$ with this new estimator to get
+       aysmptotically valid versions of the t-test and the F-test
+\item reading is 4.3 of Kleiber and Zeileis
+\end{itemize}
+\subsubsection{split up the sandwich}
+\label{sec-1-2-1}
+
+\begin{itemize}
+\item goals
+\begin{itemize}
+\item We need to estimate $Q^{-1}$
+\item We need to estimate $\Omega$.
+\end{itemize}
+\item $Q^{-1}$ is easy: we know that $n^{-1} X'X$ is a consistent
+        estimator of $Q$
+\item For $\Omega$, we're going to apply our usual trick, the LLN.
+\begin{itemize}
+\item $\Omega_n = n^{-1} \sum E(\epsilon_i^2 \mid x_i) x_i x_i'$
+\item $\hat\Omega = \lim_n n^{-1} \sum \hat\epsilon_i^2 x_i x_i'$
+\end{itemize}
+\item want to prove that $\hat\Omega - \Omega_n \to 0$ in probability
+\end{itemize}
+\subsubsection{consistency of $\hat\Omega$}
+\label{sec-1-2-2}
+
+\begin{itemize}
+\item we can rewrite the difference:
+        \[\hat\Omega - \Omega_n = n^{-1} \sum_i x_i x_i'
+        (\hat\epsilon_i^2 - \sigma_i^2)\]
+\item now, do our favorite trick
+        \[= n^{-1} \sum_i x_i x_i'(\hat\epsilon_i^2 - \epsilon_i^2) + 
+        n^{-1} \sum_i x_i x_i'(\epsilon_i^2 - \sigma_i^2)\]
+\end{itemize}
+\paragraph{LLN for the second term}
+\label{sec-1-2-2-1}
+
+\begin{itemize}
+\item We know that each summand has mean zero
+         \[E(x_i x_i'(\epsilon_i^2 - \sigma_i^2))  = E(x_i
+         x_i' E(\epsilon_i^2 - \sigma_i^2 \mid x_i)) = 0\]
+\item Under conditions similar to those we used earlier, we know
+         that $x_i x_i' (\epsilon_i^2 - \sigma_i^2)$ has finite and
+         positive variance.
+\item so the sum obeys (for example) Chebychev's LLN
+\end{itemize}
+\paragraph{convergence of the first term}
+\label{sec-1-2-2-2}
+
+\begin{itemize}
+\item note that
+         \[ \hat\epsilon_i^2 = (y_i - x_i'\hat\beta)^2 = (\epsilon_i +
+         x_i'\beta - x_i'\hat\beta)^2 = \epsilon_i^2 - 2 \epsilon_i
+         x_i'(\hat\beta - \beta) + (x_i'(\hat\beta - \beta))^2\]
+\item so the first average becomes
+         \[n^{-1}\sum x_i x_i' (x_i'(\hat\beta - \beta))^2 - 2 n^{-1}
+         \sum  x_i x_i' (\epsilon_i x_i'(\hat\beta - \beta)) \]
+\item (informally) we can see why these terms converge to zero
+\begin{itemize}
+\item look the (j,k) element of the first matrix
+           \[ n^{-1} \sum_i x_{ij} x_{ik}(x_i'(\hat\beta - \beta))^2 =
+           (\hat\beta - \beta)' \left(n^{-1} \sum_i x_i x_{ij} x_{ik}
+           x_{i}'\right) (\hat\beta- \beta)\]
+\begin{itemize}
+\item under usual conditions, the term inside the sum is going to
+             converge to its average
+\item each $\hat \beta - \beta$ is going to converge to zero
+\end{itemize}
+\item look at the (j,k) element of the second matrix
+           \[ n^{-1} \sum_i x_{ij} x_{ik}(\epsilon_i x_i'(\hat\beta - \beta)) =
+           \left(n^{-1} \sum_i \epsilon_i x_{ij} x_{ik}
+           x_{i}'\right) (\hat\beta- \beta)\]
+\begin{itemize}
+\item the term inside the sum is going to converge to its
+             average (zero, in this case)
+\item $\hat\beta - \beta$ is going to converge to zero
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\paragraph{conclusion}
+\label{sec-1-2-2-3}
+
+\begin{itemize}
+\item consequently $\Omega - \hat\Omega = \Omega - \Omega_n +
+         \Omega_n - \hat\Omega \to 0$ in probability
+\end{itemize}
+\subsection{uses of the robust variance-covariance matrix}
+\label{sec-1-3}
+
+\begin{itemize}
+\item Define $\hat\Sigma$ as 
+       \[\hat\Sigma = (n^{-1} X'X)^{-1} n^{-1} \sum_i x_i x_i' \hat\epsilon_i^2 (n^{-1} X'X)^{-1}\]
+\item variation of the t-test
+\begin{itemize}
+\item $\sqrt{n} \frac{\hat\beta_j - \beta_j}{\hat\Sigma_{jj}} \to
+         N(0,1)$ in distribution
+\end{itemize}
+\item variation of the F-test (called the wald test)
+\begin{itemize}
+\item suppose that $R$ is a $J \times K$ matrix with full rank
+\item $n \cdot (R(\hat\beta - \beta))'(R\hat\Sigma R')^{-1}
+         (R(\hat\beta - \beta))$ is asymptotically chi-square with $J$
+         degrees of freedom
+\end{itemize}
+\item obviously, you can use this for a hypothesis test by imposing
+       $R\beta  = q$
+\end{itemize}
+\section{testing for heteroskedasticity}
+\label{sec-2}
+
+\begin{itemize}
+\item reading is 8.5 of Greene and 4.2 of Kleiber and Zeileis
+\item we're not going to work through the proofs of this section, but
+      we will explain the intuition behind them
+\end{itemize}
+\subsection{heuristic idea for test}
+\label{sec-2-1}
+
+\begin{itemize}
+\item $\hat\beta$ is consistent even under heteroskedasticity
+\item $\hat\epsilon_i \to \epsilon_i$ for each $i$.
+\item If $\sigma_i^2$ is different for different individuals, it
+       implies that $\epsilon_i^2$ should be correlated with $x_i$.
+\item Why not regress $\epsilon_i^2$ on $x_i$ and do an F-test for
+       the significance of the overall regression?
+\end{itemize}
+\subsection{more formal idea for test}
+\label{sec-2-2}
+
+\begin{itemize}
+\item Want to test the null hypothesis
+       \[ H_o: \quad \sigma_i^2 = \sigma \qquad i = 1,\dots,n \]
+\item If the null hypothesis is true, then $s^2 (n^{-1} X'X)^{-1} \to
+       \Omega$ in probability as $n\to\infty$
+\begin{itemize}
+\item $\Omega = \lim n^{-1} \sum_i x_i x_i' \sigma_i^2$.
+\item this equals $\sigma^2 \lim n^{-1} \sum_i x_i x_i'$ for
+         homoskedasticity
+\end{itemize}
+\item We know that $n^{-1} \sum_i \hat\epsilon_i^2 x_i x_i' \to
+       \Omega$ as well
+\begin{itemize}
+\item holds with or without heteroskedasticity.
+\end{itemize}
+\item So, if the null hypothesis is true, $n^{-1} (\sum_i
+       \hat\epsilon_i^2 - s^2) x_i x_i' \to \Omega$ in probability.
+\begin{itemize}
+\item if the null is false, this doesn't happen.
+\end{itemize}
+\item This looks like an average
+\end{itemize}
+\subsection{explanation of the test}
+\label{sec-2-3}
+
+\begin{itemize}
+\item Let $\psi_i$ denote the vector of unique elements of $x_ix_i'$,
+       along with a constant term (if not in $x_i$).
+\begin{itemize}
+\item say that $\psi_i$ has length $p$.
+\end{itemize}
+\item We'd expect that $n^{-1/2} \sum_i (\hat\epsilon_i^2 - s^2)
+       \psi_i$ should obey a central limit theorem, so $\to N(0, V)$
+       (say) in distribution (where $V$ is a pretty large matrix).
+\item Then we'd have 
+       \[\left(n^{-1/2} \sum_i (\hat\epsilon_i^2 - s^2)\psi_i\right)'
+       \hat V^{-1} \left(n^{-1/2} \sum_i (\hat\epsilon_i^2 -
+       s^2)\psi_i\right) \xrightarrow{d} \chi_p^2\]
+\begin{itemize}
+\item holds under the null hypothesis
+\item fails under the alternative (which gives us power).
+\end{itemize}
+\end{itemize}
+\subsection{implementation of the test}
+\label{sec-2-4}
+
+     Statistic is quite easy to implement (derived by White (1980))
+
+\begin{enumerate}
+\item Regress $y_i$ on $x_i$ and save the OLS residuals.
+\item Regress $\hat\epsilon_i$ on $\phi_i$ and calculate the $R^2$
+        from this regression
+\item $n R^2$ is asymptotically $chi^2_{p-1}$ under the null
+        hypothesis.
+\end{enumerate}
+\section{Generalized Least Squares}
+\label{sec-3}
+
+\begin{itemize}
+\item Reading is Greene 8.3
+\end{itemize}
+\subsection{motivation}
+\label{sec-3-1}
+
+\begin{itemize}
+\item Suppose that instead of having $E( \epsilon \epsilon \mid X) =
+       \sigma^2 I$ we \textbf{knew} that $E(\epsilon \epsilon \mid X) =
+       \sigma^2 \Omega$ for some other known matrix $\Omega$.
+\item we could still do MLE to estimate $\beta$ and $\sigma$
+\item Would generally give you a different estimate of $\beta$ than
+       OLS.
+\end{itemize}
+\subsection{Infeasible GLS}
+\label{sec-3-2}
+\subsubsection{Draw pictures}
+\label{sec-3-2-1}
+\subsubsection{mathematics}
+\label{sec-3-2-2}
+
+\begin{itemize}
+\item We know that $\Omega^{-1/2}\epsilon \sim (0, \sigma^2 I)$ given $X$
+\item What happens if we regress $\Omega^{-1/2} Y$ on $\Omega^{-1/2} X$?
+\begin{itemize}
+\item Let $\tilde Y = \Omega^{-1/2} Y$
+\item Let $\tilde X = \Omega^{-1/2} X$
+\item $\tilde\epsilon = \tilde Y - \tilde X \beta$
+\end{itemize}
+\item If $E(Y \mid X) = X\beta$ then $E(\tilde Y \mid X) = \tilde X
+        \beta$
+\item If we regress $\tilde Y$ on $\tilde X$, we're back in standard
+        OLS with homoskedastic errors.
+\item Estimator is $\hat\beta_{GLS} =
+        (X'\Omega^{-1}X)^{-1}X'\Omega^{-1}Y$
+\begin{itemize}
+\item Unbiased (obviously)
+\item Satisfies Gauss-Markov (BLUE)
+\item Variance is $\sigma^2 (\tilde X' \tilde X)^{-1} = \sigma^2
+          (X' \Omega^{-1} X)^{-1}$
+\item Normal if the error terms are normal
+\item Asymptotically normal otherwise.
+\end{itemize}
+\end{itemize}
+\subsection{Weighted Least Squares (ie example)}
+\label{sec-3-3}
+
+\begin{itemize}
+\item Suppose that we believe that $\sigma_i^2 = \sigma^2 \cdot
+       x_{ij}^2$ for one of the regressors $j$.
+\begin{itemize}
+\item textbook gives an example: dependent variable is firm profits
+         and indep variable is size.
+\end{itemize}
+\item To implement GLS, we want to regress
+       \[ y/x_k = \beta + \beta_1(x_1/x_k) + \beta_2(x_2/x_k) +
+       \cdots + \epsilon/x_k \]
+\begin{itemize}
+\item intuitively, if the firm is bigger, profit is more volatile
+         and so we want to count that observation less in our estimation.
+\end{itemize}
+\end{itemize}
+\subsection{Feasible GLS}
+\label{sec-3-4}
+
+\begin{itemize}
+\item Suppose that $\Omega$ has a few unknown parameters:
+\begin{itemize}
+\item Two examples from TS:
+\begin{itemize}
+\item $\Omega = (1, \rho, \rho^2, \dots)$ (as
+           a matrix)
+\item $\Omega = (1, \gamma, 0, 0; \gamma, 1, ...)$ (as a matrix)
+\end{itemize}
+\end{itemize}
+\item We could just estimate those parameters along with the others.
+\item Two different approaches
+\begin{itemize}
+\item MLE (next semester)
+\item two-step least squares (FGLS)
+\end{itemize}
+\end{itemize}
+\subsubsection{Explanation of approach}
+\label{sec-3-4-1}
+
+\begin{itemize}
+\item Remember how we tested for heteroskedasticity
+\item regress $\hat\epsilon$ on the (squared) regressors and test
+        for significance
+\item use a similar approach here, but use for modeling.
+\item Suppose that
+        \[ E(\epsilon_i^2 \mid X) = z_i'\alpha \]
+        where $z_i$ is some function of the regressors.
+\item If we could regress $\epsilon_i^2$ on $z_i$, we could estimate
+        $\alpha$ consistently.
+\item Since $\hat\epsilon_i$ is consistent for $\epsilon_i$, we can
+        regress $\epsilon_i^2$ on $z_i$ to estimate $\alpha$.
+\end{itemize}
+\subsubsection{Algorithm}
+\label{sec-3-4-2}
+
+\begin{itemize}
+\item Regress $y$ on $x$ to get $\hat\epsilon$
+\item Regress $\hat \epsilon$ on $z$ to estimate $\alpha$
+\item Regress $y_i/w_i$ on $x_i/w_i$ to estimate $\hat\beta_{FGLS}$
+        where $w_i = sqrt{z_i'\hat\alpha}$
+\end{itemize}
+\subsubsection{some more math}
+\label{sec-3-4-3}
+
+\begin{itemize}
+\item if we let $\hat\Omega$ be the estimate of $\Omega$ that uses
+        $\hat\alpha$, consistency of $\hat\alpha$ ensures that
+        $\hat\Omega$ behaves asymptotically like $\Omega$.
+\item All of the asymptotic results from the GLS estimator apply to
+        the Feasible GLS estimator
+\item Finite sample results don't necessarily hold.
+\end{itemize}
+
+\end{document}

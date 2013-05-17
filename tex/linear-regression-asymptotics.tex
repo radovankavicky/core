@@ -1,0 +1,251 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage[margin=1in]{geometry}
+\setcounter{secnumdepth}{8}
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{Asymptotic properties of linear regression}
+\author{Gray Calhoun}
+\date{\today}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.8.02}}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+\vspace*{1cm}
+\begin{itemize}
+\item Reading for this material: Greene 4.9, 5.4, 5.5
+\item cover on
+\begin{itemize}
+\item \textit{2009-10-28 Wed}, \textit{2009-11-02 Mon}
+\item \textit{2010-11-02 Tue}, \textit{2010-10-28 Thu},
+\item \textit{2011-10-27 Thu}
+\item \textit{2012-10-25 Thu}
+\end{itemize}
+\end{itemize}
+\section{intro}
+\label{sec-1}
+
+\begin{itemize}
+\item we've gone back and forth on assuming normality
+\item some of the properties of the OLS estimator require normality
+\item others don't
+\end{itemize}
+\subsection{OLS properties without normality}
+\label{sec-1-1}
+
+\begin{itemize}
+\item algebraic properties from chapter 3
+\item unbiasedness of the estimators
+\item formula for variance of the estimators
+\item gauss-markov theorem
+\item unbiasedness of $s^2$
+\item zero correlation between errors and beta-hat
+\end{itemize}
+\subsection{Properties of OLS that use normality}
+\label{sec-1-2}
+
+\begin{itemize}
+\item distribution
+\item independence of errors and beta-hat
+\item hypothesis testing and confidence intervals
+\item does this mean we can't do hypothesis testing if we don't have
+       normality?
+\begin{itemize}
+\item of course not
+\end{itemize}
+\end{itemize}
+\subsection{asymptotics}
+\label{sec-1-3}
+
+\begin{itemize}
+\item we could plug in any distribution for $\epsilon$ and then use
+       transformation formulas to get the density of $\hat\beta$ given $X$.
+\item each distribution for the errors would give us a different
+       distribution for $\hat\beta$.
+\item \textbf{open up R}
+\begin{itemize}
+\item make a function 
+         getbeta = function(errdist, nerrs, nbetas = 800) \{
+         errs = matrix(errdist(nerrs * nbetas, nerrs, nbetas))
+         apply(errs, 2, mean)
+         \}
+\item plot hist for different densities with nerrs = 50
+\begin{itemize}
+\item rt (errdist = function(n) rt(n, df = 10))
+\item rexp
+\item runif
+\end{itemize}
+\end{itemize}
+\item notice that these are pretty close to each other
+\item so we could do one of two things in practice
+\begin{itemize}
+\item try to guess what the distribution of the errors is and
+         calculate the distribution of beta-hat from that
+\item try to choose a distribution for beta-hat that's going to be
+         close to \textbf{most} of the different dists you'll get for
+         different error dist
+\end{itemize}
+\item big insight
+\begin{itemize}
+\item these procedures are the same
+\item it turns out that the distribution of beta-hat \textbf{usually}
+         behaves pretty similar to the one you get assuming normal
+         errors, even if the errors are not normal
+\end{itemize}
+\item a side point, you'll never get approximate distributions
+       that are good for all error dists.
+\begin{itemize}
+\item do example with rcauchy
+\end{itemize}
+\end{itemize}
+\section{asymptotic behavior of beta-hat}
+\label{sec-2}
+
+\begin{itemize}
+\item assumptions
+\begin{itemize}
+\item $Y = X\beta + \epsilon$
+\item $\epsilon$ is iid $(0, \sigma^2)$ given $X$ and has finite
+       $2+\delta$ moments for some positive number $\delta$
+\item $x_i$ is independent across $i$
+\item for each i, $x_i x_i'$ has uniformly finite variance
+\item $E x_i x_i' = Q_i$ which is uniformly finite and positive definite.
+\end{itemize}
+\item conclusion
+\begin{itemize}
+\item $\hat\beta \to \beta$ in probability
+\item $s^2 \to \sigma^2$ in probability
+\item $\sqrt{n}(\hat\beta - \beta) \to N(0, \sigma^2 Q^{-1})$ in
+       distribution.
+\end{itemize}
+\end{itemize}
+\subsection{discussion of assumption on X'X}
+\label{sec-2-1}
+
+\begin{itemize}
+\item Greene makes the assumption that $n^{-1} X'X \to Q$ in
+       probability where $Q$ is a positive definite matrix.
+\item this condition is implied by the one we're using
+\begin{itemize}
+\item $n^{-1} X'X = n^{-1} \sum_i x_i x_i'$, so define $Q =
+         \lim_{n\to\infty} n^{-1} \sum_i Q_i$ and we get $n^{-1} \sum_i
+         x_i x_i' - Q \to 0$ in probability as a consequence of
+         Chebychev's weak law of large numbers
+\end{itemize}
+\end{itemize}
+\subsection{proof of consistency}
+\label{sec-2-2}
+
+     We want to prove that $\hat\beta \to \beta$ in probablilty.  We
+     can do that by plugging through the algebra
+\begin{itemize}
+\item going to show that $\hat\beta - \beta \to 0$ in probability
+\item $\hat\beta - \beta = (\sum_i x_i x_i')^{-1} \sum_i x_i
+       \varepsilon_i$
+\begin{itemize}
+\item $= (n^{-1} \sum_i x_i x_i')^{-1} n^{-1} \sum_i x_i \epsilon_i$
+\item $= \left[(n^{-1} \sum_i x_i x_i')^{-1} n^{-1}  -
+         Q^{-1}\right] \sum_i x_i \epsilon_i + Q^{-1} n^{-1} \sum_i
+         x_i \epsilon_i$
+\item $= O_p(1) n^{-1} \sum_i x_i \epsilon_i$
+\begin{itemize}
+\item remember what $n^{-1} \sum_i x_i x_i' = O_p(1)$ means -- it
+           means that for each element of the matrix (we'll call the ij
+           element $(n^{-1} X'X)_{ij}$) for every positive \$$\delta$,
+           there exists a finite constant $C_\delta$ and a number
+           $N_\delta$ such that \[ P[|(n^{-1} X'X)_{ij} | > C_\delta] <
+           \delta \] for all $n > N_\delta$
+\item we know from chebychev's inequality that \[ P[|(n^{-1}
+            X'X)_{ij} | > C] < E |(n^{-1} X'X)_{ij} |^2 / C^2\]
+\item $\leq n^{-1} \sum_t E |(x_{it} x_{jt}| / C^2$
+\item this is finite because we are assuming finite means and variances.
+\item so, for any $\delta$, we just choose $N$ and $C$ big enough
+           to ensure that the inequality holds for all $n > N$.
+\end{itemize}
+\item now, $E(x_i \epsilon_i) = E E(\epsilon_i \mid x_i) = 0$
+\item also, $var(x_i \epsilon_i) = E(x_i x_i' \epsilon_i^2)$
+\begin{itemize}
+\item $= E E(x_i x_i' \epsilon_i^2 \mid x_i)$
+\item $= \sigma^2 E(x_i x_i')$
+\item $= \sigma^2 Q_i$
+\end{itemize}
+\item so $n^{-1} \sum_i x_i \epsilon_i$ satisfies Chebychev's LLN
+         and converges to its mean, zero.
+\end{itemize}
+\item $\hat\beta - \beta = O_p(1) o_p(1) = o_p(1)$ and converges to
+       zero in probability.
+\end{itemize}
+\subsection{consistency of $s^2$ \textbf{:hw:}}
+\label{sec-2-3}
+
+     we want to show that $s^2 \to \sigma^2$ in probability
+\begin{itemize}
+\item $s^2 = {1 \over n - k - 1} \sum_i (y_i - x_i'\hat\beta)^2$
+\begin{itemize}
+\item $= {1 \over n - k - 1} \sum_i (\epsilon_i - x_i'(\hat\beta-\beta))^2$
+\item $= {1 \over n - k - 1} \sum_i (\epsilon_i^2 - 2 \epsilon_i
+         x_i'(\hat\beta-\beta) + (x_i'(\hat\beta-\beta))^2)$
+\item \[= {1 \over n - k - 1} \sum_i \epsilon_i^2 - 2 (\hat\beta -
+         \beta)' {1 \over n - k - 1} \sum_i  x_i \epsilon_i +
+         (\hat\beta - \beta)' {1 \over n - k - 1} \sum_i x_i x_i'
+         (\hat\beta - \beta)\]
+\item $=  {n \over n - k - 1} n^{-1} \sum_i \epsilon_i^2 + o_p(1)
+         o_p(1) + o_p(1)'O_p(1)o_p(1)$
+\item $= n^{-1} \sum_i \epsilon_i^2 + o_p(1)$
+\end{itemize}
+\item finally, $n^{-1} \sum_i \epsilon_i^2$ converges in probability
+       to $\sigma^2$ by Markov's lln.
+\end{itemize}
+\subsection{asymptotic normality of $\hat\beta$}
+\label{sec-2-4}
+
+     We'll do a similar argument for asymptotic normality
+\begin{itemize}
+\item $\sqrt{n}(\hat\beta - \beta) = (n^{-1} \sum_i x_i x_i')^{-1}
+       n^{-1/2} \sum_i x_i \epsilon_i$
+\begin{itemize}
+\item $= ((n^{-1} \sum_i x_i x_i')^{-1} - Q^{-1}) n^{-1/2} \sum_i
+         x_i \epsilon_i + Q^{-1} n^{-1/2} \sum_i x_i \epsilon_i$
+\end{itemize}
+\item so, we're going to show two things
+\begin{itemize}
+\item $n^{-1/2} \sum_i x_i \epsilon_i$ is asymptotically normal
+\item $((n^{-1} \sum_i x_i x_i')^{-1} - Q^{-1}) \to 0$ in
+         probability (which we discussed earlier)
+\end{itemize}
+\item for normality
+\begin{itemize}
+\item we already showed that each $x_i \epsilon_i$ has mean zero and
+         variance $\sigma^2 Q_i$
+\item we can appy the lindberg-feller CLT to show $n^{-1/2} \sum_i
+         x_i \epsilon_i$ converges in distribution to $N(0, Q)$
+\end{itemize}
+\item consequently, $\sqrt{n}(\hat\beta - \beta) = o_p(1) + Q^{-1}
+       \sum_i x_i \epsilon_i$ and converges in distribution to a normal
+       with mean zero and variance $\sigma^2 Q^{-1}$ which is just what
+       we wanted to show.
+\end{itemize}
+
+\end{document}

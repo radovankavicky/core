@@ -1,7 +1,7 @@
-*~
-
-# History files
+pdf/
+auto/
 .Rhistory
+_region_.tex
 
 *~
 *.aux

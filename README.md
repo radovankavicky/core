@@ -12,7 +12,44 @@ The project is just getting started and is in version 0.0.0
 Chapters
 --------
 
-Working on it...
+### Probability
+
+* Introduction to probability lectures
+* Random variables, distributions, and densities
+* Univariate Moments
+* Multivariate random vectors
+* Conditioning
+
+### Point estimation and identification
+
+* Overview of point estimation
+* Introduction to linear regression
+* Linear regression and Method of Moments
+* Linear regression and MLE
+* Finite sample evaluation of point estimators
+* Finite sample properties of Linear regression
+* Law of large numbers
+* Central Limit Theorem
+* Asymptotic evaluation of point estimators
+* Asymptotic properties of linear regression
+
+### Inference
+
+* Hypothesis testing
+* Interval estimators
+* Likelihood ratio test
+* Asymptotic inference
+* Linear Regression
+* Bootstrap
+
+### Additional Issues
+
+* Issues in modeling
+* Bayesian statistics
+* heteroskedasticity
+* Systems of equations
+* Endogeneity and introduce 2sls (unwritten)
+* Asymptotics of two-stage least squares (unwritten)
 
 License
 -------

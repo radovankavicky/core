@@ -1,0 +1,70 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage[margin=1in]{geometry}
+\setcounter{secnumdepth}{8}
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{Asymptotic evaluation of point estimators}
+\author{Gray Calhoun}
+\date{\today}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.8.02}}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+\vspace*{1cm}
+\begin{itemize}
+\item Cover on \textit{2012-10-23 Tue},
+\end{itemize}
+\section{Asymptotic Efficiency}
+\label{sec-1}
+
+\begin{itemize}
+\item To talk about efficiency, we need to restrict our attention to
+      asymptotically normal estimators
+\begin{itemize}
+\item rules out pathalogical counterexamples
+\item I should add one next year (homework?)
+\item kind of makes sense; for normal r.v. only the mean and
+        variance matter; for other asymp. distributions other
+        parameters are more important.
+\end{itemize}
+\item If $\hat\theta_n$ satisfies $m_n (\hat\theta_n - \theta) \to^d
+      N(0, \sigma^2)$ for some (increasing) sequence $m_n$ then
+      $\sigma^2$ is the asymptotic variance of $\hat\theta_n$.
+\item Suppose that $X_1,\dots,X_n$ have the likelihood fn $L(\theta;
+      X)$ and that $\hat\theta_n$ is a sequence of estimators of
+      $\theta$.  $\hat\theta_n$ is asymptotically efficient for
+      $\theta$ if $m_n (\hat\theta_n - \theta) \to^d N(0, \sigma^2)$
+      and 
+      \[\sigma^2 = \Big[E_\theta ((\tfrac{\partial}{\partial \theta} \log L(\theta; X))^2)\big]^-1\].
+\begin{itemize}
+\item i.e. $\hat\theta_n$ achieves the CR lower bound in the limit.
+\end{itemize}
+\item Nice result: under regularity conditions (like we saw before),
+      MLEs are consistent and asymptotically normal as well as
+      efficient.
+\end{itemize}
+
+\end{document}

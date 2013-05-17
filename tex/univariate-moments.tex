@@ -1,0 +1,234 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage[margin=1in]{geometry}
+\setcounter{secnumdepth}{8}
+\providecommand{\alert}[1]{\textbf{#1}}
+\DeclareMathOperator{\E}{E}
+
+\title{Univariate Moments}
+\author{Gray Calhoun}
+\date{\today}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.8.02}}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+\vspace*{1cm}
+\begin{itemize}
+\item Cover on \textit{2009-08-26 Wed}, \textit{2009-09-02 Wed}, \textit{2009-09-09 Wed},
+     \textit{2010-08-27 Fri}, \textit{2010-09-09 Thu}, \textit{2011-09-01 Thu}, 
+     \textit{2011-09-06 Tue}, \textit{2012-08-28 Tue}, \textit{2012-08-30 Thu}
+\item Reading:
+\begin{itemize}
+\item CB chapters 2 (good time to mention 3 as well)
+\item Greene B.1-B.6 continued
+\end{itemize}
+\end{itemize}
+\section{basic expectation}
+\label{sec-1}
+\subsection{introduction and motivation}
+\label{sec-1-1}
+
+\begin{itemize}
+\item one view of the steps we've taken
+\begin{itemize}
+\item We've proposed random variables as a way to simplify experiments
+         in a way that doesn't leave out any ``essential'' details.
+\item density functions let us simplify further
+\item continuing this goal, we're going to see how we can simplify even further.
+\end{itemize}
+\item ways to simplify
+\begin{itemize}
+\item what single number is a random draw from the given distribution
+         going to be ``closest'' to ``on average''
+\begin{itemize}
+\item obviously, this depends on what we mean by ``closest''
+\item different meanings will give us different summary values
+\end{itemize}
+\item what is the most likely value that an r.v. will take on
+\end{itemize}
+\end{itemize}
+\subsection{definition}
+\label{sec-1-2}
+
+\begin{itemize}
+\item The mean (or expected value) of a random variable, X, denoted
+       E X, is defined for continuous r.v. by \[ E X =
+       \int_{-\infty}^{\infty} x f_X(x) dx \]
+\item for discrete rv, \[ E X = \sum_x x f_X(x) dx \]
+\item for random vectors, $E Y = (E Y_1, \dots, E Y_k)$
+\end{itemize}
+\subsection{interpretation}
+\label{sec-1-3}
+
+\begin{itemize}
+\item population analogue to sample average (and limit of sample
+       average usually)
+\item point where the densities would balance
+\item ``closest'' to a random draw on average, in the sense that
+       $E(X - E X)^2 \leq E(X - c)^2$ for any point c.
+\end{itemize}
+\subsection{other points}
+\label{sec-1-4}
+
+\begin{itemize}
+\item if $E|X| = \infty$, we say that the mean does not exist.
+\begin{itemize}
+\item happens if the density has ``fat tails''
+\end{itemize}
+\item the mean is sometimes written as $EX = \int_{-\infty}^{\infty} x
+       dF(x)$ since $dF/dx = f$
+\item basic linearity: $E(a X + b) = a E X + b$ for constants $a$
+       and $b$
+\item The expectation of $Y = g(X)$ is given by \[ E g(X) =
+       \int_{-\infty}^\infty g(x) f_X(x) dx \] which is a much
+       easier way to go than to calculate the density
+       of the transformed rv.
+\begin{itemize}
+\item holds for random vectors too
+\end{itemize}
+\item as a consequence, we have the result: If $X$ and $Y$ are
+       independent then $E XY = EX E Y$
+\begin{itemize}
+\item $EXY = \int\int x y f_{X,Y}(x,y) dx dy$
+\begin{itemize}
+\item $= \int\int xy f_X(x) f_Y(y) dx dy$
+\item $= \int x f_X(x) dx \int y f_Y(y) dy$
+\item $= EX EY$
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\subsection{Jensen's inequality}
+\label{sec-1-5}
+
+\begin{itemize}
+\item a function $g(x)$ is convex if $g(\lambda x + (1-\lambda)y)
+       \leq \lambda g(x) + (1-\lambda) g(y)$ for $\lambda \in [0,1]$
+\item For any random variable $X$, $\E g(X) \geq g(\E X)$ for any
+       convex $g$.
+\end{itemize}
+\section{other measures of location}
+\label{sec-2}
+
+\begin{itemize}
+\item the mean is (by far) the most common way to summarize a random variable.
+\item there are others
+\end{itemize}
+\subsection{median}
+\label{sec-2-1}
+
+\begin{itemize}
+\item Def: the median of a distribution F is the value c such that $P(X
+       \leq c) \geq 1/2$ and $P(X \geq c) \geq 1/2$.
+\item the median is not necessarily unique
+\item if X is continuous, the median satisfies 
+       \[ E | X - c | \geq E | X - median(X) | \]
+       for any other constant $c$; so this is another way of chosing
+       ``the closest value to the average draw'' for a different
+       interpretation of close.
+\begin{itemize}
+\item the mean weights values further from the center more than
+         the median
+\end{itemize}
+\item you can define the conditional median same as conditional expectation
+\end{itemize}
+\subsection{mode}
+\label{sec-2-2}
+
+\begin{itemize}
+\item Def: the mode of a distribution is the value $c$ that maximizes
+       the density function $f_X$
+\item the mode is not necessarily unique
+\item conditional mode exisits too
+\end{itemize}
+     measures of location are unhelpful without measures of uncertainty
+\section{second moments (variance)}
+\label{sec-3}
+
+\begin{itemize}
+\item measures ``how far'' an random draw is from its expected value
+\item definition: $var(X) = E(X - E X)^2$
+\begin{itemize}
+\item equivalently, $var(X) = E(X^2) - (EX)^2$
+\item obviously this is nonnegative
+\end{itemize}
+\item standard deviation is the square root of the variance
+\begin{itemize}
+\item this is in the same units as $X$
+\end{itemize}
+\end{itemize}
+\section{location scale transformations}
+\label{sec-4}
+
+\begin{itemize}
+\item Useful special case of the transformation formula:
+\item Let $X$ be a random variable with density $f_X$ and let $f$ be
+      the density of $\sigma X + \mu$ for some constant $\mu$ and
+      positive constant $\sigma$.  Then \[f(x) = \frac{1}{\sigma}
+      f_X\left(\frac{x - \mu}{\sigma}\right)\] for all $x$.
+\begin{itemize}
+\item This family of pdfs is called the ``location-scale family
+        with standard pdf $f(x)$".
+\item $\mu$ is the \emph{location parameter}
+\item $\sigma$ is the \emph{scale parameter}
+\end{itemize}
+\item The family $\{f_X(x - \mu) : \mu \in \mathbb{R}\}$ is a
+      ``location family'' (i.e. only $\mu$ varies)
+\item The family $\{(1/\sigma) f_X(x/\sigma) : \sigma > 0\}$ is a
+      ``scale family'' (i.e. only \$$\sigma$ varies)
+\item $1/\sigma f_X(\frac{x - \mu}{\sigma})$ is a pdf for any density
+      $f_X$ and constants $\mu$ and $\sigma > 0$.
+\end{itemize}
+\section{other moments}
+\label{sec-5}
+
+\begin{itemize}
+\item If $X$ is a random variable, we say that the kth moment of $X$
+      exists if $E|X|^k$ is finite
+\item skewness: (draw picture)
+\begin{description}
+\item[Greene's definition] $E(X - E X)^3$
+\item[more common] $E(X - E X)^3 / \sigma^3$
+\end{description}
+\item kurtosis: (draw picture; move mass from center to tails)
+\begin{description}
+\item[Greene's definition] $E(X - E X)^4$
+\item[more common] $E(X - E X)^4 / \sigma^4$
+\item[excess] $E(X - E X)^4 / \sigma^4 - 3$
+\end{description}
+\item in general, we might look at powers like these
+\begin{itemize}
+\item kth moment: $E X^k$
+\item kth central moment: $E(X - EX)^k$
+\end{itemize}
+\item Consequence of Jensen's inequality: if the \$p\$th moment is
+      finite, so are all moments between 0 and $p$.
+\begin{itemize}
+\item Proof: let $q \in (0, p)$.  \[\E |X|^p = \E[( |X|^q)^{p/q}]
+        \leq [\E(|X|^q)]^{p/q}\] since $p/q > 1$.  Since the last
+        quantity is finite, so is the first.
+\end{itemize}
+\end{itemize}
+
+\end{document}
