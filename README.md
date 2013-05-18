@@ -6,7 +6,7 @@ free textbook/research monograph on Econometrics suitable for teaching
 a PhD core course and make it available through the
 [GNU Free Documentation License](http://www.gnu.org/copyleft/fdl.html).
 
-The project is just getting started and is in version 0.0.1
+The project is just getting started and is in version 0.0.2
 (pre-alpha). Use at your own risk!
 
 Chapters
@@ -69,7 +69,7 @@ There are two "best" ways of contacting us.  The first is through the
 mailing list for the
 [Econometrics Free Library](http://www.econometricslibrary.org),
 <econometricslibrary@librelist.com> (this is the mailing list for our
-parent organization); the [Librelist homepage](http://librelist.com/) has more information about sending messages to this discussion list.  The second is by
+parent project); the [Librelist homepage](http://librelist.com/) has more information about sending messages to this discussion list and [archives are available online as well](http://librelist.com/browser/econometricslibrary/).  The second is by
 [filing an issue report for the project](https://github.com/EconometricsLibrary/GraduateText/issues/new).
 
 If you find an error in the text, please let us know through one of
