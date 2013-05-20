@@ -6,7 +6,7 @@ free textbook/research monograph on Econometrics suitable for teaching
 a PhD core course and make it available through the
 [GNU Free Documentation License](http://www.gnu.org/copyleft/fdl.html).
 
-The project is just getting started and is in version 0.0.2
+The project is just getting started and is in version 0.1.0
 (pre-alpha). Use at your own risk!
 
 Chapters
@@ -61,6 +61,22 @@ Version 1.3 or any later version published by the Free Software
 Foundation; with no Invariant Sections, no Front-Cover Texts and no
 Back-Cover Texts. A copy of the license is included at
 <https://github.com/EconometricsLibrary/GraduateText/blob/master/LICENSE.txt>.
+
+Development Notes
+-----------------
+
+* The `latex-shared` and `tufte-latex` subdirectories are shared
+  across several projects.  Please do not submit patches that contain
+  changes to those directories.  If you think that you need to edit
+  those files, please propose your changes on the project mailing
+  list.  The "original" sources of those directories can be found on
+  the EFL project's GitHub page.
+
+* To generate pdfs, run the command `make` in the top-level directory
+  of this project (you'll need to have `make` installed, obviously).
+
+* Please email the mailing list if you run into problems or have any
+  other questions.
 
 More information
 ----------------

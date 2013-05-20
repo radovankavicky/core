@@ -1,0 +1,134 @@
+% Copyright © 2013, Gray Calhoun.  Permission is granted to copy,
+% distribute and/or modify this document under the terms of the GNU
+% Free Documentation License, Version 1.3 or any later version
+% published by the Free Software Foundation; with no Invariant
+% Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of
+% the license is included in the section entitled "GNU Free
+% Documentation License."
+
+\part{Linear regression and MLE}
+
+\begin{itemize}
+\item cover on
+\begin{itemize}
+\item \textit{2009-09-30 Wed}, \textit{2009-10-14 Wed}, \textit{2009-10-19 Mon}
+\item \textit{2010-09-28 Tue}, \textit{2010-10-21 Thu}
+\item \textit{2011-09-13 Tue}, \textit{2011-10-27 Thu}
+\item \textit{2012-09-11 Tue}, \textit{2012-09-13 Thu}
+\end{itemize}
+\end{itemize}
+\section{Introduction}
+\label{sec-1}
+
+\begin{itemize}
+\item look at the uniform$(0,b)$ example suppose $n = 1$
+\begin{itemize}
+\item draw these densities for b = 1, 2, 4
+\begin{itemize}
+\item density is $1/b$ in $[0,b]$.
+\item pick a point $x$ on the density
+\end{itemize}
+\item have (as a function of $b$) $1/b$ as long as $b \geq x$
+\item if we observe $X = 0.5$ (for example), we know that $b \geq 0.5$
+\item In addition, values like $b = 500$ are implausible
+\begin{itemize}
+\item as $b$ gets larger, there are more possible values that $X$ is
+         likely to take on.
+\end{itemize}
+\item in a sense, $b = 0.5$ is the most plausible
+\begin{itemize}
+\item smaller values are impossible
+\item as $b$ increases from $0.5$, the plausiblity decreases.
+\end{itemize}
+\item we can get $b = 0.5$ directly by maximizing $f(0.5; b)$ as a
+       function of $b$
+\begin{itemize}
+\item called the likelihood and written $L(b; x)$
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\section{Definition}
+\label{sec-2}
+
+\begin{itemize}
+\item for the MLE estimator, we start with the density, but view it as a
+     function of $\theta$
+\begin{itemize}
+\item the value of $\theta$ that maximizes the likelihood is (in a sense) the most plausible/defensible value.
+\end{itemize}
+\item the MLE of $\theta$ is $argmax_\theta L(\theta; x_1,\dots,x_n)$
+\end{itemize}
+\section{Examples}
+\label{sec-3}
+\subsection{iid draws from uniform$(a,b)$}
+\label{sec-3-1}
+
+\begin{itemize}
+\item $L(a,b; x_1,\dots,x_n) = \prod_i 1\{x_i \in [a,b]\} (b-a)^{-1}$
+\item $= ({1 \over b-a})^{n}$ if all $x_i \in [a,b]$ and zero otherwise.
+\item we can find the maximum easily
+\begin{itemize}
+\item likelihood decreases as $b$ increases or $a$ decreases
+\item likelihood becomes zero if $b < \max x_i$ or if $a > \min x_i$
+\item so $\hat b = \max x_i$ and $\hat a = \min x_i$
+\end{itemize}
+\end{itemize}
+\subsection{linear regression.}
+\label{sec-3-2}
+
+\begin{itemize}
+\item $(Y_i,X_i) \sim iid$
+\begin{itemize}
+\item $X_i \sim f$ which is unspecified, $X_i$ is a $k\times1$ vector.
+\item $Y_i \mid X_i \sim N(X_i'\beta, \sigma^2)$
+\end{itemize}
+\item want to estimate $\beta$ and $\sigma^2$
+\item Draw fitted values, densities
+\item $L(\mu,\sigma^2; y, x) = \prod_i {1 \over \sqrt{2 \pi \sigma^2}} e^{- {(y_i - x_i'\beta)^2 \over 2 \sigma^2}} f(x_i)$
+\item step 1: take logs:
+\begin{itemize}
+\item $\log L(\mu,\sigma^2; x_1,\dots,x_n) = const - n\log
+         (\sqrt{\sigma^2}) - \sum_i {(x_i - \mu)^2 \over 2 \sigma^2} + \sum_i f(x_i)$
+\end{itemize}
+\item First order conditions:
+\begin{itemize}
+\item for mean:
+\begin{itemize}
+\item $\frac{\partial}{\partial \beta} \log L(\mu, \sigma^2; x, y) = \sum_{i=1}^n x_i (y_i - x_i'\beta) = 0$
+\item so $\hat\beta=(\sum_i x_i x_i')^{-1} \sum_i x_i y_i$
+\end{itemize}
+\item for variance:
+\begin{itemize}
+\item $\frac{\partial}{\partial \sigma^2} \log L(\mu, \sigma^2; x, y) = -\frac{n}{2\sigma^2} + \frac{1}{2 \sigma^4}\sum_i (y_i - x_i'\beta)^2 = 0$
+\item so $\hat\sigma^2 = \frac{1}{n} \sum_{i=1}^n (y_i - x_i'\beta)^2$
+\end{itemize}
+\end{itemize}
+\item students should verify that this is a maximum on their own.
+\end{itemize}
+\section{More remarks on mle}
+\label{sec-4}
+
+\begin{itemize}
+\item unlike method of moments, where we connect our parameters to
+      the mean, variance, etc. regardless of the distribution; here
+      we look at the features of the data that the distribution tells
+      us are the most relevant.
+\begin{itemize}
+\item for normal, this \emph{is} the mean and variance, so MLE
+        and MoM give us the same statistics
+\item for uniform, and others, this is \emph{not} the mean and
+        variance.     - the derivative of the log likelihood is called the \emph{score}.
+        $S(\theta; x) = {\partial \over \partial \theta} \log L(\theta; x)$
+\end{itemize}
+\item has a nice invariance property: say you're not interested in the
+      parameters per se, but care about a transformation of the
+      parameters $T(\theta)$.  If $\hat \theta$ is the maximum
+      likelihood estimator of $\theta$, then $T(\hat\theta)$ is the MLE
+      of $T(\theta)$.
+\item we'll see later that you can use MLE to get an estimator, even if
+      you don't believe that the distribution is true
+\begin{itemize}
+\item called quasi-maximum likelihood
+\item obviously, you then need to check that the estimator works well.
+\end{itemize}
+\end{itemize}

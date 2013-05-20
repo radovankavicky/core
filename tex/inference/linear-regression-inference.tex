@@ -1,0 +1,523 @@
+% Copyright © 2013, Gray Calhoun.  Permission is granted to copy,
+% distribute and/or modify this document under the terms of the GNU
+% Free Documentation License, Version 1.3 or any later version
+% published by the Free Software Foundation; with no Invariant
+% Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of
+% the license is included in the section entitled "GNU Free
+% Documentation License."
+
+\part{Linear Regression}
+
+\begin{itemize}
+\item Covered on \textit{2010-11-04 Thu}, \textit{2010-11-09 Tue}
+\item \textit{2011-11-10 Thu}, \textit{2011-11-15 Tue}, \textit{2011-11-17 Thu}
+\end{itemize}
+\section{Estimation under restrictions}
+\label{sec-1}
+
+\begin{itemize}
+\item This material is based on Greene's 5.1, 5.2, and 5.3.2.
+\item Covered on \textit{2010-11-04 Thu}
+\end{itemize}
+\subsection{introduction}
+\label{sec-1-1}
+
+    We've been looking at the model $Y = X\beta + \varepsilon$ or
+    (equation by equation) \[ y_i = x_{i,1} \beta_1 + \cdots +
+    x_{i,2} \beta_2 + \varepsilon_i \]
+\begin{itemize}
+\item what if you thought that (say) $\beta_1 = \beta_2$
+\item an example (Greene p. 81); have a model of investment \[ \ln I_t
+      = \beta_1 + \beta_2 i_t + \beta_3 \Delta p_t + \beta_4 \ln Y_t +
+      \beta_5 t + \varepsilon_t \]
+\begin{itemize}
+\item $I_t$ is investment in period $t$
+\item $i_t$ is the nominal interest rate
+\item $\Delta p_t$ is the rate of inflation
+\item $Y_t$ is real output
+\item time trend
+\end{itemize}
+\item so suppose you think that inflation and the nominal interest rate
+      don't matter on their own, but combined they do matter as the
+      \emph{real} interest rate
+\begin{itemize}
+\item model becomes
+        \[ \ln I_t = \beta_1 + \beta_2 (i_t - \Delta p_t) + \beta_4 \ln
+        Y_t + \beta_5 t + \varepsilon_t \]
+\item ie you want to estimate the first model under the restriction
+        that $\beta_2 = - \beta_3$.
+\item we will rewrite the restriction as $\beta_2 + \beta_3 = 0$.
+\end{itemize}
+\item So, how would you estimate the first equation under this
+      restriction?
+\end{itemize}
+\subsection{LM restrictions for a simple example}
+\label{sec-1-2}
+
+\begin{itemize}
+\item to derive the OLS estimators, we minimized $\sum_i (y_i -
+      x_i'\beta)^2$
+\begin{itemize}
+\item this is equivalent to MLE under normality
+\end{itemize}
+\item If we want to estimate the restricted model, we can just minimize
+      $\sum_i (y_i - x_i'\beta)^2$ subject to the constraint that (in
+      the previous example) $\beta_2 + \beta_3 = 0$.
+\begin{itemize}
+\item set up lagrangian: $\sum_i (y_i - x_i'\beta)^2 + (\beta_2 + \beta_3)\lambda$
+\item gives foc:
+\begin{itemize}
+\item $(0, 1, 1, 0) \cdot \beta = 0$
+\begin{itemize}
+\item rewrite this as $R\beta = 0$
+\end{itemize}
+\item $0 = - 2 \sum_i x_i (y_i - x_i'\beta) + (0, 1, 1, 0)' \lambda$
+\begin{itemize}
+\item can be written $0 = 2 X'X\beta - 2 X'Y + R' \lambda$
+\end{itemize}
+\end{itemize}
+\item we can start to solve:
+\begin{itemize}
+\item $\hat\beta_R = \hat\beta - 1/2 (X'X)^{-1} R' \hat\lambda_R$
+\item $R \hat\beta_R = 0$ (scalar)
+\begin{itemize}
+\item $= R \hat\beta - 1/2 R (X'X)^{-1} R' \hat\lambda_R$
+\end{itemize}
+\end{itemize}
+\item so $- \hat\lambda_R/2 = (R (X'X)^{-1} R')^{-1} R\hat\beta$
+\item $\hat\beta_R = \hat\beta - (X'X)^{-1} R' [R(X'X)^{-1}R']^{-1} R\hat\beta$
+\item For intuition, look at the fitted values
+\end{itemize}
+\end{itemize}
+\paragraph{diagram that should give intuition:}
+\subsection{LM restrictions on a general example}
+\label{sec-1-3}
+
+\begin{itemize}
+\item suppose now that we have the restriction $R\beta = q$
+\item take first order conditions for the lagrangian
+      \[ (Y - X\beta)'(Y - X\beta) + (R\beta - q)'\lambda \]
+      (now \$$\lambda$ is a vector)
+\begin{itemize}
+\item $R\beta = q$
+\item $0 = 2 X'X - 2 X'Y + R' \lambda$
+\end{itemize}
+\item mimic the same steps as before
+\begin{itemize}
+\item $\hat\beta_R = \hat\beta - {1\over2} (X'X)^{-1} R'\hat\lambda_R$
+\item $-{1\over2} \hat\lambda_R = (R(X'X)^{-1}R')^{-1}(q - R\hat\beta)$
+\item $\hat\beta_R = \hat\beta + (X'X)^{-1} R'(R(X'X)^{-1}R')^{-1}
+        (q - R\hat\beta)$
+\end{itemize}
+\end{itemize}
+\subsection{remarks}
+\label{sec-1-4}
+
+\begin{itemize}
+\item this is also the \textbf{restricted MLE} under normality
+\item estimator of $\sigma^2$ under this restriction is going to be ${1
+      \over n - k - 1 + rank(R)} \sum_i (y_i - x_i'\hat\beta_R)^2$
+\end{itemize}
+\section{Hypothesis testing in finite samples}
+\label{sec-2}
+
+\begin{itemize}
+\item Reading for this material: Greene 4.7, 5.1-5.3
+\end{itemize}
+\subsection{introduction}
+\label{sec-2-1}
+
+\begin{itemize}
+\item Suppose that we want to test an arbitrary linear hypothesis about
+       $\beta$; ie \[R \beta = q\] against the alternative \[R \beta \neq q\]
+\begin{itemize}
+\item ie $R = (1, 0, 0, \dots)$ and $q = 0$ gives us a test that
+         $\beta_0 = 0$
+\item $R = I$ and $q = (0,0,\dots,0)$ gives us a test that all of the
+         coefficients are equal to zero.
+\end{itemize}
+\item for now, assume we have normal errors
+\end{itemize}
+\subsection{a convenient test}
+\label{sec-2-2}
+\paragraph{change in SSR under the null}
+\label{sec-2-2-1}
+
+      we can look at the change in the SSR when we impose the null
+        hypothesis
+\begin{itemize}
+\item ie ${SSR_R - SSR \over SSR}$
+\begin{itemize}
+\item $SSR = \sum_i \hat\varepsilon_i^2$
+\item don't need to present this, but can be written as \[
+            {(R^2 - R^2_R) / J \over (1-R^2) / (n-k-1)} \]
+\end{itemize}
+\item Our test is actually a scaled version of that:
+          \[ F = {(SSR_R - SSR)/J \over SSR / (n-k-1)} \]
+\begin{itemize}
+\item $J$ is the number of restrictions (ie dimension of $q$)
+\end{itemize}
+\end{itemize}
+\paragraph{Distribution of F under null}
+\label{sec-2-2-2}
+
+      now, suppose the null is true, what is the distribution of $F$?
+\paragraph{distribution of numerator}
+\label{sec-2-2-2-1}
+
+\begin{itemize}
+\item reexpress the numerator
+\begin{itemize}
+\item $SSR_R - SSR = (Y - X\hat\beta_R)'(Y - X\hat\beta_R) - (Y -
+             X\hat\beta)'(Y - X\hat\beta)$
+\item $= (\hat\beta - \hat\beta_R)'X'X(\hat\beta - \hat\beta_R)$
+             (you're proving this for homework)
+\item remember that $\hat\beta_R = \hat\beta + (X'X)^{-1}
+             R'(R(X'X)^{-1}R')(q - R\hat\beta)$
+\item $= (q -
+             R\hat\beta)'(R(X'X)^{-1}R')^{-1}R(X'X)^{-1}X'X(X'X)^{-1}R'(R(X'X)^{-1}R')^{-1}
+             (q - R\hat\beta)$
+\item $= (q -
+             R\hat\beta)'(R(X'X)^{-1}R')^{-1}R(X'X)^{-1} R'(R(X'X)^{-1}R')^{-1}
+             (q - R\hat\beta)$ after middle cancels
+\item $= (q -
+             R\hat\beta)'(R(X'X)^{-1}R')^{-1}(q - R\hat\beta)$
+\end{itemize}
+\item distribution of numerator
+\begin{itemize}
+\item $q - R\hat\beta$ is normal with mean $q - R\beta$ and
+             variance $\sigma^2 R(X'X)^{-1}R'$
+\item under the null, this mean is zero.
+\item so we have a normal divided by its variance covariance matrix\ldots{}
+\item so $(q - R\hat\beta)'(R(X'X)^{-1}R')^{-1}(q - R\hat\beta)$
+             equals $\sigma^2$ chi-square r.v. with $J$ degrees of freedom
+\end{itemize}
+\end{itemize}
+\paragraph{distribution of denominator}
+\label{sec-2-2-2-2}
+
+\begin{itemize}
+\item just like earlier, we know that $SSR = (n-k-1) s^2$ and $s^2$
+         and $\hat \beta$ are independent given $X$.
+\item denominator is $\sigma^2$ times a chi-square with $n-k-1$
+         degrees of freedom and indpendent of the numerator.
+\end{itemize}
+\paragraph{distribution of statistic}
+\label{sec-2-2-2-3}
+
+       distribution of $F$
+\begin{itemize}
+\item $F = {\sigma^2 \chi_J^2 / J \over \sigma^2 \chi_{n-k-1}^2 /
+         (n-k-1)}$ in distribution.
+\item numerator and denominator are independent
+\item so this has an $F_{J, n-k-1}$ distribution under the null.
+\end{itemize}
+\paragraph{Distribution of F under alternative}
+\label{sec-2-2-3}
+
+\begin{itemize}
+\item Denominator is not affected
+\item Numerator is
+\begin{itemize}
+\item for $R\hat\beta - q$ to have mean zero, we need the null to
+          be true
+\item otherwise the numerator will get larger
+\end{itemize}
+\end{itemize}
+\subsection{t-test}
+\label{sec-2-3}
+
+\begin{itemize}
+\item Suppose you wanted to test a single restriction, say $\beta_i =
+       b$ for some known $b$.
+\item We know that ${\hat\beta_i - \beta_i \over \sqrt{s^2 q_i}}$ is
+       the ratio of a standard normal r.v. and a chi-square/(n-k-1)
+       random variable
+\item so it is $t$ with (n-k-1) degrees of freedom
+\item under the null, we know $\beta_i = b$, so we also have
+       ${\hat\beta_i - b \over \sqrt{s^2 q_i}}$
+\item we can use this as a test statistic:
+\begin{itemize}
+\item calculate the value of the r.v.
+\item get the appropriate critical values from the t-distribution
+         table (or the computer)
+\item reject if the statistic is farther from zero than the
+         critical value
+\end{itemize}
+\item If we're testing an equality, this will give us exactly the
+       same test as the F-test with 1 and $n-k-1$ degrees of freedom
+\item if we're testing an inequality, this test can be a little
+       easier to work with.
+\end{itemize}
+\subsection{likelihood ratio test}
+\label{sec-2-4}
+
+\begin{itemize}
+\item how would we test this hypothesis?
+\begin{itemize}
+\item maybe derive the likelihood ratio test.
+\item remember, LRT is ${\sup_{\beta, \sigma^2: R\beta = q} L(\beta,
+         \sigma^2; Y \mid X) \over \sup_{\beta, \sigma^2} L(\beta,
+         \sigma^2; Y \mid X)}$ and we reject if this statistic is less
+         than a critical value $c$.
+\end{itemize}
+\item we can plug in the MLEs
+\begin{itemize}
+\item $= {\hat\sigma^n \over \hat\sigma^n_{null}}
+         exp((2\hat\sigma^2_a)^{-1} \sum_i (y_i -
+         x_i'\hat\beta)^2 - (2\hat\sigma^2_0)^{-1} \sum_i (y_i - x_i'\hat\beta_0)^2)$
+\item note that $\hat\sigma^2_a = n^{-1} \sum_i (y_i -
+         x_i'\hat\beta_a)^2$
+\item $\hat\sigma^2_0 = n^{-1} \sum_i (y_i - x_i'\hat\beta_0)^2$
+\item so the terms in the exponent cancel and we're left with
+         $(\hat\sigma^2 / \hat\sigma^2_R)^{n/2}$
+\end{itemize}
+\end{itemize}
+\section{Hypothesis testing in the limit}
+\label{sec-3}
+
+\begin{itemize}
+\item covered the material on \textit{2009-11-04 Wed} (I think)
+\end{itemize}
+\subsection{Testing linear hypotheses}
+\label{sec-3-1}
+\paragraph{t-test}
+\label{sec-3-1-1}
+\paragraph{justifying the t-test}
+\label{sec-3-1-1-1}
+
+\begin{itemize}
+\item what does the previous asymptotic result tell us about the t-statistic?
+\item suppose we want to test the null hypothesis
+         \[ \beta_j \leq 1 \] so we construct the t-statistic
+\item can we use it?
+\item we know that, if the null is true,
+         \[ {\beta_j - 1 \over \sqrt{s^2 q_i}} \to N(0,1) \] in
+         distribution (where $q_i$ is the ii element of $(X'X)^{-1}$)
+\item we also know that $t_{n-k-1} \to N(0,1)$ as $n\to\infty$
+\begin{itemize}
+\item \[t_{n-k-1} = {Z_0 \over \sqrt{(n-k-1)^{-1} \sum_{i=1}^{n-k-1}
+           Z_i^2}}\] in distribution, where each of the $Z_i$ is an
+           independent standard normal.
+\item The sum in the denominator obeys a law of large numbers, so
+           it converges to its mean, 1, in probability
+\end{itemize}
+\end{itemize}
+\paragraph{interpretation/conclusion}
+\label{sec-3-1-1-2}
+
+\begin{itemize}
+\item We have two approaches for testing the hypothesis that
+         $\hat\beta_i = \beta_i^*$ (or has an inequality) based on
+         asymptotic approximations
+\begin{enumerate}
+\item calculate ${\hat\beta_i - \beta_i \over \sqrt{s^2 q_i}}$
+            and compare to critical values from the normal distribution.
+\item calculate and compare to critical values from the
+            $t$-distribution.
+\end{enumerate}
+\item These will \textbf{almost always} give you the same answer.
+\begin{itemize}
+\item the critical values for the t-distribution will always be a
+           little bit bigger
+\item this happens because we replace the scaled chi-squared
+           distribution in the denominator with the constant 1
+\end{itemize}
+\item If they \textbf{don't} give you the same answer, watch out.
+\begin{itemize}
+\item you should probably go with the t-distribution (since it's
+           more conservative)
+\item this discrepency is telling you that you don't have enough
+           observations to get reliable asymptotic approximations
+\item doesn't mean that you should \textbf{believe} the errors are
+           normal, but it means that you should probably play it safe
+           and \textbf{not reject}
+\item If you run into this situation, you'll want to think about
+           what you're doing a little more carefully.
+\end{itemize}
+\end{itemize}
+\paragraph{F test/Wald test}
+\label{sec-3-1-2}
+\paragraph{introduction}
+\label{sec-3-1-2-1}
+
+\begin{itemize}
+\item Suppose we want to test the general restriction $R\beta = q$
+\item If the errors are normal, we know that the F-test is valid
+\item What is the asymptotic distribution of the F-test if the
+         errors aren't normal?
+\end{itemize}
+\paragraph{asymptotic distribution}
+\label{sec-3-1-2-2}
+
+       We can rewrite the F-statistic as
+       \[ J^{-1} (R\hat\beta - q)'[s^2 R(X'X)^{-1}R']^{-1}(R\hat\beta -
+       q) \]
+\begin{itemize}
+\item under the null, we know that $q = R\beta$, so we also know
+         that $R(\hat\beta - \beta) = R\hat\beta - q$
+\item we know from earlier that $\sqrt{n} R(\hat\beta - \beta)$
+         converges in distribution to $N(0, \sigma^2 R Q^{-1} R')$
+\item so, we know that \[\sqrt{n} (R\hat\beta - q)' (\sigma^2 R
+         Q^{-1} R')^{-1} \sqrt{n} (R\hat\beta - q) \] converges in
+         distribution to a chi-square with $J$ degrees of freedom
+\begin{itemize}
+\item $\sqrt{n}(R\hat\beta - q)$ is a $J$-vector and is asymptotically
+           normal.
+\item $\sqrt{n}(\sigma^2 R Q^{-1} R')^{-1/2} (R\hat\beta - q)$ is
+           an asymptotically standard normal $J$ vector.
+\end{itemize}
+\item we want to show that \[ (R\hat\beta - q)'[s^2
+         R(X'X)^{-1}R']^{-1}(R\hat\beta - q) = J^{-1} (R\hat\beta -
+         q)'[\sigma^2 RQ^{-1}R']^{-1}(R\hat\beta - q) + o_p(1)\]
+\begin{itemize}
+\item this will show that $J F$ is asymptotically chi-square with
+           $J$ degrees of freedom.
+\item multiply $(R\hat\beta - q)$ by $\sqrt{n}$ and bring $n^{-1}$
+           next to $X'X$.
+\item we know that $s^2 \to \sigma^2$ and $n^{-1} X'X \to Q$ in probability
+\item so, we get the convergence we need.
+\end{itemize}
+\item So, we know that the F statistic is equal in distribution
+         to a $J^{-1} \chi_J^2$ random variable as $n \to \infty$.
+\end{itemize}
+\paragraph{conclusion/interpretation}
+\label{sec-3-1-2-3}
+\paragraph{behavior of F distribution}
+\label{sec-3-1-2-3-1}
+
+\begin{itemize}
+\item have the same issue we saw with the t-distribution
+\item the $F_{J, n-k-1}$ distribution is defined to be the same as
+          the distribution of
+          \[{J^{-1} \sum_{i=1}^J Z_i^2 \over (n-k-1)^{-1} \sum_j
+          W_j^2}\] where each $Z$ and $W$ is an independent standard normal.
+\item as $n\to \infty$, the denominator converges to 1 in probability
+\item the numerator is unaffected and is a $\chi^2_J / J$ random variable.
+\item so the F-distribution becomes more and more like the chi
+          square as well.
+\end{itemize}
+\paragraph{conclusion}
+\label{sec-3-1-2-3-2}
+
+\begin{itemize}
+\item You can use either the $F_{J, n-k-1}$ or the Chi-square $J$ to
+          construct a hypothesis test.
+\begin{itemize}
+\item calculate the F test statistic
+\item get the critical values from a table or the computer
+\item reject if test stat is greater than critical values
+\end{itemize}
+\item Just like with t-test, using the finite sample test (F) is
+          more conservative than the asymptotic test
+\begin{itemize}
+\item critical values are a little bigger
+\item this is a bigger deal when you're testing lots of
+            restrictions simultaneously, so you are more likely to get
+            disagreement than you did with the t-test
+\item \textbf{use the F critical values}
+\end{itemize}
+\end{itemize}
+\subsection{Testing nonlinear hypotheses}
+\label{sec-3-2}
+
+     Reading is based on Greene's section 5.5.
+\paragraph{motivation}
+\label{sec-3-2-1}
+
+      What if we want to test the hypothesis that $c(\beta) = q$ where
+      $c$ is a function from $\mathbb{R}^{k+1}$ to $\mathbb{R}^J$?
+\begin{itemize}
+\item Do we know anything about the finite-sample distribution of
+        $c(\hat\beta)$ that we could use to construct a test statistic?
+\begin{itemize}
+\item as usual, if we specify a distribution for the errors, we
+          could crank through the algebra and derive the distribution of
+          $c(\hat\beta)$
+\item won't give us a general procedure
+\item won't necessarily be easy to impose the null hypothesis.
+\end{itemize}
+\item Maybe we can get a procedure that uses the asymptotic
+        distribution of $c(\hat\beta)$ under the null
+\end{itemize}
+\paragraph{initial asymptotics}
+\label{sec-3-2-2}
+
+\begin{itemize}
+\item suppose that $c$ is differentiable
+\item we can use the delta-method to show that
+        $\sqrt{n}(c(\hat\beta) - c(\beta))$ is asymptotically normal
+\item a first-order taylor expansion gives us
+        \[ \sqrt{n} c(\hat\beta) = \sqrt{n} c(\beta) +
+        {\partial c(\beta) \over \partial \beta'} \sqrt{n} (\hat\beta -
+        \beta) + o_p(1) \]
+        where $\partial c(\beta) \over \partial \beta'$ is a $J \times
+        k+1$ matrix of partial derivatives.
+\item We know that \[{\partial c(\beta) \over \partial \beta'}
+        \sqrt{n} (\hat\beta - \beta)\] converges in distribution to a
+        normal r.v. with mean zero and variance \[ \left({\partial
+        c(\beta) \over \partial \beta'}\right) \sigma^2 Q^{-1}
+        \left({\partial c(\beta) \over \partial \beta'}\right)'\]
+\item Then $\sqrt{n} (c(\hat\beta) - c(\beta))$ also converges to \[
+        N\left(0, \left({\partial
+        c(\beta) \over \partial \beta'}\right) \sigma^2 Q^{-1}
+        \left({\partial c(\beta) \over \partial \beta'}\right) \right)\]
+\end{itemize}
+\paragraph{hypothesis testing}
+\label{sec-3-2-3}
+
+\begin{itemize}
+\item Under the null hypothesis, we know that $c(\beta) = q$, so
+        $\sqrt{n}(c(\hat\beta) - q)$ has the same asymptotic
+        distribution as $\sqrt{n}(c(\hat\beta) - c(\beta))$
+\item so we can do the same trick as before to get a chi-square test
+        statistic
+\begin{itemize}
+\item we estimate the variance with \[ \left({\partial
+        c(\hat\beta) \over \partial \hat\beta'}\right)s^2 (n^{-1}X'X)^{-1}
+        \left({\partial c(\hat\beta) \over \partial \hat\beta'}\right)\]
+\begin{itemize}
+\item know $\hat\beta \to \beta$ so $\left({\partial c(\hat\beta)
+            \over \partial \hat\beta'}\right) \to \left({\partial
+            c(\beta) \over \partial \beta'}\right)$ in probability
+\item know that $s^2 (n^{-1} X'X)^{-1} \to \sigma^2Q^{-1}$ in
+            probability
+\end{itemize}
+\[{c(\hat\beta) \over \partial \hat\beta'}\Big)s^2 (n^{-1}X'X)^{-1}
+        \left({\partial c(\hat\beta) \over \partial \hat\beta'}\right)\]
+          - know $\hat\beta \to \beta$ so $\left({\partial c(\hat\beta)
+            \over \partial \hat\beta'}\right) \to \left({\partial
+            c(\beta) \over \partial \beta'}\right)$ in probability
+          - know that $s^2 (n^{-1} X'X)^{-1} \to \sigma^2Q^{-1}$ in
+            probability
+\end{itemize}
+\[{c(\hat\beta) \over \partial \hat\beta'}\Big)s^2 (n^{-1}X'X)^{-1}
+        \left({\partial c(\hat\beta) \over \partial \hat\beta'}\right)\]
+          - know $\hat\beta \to \beta$ so $\left({\partial c(\hat\beta)
+            \over \partial \hat\beta'}\right) \to \left({\partial
+            c(\beta) \over \partial \beta'}\right)$ in probability
+          - know that $s^2 (n^{-1} X'X)^{-1} \to \sigma^2Q^{-1}$ in
+            probability
+\item Our test statistic is 
+        \[ (c(\hat\beta) - q)' \left[\left({\partial
+        c(\hat\beta) \over \partial \hat\beta'}\right)s^2 (n^{-1}X'X)^{-1}
+        \left({\partial c(\hat\beta) \over \partial \hat\beta'}\right) \right]^{-1}
+        (c(\hat\beta) - q) \]
+\item asymptotically chi-square with $J$ degrees of freedom
+\item one additional point
+\begin{itemize}
+\item we need to verify that the population variance matrix is
+          invertible
+\item ie we need \[\left({\partial c(\beta) \over \partial
+          \beta'}\right)\] to have full rank
+\item in ``standard'' applications this is true, but it \textbf{may} not be true
+\item can use a similar procedure but higher order expansion and
+          usually won't wind up with a chi-square statistic.
+\end{itemize}
+\end{itemize}
+\section{Testing multiple hypotheses}
+\label{sec-4}
+
+\begin{itemize}
+\item Fill in
+\end{itemize}

@@ -1,0 +1,47 @@
+% Copyright © 2013, Gray Calhoun.  Permission is granted to copy,
+% distribute and/or modify this document under the terms of the GNU
+% Free Documentation License, Version 1.3 or any later version
+% published by the Free Software Foundation; with no Invariant
+% Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of
+% the license is included in the section entitled "GNU Free
+% Documentation License."
+
+\part{Introduction to the probability lectures}
+
+\begin{itemize}
+\item This motivation is largely taken from Resnick's \emph{A Probability      Path}.  There are a few key theoretical concepts that lead to
+     many econometric tools.
+\item covered on \textit{2009-08-24 Mon}, \textit{2010-08-24 Tue}, \textit{2011-08-23 Tue},
+     \textit{2012-08-23 Thu}
+\end{itemize}
+\section{Law of Large Numbers}
+\label{sec-1}
+
+     Suppose that $X_1,\cdots,X_n$ is a sequence of independent,
+     identically distributed (iid from here on) random variables with
+     mean $\mu$.  Then $\bar X \to \mu$ as $n \to \infty$
+\begin{itemize}
+\item average payoff at a 25-cent slot machine gets close to the
+       expected payoff as I play for longer
+\item haven't specified what the arrow denotes formally
+\item justifies using the average payoff as an estimator of expected
+       payoff
+\end{itemize}
+\section{Central Limit Theorem}
+\label{sec-2}
+
+     If $X_1,\cdots,X_n$ are iid with mean $\mu$ and variance $\sigma$$^2$
+     then
+     \[ P[n^{1/2}(\bar X - \mu)/\sigma \leq c] \to \Phi(c)
+      \equiv \int_{-\infty}^c (2\pi)^{-1/2} e^{-u^2/2} du
+     \]
+\begin{itemize}
+\item this is a stronger result than the law of large numbers
+\item I can use this result to find out the probability of winning more
+       than (say) \$15 at a slot machine after playing for a long time.
+\end{itemize}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../../probability"
+%%% End: 

@@ -1,0 +1,276 @@
+% Copyright © 2013, Gray Calhoun.  Permission is granted to copy,
+% distribute and/or modify this document under the terms of the GNU
+% Free Documentation License, Version 1.3 or any later version
+% published by the Free Software Foundation; with no Invariant
+% Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of
+% the license is included in the section entitled "GNU Free
+% Documentation License."
+
+\part{Multivariate random vectors}
+
+\begin{itemize}
+\item Cover on \textit{2012-08-30 Thu}
+\item Reading:
+\begin{itemize}
+\item CB chapter 4
+\item Greene B.6-B.11 (along with next lecture)
+\end{itemize}
+\item The borel sigma field on $\Re^k$, denoted $\mathbb{B}^k$ is the
+     smallest sigma-field containing the clos.ed
+     rectangles: \[\{[a_1,b_1] \times \cdots \times [a_k,b_k] : -
+     \infty \leq a_i \leq b_i \leq \infty\}\]
+\end{itemize}
+\section{multivariate distributions}
+\label{sec-1}
+\subsection{marginal distribution}
+\label{sec-1-1}
+
+\begin{itemize}
+\item since a random vector is just a vector of random variables, each
+       element has its own distribution
+\item these are called ``marginal distributions''
+\end{itemize}
+\subsection{joint distribution}
+\label{sec-1-2}
+
+\begin{itemize}
+\item different elements can depend on each other
+\item this dependence isn't reflected in the marginal distributions
+\item is reflecteded in the ``joint distribution'' of the entire vector
+\end{itemize}
+\paragraph{definition}
+\label{sec-1-2-1}
+
+      The joint distribution, $F_X$, of the $k$-dimensional random
+      vector $X$ is define as the function 
+      \[ F_X(x_1,\dots,x_k) = P(X_1 \leq x_1,\dots,X_k \leq x_k) \]
+\paragraph{relationship between joint and marginal}
+\label{sec-1-2-2}
+
+\begin{itemize}
+\item marginal distributions tell you less about the random vector
+\item can get marginals from joint, but not vice-versa.
+\begin{itemize}
+\item different joint distributions can have the same marginal
+          distributions.
+\end{itemize}
+\item formula (for 1st marginal, similar for others)
+        \[ F_{X_1}(x) = F_X(x, \infty, \dots,\infty) \]
+\begin{itemize}
+\item follows immediately from the definition of both sides
+          \[ P(X_1 \leq x) = P(X_1 \leq x, X_2 \leq \infty, \dots, X_k
+          \leq \infty) \]
+\end{itemize}
+\item to summarize:
+\begin{itemize}
+\item the joint distribution determines the marginals
+\item the marginals do not determine the joint (maybe do for hw)
+\end{itemize}
+\end{itemize}
+\section{multivariate densities}
+\label{sec-2}
+\subsection{joint and marginal distributions and densities}
+\label{sec-2-1}
+
+      Same as before: we want to define weights on points, not just on
+      regions.
+\paragraph{definitions}
+\label{sec-2-1-1}
+
+\begin{itemize}
+\item marginal densities are the densities of the individual elements
+\item joint densities describe the simultaneous behavior of all of
+        the elements
+\begin{itemize}
+\item pmf: The probability mass function of a discrete random vector,
+          denoted $f_X(x_1,\dots, x_k)$, is given by 
+          \[f_X(x_1,\dots,x_k) = P[X_1 = x_1,\dots,X_k = x_k]\]
+\item pdf: the probability density function of a continuous random
+          variable is the function $f_X(\cdot)$ that satisfies
+          \[ F_X(c_1,\dotsc,c_k) = \int_{-\infty}^{c_1} \dots
+          \int_{-\infty}^{c_k} f(y_1,\dots,y_k) dy_1 \dots dy_k \]
+\end{itemize}
+\end{itemize}
+\paragraph{properties}
+\label{sec-2-1-2}
+
+\begin{itemize}
+\item usual properties hold
+\begin{itemize}
+\item densities are positive
+\item densities integrate up to 1.
+\end{itemize}
+\item can get marginal density from joint
+        \[ f_{X_1}(x) = \int f_X(x, y_2,\dots,y_k) dy_2 \dots dy_k \]
+\begin{itemize}
+\item follows from writing distribution in terms of integral of
+          the density
+\end{itemize}
+\end{itemize}
+\subsection{transformations of random vectors}
+\label{sec-2-2}
+
+\begin{itemize}
+\item a general theory is very painful to work with (particularly
+        because of dimension changes)
+\item The textbook presents the result for bivariate transformations
+\item The extension to higher-dimension random vectors is
+        straightforward
+\end{itemize}
+\paragraph{Jacobian}
+\label{sec-2-2-1}
+
+      Let $g: \Re^k \to \Re^k$ be a differentiable function.  The
+      Jacobian of this function is the matrix of partial derivatives
+      \[ J(x) = \begin{pmatrix} \partial g_1(x) / \partial x_1 & \partial
+      g_1(x) / \partial x_2 & \cdots & \partial g_1 / \partial x_k \\
+      \vdots \\ \partial g_k / \partial x_1 & \cdots & \cdots & \partial g_k /
+      \partial x_k \end{pmatrix} \]
+\paragraph{result (Greene B.7.4)}
+\label{sec-2-2-2}
+
+      Suppose that $X$ is a random vector in $\Re^k$ with joint
+      density $f_X$ and that $g: \Re^k \to \Re^k$ is one-to-one from
+      the support of $X$ to its image and let $Y = g(X)$.  Then the
+      joint density of $Y$ is \[ f_Y(y) = f_X(g^{-1}(y)) abs(det( J(y)
+      ))\] (where $J(y)$ is the Jacobian of $g^{-1}$) in the image of
+      the support of $X$ and is zero elsewhere.
+\begin{itemize}
+\item the restriction that $g$ be one-to-one can be relaxed.
+\end{itemize}
+\paragraph{transformations to lower dimension}
+\label{sec-2-2-3}
+
+      the requirement that $g$ be from $\Re^k$ to $\Re^k$ is restrictive.
+      For transformations from a higher dimension to a lower dimension,
+      it's best to create an artificial transformation that's easy to
+      work out, then integrate out the other dimension.
+\subsection{independence}
+\label{sec-2-3}
+
+\begin{itemize}
+\item remember how we defined independence for events
+\begin{itemize}
+\item Two events $A_1$ and $A_2$ are independent if $P(A_1 \cap
+         A_2) = P(A_1) \times P(A_2)$.
+\end{itemize}
+\item same idea for random variables, but now events are intervals in $\Re$
+\begin{itemize}
+\item Two random variables $X_1$ and $X_2$ are \emph{independent} if \[
+         P(X_1 \in I_1 \cap X_2 \in I_2) = P(X_1 \in I_1) P(X_2 \in
+         I_2)\] for any intervals $I_1$ and $I_2$.
+\end{itemize}
+\item implications:
+\begin{itemize}
+\item Two random variables with marginal distributions $F_1$ and
+         $F_2$ and joint distribution function $F_X$ are independent iff
+         $F_X(x_1, x_2) = F_1(x_1) F_2(x_2)$
+\item Two random variables with marginal densities $f_1$ and $f_2$
+         and joint density $f_X$ are independent iff 
+         $f_X(x_1,x_2) = f_1(x_1) f_2(x_2)$
+\item if $X_1$ and $X_2$ are independent, so are $g(X_1)$ and
+         $h(X_2)$ for any (measurable) functions $g$ and $h$
+\begin{itemize}
+\item proof:
+\begin{itemize}
+\item $P[g(X_1) \in I_1 \cap h(X_2) \in I_2]$
+\begin{description}
+\item[→] $= P[X_1 \in g^{-1}(X_1) \cap X_2 \in h^{-1}(X_2)]$
+\item[→] $= P[X_1 \in g^{-1}(X_1)] P[X_2 \in h^{-1}(X_2)]$
+\item[→] $= P[g(X_1) \in I_1] P[h(X_2) \in I_2]$
+\end{description}
+\item here \[g^{-1}(I_1) = \{x : g(x) \in I_1\},\] we don't
+             need $g$ to be invertible.
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\section{Moments}
+\label{sec-3}
+\subsection{Expectation for a random vector}
+\label{sec-3-1}
+
+\begin{itemize}
+\item $\E X = (\E X_1,\dots,\E X_k)$
+\item $\E g(X_1,\dots,X_k) = \int g(x_1,\dots,x_k) f_X(x_1,\dots,x_k)
+       dx_1 \cdots dx_k$
+\item If $X$ and $Y$ are independent with finite expectations, $\E XY
+       = \E X \E Y$ (proof automatic).
+\end{itemize}
+\subsection{second moments}
+\label{sec-3-2}
+\paragraph{Variance}
+\label{sec-3-2-1}
+
+\begin{itemize}
+\item for vectors, $var(X) = E(X - EX) (X - EX)'$
+\begin{itemize}
+\item this is positive semi definite
+\begin{itemize}
+\item for any vector $\alpha$, $\alpha'var(X)\alpha \geq 0$
+\item proof: $\alpha' var(X) \alpha = alpha' E((X - EX)(X - EX)') \alpha$
+\begin{itemize}
+\item $= E( alpha'(X - EX)(X - EX)' \alpha)$
+\item $= E( (alpha'X - E(alpha'X))^2)$
+\item $= var(alpha'X) \geq 0$
+\end{itemize}
+\end{itemize}
+\item Let $X$ be a random $k$-vector with vcv $\Sigma$ and let
+         $A$ be a deterministic $j \times k$ matrix.  Then $A X$
+         has vcv $A \Sigma A'$.
+\end{itemize}
+\end{itemize}
+\paragraph{Covariance}
+\label{sec-3-2-2}
+
+\begin{itemize}
+\item $cov(X,Y) = E(X - E X) (Y - EY) = E XY - EX EY$
+\begin{itemize}
+\item obviously, $cov(X,X) = var(X)$
+\end{itemize}
+\item diagonal elements of vcv matrix of $X$ are the variances of individual elements of $X$
+\item we can see that the off-diagonal elements are the covariances
+\item for vectors $X$ and $Y$, $cov(X,Y) = E(X - EX)(Y - EY)'$
+\item $var(X)$ is positive semi definite
+\begin{itemize}
+\item i.e. for any nonzero vector $\alpha$, $\alpha' var(X)
+            alpha \geq 0$
+\item proof: $\alpha'var(X) \alpha = \alpha' E((X - EX)(X -
+            EX)') \alpha$
+\begin{itemize}
+\item $= E(\alpha'(X - EX)(X - EX)' \alpha)$
+\item $= E((\alpha'(X-EX))^2) \geq 0$
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\paragraph{Correlation}
+\label{sec-3-2-3}
+
+\begin{itemize}
+\item Definition: $corr(X, Y) = cov(X,Y) / \sqrt{var(X)} \sqrt{var(Y)}$
+\item this is between -1 and 1, which will be an implication of the Cauchy-Schwarz inequality
+\end{itemize}
+\paragraph{Cauchy-schwarz inequality \textbf{:hw:}}
+\label{sec-3-2-4}
+
+\begin{itemize}
+\item Let $X$ and $Y$ be random variables.  Then $E (|X Y|) \leq
+          \sqrt{E X^2} \sqrt{E Y^2}$
+\item we're going to show that this is equivalent to something
+          like $0 \leq something^2$
+\item proof:
+\begin{itemize}
+\item we want to show $(E |XY|)^2 \leq E X^2 E Y^2$
+\item equivalent to $0 \leq E X^2 - (E |X Y|)^2 / E Y^2$ (as long
+            as $Y$ is not identically zero)
+\item $= E X^2 - 2 (E |XY|)^2/EY^2 + (E |XY|)^2/EY^2$
+\item $= E X^2 - 2(E |XY| / E Y^2) E |XY| + (E |XY|/EY^2)^2 E Y^2$
+\item $= E(X^2 - 2(E |XY| / E Y^2) |X| |Y| + (E |XY|/EY^2)^2 Y^2)$
+\item $= E(|X| - (E |XY|/E Y^2) |Y|)^2$
+\end{itemize}
+\end{itemize}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../../probability"
+%%% End: 
