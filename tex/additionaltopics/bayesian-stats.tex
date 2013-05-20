@@ -1,39 +1,13 @@
-\documentclass[11pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{fixltx2e}
-\usepackage{graphicx}
-\usepackage{longtable}
-\usepackage{float}
-\usepackage{wrapfig}
-\usepackage{soul}
-\usepackage{textcomp}
-\usepackage{marvosym}
-\usepackage{wasysym}
-\usepackage{latexsym}
-\usepackage{hyperref}
-\tolerance=1000
-\usepackage[margin=1in]{geometry}
-\setcounter{secnumdepth}{8}
-\providecommand{\alert}[1]{\textbf{#1}}
+% Copyright © 2013, Gray Calhoun.  Permission is granted to copy,
+% distribute and/or modify this document under the terms of the GNU
+% Free Documentation License, Version 1.3 or any later version
+% published by the Free Software Foundation; with no Invariant
+% Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of
+% the license is included in the section entitled "GNU Free
+% Documentation License."
 
-\title{Bayesian statistics}
-\author{Gray Calhoun}
-\date{\today}
-\hypersetup{
-  pdfkeywords={},
-  pdfsubject={},
-  pdfcreator={Emacs Org-mode version 7.8.02}}
+\chapter{Bayesian statistics}
 
-\begin{document}
-
-\maketitle
-
-\setcounter{tocdepth}{2}
-\tableofcontents
-\vspace*{1cm}
 \begin{itemize}
 \item Covered on
 \begin{itemize}
@@ -205,7 +179,7 @@
 \item for any bernoulli, if the prior is $beta(\alpha,\beta)$ the
        posterior is $beta(S + \alpha, N - S + \beta)$
 \end{itemize}
-\subsubsection{advantages}
+\paragraph{advantages}
 \label{sec-2-2-1}
 
 \begin{itemize}
@@ -292,7 +266,7 @@
 \end{enumerate}
 \subsection{simple example}
 \label{sec-3-2}
-\subsubsection{ergodicity}
+\paragraph{ergodicity}
 \label{sec-3-2-1}
 
 \begin{itemize}
@@ -347,7 +321,7 @@
 \item So once we have a draw from $f_Y$, we can use the
         metropolis-hastings algorithm to generate another draw from $f_y$
 \end{itemize}
-\subsubsection{getting the initial draw from $f_Y$}
+\paragraph{getting the initial draw from $f_Y$}
 \label{sec-3-2-2}
 
 \begin{itemize}
@@ -403,7 +377,7 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\subsubsection{wrap up of example}
+\paragraph{wrap up of example}
 \label{sec-3-2-3}
 
 \begin{itemize}
@@ -566,7 +540,7 @@
 \item ie prior is normal with known mean and variance
 \end{itemize}
 \end{itemize}
-\subsubsection{posterior distribution}
+\paragraph{posterior distribution}
 \label{sec-4-1-1}
 
 \begin{itemize}
@@ -631,7 +605,7 @@ which can be rewritten as
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\subsubsection{interpretation from a classical perspective}
+\paragraph{interpretation from a classical perspective}
 \label{sec-4-1-2}
 
 \begin{itemize}
@@ -772,5 +746,3 @@ which can be rewritten as
       \times \frac{(\hat\sigma^2 n/2 + \delta)^{\alpha +
      n/2}}{\Gamma(n/2 + \alpha)} (\frac{1}{\sigma^2})^{n/2 + \alpha +
      1} \exp(-\frac{\hat\sigma^2 n/2 + \delta}{\sigma^2}) \]
-
-\end{document}

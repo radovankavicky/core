@@ -1,39 +1,13 @@
-\documentclass[11pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{fixltx2e}
-\usepackage{graphicx}
-\usepackage{longtable}
-\usepackage{float}
-\usepackage{wrapfig}
-\usepackage{soul}
-\usepackage{textcomp}
-\usepackage{marvosym}
-\usepackage{wasysym}
-\usepackage{latexsym}
-\usepackage{hyperref}
-\tolerance=1000
-\usepackage[margin=1in]{geometry}
-\setcounter{secnumdepth}{8}
-\providecommand{\alert}[1]{\textbf{#1}}
+% Copyright © 2013, Gray Calhoun.  Permission is granted to copy,
+% distribute and/or modify this document under the terms of the GNU
+% Free Documentation License, Version 1.3 or any later version
+% published by the Free Software Foundation; with no Invariant
+% Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of
+% the license is included in the section entitled "GNU Free
+% Documentation License."
 
-\title{Random variables, distributions, and densities}
-\author{Gray Calhoun}
-\date{\today}
-\hypersetup{
-  pdfkeywords={},
-  pdfsubject={},
-  pdfcreator={Emacs Org-mode version 7.8.02}}
+\chapter{Random variables, distributions, and densities}
 
-\begin{document}
-
-\maketitle
-
-\setcounter{tocdepth}{2}
-\tableofcontents
-\vspace*{1cm}
 \begin{itemize}
 \item Cover on \textit{2012-08-28 Tue}, \textit{2012-08-23 Thu}, \textit{2012-08-30 Thu}
 \item Reading:
@@ -97,7 +71,8 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\subsubsection{Matching pennies example:}
+
+\paragraph{Matching pennies example:}
 \label{sec-1-2-1}
 
 \begin{itemize}
@@ -149,7 +124,7 @@
 \item Power set is a sigma field too
 \end{itemize}
 \end{itemize}
-\subsubsection{conditioning on an event}
+\paragraph{conditioning on an event}
 \label{sec-1-2-2}
 
 \begin{itemize}
@@ -178,7 +153,7 @@
         \frac{P(\{HH, TT\} \cap \{HH, HT\})}{P(\{HH, HT\})} =
         \frac{4/15}{1/3} = 4/5\]
 \end{itemize}
-\subsubsection{independence}
+\paragraph{independence}
 \label{sec-1-2-3}
 
       Two events are independent if knowing whether or not one
@@ -222,7 +197,7 @@
       space $\Re$ and is the smallest sigma field containing the
       clo.sed intervals
 \end{itemize}
-\subsubsection{definition of random variables}
+\paragraph{definition of random variables}
 \label{sec-1-3-1}
 
 \begin{itemize}
@@ -291,7 +266,7 @@
 
      For discrete rv, talking about the probability that the rv takes a
      specific value is meaningful.
-\subsubsection{definition of probability mass function}
+\paragraph{definition of probability mass function}
 \label{sec-3-2-1}
 
 \begin{itemize}
@@ -300,7 +275,7 @@
 \item I'm going to call these ``densities'' from now on; you should know
         this terminology for the future, though.
 \end{itemize}
-\subsubsection{relationship between pmf and distribution}
+\paragraph{relationship between pmf and distribution}
 \label{sec-3-2-2}
 
       The mass function and the distribution function are related by:
@@ -324,13 +299,13 @@
 \item We're going to take this relationship as our starting point for
        the continuous random variables
 \end{itemize}
-\subsubsection{definition}
+\paragraph{definition}
 \label{sec-3-3-1}
 
       The probability density function (pdf) of a continuous random
       variable $X$ with distribution $F_X(\cdot)$ is the function $f_X$
       that satisfies \[ F_X(x) = \int_{-\infty}^{x} f_X(y) dy\]
-\subsubsection{notes}
+\paragraph{notes}
 \label{sec-3-3-2}
 
 \begin{itemize}
@@ -357,7 +332,7 @@
 \begin{itemize}
 \item CB 2.1, 4.3; Greene B.5
 \end{itemize}
-\subsubsection{introduction}
+\paragraph{introduction}
 \label{sec-3-5-1}
 
       Suppose we have a continuous random variable $X: S \to \Re$.
@@ -372,7 +347,7 @@
           and density of the original random variable?
 \end{itemize}
 \end{itemize}
-\subsubsection{motivating example}
+\paragraph{motivating example}
 \label{sec-3-5-2}
 
 \begin{itemize}
@@ -390,7 +365,7 @@
           1/4 & x = 4 \\
         \end{cases}\]
 \end{itemize}
-\subsubsection{formula for density of a transformed rv}
+\paragraph{formula for density of a transformed rv}
 \label{sec-3-5-3}
 
 \begin{itemize}
@@ -407,4 +382,7 @@
 \item do proof (comes from differentiating distribution function)
 \end{itemize}
 
-\end{document}
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../../probability"
+%%% End: 

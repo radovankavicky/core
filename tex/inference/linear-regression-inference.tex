@@ -1,39 +1,13 @@
-\documentclass[11pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{fixltx2e}
-\usepackage{graphicx}
-\usepackage{longtable}
-\usepackage{float}
-\usepackage{wrapfig}
-\usepackage{soul}
-\usepackage{textcomp}
-\usepackage{marvosym}
-\usepackage{wasysym}
-\usepackage{latexsym}
-\usepackage{hyperref}
-\tolerance=1000
-\usepackage[margin=1in]{geometry}
-\setcounter{secnumdepth}{8}
-\providecommand{\alert}[1]{\textbf{#1}}
+% Copyright © 2013, Gray Calhoun.  Permission is granted to copy,
+% distribute and/or modify this document under the terms of the GNU
+% Free Documentation License, Version 1.3 or any later version
+% published by the Free Software Foundation; with no Invariant
+% Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of
+% the license is included in the section entitled "GNU Free
+% Documentation License."
 
-\title{Linear Regression}
-\author{Gray Calhoun}
-\date{\today}
-\hypersetup{
-  pdfkeywords={},
-  pdfsubject={},
-  pdfcreator={Emacs Org-mode version 7.8.02}}
+\chapter{Linear Regression}
 
-\begin{document}
-
-\maketitle
-
-\setcounter{tocdepth}{2}
-\tableofcontents
-\vspace*{1cm}
 \begin{itemize}
 \item Covered on \textit{2010-11-04 Thu}, \textit{2010-11-09 Tue}
 \item \textit{2011-11-10 Thu}, \textit{2011-11-15 Tue}, \textit{2011-11-17 Thu}
@@ -115,7 +89,7 @@
 \item For intuition, look at the fitted values
 \end{itemize}
 \end{itemize}
-\subsubsection{diagram that should give intuition:}
+\paragraph{diagram that should give intuition:}
 \subsection{LM restrictions on a general example}
 \label{sec-1-3}
 
@@ -166,7 +140,7 @@
 \end{itemize}
 \subsection{a convenient test}
 \label{sec-2-2}
-\subsubsection{change in SSR under the null}
+\paragraph{change in SSR under the null}
 \label{sec-2-2-1}
 
       we can look at the change in the SSR when we impose the null
@@ -184,7 +158,7 @@
 \item $J$ is the number of restrictions (ie dimension of $q$)
 \end{itemize}
 \end{itemize}
-\subsubsection{Distribution of F under null}
+\paragraph{Distribution of F under null}
 \label{sec-2-2-2}
 
       now, suppose the null is true, what is the distribution of $F$?
@@ -238,7 +212,7 @@
 \item numerator and denominator are independent
 \item so this has an $F_{J, n-k-1}$ distribution under the null.
 \end{itemize}
-\subsubsection{Distribution of F under alternative}
+\paragraph{Distribution of F under alternative}
 \label{sec-2-2-3}
 
 \begin{itemize}
@@ -307,7 +281,7 @@
 \end{itemize}
 \subsection{Testing linear hypotheses}
 \label{sec-3-1}
-\subsubsection{t-test}
+\paragraph{t-test}
 \label{sec-3-1-1}
 \paragraph{justifying the t-test}
 \label{sec-3-1-1-1}
@@ -362,7 +336,7 @@
            what you're doing a little more carefully.
 \end{itemize}
 \end{itemize}
-\subsubsection{F test/Wald test}
+\paragraph{F test/Wald test}
 \label{sec-3-1-2}
 \paragraph{introduction}
 \label{sec-3-1-2-1}
@@ -409,7 +383,7 @@
 \end{itemize}
 \paragraph{conclusion/interpretation}
 \label{sec-3-1-2-3}
-\subparagraph{behavior of F distribution}
+\paragraph{behavior of F distribution}
 \label{sec-3-1-2-3-1}
 
 \begin{itemize}
@@ -423,7 +397,7 @@
 \item so the F-distribution becomes more and more like the chi
           square as well.
 \end{itemize}
-\subparagraph{conclusion}
+\paragraph{conclusion}
 \label{sec-3-1-2-3-2}
 
 \begin{itemize}
@@ -448,7 +422,7 @@
 \label{sec-3-2}
 
      Reading is based on Greene's section 5.5.
-\subsubsection{motivation}
+\paragraph{motivation}
 \label{sec-3-2-1}
 
       What if we want to test the hypothesis that $c(\beta) = q$ where
@@ -466,7 +440,7 @@
 \item Maybe we can get a procedure that uses the asymptotic
         distribution of $c(\hat\beta)$ under the null
 \end{itemize}
-\subsubsection{initial asymptotics}
+\paragraph{initial asymptotics}
 \label{sec-3-2-2}
 
 \begin{itemize}
@@ -489,7 +463,7 @@
         c(\beta) \over \partial \beta'}\right) \sigma^2 Q^{-1}
         \left({\partial c(\beta) \over \partial \beta'}\right) \right)\]
 \end{itemize}
-\subsubsection{hypothesis testing}
+\paragraph{hypothesis testing}
 \label{sec-3-2-3}
 
 \begin{itemize}
@@ -547,6 +521,3 @@
 \begin{itemize}
 \item Fill in
 \end{itemize}
-      
-
-\end{document}

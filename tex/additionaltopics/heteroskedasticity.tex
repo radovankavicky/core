@@ -1,39 +1,13 @@
-\documentclass[11pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{fixltx2e}
-\usepackage{graphicx}
-\usepackage{longtable}
-\usepackage{float}
-\usepackage{wrapfig}
-\usepackage{soul}
-\usepackage{textcomp}
-\usepackage{marvosym}
-\usepackage{wasysym}
-\usepackage{latexsym}
-\usepackage{hyperref}
-\tolerance=1000
-\usepackage[margin=1in]{geometry}
-\setcounter{secnumdepth}{8}
-\providecommand{\alert}[1]{\textbf{#1}}
+% Copyright © 2013, Gray Calhoun.  Permission is granted to copy,
+% distribute and/or modify this document under the terms of the GNU
+% Free Documentation License, Version 1.3 or any later version
+% published by the Free Software Foundation; with no Invariant
+% Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of
+% the license is included in the section entitled "GNU Free
+% Documentation License."
 
-\title{heteroskedasticity}
-\author{Gray Calhoun}
-\date{\today}
-\hypersetup{
-  pdfkeywords={},
-  pdfsubject={},
-  pdfcreator={Emacs Org-mode version 7.8.02}}
+\chapter{heteroskedasticity}
 
-\begin{document}
-
-\maketitle
-
-\setcounter{tocdepth}{2}
-\tableofcontents
-\vspace*{1cm}
 \begin{itemize}
 \item \textit{2009-11-04 Wed}, \textit{2009-11-09 Mon},  \textit{2009-11-11 Wed}, \textit{2009-11-16 Mon}
 \item Plan to cover on \textit{2010-11-30 Tue}, \textit{2010-12-02 Thu}
@@ -59,7 +33,7 @@
 \end{description}
 \item we want to know which of our previous conclusions hold
 \end{itemize}
-\subsubsection{examples}
+\paragraph{examples}
 \label{sec-1-1-1}
 
 \begin{itemize}
@@ -69,7 +43,7 @@
 \item may have GDP data; we'd expect that percent-change in GDP is
         going to be more volatile some quarters compared to others
 \end{itemize}
-\subsubsection{unbiasedness}
+\paragraph{unbiasedness}
 \label{sec-1-1-2}
 
 \begin{itemize}
@@ -80,7 +54,7 @@
 \end{itemize}
 \item unbiasedness holds with heteroskedasticy errors
 \end{itemize}
-\subsubsection{consistency}
+\paragraph{consistency}
 \label{sec-1-1-3}
 
 \begin{itemize}
@@ -96,7 +70,7 @@
         which is finite
 \item so $\hat\beta$ is consistent even under heteroskedasticity
 \end{itemize}
-\subsubsection{formula for the variance}
+\paragraph{formula for the variance}
 \label{sec-1-1-4}
 
 \begin{itemize}
@@ -123,7 +97,7 @@
 \item any hypothesis tests that we conduct assuming homoskedasticity
         will be invalid under heteroskedasticity
 \end{itemize}
-\subsubsection{finite sample normality}
+\paragraph{finite sample normality}
 \label{sec-1-1-5}
 
 \begin{itemize}
@@ -138,7 +112,7 @@
           (X'X)^{-1}\right)$ given $X$
 \end{itemize}
 \end{itemize}
-\subsubsection{asymptotic normality}
+\paragraph{asymptotic normality}
 \label{sec-1-1-6}
 
 \begin{itemize}
@@ -166,7 +140,7 @@
           distribution.
 \end{itemize}
 \end{itemize}
-\subsubsection{summary}
+\paragraph{summary}
 \label{sec-1-1-7}
 
 \begin{itemize}
@@ -189,7 +163,7 @@
        aysmptotically valid versions of the t-test and the F-test
 \item reading is 4.3 of Kleiber and Zeileis
 \end{itemize}
-\subsubsection{split up the sandwich}
+\paragraph{split up the sandwich}
 \label{sec-1-2-1}
 
 \begin{itemize}
@@ -207,7 +181,7 @@
 \end{itemize}
 \item want to prove that $\hat\Omega - \Omega_n \to 0$ in probability
 \end{itemize}
-\subsubsection{consistency of $\hat\Omega$}
+\paragraph{consistency of $\hat\Omega$}
 \label{sec-1-2-2}
 
 \begin{itemize}
@@ -387,9 +361,9 @@
 \end{itemize}
 \subsection{Infeasible GLS}
 \label{sec-3-2}
-\subsubsection{Draw pictures}
+\paragraph{Draw pictures}
 \label{sec-3-2-1}
-\subsubsection{mathematics}
+\paragraph{mathematics}
 \label{sec-3-2-2}
 
 \begin{itemize}
@@ -453,7 +427,7 @@
 \item two-step least squares (FGLS)
 \end{itemize}
 \end{itemize}
-\subsubsection{Explanation of approach}
+\paragraph{Explanation of approach}
 \label{sec-3-4-1}
 
 \begin{itemize}
@@ -469,7 +443,7 @@
 \item Since $\hat\epsilon_i$ is consistent for $\epsilon_i$, we can
         regress $\epsilon_i^2$ on $z_i$ to estimate $\alpha$.
 \end{itemize}
-\subsubsection{Algorithm}
+\paragraph{Algorithm}
 \label{sec-3-4-2}
 
 \begin{itemize}
@@ -478,7 +452,7 @@
 \item Regress $y_i/w_i$ on $x_i/w_i$ to estimate $\hat\beta_{FGLS}$
         where $w_i = sqrt{z_i'\hat\alpha}$
 \end{itemize}
-\subsubsection{some more math}
+\paragraph{some more math}
 \label{sec-3-4-3}
 
 \begin{itemize}
@@ -489,5 +463,3 @@
         the Feasible GLS estimator
 \item Finite sample results don't necessarily hold.
 \end{itemize}
-
-\end{document}

@@ -1,39 +1,13 @@
-\documentclass[11pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{fixltx2e}
-\usepackage{graphicx}
-\usepackage{longtable}
-\usepackage{float}
-\usepackage{wrapfig}
-\usepackage{soul}
-\usepackage{textcomp}
-\usepackage{marvosym}
-\usepackage{wasysym}
-\usepackage{latexsym}
-\usepackage{hyperref}
-\tolerance=1000
-\usepackage[margin=1in]{geometry}
-\setcounter{secnumdepth}{8}
-\providecommand{\alert}[1]{\textbf{#1}}
+% Copyright © 2013, Gray Calhoun.  Permission is granted to copy,
+% distribute and/or modify this document under the terms of the GNU
+% Free Documentation License, Version 1.3 or any later version
+% published by the Free Software Foundation; with no Invariant
+% Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of
+% the license is included in the section entitled "GNU Free
+% Documentation License."
 
-\title{Law of large numbers}
-\author{Gray Calhoun}
-\date{\today}
-\hypersetup{
-  pdfkeywords={},
-  pdfsubject={},
-  pdfcreator={Emacs Org-mode version 7.8.02}}
+\chapter{Law of large numbers}
 
-\begin{document}
-
-\maketitle
-
-\setcounter{tocdepth}{2}
-\tableofcontents
-\vspace*{1cm}
 \begin{itemize}
 \item \textit{2012-10-18 Thu}, \textit{2012-10-16 Tue}, \textit{2012-10-04 Thu}
 \end{itemize}
@@ -87,7 +61,7 @@
          distribution to have an idea about the behavior of these estimators.
 \end{itemize}
 \end{itemize}
-\subsubsection{Outline of results}
+\paragraph{Outline of results}
 \label{sec-1-1-1}
 
 \begin{itemize}
@@ -127,7 +101,7 @@
 \item That's what I mean by ``family of theorems''
 \end{itemize}
 \end{itemize}
-\subsubsection{Illustrative simulations for LLN}
+\paragraph{Illustrative simulations for LLN}
 \label{sec-1-1-2}
 
 \begin{itemize}
@@ -150,7 +124,7 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\subsubsection{Illustrative simulations for CLT}
+\paragraph{Illustrative simulations for CLT}
 \label{sec-1-1-3}
 
 \begin{itemize}
@@ -172,7 +146,7 @@
 \item \texttt{hist(replicate(10000, sqrt(1000) * mean(rexp(1000))), 150)}
 \end{itemize}
 \end{itemize}
-\subsubsection{Interpretation}
+\paragraph{Interpretation}
 \label{sec-1-1-4}
 
 \begin{itemize}
@@ -226,7 +200,7 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\subsubsection{Definition}
+\paragraph{Definition}
 \label{sec-1-2-1}
 
 \begin{itemize}
@@ -241,7 +215,7 @@
         another random vector, $Y_n \to^{L_p} Y$ if each element of
         $Y_n$ converges in $L_p$ to the corresponding element of $Y$.
 \end{itemize}
-\subsubsection{Code to plot on the screen}
+\paragraph{Code to plot on the screen}
 \label{sec-1-2-2}
 
 \begin{itemize}
@@ -273,7 +247,7 @@
 \item \texttt{plot(L2 \textasciitilde{} n, type = "l")}
 \end{itemize}
 \end{itemize}
-\subsubsection{Remarks}
+\paragraph{Remarks}
 \label{sec-1-2-3}
 
 \begin{itemize}
@@ -335,7 +309,7 @@
          0$ as $n \to \infty$.
 \end{itemize}
 \end{itemize}
-\subsubsection{Discussion \textbf{:hw:}}
+\paragraph{Discussion \textbf{:hw:}}
 \label{sec-1-3-1}
 
 \begin{enumerate}
@@ -394,7 +368,7 @@
 \end{itemize}
 \end{itemize}
 \end{enumerate}
-\subsubsection{Weak law of large numbers}
+\paragraph{Weak law of large numbers}
 \label{sec-1-3-2}
 
 \begin{itemize}
@@ -511,7 +485,7 @@
 \item almost sure convergence implies convergence in probability, but
         not vice versa.
 \end{itemize}
-\subsubsection{Example of almost sure convergence (from SLLN)}
+\paragraph{Example of almost sure convergence (from SLLN)}
 \label{sec-1-5-1}
 
 \begin{itemize}
@@ -533,7 +507,7 @@
 \item \texttt{xyplot(xbar \textasciitilde{} n, data = as.data.frame(d), group = i, col = rgb(0,0,0,.4), type = "l")}
 \end{itemize}
 \end{itemize}
-\subsubsection{Example of convergence i.p. but not a.s.}
+\paragraph{Example of convergence i.p. but not a.s.}
 \label{sec-1-5-2}
 
 \begin{itemize}
@@ -606,7 +580,7 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\subsubsection{Strong law of large numbers}
+\paragraph{Strong law of large numbers}
 \label{sec-1-5-3}
 
 \begin{itemize}
@@ -620,13 +594,13 @@
 \label{sec-1-6}
 
      Consistency is an asymptotic version of unbiasedness
-\subsubsection{Definition}
+\paragraph{Definition}
 \label{sec-1-6-1}
 
       an estimator $\hat \theta$ is a consistent estimator of the
       parameter $\theta$ if $\hat \theta \xrightarrow{p} \theta$ for
       any value of $\theta$.
-\subsubsection{Basic result for consistency \textbf{:hw:}}
+\paragraph{Basic result for consistency \textbf{:hw:}}
 \label{sec-1-6-2}
 
 \begin{itemize}
@@ -652,7 +626,7 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\subsubsection{Consistency of MLE (CB Thm 10.1.6, Greene sec 14.4)}
+\paragraph{Consistency of MLE (CB Thm 10.1.6, Greene sec 14.4)}
 \label{sec-1-6-3}
 
 \begin{itemize}
@@ -676,7 +650,7 @@
           we can relax i.i.d)
 \end{itemize}
 \end{itemize}
-\subsubsection{Consistency of method of moments estimators}
+\paragraph{Consistency of method of moments estimators}
 \label{sec-1-6-4}
 
 \begin{itemize}
@@ -686,5 +660,3 @@
         $\frac{1}{n} \sum_i X_i^k$ obeys a weak LLN.  Then the Method
         of Moments estimator of $\theta$ is consistent.
 \end{itemize}
-
-\end{document}

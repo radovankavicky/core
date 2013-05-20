@@ -2,21 +2,23 @@
 .DELETE_ON_ERROR:
 
 latexmk := latexmk
-tex = $(wildcard tex/*.tex)
-pdf = $(addprefix pdf/,$(notdir $(tex:.tex=.pdf)))
 crud := .aux .log .out .toc .fdb_latexmk .fls
+latexmkFLAGS := -pdf -pdflatex=xelatex -silent -bibtex-
+latexdeps := tufte-latex/tufte-book.cls tufte-latex/tufte-common.def \
+  latex-shared/common-preamble.tex LICENSE.tex
 
-latexmkFLAGS := -pdf -latex=xelatex -f -silent
+all: probability.pdf pointestimation.pdf inference.pdf additionaltopics.pdf
 
-all: $(pdf)
+probability.pdf: $(wildcard tex/probability/*.tex)
+pointestimation.pdf: $(wildcard tex/pointestimation/*.tex)
+inference.pdf: $(wildcard tex/inference/*.tex)
+additionaltopics.pdf: $(wildcard tex/additionaltopics/*.tex)
 
-$(pdf): pdf/%.pdf: tex/%.tex
-	mkdir -p pdf
-	cd pdf && $(latexmk) $(latexmkFLAGS) ../$< && $(latexmk) -c ../$<
+%.pdf: %.tex $(latexdeps)
+	$(latexmk) $(latexmkFLAGS) $< && $(latexmk) -c $<
 
 clean:
-	rm -f $(foreach ext,$(crud),$(pdf:.pdf=$(ext)) $(tex:.tex=$(ext)))
-	rm -f tex/*.dvi tex/*.pdf *~ tex/*~
+	rm -f $(foreach ext,$(crud),*.$(ext)) *~
 
 burn: clean
-	rm -f pdf/
+	rm -f *.pdf *.dvi
