@@ -62,6 +62,22 @@ Foundation; with no Invariant Sections, no Front-Cover Texts and no
 Back-Cover Texts. A copy of the license is included at
 <https://github.com/EconometricsLibrary/GraduateText/blob/master/LICENSE.txt>.
 
+Development Notes
+-----------------
+
+* The `latex-shared` and `tufte-latex` subdirectories are shared
+  across several projects.  Please do not submit patches that contain
+  changes to those directories.  If you think that you need to edit
+  those files, please propose your changes on the project mailing
+  list.  The "original" sources of those directories can be found on
+  the EFL project's GitHub page.
+
+* To generate pdfs, run the command `make` in the top-level directory
+  of this project (you'll need to have `make` installed, obviously).
+
+* Please email the mailing list if you run into problems or have any
+  other questions.
+
 More information
 ----------------
 
