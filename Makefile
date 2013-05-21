@@ -9,12 +9,7 @@ latexdeps := tufte-latex/tufte-handout.cls tufte-latex/tufte-common.def \
 
 all: probability.pdf pointestimation.pdf inference.pdf additionaltopics.pdf
 
-probability.pdf: $(wildcard tex/probability/*.tex)
-pointestimation.pdf: $(wildcard tex/pointestimation/*.tex)
-inference.pdf: $(wildcard tex/inference/*.tex)
-additionaltopics.pdf: $(wildcard tex/additionaltopics/*.tex)
-
-%.pdf: %.tex $(latexdeps)
+%.pdf: %.tex $(wildcard tex/%/*.tex) $(latexdeps)
 	$(latexmk) $(latexmkFLAGS) $< && $(latexmk) -c $<
 
 clean:
