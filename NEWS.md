@@ -1,6 +1,11 @@
 Project News
 ============
 
+### Version 0.1.2, hotfix release
+The Makefile wasn't handling automatic directory detection well.  This
+release puts the pdfs into a variable and uses the wildcard function
+explictly in a double colon rule to solve the problem.
+
 ### Version 0.1.1
 * Moves preamble material to a shared repository and streamlines the
   code
