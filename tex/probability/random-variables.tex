@@ -39,6 +39,51 @@
 \item Random variable, a map that assigns numbers to outcomes in the
        statisical experiment
 \end{itemize}
+\subsection{Table of set theory results}
+
+This stuff is kind of important for working with probability spaces,
+but I don't enjoy lecturing on it.  Here you go!  Learn!
+
+Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
+
+\begin{fullwidth}
+\begin{tabular}{lp{4in}}
+  \toprule
+  \multicolumn{2}{c}{Finite Set Operations} \\
+  \midrule
+  Union        & $A₁ ∪ A₂ ≡ \{x ∈ S : x ∈ A₁ \text{ or } x∈ A₂\}$ \\
+  Intersection & $A₁ ∩ A₂ ≡ \{x ∈ S : x ∈ A₁ \text{ and } x ∈ A₂\}$ \\
+  Subset       & $A₁ ⊂ A₂$ if $A₁ ∩ A₂ = A₁$ \\
+  Equality     & $A₁ = A₂$ if $A₁ ⊂ A₂$ and $A₂ ⊂ A₁$ \\
+  Complement   & $A₁^c ≡ \{x ∈ S : x ∉ A₁\}$ \\
+  Difference   & $A₁ ∖ A₂ ≡ \{x ∈ S : x ∈ A₁ \text{ and } x ∉ A₂\}$ \\
+  Symmetric difference & $A₁ ▵ A₂ ≡ (A₁ ∖ A₂) ∪ (A₂ ∖ A₁)$ \\
+  \midrule
+  \multicolumn{2}{c}{Infinite Set Operations (can be defined for uncountable index sets as well)} \\
+  \midrule
+  Union        & $⋃_{k=1}^∞ A_k ≡ \{x ∈ S : x ∈ A_k$ for at least one $k ∈ 1,2,…\}$ \\
+  Intersection & $⋂_{k=1}^∞ A_k ≡ \{x ∈ S : x ∈ A_k$ for all $k ∈ 1,2,…\}$ \\
+  Infimum      & $\inf_{k ≥ n} A_k ≡ ⋂_{k=n}∞ A_k$ \\
+  Supremum     & $\sup_{k ≥ n} A_k ≡ ⋃_{k=n}^∞ A_k$ \\
+  lim inf      & $\liminf_{n \to ∞} A_n ≡ ⋃_{n=1}^∞ ⋂_{k=n}^∞ A_k$ \\
+  lim sup      & $\limsup_{n \to ∞} A_n ≡ ⋂_{n=1}^∞ ⋃_{k=n}^∞ A_k$ \\
+  \midrule
+  \multicolumn{2}{c}{Other definitions} \\
+  \midrule
+  limit 
+  & Suppose that $A, A₁, A₂, …$ is a sequence of subsets of $S$ and that $\limsup_{n → ∞} A_n = \liminf_{n → ∞} A_n = A$.
+  Then $A$ is the limit of $\{A_n\}$. \\
+  Disjoint 
+  & $A₁$ and $A₂$ are disjoint if $A₁ ∩ A₂ = ∅$. \\
+  Pairwise disjoint 
+  & $A₁, A₂, …$ are pairwise disjoint if $A_i ∩ A_j = ∅$ for all $i$ and $j$ such that $i ≠ j$. \\
+  Partition & If $A₁,A₂,…$ are pairwise disjoint and $⋃_{i=1}^∞ A_i = S$ then $\{A_i\}$ forms a partition of $S$. \\
+  Power set & The power set of $S$, denoted $\mathcal{P}(S)$, is the set of all subsets of $S$.
+  $\mathcal{P}(S) ≡ \{x : x ⊂ S\}$ \\
+\bottomrule
+\end{tabular}
+\end{fullwidth}
+
 \subsection{Probability spaces}
 \label{sec-1-2}
 
