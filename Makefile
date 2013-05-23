@@ -8,7 +8,7 @@ latexdeps := tufte-latex/tufte-handout.cls tufte-latex/tufte-common.def \
   latex-shared/common-preamble.tex LICENSE.tex tex/local_preamble.tex
 
 ybibtex = probability.pdf pointestimation.pdf
-nbibtex = inference.pdf additionaltopics.pdf
+nbibtex = inference.pdf additionaltopics.pdf linearregression.pdf
 
 all: $(ybibtex) $(nbibtex)
 
