@@ -9,20 +9,9 @@
 \part*{Univariate Moments}%
 \addcontentsline{toc}{part}{Univariate moments}
 
-\begin{itemize}
-\item Cover on \textit{2009-08-26 Wed}, \textit{2009-09-02 Wed}, \textit{2009-09-09 Wed},
-     \textit{2010-08-27 Fri}, \textit{2010-09-09 Thu}, \textit{2011-09-01 Thu}, 
-     \textit{2011-09-06 Tue}, \textit{2012-08-28 Tue}, \textit{2012-08-30 Thu}
-\item Reading:
-\begin{itemize}
-\item CB chapters 2 (good time to mention 3 as well)
-\item Greene B.1-B.6 continued
-\end{itemize}
-\end{itemize}
 \section{basic expectation}
-\label{sec-1}
+
 \subsection{introduction and motivation}
-\label{sec-1-1}
 
 \begin{itemize}
 \item one view of the steps we've taken
@@ -43,8 +32,8 @@
 \item what is the most likely value that an r.v. will take on
 \end{itemize}
 \end{itemize}
+
 \subsection{definition}
-\label{sec-1-2}
 
 \begin{itemize}
 \item The mean (or expected value) of a random variable, X, denoted
@@ -53,8 +42,8 @@
 \item for discrete rv, \[ E X = \sum_x x f_X(x) dx \]
 \item for random vectors, $E Y = (E Y_1, \dots, E Y_k)$
 \end{itemize}
+
 \subsection{interpretation}
-\label{sec-1-3}
 
 \begin{itemize}
 \item population analogue to sample average (and limit of sample
@@ -63,8 +52,8 @@
 \item ``closest'' to a random draw on average, in the sense that
        $E(X - E X)^2 \leq E(X - c)^2$ for any point c.
 \end{itemize}
+
 \subsection{other points}
-\label{sec-1-4}
 
 \begin{itemize}
 \item if $E|X| = \infty$, we say that the mean does not exist.
@@ -93,8 +82,8 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
+
 \subsection{Jensen's inequality}
-\label{sec-1-5}
 
 \begin{itemize}
 \item a function $g(x)$ is convex if $g(\lambda x + (1-\lambda)y)
@@ -102,15 +91,15 @@
 \item For any random variable $X$, $\E g(X) \geq g(\E X)$ for any
        convex $g$.
 \end{itemize}
+
 \section{other measures of location}
-\label{sec-2}
 
 \begin{itemize}
 \item the mean is (by far) the most common way to summarize a random variable.
 \item there are others
 \end{itemize}
+
 \subsection{median}
-\label{sec-2-1}
 
 \begin{itemize}
 \item Def: the median of a distribution F is the value c such that $P(X
@@ -127,8 +116,8 @@
 \end{itemize}
 \item you can define the conditional median same as conditional expectation
 \end{itemize}
+
 \subsection{mode}
-\label{sec-2-2}
 
 \begin{itemize}
 \item Def: the mode of a distribution is the value $c$ that maximizes
@@ -137,8 +126,8 @@
 \item conditional mode exisits too
 \end{itemize}
      measures of location are unhelpful without measures of uncertainty
+
 \section{second moments (variance)}
-\label{sec-3}
 
 \begin{itemize}
 \item measures ``how far'' an random draw is from its expected value
@@ -152,8 +141,8 @@
 \item this is in the same units as $X$
 \end{itemize}
 \end{itemize}
+
 \section{location scale transformations}
-\label{sec-4}
 
 \begin{itemize}
 \item Useful special case of the transformation formula:
@@ -174,8 +163,8 @@
 \item $1/\sigma f_X(\frac{x - \mu}{\sigma})$ is a pdf for any density
       $f_X$ and constants $\mu$ and $\sigma > 0$.
 \end{itemize}
+
 \section{other moments}
-\label{sec-5}
 
 \begin{itemize}
 \item If $X$ is a random variable, we say that the kth moment of $X$

@@ -9,16 +9,7 @@
 \part*{Conditioning}%
 \addcontentsline{toc}{part}{Conditioning}
 
-\begin{itemize}
-\item Covered on \textit{2012-09-06 Thu}, \textit{2012-09-04 Tue}
-\item Reading:
-\begin{itemize}
-\item CB 4.2
-\item Greene B.6-B.11 continued
-\end{itemize}
-\end{itemize}
 \section{introduction and motivation}
-\label{sec-1}
 
 \begin{itemize}
 \item Draw picture of joint (non-independent) density vs. independent
@@ -43,8 +34,8 @@
         \frac{f(x_0, y)}{f_X(x_0)}\]
 \end{itemize}
 \end{itemize}
+
 \section{definition}
-\label{sec-2}
 
     Let $X$ and $Y$ be random vectors.  The joint density of $Y$
     given that $X = x$ is given by
@@ -52,8 +43,8 @@
     if $f_X(x) \neq 0$.  (if this last quantity equals zero, then
     conditioning on that particular value doesn't make sense.  note
     that we're allowing the probability of $X=x$ to be zero).
+
 \section{properties}
-\label{sec-3}
 
 \begin{itemize}
 \item independence: if $X$ and $Y$ are independent then 
@@ -71,8 +62,8 @@
 \item can define conditional distribution as
       \[ F_Y(y \mid X=x) = \int_{-\infty}^y f_Y(z \mid X = x) dz \]
 \end{itemize}
+
 \section{conditional expectation}
-\label{sec-4}
 
 \begin{itemize}
 \item We talked earlier about getting the conditional density and
@@ -92,8 +83,8 @@
 \end{itemize}
 \item Also give information set interpretation
 \end{itemize}
+
 \subsection{properties}
-\label{sec-4-1}
 
      For all of these, suppose that $X$ and $Y$ are two random variables.
 \begin{itemize}
@@ -122,8 +113,8 @@
 \item need to make the a.s. distinction because this is a random variable
 \end{itemize}
 \end{itemize}
-\subsection{Law of Iterated Expectations \textbf{:hw:}}
-\label{sec-4-2}
+
+\subsection{Law of Iterated Expectations}
 
      Give some intuition and a picture.
 \begin{description}
@@ -137,8 +128,8 @@
 \item $= E E(Y \mid X)$
 \end{itemize}
 \end{description}
-\subsection{Analogue to LIE \textbf{:hw:}}
-\label{sec-4-3}
+
+\subsection{Analogue to LIE}\sidenote{prove for homework}
 
      \[var(X) = var(E(X|Y)) + E(var(X|Y))\]
 \begin{itemize}

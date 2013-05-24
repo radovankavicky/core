@@ -9,22 +9,7 @@
 \part*{Finite sample properties of point estimators}%
 \addcontentsline{toc}{part}{Finite sample properties of point estimators}
 
-\begin{itemize}
-\item Covered on
-\begin{itemize}
-\item \textit{2009-09-23 Wed}, \textit{2009-09-28 Mon},
-\item \textit{2010-09-23 Thu}
-\item \textit{2011-09-15 Thu}
-\item \textit{2012-09-13 Thu}, \textit{2012-09-18 Tue}
-\end{itemize}
-\item Reading
-\begin{itemize}
-\item CB 7.3
-\item Greene C.5
-\end{itemize}
-\end{itemize}
 \section{Intro}
-\label{sec-1}
 
 \begin{itemize}
 \item given that we have a ``goal'' for our estimator, how do we judge
@@ -44,8 +29,8 @@
 \item low dispersion (ie variance)
 \end{itemize}
 \end{itemize}
+
 \section{Unbiasedness}
-\label{sec-2}
 
 \begin{itemize}
 \item definition: If $\hat \theta$ is an estimator of $\theta_0$,
@@ -70,8 +55,8 @@
          know that it is ``the best'' estimator possible in a certain sense.
 \end{itemize}
 \end{itemize}
+
 \section{Cramer-Rao Lower bound}
-\label{sec-3}
 
 \begin{itemize}
 \item Statement of result:
@@ -140,10 +125,10 @@
 \begin{itemize}
 \item we know that any unbiased estimator has variance greater than or equal to
 \begin{description}
-\item[→] $\Big[E \Big[\tfrac{d}{d\theta} \log L(\theta; X)) (\tfrac{d}{d\theta} \log L(\theta; X))'\Big]\Big]^{-1}$
+\item[.] $\Big[E \Big[\tfrac{d}{d\theta} \log L(\theta; X)) (\tfrac{d}{d\theta} \log L(\theta; X))'\Big]\Big]^{-1}$
 \begin{description}
-\item[→] $=\Big[\sigma^{-4} \sum_i E (y_i - \beta_0 - \beta_1 x_i \mid x_i)^2 \begin{pmatrix} 1 & x_i \\ x_i & x_i^2 \end{pmatrix}\Big]^{-1}$
-\item[→] $= \sigma^2 (E\ X'X)^{-1}$
+\item[.] $=\Big[\sigma^{-4} \sum_i E (y_i - \beta_0 - \beta_1 x_i \mid x_i)^2 \begin{pmatrix} 1 & x_i \\ x_i & x_i^2 \end{pmatrix}\Big]^{-1}$
+\item[.] $= \sigma^2 (E\ X'X)^{-1}$
 \end{description}
 \end{description}
 \item so we don't know.
@@ -154,9 +139,9 @@
 \begin{itemize}
 \item we know that any estimator $b$ s.t. $E(b \mid X) = \beta$ has conditional variance greater than or equal to
 \begin{description}
-\item[→] $\Big[E\Big(\tfrac{d}{d\theta} \log L(\theta; X)) (\tfrac{d}{d\theta} \log L(\theta; X))' \mid X\Big)\Big]^{-1}$
+\item[.] $\Big[E\Big(\tfrac{d}{d\theta} \log L(\theta; X)) (\tfrac{d}{d\theta} \log L(\theta; X))' \mid X\Big)\Big]^{-1}$
 \begin{description}
-\item[→] $= \sigma^2 (X'X)^{-1}$
+\item[.] $= \sigma^2 (X'X)^{-1}$
 \end{description}
 \end{description}
 \item so $\hat\beta$ achieves lower bound conditional on $X$
@@ -165,8 +150,8 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
+
 \section{loss function based optimality:}
-\label{sec-4}
 
 \begin{itemize}
 \item Suppose that we have some measure of dis-utility: if our
@@ -199,8 +184,8 @@
        you have a specific situation where you know that certain types
        of errors are more costly than others.
 \end{itemize}
+
 \subsection{another problem:}
-\label{sec-4-1}
 
 \begin{itemize}
 \item when  you're explicitly worried about the loss, imposing

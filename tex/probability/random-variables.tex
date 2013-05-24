@@ -9,36 +9,16 @@
 \part*{Random variables, distributions, and densities}%
 \addcontentsline{toc}{part}{Random variables, distributions, and densities}
 
-\begin{itemize}
-\item Cover on \textit{2012-08-28 Tue}, \textit{2012-08-23 Thu}, \textit{2012-08-30 Thu}
-\item Reading:
-\begin{itemize}
-\item CB chapter 1
-\item Greene B.1-B.6 (overlap with next lecture too)
-\end{itemize}
-\end{itemize}
 \section{Set Theory and Probability Spaces}
-\label{sec-1}
 
-\begin{itemize}
-\item Covered on \textit{2009-08-26 Wed}, \textit{2009-08-24 Mon}, \textit{2010-08-26 Thu},
-      \textit{2011-08-23 Tue}, \textit{2011-08-25 Thu}
-\item Give out handout on set theory
-\item reading is ch 1.1--1.3 in CB
-\begin{itemize}
-\item If you've never read the counting
-        stuff, spend some time on it.  But it's not that important for
-        what we do in this class.
-\end{itemize}
-\end{itemize}
 \subsection{Key concepts}
-\label{sec-1-1}
 
 \begin{itemize}
 \item Probability space, a mathematical model for a statistical experiment
 \item Random variable, a map that assigns numbers to outcomes in the
        statisical experiment
 \end{itemize}
+
 \subsection{Table of set theory results}
 
 This stuff is kind of important for working with probability spaces,
@@ -85,7 +65,6 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \end{fullwidth}
 
 \subsection{Probability spaces}
-\label{sec-1-2}
 
      A probability space is the triple: $(S, \Omega, P)$ where
 \begin{itemize}
@@ -119,7 +98,6 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \end{itemize}
 
 \paragraph{Matching pennies example:}
-\label{sec-1-2-1}
 
 \begin{itemize}
 \item Use ``matching pennies'' as an example
@@ -170,8 +148,8 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \item Power set is a sigma field too
 \end{itemize}
 \end{itemize}
+
 \paragraph{conditioning on an event}
-\label{sec-1-2-2}
 
 \begin{itemize}
 \item Often, knowing that one event happens tells us something about
@@ -181,9 +159,9 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \item In this example, it's obviously the probability that B plays
           heads (4/5), but we can get a formula as well
 \end{itemize}
-\item Definition (1.3.2 in CB): if \emph{A} and \emph{B} are events in \emph{S},
-        and $P(B) > 0$, then ``the conditional probability of A given
-        B'', written as $P(A \mid B)$, is
+\item Definition \citep[Definition 1.3.2]{CaB_2001}: if \emph{A} and
+  \emph{B} are events in \emph{S}, and $P(B) > 0$, then ``the
+  conditional probability of A given B'', written as $P(A \mid B)$, is
         \[P(A \mid B) = \frac{P(A \cap B)}{P(B)}\]
 \begin{itemize}
 \item note: $A$ and $B$ are mutually exclusive means $P(A \cap
@@ -191,7 +169,7 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \item obviously, $P(B \mid B) = 1$
 \item verify that it's a probability measure.
 \end{itemize}
-\item Bayes's Rule (Theorem 1.3.5, which is more complicated):
+\item Bayes's Rule \citep[Theorem 1.3.5, which is more complicated]{CaB_2001}:
         Let $A$ and $B$ be any sets in $S$ with positive probability.
         Then \[P(A \mid B) = P(B \mid A) P(A) / P(B)\]
 \item Continue Example from earlier:
@@ -199,8 +177,8 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
         \frac{P(\{HH, TT\} \cap \{HH, HT\})}{P(\{HH, HT\})} =
         \frac{4/15}{1/3} = 4/5\]
 \end{itemize}
+
 \paragraph{independence}
-\label{sec-1-2-3}
 
       Two events are independent if knowing whether or not one
       happened does not help you know the probability of the second
@@ -217,8 +195,8 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
           \cap B) = P(\{HH\}) = 1/4 \text{ and } P(A)P(B) = (1/2)^2 = 1/4\]
 \end{itemize}
 \end{description}
+
 \subsection{random variables}
-\label{sec-1-3}
 
 \begin{itemize}
 \item we can map one event space (sigma-field) to another
@@ -243,8 +221,8 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
       space $\Re$ and is the smallest sigma field containing the
       clo.sed intervals
 \end{itemize}
+
 \paragraph{definition of random variables}
-\label{sec-1-3-1}
 
 \begin{itemize}
 \item Let $\mathcal{F}$ be a sigma-field on a sample space $S$, and
@@ -253,22 +231,15 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \item $X$ is \underline{measurable} if $X^{-1}(B) \in \mathcal{F}$ for all $B
         \in \mathbb{B}$
 \end{itemize}
-\section{Distribution functions}
-\label{sec-2}
 
-\begin{itemize}
-\item Covered \textit{2009-08-26 Wed}, \textit{2010-08-26 Thu}, \textit{2011-08-25 Thu},
-      \textit{2009-08-31 Mon}, \textit{2010-09-02 Thu}, \textit{2011-08-25 Thu}
-\item Greene, B.2, B.1
-\item Casella Berger 1.5, 1.6, 4.1, 4.2
-\end{itemize}
+\section{Distribution functions}
+
 \subsection{definition}
-\label{sec-2-1}
 
      The cumulative distribution function of a random variable $X$,
      denoted $F_X$, is defined by $F_X(x) = P[X \leq x]$ for all x.
+
 \subsection{properties}
-\label{sec-2-2}
 
      The distribution function of a random variable always exists and
      satisfies
@@ -279,41 +250,33 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \item $F_X$ is right-continuous.  For every number $x_0$, $\lim_{x
         \downarrow x_0} F(x) = F(x_0)$
 \end{enumerate}
+
 \subsection{additional definitions}
-\label{sec-2-3}
 
      A random variable is \emph{discrete} if its cdf is a step function and
      is \emph{continuous} if its cdf is continuous.  (our previous example is
      neither discrete nor continuous)
+
 \subsection{basic property}
-\label{sec-2-4}
 
 \begin{itemize}
 \item $P[X \in (a, b]] = F_X(b) - F_X(a)$
 \end{itemize}
-\section{Densities}
-\label{sec-3}
 
-    Covered on 
-\begin{itemize}
-\item \textit{2009-08-26 Wed}, \textit{2009-09-02 Wed},
-\item \textit{2010-09-02 Thu}, \textit{2010-08-27 Fri}, \textit{2010-09-07 Tue}
-      \textit{2011-08-30 Tue},
-\item CB 1.6, 4.1, 4.2
-\end{itemize}
+\section{Densities}
+
 \subsection{motivation}
-\label{sec-3-1}
 
      The cdf is awkward to work with directly.  Often we really want to
      know something like the probability that a random variable $X$
      equals a specific value.
+
 \subsection{discrete rv}
-\label{sec-3-2}
 
      For discrete rv, talking about the probability that the rv takes a
      specific value is meaningful.
+
 \paragraph{definition of probability mass function}
-\label{sec-3-2-1}
 
 \begin{itemize}
 \item Definition: the probability mass function of a discrete rv
@@ -321,13 +284,13 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \item I'm going to call these ``densities'' from now on; you should know
         this terminology for the future, though.
 \end{itemize}
+
 \paragraph{relationship between pmf and distribution}
-\label{sec-3-2-2}
 
       The mass function and the distribution function are related by:
       \[F_X(x) = \sum_{y \leq x} f_X(y)\]
+
 \subsection{continuous random variables.}
-\label{sec-3-3}
 
 \begin{itemize}
 \item The probability that a continuous r.v. takes a specific value
@@ -345,14 +308,14 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \item We're going to take this relationship as our starting point for
        the continuous random variables
 \end{itemize}
+
 \paragraph{definition}
-\label{sec-3-3-1}
 
       The probability density function (pdf) of a continuous random
       variable $X$ with distribution $F_X(\cdot)$ is the function $f_X$
       that satisfies \[ F_X(x) = \int_{-\infty}^{x} f_X(y) dy\]
+
 \paragraph{notes}
-\label{sec-3-3-2}
 
 \begin{itemize}
 \item if $F$ is differentiable, we can get $f$ by differentiation.
@@ -364,24 +327,21 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \item The \underline{support} of a random variable is the set of points where
         its density is positve: $\{x \in \Re \mid f_X(x) > 0\}$
 \end{itemize}
+
 \subsection{properties of densities}
-\label{sec-3-4}
 
 \begin{itemize}
 \item $f_X(x) \geq 0$ for all $x$
 \item for discrete rv: $\sum_x f_X(x) = 1$
 \item for continuous rv: $\int_{-\infty}^{\infty} f_X(y) dy = 1$
 \end{itemize}
-\subsection{transformations}
-\label{sec-3-5}
 
-\begin{itemize}
-\item CB 2.1, 4.3; Greene B.5
-\end{itemize}
+\subsection{transformations}
+
 \paragraph{introduction}
-\label{sec-3-5-1}
 
       Suppose we have a continuous random variable $X: S \to \Re$.
+
 \begin{itemize}
 \item as we've discussed; this is just a way to define a new and more
         convenient probability space on the real line;
@@ -393,8 +353,8 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
           and density of the original random variable?
 \end{itemize}
 \end{itemize}
+
 \paragraph{motivating example}
-\label{sec-3-5-2}
 
 \begin{itemize}
 \item Suppose $X$ has the mass function
@@ -411,11 +371,11 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
           1/4 & x = 4 \\
         \end{cases}\]
 \end{itemize}
+
 \paragraph{formula for density of a transformed rv}
-\label{sec-3-5-3}
 
 \begin{itemize}
-\item Greene B.5
+\item Available as Theorem B.5 in \citet{Gre_2011}.
 \item Suppose that Y = g(X), where X is a random variable with density
         $f_X$ and g is a continuous, monotone function with continuously
         differentiable inverse.  The
@@ -423,7 +383,7 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
         \[ f_Y(y) = f_X(g^{-1}(y)) | d/dy g^{-1}(y) | \]
         for y in the range of g and zero elsewhere
 \item if g is not monotone, you need to split up the domain into parts
-        over which g is monotone: see Casella and Berger for details if
+        over which g is monotone: see \citet{CaB_2001} for details if
         you are interested.
 \item do proof (comes from differentiating distribution function)
 \end{itemize}

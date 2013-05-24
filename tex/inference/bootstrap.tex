@@ -10,7 +10,6 @@
 \addcontentsline{toc}{part}{Bootstrap}
 
 \begin{itemize}
-\item Plan to cover \textit{2010-10-12 Tue}, \textit{2011-10-21 Fri}
 \item Basic premise: (and use the computer for this, obviously)
 \begin{itemize}
 \item say we have a statistic $\bar X$, $n = 100$, data are iid.
@@ -43,8 +42,8 @@
 \item could assume any distribution and use the computer to
            calculate the distribution of $\bar X$ numerically
 \begin{description}
-\item[→] plot(ecdf(replicate(20, mean(rexp(n)))))
-\item[→] plot(ecdf(replicate(2000, mean(rexp(n)))))
+\item[.] plot(ecdf(replicate(20, mean(rexp(n)))))
+\item[.] plot(ecdf(replicate(2000, mean(rexp(n)))))
 \end{description}
 \end{itemize}
 \item choose an abitrary distribution that has some optimality
@@ -56,28 +55,28 @@
 \item Imagine that we're estimating F.
 \item $\hat F$ = empirical distribution of the X's
 \begin{description}
-\item[→] plot(ecdf(X))
+\item[.] plot(ecdf(X))
 \end{description}
 \item So, at most basic level, we can use the computer to
            calculate the distribution, etc, of $\bar X$ under the
            assumption that the true distribution of the Xs is $\hat F$
 \begin{description}
-\item[→] sometimes we know more about the distribution, or don't
+\item[.] sometimes we know more about the distribution, or don't
              believe in iid, or need to impose more constraints, and
              then we'll use different $\hat F$-s
-\item[→] talk more about this later
+\item[.] talk more about this later
 \end{description}
 \end{itemize}
 \end{itemize}
 \end{itemize}
 \end{itemize}
+
 \section{variance estimation}
-\label{sec-1}
 
     So, keep the same setup and suppose that we want to estimate the
     variance of $\bar X$
+
 \subsection{bootstrap approach:}
-\label{sec-1-1}
 
 \begin{itemize}
 \item calculate the empirical distribution function, $\hat F$
@@ -91,8 +90,8 @@
 \end{itemize}
 \item calculate the variance of the bootstrap means.
 \end{itemize}
+
 \subsection{code}
-\label{sec-1-2}
 
 \begin{itemize}
 \item drawing a random sample from $\hat F$ is easy:
@@ -114,8 +113,8 @@
 \item var(replicate(B, mean(sample(X, n, replace = TRUE))))
 \end{itemize}
 \end{itemize}
+
 \subsection{comments}
-\label{sec-1-3}
 
 \begin{itemize}
 \item obviously, this isn't a huge advantage over
@@ -132,13 +131,12 @@
 \item probably need to use delta method to get approximate variance
 \end{itemize}
 \item the bootstrap approximation is usually more accurate than
-       other approximations (see Hall's book, ``the bootstrap and the
-       edgeworth expansion for details)
+       other approximations (see \citealp{Hal_1991}, for details)
 \item doesn't always work (need conditions like you need for delta
        method to work)
 \end{itemize}
+
 \section{hypothesis testing}
-\label{sec-2}
 
 \begin{itemize}
 \item might want to use bootstrap to test the null hypothesis that 
@@ -146,8 +144,8 @@
 \item so you want to use the bootstrap to approximate the distribution
       of $\bar X$ under the null hypothesis.
 \end{itemize}
+
 \subsection{naive previous approach (there is an error here!)}
-\label{sec-2-1}
 
 \begin{itemize}
 \item draw $B$ samples from $\hat F$ and calculate $\bar X_1^*,\dots
@@ -166,8 +164,8 @@
 \item mean(X)
 \end{itemize}
 \end{itemize}
+
 \subsection{correct approach}
-\label{sec-2-2}
 
 \begin{itemize}
 \item we fail to reject, but the mean is basically 2, and the
@@ -209,8 +207,8 @@
 \item this basically rejects
 \end{itemize}
 \end{itemize}
+
 \subsection{parting words (need to check this!)}
-\label{sec-2-3}
 
 \begin{itemize}
 \item main analogy: population is to sample as sample is to bootstrap
@@ -244,8 +242,7 @@
 \item There are lots of issues we don't touch on
 \begin{itemize}
 \item bootstrap with heterogeneous or dependent data
-\item Davidson and Hinkley (1997) \emph{Bootstrap Methods and their
-    Application} is a good resource, and has an R package to do a lot
+\item \citet{DaH_1997} is a good resource, and has an R package to do a lot
   of bootstraps.
 \end{itemize}
 \end{itemize}

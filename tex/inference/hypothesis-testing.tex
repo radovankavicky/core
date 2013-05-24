@@ -10,21 +10,11 @@
 \addcontentsline{toc}{part}{Hypothesis testing}
 
 \begin{itemize}
-\item Covered on
-\begin{itemize}
-\item \textit{2009-09-30 Wed}, \textit{2009-10-05 Mon}
-\item \textit{2010-09-30 Thu}
-\item \textit{2011-09-20 Tue}, \textit{2011-09-22 Thu}, \textit{2011-09-27 Tue},
-       \textit{2011-09-29 Thu}
+\item \citet{CaB_2001} 8.1, 8.2.3, 8.3.1, 8.3.3-8.3.5.
+\item \citet{Gre_2011} C.7
 \end{itemize}
-\item Reading
-\begin{itemize}
-\item CB 8.1, 8.2.3, 8.3.1, 8.3.3-8.3.5
-\item Greene C.7
-\end{itemize}
-\end{itemize}
+
 \section{Introduction}
-\label{sec-1}
 
 \begin{itemize}
 \item Motivation
@@ -54,10 +44,10 @@
        or $-0.01$
 \end{itemize}
 \end{itemize}
+
 \section{Basic setup for testing}
-\label{sec-2}
+
 \subsection{Definition of test statistic}
-\label{sec-2-1}
 
 \begin{itemize}
 \item Suppose that you have two different hypotheses about the
@@ -82,8 +72,8 @@
           act as though $\theta_0$ were true.
 \end{enumerate}
 \end{itemize}
+
 \subsection{Example of a test statistic}
-\label{sec-2-2}
 
 \begin{itemize}
 \item Suppose $X_1,\dots,X_n \sim iid N(\mu,1)$ and we have the hypotheses:
@@ -101,8 +91,8 @@
        greater than $1.64 / \sqrt{n}$ and do not reject for other
        samples
 \end{itemize}
+
 \subsection{Error types and probabilities}
-\label{sec-2-3}
 
 \begin{itemize}
 \item Test statistics can't be foolproof.
@@ -172,8 +162,8 @@
 \item unbiased: a test is unbiased if $\inf_{\theta \in \Theta_A} \beta(\theta) \geq \alpha$
 \end{itemize}
 \end{itemize}
+
 \subsection{Motivating example}
-\label{sec-2-4}
 
 \begin{itemize}
 \item sometimes we can monkey with a statistic to get a test
@@ -214,8 +204,8 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
+
 \subsection{p-values}
-\label{sec-2-5}
 
 \begin{itemize}
 \item Say you're working, do a test at 5\% and want to show your advisor
@@ -224,13 +214,13 @@
 \item but, you could summarize that by looking at the smallest critical value for which you would reject
 \item this critical value is the p-value
 \end{itemize}
+
 \section{Multiple comparisons}
-\label{sec-3}
 
     Some special issues come up when we have many hypotheses.  I need
     to figure out some simulations to motivate this stuff.
+
 \subsection{Intersection-Union Test}
-\label{sec-3-1}
 
 \begin{itemize}
 \item Suppose the null can be written as an intersection of simpler nulls:
@@ -249,18 +239,16 @@
 \end{itemize}
 \item Note that we don't need to correct the critical values here
 \end{itemize}
-\paragraph{Proof of validity}
-\label{sec-3-1-1}
 
+\paragraph{Proof of validity}
 \begin{itemize}
 \item We know that, under the null, $\theta \in \Theta_\gamma'$ for at least one $\gamma'$
 \item $\Pr_\theta[(X_1,\dots,X_n) \in \bigcap_\gamma R_\gamma] \leq \Pr_\theta[(X_1,\dots, X_n) \in R_{\gamma'}] \leq \alpha$
 \end{itemize}
-\subsection{Union-Intersection Test}
-\label{sec-3-2}
-\paragraph{Setup of UIT}
-\label{sec-3-2-1}
 
+\subsection{Union-Intersection Test}
+
+\paragraph{Setup of UIT}
 \begin{itemize}
 \item Suppose the null can be written as an intersection of simpler nulls:
 \begin{itemize}
@@ -280,11 +268,10 @@
 \item Note that we don't need to use a stepdown procedure here
 \item Could still do better if we used the joint distribution of $T_\gamma$
 \end{itemize}
-\paragraph{Show that testing at $\alpha$ doesn't work}
-\label{sec-3-2-2}
-\paragraph{Proof of validity}
-\label{sec-3-2-3}
 
+\paragraph{Show that testing at $\alpha$ doesn't work}
+
+\paragraph{Proof of validity}
 \begin{itemize}
 \item Follows from the same argument as in multiple comparisons
 \item $\Pr_\theta[(X_1,\dots,X_n) \in \bigcup_{\gamma} R_\gamma] \leq \sum_{\gamma \in \Gamma} \Pr_\theta[(X_1,\dots,X_n) \in R_\gamma]$
@@ -293,8 +280,8 @@
 \item $= \alpha$
 \end{itemize}
 \end{itemize}
+
 \subsection{Multiple hypothesis testing}
-\label{sec-3-3}
 
 \begin{itemize}
 \item Suppose we have a bunch of hypotheses $\theta \in
@@ -315,12 +302,12 @@
 \item show this
 \end{itemize}
 \end{itemize}
+
 \paragraph{Bonferroni bound}
-\label{sec-3-3-1}
+
 \paragraph{Bonferroni-Holm stepdown}
-\label{sec-3-3-2}
+
 \paragraph{Critical values from the joint distribution}
-\label{sec-3-3-3}
 
 %%% Local Variables:
 %%% mode: latex

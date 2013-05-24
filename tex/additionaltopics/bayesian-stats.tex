@@ -9,19 +9,9 @@
 \part*{Bayesian statistics}%
 \addcontentsline{toc}{part}{Bayesian statistics}
 
-\begin{itemize}
-\item Covered on
-\begin{itemize}
-\item \textit{2010-10-12 Tue}, \textit{2010-10-14 Thu}, \textit{2010-10-19 Tue}
-\end{itemize}
-\item Reading
-\begin{itemize}
-\item CB 5.6, 7.2.3
-\item Greene 16
-\end{itemize}
-\end{itemize}
+Reading: 5.6 and 7.2.3 in \citet{CaB_2001}, Chapter 16 in \citet{Gre_2011}
+
 \section{introduction to bayesian statistics}
-\label{sec-1}
 
 \begin{itemize}
 \item For classical statistics (what we've been doing so far), unknown parameters are treated as fixed.
@@ -35,8 +25,8 @@
 \item For Bayesian statistics, we treat the unknown parameter as a
       random variable
 \end{itemize}
+
 \subsection{mathematics}
-\label{sec-1-1}
 
 \begin{itemize}
 \item dead simple.
@@ -84,8 +74,8 @@
 \item similar to certainty-equivalence.
 \end{itemize}
 \end{itemize}
+
 \subsection{example}
-\label{sec-1-2}
 
 \begin{itemize}
 \item Suppose $X_i \sim i.i.d.\ bernoulli(\theta)$
@@ -95,8 +85,8 @@
 \end{itemize}
 \item A prior might be that $\theta \sim\ uniform(0,1)$
 \end{itemize}
+
 \section{Choice of prior}
-\label{sec-2}
 
 \begin{itemize}
 \item There are three ``standard'' methods for choosing a priod
@@ -110,8 +100,8 @@
 \item carefully considered prior (this is less common)
 \end{itemize}
 \end{itemize}
+
 \subsection{Uninformative prior}
-\label{sec-2-1}
 
 \begin{itemize}
 \item One chosen to (in a way) minimize the knowledge embodied in
@@ -140,8 +130,8 @@
 \item often gives same result as Jeffreys Prior
 \end{itemize}
 \end{itemize}
+
 \subsection{Conjugate prior}
-\label{sec-2-2}
 
 \begin{itemize}
 \item A conjugate prior is one that is chosen so that the prior and
@@ -149,7 +139,7 @@
 \begin{itemize}
 \item computationally convenient
 \end{itemize}
-\item Definition: (from Cassella Berger 7.2.3)  Let $\mathcal{F}$ denote the class of pdfs $f_X(x \mid \theta)$.  A class $\Pi$
+\item Definition: \citep[From][7.2.3]{CaB_2001} Let $\mathcal{F}$ denote the class of pdfs $f_X(x \mid \theta)$.  A class $\Pi$
        of prior distributions is a \emph{conjugate family} for $\mathcal F$ if the posterior is in the class $\Pi$ for all $f$ in $\mathcal F$,
        all priors in $\Pi$, and all $x$.
 \item Uniform is a special case of beta distribution with
@@ -180,9 +170,8 @@
 \item for any bernoulli, if the prior is $beta(\alpha,\beta)$ the
        posterior is $beta(S + \alpha, N - S + \beta)$
 \end{itemize}
-\paragraph{advantages}
-\label{sec-2-2-1}
 
+\paragraph{advantages}
 \begin{itemize}
 \item mathematical convenience
 \item interpretation as an augmented dataset
@@ -200,8 +189,8 @@
 \item we see this for some families of distributions (exponential family)
 \end{itemize}
 \end{itemize}
+
 \subsection{Asymptotics}
-\label{sec-2-3}
 
 \begin{itemize}
 \item What happens as $N \to \infty$ (for conjugate prior)
@@ -212,8 +201,8 @@
 \item typically the case for general priors, but one can construct
        counterexamples
 \end{itemize}
+
 \section{Implementing the prior numerically}
-\label{sec-3}
 
 \begin{itemize}
 \item for conjugate priors, everything is easy (if you know the analytical form)
@@ -246,8 +235,8 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\subsection{description of algorithm (Casella Berger, p. 254)}
-\label{sec-3-1}
+
+\subsection{description of algorithm \citep[page 254]{CaB_2001}}
 
      Suppose you can generate $V \sim f_V$, and the density $f_Y$
      has the same support
@@ -265,11 +254,10 @@
 \end{itemize}
 \item As $i \to \infty$, $Z_i \to f_Y$ in distribution.
 \end{enumerate}
-\subsection{simple example}
-\label{sec-3-2}
-\paragraph{ergodicity}
-\label{sec-3-2-1}
 
+\subsection{simple example}
+
+\paragraph{ergodicity}
 \begin{itemize}
 \item let $V =$
 \begin{itemize}
@@ -322,9 +310,8 @@
 \item So once we have a draw from $f_Y$, we can use the
         metropolis-hastings algorithm to generate another draw from $f_y$
 \end{itemize}
-\paragraph{getting the initial draw from $f_Y$}
-\label{sec-3-2-2}
 
+\paragraph{getting the initial draw from $f_Y$}
 \begin{itemize}
 \item we can represent the ``transitions'' as a matrix
 \item set $$P = \begin{pmatrix} 3/4 & 1/4 \\ 1/4 & 3/4 \end{pmatrix}$$
@@ -378,9 +365,8 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\paragraph{wrap up of example}
-\label{sec-3-2-3}
 
+\paragraph{wrap up of example}
 \begin{itemize}
 \item we made some simplifications
 \begin{itemize}
@@ -388,8 +374,8 @@
 \end{itemize}
 \item basic result holds much more generally (ie continuous rv)
 \end{itemize}
+
 \subsection{numeric example}
-\label{sec-3-3}
 
 \begin{itemize}
 \item data: $X \mid \theta \sim$ binom($10, \theta$)
@@ -508,11 +494,10 @@
 \item bunches up at edge of support
 \end{itemize}
 \end{itemize}
+
 \section{Bayesian modeling for OLS}
-\label{sec-4}
 
 \begin{itemize}
-\item Covered on \textit{2010-11-16 Tue}
 \item For OLS, we have to specify a joint prior for
 \begin{itemize}
 \item $\sigma$ (ie $E(\varepsilon_{i}^{2}\mid X)$)
@@ -528,8 +513,8 @@
         $\gamma$ are independent).
 \end{itemize}
 \end{itemize}
+
 \subsection{densities for beta}
-\label{sec-4-1}
 
 \begin{itemize}
 \item Finite sample theory and asymptotics indicate that
@@ -541,9 +526,8 @@
 \item ie prior is normal with known mean and variance
 \end{itemize}
 \end{itemize}
-\paragraph{posterior distribution}
-\label{sec-4-1-1}
 
+\paragraph{posterior distribution}
 \begin{itemize}
 \item Use Bayes' rule to get posterior:
         \[ p(\beta \mid X, Y, \sigma^{2}) = \frac{p(Y \mid
@@ -582,17 +566,17 @@ which can be rewritten as
 \begin{itemize}
 \item $\beta'V\beta = \beta'X'X\beta + \beta \Sigma_0^{-1} \beta$
 \begin{description}
-\item[→] $V = X'X + \Sigma_0^{-1}$
+\item[.] $V = X'X + \Sigma_0^{-1}$
 \end{description}
 \item $\beta'V a \beta_0 = \beta'\Sigma_0^{-1}\beta_0$
 \begin{description}
-\item[→] $V a = \Sigma_0^{-1}$
-\item[→] $a = V^{-1} \Sigma_0^{-1} = (X'X + \Sigma_0^{-1})^{-1} \Sigma_0^{-1}$
+\item[.] $V a = \Sigma_0^{-1}$
+\item[.] $a = V^{-1} \Sigma_0^{-1} = (X'X + \Sigma_0^{-1})^{-1} \Sigma_0^{-1}$
 \end{description}
 \item $\beta'V b \hat\beta = \beta'X'X \hat\beta$
 \begin{description}
-\item[→] $V b = X'X$
-\item[→] $b = V^{-1} X'X = (X'X + \Sigma_0^{-1})^{-1} X'X = I -
+\item[.] $V b = X'X$
+\item[.] $b = V^{-1} X'X = (X'X + \Sigma_0^{-1})^{-1} X'X = I -
                 a$
 \end{description}
 \end{itemize}
@@ -606,9 +590,8 @@ which can be rewritten as
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\paragraph{interpretation from a classical perspective}
-\label{sec-4-1-2}
 
+\paragraph{interpretation from a classical perspective}
 \begin{itemize}
 \item We can get a classical estimator by using the posterior mean:
         \[ \hat{\beta}_{bayes} = a \beta_{0} + (I - a)\hat{\beta} \]
@@ -625,9 +608,8 @@ which can be rewritten as
         prior decreases, the ``Bayesian'' estimator behaves more like the
         OLS estimator
 \end{itemize}
-\paragraph{uninformative prior}
-\label{sec-4-1-2-1}
 
+\paragraph{uninformative prior}
 \begin{itemize}
 \item $\Sigma_{0}$ denotes how strong our beliefs are
 \begin{itemize}
@@ -646,9 +628,8 @@ which can be rewritten as
 \item interpretation makes sense: when you don't have strong
          beliefs, you should weight the data heavily
 \end{itemize}
-\paragraph{asymptotics}
-\label{sec-4-1-2-2}
 
+\paragraph{asymptotics}
 \begin{itemize}
 \item As $n \to \infty$, $X'X \to \infty$ and $a \to 0$
 \item Same as with uninformative prior; bayesian estimator
@@ -656,8 +637,8 @@ which can be rewritten as
 \item makes sense: when you have a lot of data, you shouldn't rely
          too heavily on your prior beliefs.
 \end{itemize}
+
 \subsection{densities for sigma-squared}
-\label{sec-4-2}
 
 \begin{itemize}
 \item Conjugate prior for $1/\sigma^{2}$ is the gamma distribution,
@@ -736,8 +717,8 @@ which can be rewritten as
 \end{itemize}
 \end{itemize}
 \end{itemize}
+
 \subsection{putting it all together}
-\label{sec-4-3}
 
      After the analysis above, we can write the posterior density of
      $\beta$ and $\sigma^2$ explicitly as

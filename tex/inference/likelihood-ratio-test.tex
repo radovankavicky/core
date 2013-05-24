@@ -9,21 +9,10 @@
 \part*{Likelihood ratio test}%
 \addcontentsline{toc}{part}{Likelihood ratio tests}
 
-\begin{itemize}
-\item Covered on
-\begin{itemize}
-\item \textit{2009-10-05 Mon}
-\item \textit{2010-09-30 Thu}
-\item \textit{2011-09-22 Thu}, \textit{2011-09-27 Tue}
-\end{itemize}
-\item Reading:
-\begin{itemize}
-\item CB 8.2.1, 8.2.2, 8.2.3, 8.3.2,
-\item Greene 14.6
-\end{itemize}
-\end{itemize}
+Reading: \citet{CaB_2001}, 8.2.1, 8.2.2, 8.2.3, 8.3.2,
+\citet{Gre_2011} 14.6
+
 \section{Overview}
-\label{sec-1}
 
 \begin{itemize}
 \item If we know the distribution of the random sample, and want to
@@ -41,10 +30,10 @@
 \item you can draw some pictures connecting this to the maximum
       likelihood estimator
 \end{itemize}
+
 \section{Example}
-\label{sec-2}
+
 \subsection{Uniform LRT}
-\label{sec-2-1}
 
 \begin{itemize}
 \item suppose that $X_1,\dots,X_n$ is iid $uniform(0,b)$ and we want
@@ -58,9 +47,9 @@
 \begin{itemize}
 \item introduce the order statistics:
 \begin{description}
-\item[→] $x_{(1)} = \min_i x_i$
-\item[→] $x_{(2)}$ is the 2nd smallest
-\item[→] through $x_{(n)} = \max_i x_i$
+\item[.] $x_{(1)} = \min_i x_i$
+\item[.] $x_{(2)}$ is the 2nd smallest
+\item[.] through $x_{(n)} = \max_i x_i$
 \end{description}
 \end{itemize}
 \item The denominator of the test statistic is just $\sup_{b >
@@ -93,13 +82,13 @@
 \begin{itemize}
 \item $\sup_{b \geq 1} \Pr_b[X_{(n)} \leq c] = \sup_{b\geq 1} \Pr_b[\tfrac{X_{(n)}}{b} \leq \tfrac{c}{b}]$
 \begin{description}
-\item[→] $=\sup_{b \geq 1} \Pr_b[\tfrac{X_1}{b} \leq \tfrac{c}{b}, \dots, \tfrac{X_n}{b} \leq \tfrac{c}{b}]$
-\item[→] $=\sup_{b \geq 1} \Pr_b[\tfrac{X_1}{b} \leq \tfrac{c}{b}] \cdots \Pr_b[\tfrac{X_n}{b} \leq \tfrac{c}{b}]$ (independence)
+\item[.] $=\sup_{b \geq 1} \Pr_b[\tfrac{X_1}{b} \leq \tfrac{c}{b}, \dots, \tfrac{X_n}{b} \leq \tfrac{c}{b}]$
+\item[.] $=\sup_{b \geq 1} \Pr_b[\tfrac{X_1}{b} \leq \tfrac{c}{b}] \cdots \Pr_b[\tfrac{X_n}{b} \leq \tfrac{c}{b}]$ (independence)
 \begin{description}
-\item[→] Note that $\tfrac{X_{(n)}}{b} \sim uniform(0,1)$
+\item[.] Note that $\tfrac{X_{(n)}}{b} \sim uniform(0,1)$
 \end{description}
-\item[→] $= \sup_{b \geq 1} \tfrac{c^n}{b^n}$
-\item[→] $= c^n$
+\item[.] $= \sup_{b \geq 1} \tfrac{c^n}{b^n}$
+\item[.] $= c^n$
 \end{description}
 \item so $c = \alpha^{\frac1n}$
 \end{itemize}
@@ -134,10 +123,10 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
+
 \subsection{Linear regression LRT \textbf{:hw:}}
-\label{sec-2-2}
+
 \section{Neyman-Pearson Lemma}
-\label{sec-3}
 
 \begin{itemize}
 \item Helps us think about the best possible power
@@ -153,8 +142,8 @@
 \item sometimes we can get a UMP test by restricting C further
 \end{itemize}
 \end{itemize}
+
 \subsection{Statement of Lemma}
-\label{sec-3-1}
 
 \begin{itemize}
 \item Consider testing $\theta = \theta_0$ vs $\theta = \theta_1$

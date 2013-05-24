@@ -9,26 +9,20 @@
 \part*{Linear Regression}%
 \addcontentsline{toc}{part}{Linear regression}
 
-\begin{itemize}
-\item Covered on \textit{2010-11-04 Thu}, \textit{2010-11-09 Tue}
-\item \textit{2011-11-10 Thu}, \textit{2011-11-15 Tue}, \textit{2011-11-17 Thu}
-\end{itemize}
 \section{Estimation under restrictions}
-\label{sec-1}
 
 \begin{itemize}
-\item This material is based on Greene's 5.1, 5.2, and 5.3.2.
-\item Covered on \textit{2010-11-04 Thu}
+\item This material is based on \citet{Gre_2011} 5.1, 5.2, and 5.3.2.
 \end{itemize}
+
 \subsection{introduction}
-\label{sec-1-1}
 
     We've been looking at the model $Y = X\beta + \varepsilon$ or
     (equation by equation) \[ y_i = x_{i,1} \beta_1 + \cdots +
     x_{i,2} \beta_2 + \varepsilon_i \]
 \begin{itemize}
 \item what if you thought that (say) $\beta_1 = \beta_2$
-\item an example (Greene p. 81); have a model of investment \[ \ln I_t
+\item an example \citep[p. 81]{Gre_2011}; have a model of investment \[ \ln I_t
       = \beta_1 + \beta_2 i_t + \beta_3 \Delta p_t + \beta_4 \ln Y_t +
       \beta_5 t + \varepsilon_t \]
 \begin{itemize}
@@ -52,8 +46,8 @@
 \item So, how would you estimate the first equation under this
       restriction?
 \end{itemize}
+
 \subsection{LM restrictions for a simple example}
-\label{sec-1-2}
 
 \begin{itemize}
 \item to derive the OLS estimators, we minimized $\sum_i (y_i -
@@ -90,9 +84,10 @@
 \item For intuition, look at the fitted values
 \end{itemize}
 \end{itemize}
+
 \paragraph{diagram that should give intuition:}
+
 \subsection{LM restrictions on a general example}
-\label{sec-1-3}
 
 \begin{itemize}
 \item suppose now that we have the restriction $R\beta = q$
@@ -111,22 +106,22 @@
         (q - R\hat\beta)$
 \end{itemize}
 \end{itemize}
+
 \subsection{remarks}
-\label{sec-1-4}
 
 \begin{itemize}
 \item this is also the \textbf{restricted MLE} under normality
 \item estimator of $\sigma^2$ under this restriction is going to be ${1
       \over n - k - 1 + rank(R)} \sum_i (y_i - x_i'\hat\beta_R)^2$
 \end{itemize}
+
 \section{Hypothesis testing in finite samples}
-\label{sec-2}
 
 \begin{itemize}
-\item Reading for this material: Greene 4.7, 5.1-5.3
+\item Reading for this material: \citet{Gre_2011} 4.7, 5.1-5.3
 \end{itemize}
+
 \subsection{introduction}
-\label{sec-2-1}
 
 \begin{itemize}
 \item Suppose that we want to test an arbitrary linear hypothesis about
@@ -139,11 +134,10 @@
 \end{itemize}
 \item for now, assume we have normal errors
 \end{itemize}
-\subsection{a convenient test}
-\label{sec-2-2}
-\paragraph{change in SSR under the null}
-\label{sec-2-2-1}
 
+\subsection{a convenient test}
+
+\paragraph{change in SSR under the null}
       we can look at the change in the SSR when we impose the null
         hypothesis
 \begin{itemize}
@@ -159,13 +153,11 @@
 \item $J$ is the number of restrictions (ie dimension of $q$)
 \end{itemize}
 \end{itemize}
+
 \paragraph{Distribution of F under null}
-\label{sec-2-2-2}
-
       now, suppose the null is true, what is the distribution of $F$?
-\paragraph{distribution of numerator}
-\label{sec-2-2-2-1}
 
+\paragraph{distribution of numerator}
 \begin{itemize}
 \item reexpress the numerator
 \begin{itemize}
@@ -194,18 +186,16 @@
              equals $\sigma^2$ chi-square r.v. with $J$ degrees of freedom
 \end{itemize}
 \end{itemize}
-\paragraph{distribution of denominator}
-\label{sec-2-2-2-2}
 
+\paragraph{distribution of denominator}
 \begin{itemize}
 \item just like earlier, we know that $SSR = (n-k-1) s^2$ and $s^2$
          and $\hat \beta$ are independent given $X$.
 \item denominator is $\sigma^2$ times a chi-square with $n-k-1$
          degrees of freedom and indpendent of the numerator.
 \end{itemize}
-\paragraph{distribution of statistic}
-\label{sec-2-2-2-3}
 
+\paragraph{distribution of statistic}
        distribution of $F$
 \begin{itemize}
 \item $F = {\sigma^2 \chi_J^2 / J \over \sigma^2 \chi_{n-k-1}^2 /
@@ -213,9 +203,8 @@
 \item numerator and denominator are independent
 \item so this has an $F_{J, n-k-1}$ distribution under the null.
 \end{itemize}
-\paragraph{Distribution of F under alternative}
-\label{sec-2-2-3}
 
+\paragraph{Distribution of F under alternative}
 \begin{itemize}
 \item Denominator is not affected
 \item Numerator is
@@ -225,8 +214,8 @@
 \item otherwise the numerator will get larger
 \end{itemize}
 \end{itemize}
+
 \subsection{t-test}
-\label{sec-2-3}
 
 \begin{itemize}
 \item Suppose you wanted to test a single restriction, say $\beta_i =
@@ -250,8 +239,8 @@
 \item if we're testing an inequality, this test can be a little
        easier to work with.
 \end{itemize}
+
 \subsection{likelihood ratio test}
-\label{sec-2-4}
 
 \begin{itemize}
 \item how would we test this hypothesis?
@@ -274,19 +263,18 @@
          $(\hat\sigma^2 / \hat\sigma^2_R)^{n/2}$
 \end{itemize}
 \end{itemize}
+
 \section{Hypothesis testing in the limit}
-\label{sec-3}
 
 \begin{itemize}
 \item covered the material on \textit{2009-11-04 Wed} (I think)
 \end{itemize}
-\subsection{Testing linear hypotheses}
-\label{sec-3-1}
-\paragraph{t-test}
-\label{sec-3-1-1}
-\paragraph{justifying the t-test}
-\label{sec-3-1-1-1}
 
+\subsection{Testing linear hypotheses}
+
+\paragraph{t-test}
+
+\paragraph{justifying the t-test}
 \begin{itemize}
 \item what does the previous asymptotic result tell us about the t-statistic?
 \item suppose we want to test the null hypothesis
@@ -304,9 +292,8 @@
            it converges to its mean, 1, in probability
 \end{itemize}
 \end{itemize}
-\paragraph{interpretation/conclusion}
-\label{sec-3-1-1-2}
 
+\paragraph{interpretation/conclusion}
 \begin{itemize}
 \item We have two approaches for testing the hypothesis that
          $\hat\beta_i = \beta_i^*$ (or has an inequality) based on
@@ -337,20 +324,18 @@
            what you're doing a little more carefully.
 \end{itemize}
 \end{itemize}
-\paragraph{F test/Wald test}
-\label{sec-3-1-2}
-\paragraph{introduction}
-\label{sec-3-1-2-1}
 
+\paragraph{F test/Wald test}
+
+\paragraph{introduction}
 \begin{itemize}
 \item Suppose we want to test the general restriction $R\beta = q$
 \item If the errors are normal, we know that the F-test is valid
 \item What is the asymptotic distribution of the F-test if the
          errors aren't normal?
 \end{itemize}
-\paragraph{asymptotic distribution}
-\label{sec-3-1-2-2}
 
+\paragraph{asymptotic distribution}
        We can rewrite the F-statistic as
        \[ J^{-1} (R\hat\beta - q)'[s^2 R(X'X)^{-1}R']^{-1}(R\hat\beta -
        q) \]
@@ -382,10 +367,10 @@
 \item So, we know that the F statistic is equal in distribution
          to a $J^{-1} \chi_J^2$ random variable as $n \to \infty$.
 \end{itemize}
+
 \paragraph{conclusion/interpretation}
-\label{sec-3-1-2-3}
+
 \paragraph{behavior of F distribution}
-\label{sec-3-1-2-3-1}
 
 \begin{itemize}
 \item have the same issue we saw with the t-distribution
@@ -398,9 +383,8 @@
 \item so the F-distribution becomes more and more like the chi
           square as well.
 \end{itemize}
-\paragraph{conclusion}
-\label{sec-3-1-2-3-2}
 
+\paragraph{conclusion}
 \begin{itemize}
 \item You can use either the $F_{J, n-k-1}$ or the Chi-square $J$ to
           construct a hypothesis test.
@@ -419,13 +403,12 @@
 \item \textbf{use the F critical values}
 \end{itemize}
 \end{itemize}
+
 \subsection{Testing nonlinear hypotheses}
-\label{sec-3-2}
 
-     Reading is based on Greene's section 5.5.
+     Reading is based on \citet{Gre_2011} Section 5.5.
+
 \paragraph{motivation}
-\label{sec-3-2-1}
-
       What if we want to test the hypothesis that $c(\beta) = q$ where
       $c$ is a function from $\mathbb{R}^{k+1}$ to $\mathbb{R}^J$?
 \begin{itemize}
@@ -441,9 +424,8 @@
 \item Maybe we can get a procedure that uses the asymptotic
         distribution of $c(\hat\beta)$ under the null
 \end{itemize}
-\paragraph{initial asymptotics}
-\label{sec-3-2-2}
 
+\paragraph{initial asymptotics}
 \begin{itemize}
 \item suppose that $c$ is differentiable
 \item we can use the delta-method to show that
@@ -464,9 +446,8 @@
         c(\beta) \over \partial \beta'}\right) \sigma^2 Q^{-1}
         \left({\partial c(\beta) \over \partial \beta'}\right) \right)\]
 \end{itemize}
-\paragraph{hypothesis testing}
-\label{sec-3-2-3}
 
+\paragraph{hypothesis testing}
 \begin{itemize}
 \item Under the null hypothesis, we know that $c(\beta) = q$, so
         $\sqrt{n}(c(\hat\beta) - q)$ has the same asymptotic
@@ -516,8 +497,8 @@
           usually won't wind up with a chi-square statistic.
 \end{itemize}
 \end{itemize}
+
 \section{Testing multiple hypotheses}
-\label{sec-4}
 
 \begin{itemize}
 \item Fill in

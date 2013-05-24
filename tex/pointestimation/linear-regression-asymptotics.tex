@@ -9,26 +9,15 @@
 \part*{Asymptotic properties of linear regression}%
 \addcontentsline{toc}{part}{Asymptotic properties of linear regression}
 
-\begin{itemize}
-\item Reading for this material: Greene 4.9, 5.4, 5.5
-\item cover on
-\begin{itemize}
-\item \textit{2009-10-28 Wed}, \textit{2009-11-02 Mon}
-\item \textit{2010-11-02 Tue}, \textit{2010-10-28 Thu},
-\item \textit{2011-10-27 Thu}
-\item \textit{2012-10-25 Thu}
-\end{itemize}
-\end{itemize}
 \section{intro}
-\label{sec-1}
 
 \begin{itemize}
 \item we've gone back and forth on assuming normality
 \item some of the properties of the OLS estimator require normality
 \item others don't
 \end{itemize}
+
 \subsection{OLS properties without normality}
-\label{sec-1-1}
 
 \begin{itemize}
 \item algebraic properties from chapter 3
@@ -38,8 +27,8 @@
 \item unbiasedness of $s^2$
 \item zero correlation between errors and beta-hat
 \end{itemize}
+
 \subsection{Properties of OLS that use normality}
-\label{sec-1-2}
 
 \begin{itemize}
 \item distribution
@@ -51,8 +40,8 @@
 \item of course not
 \end{itemize}
 \end{itemize}
+
 \subsection{asymptotics}
-\label{sec-1-3}
 
 \begin{itemize}
 \item we could plug in any distribution for $\epsilon$ and then use
@@ -95,8 +84,8 @@
 \item do example with rcauchy
 \end{itemize}
 \end{itemize}
+
 \section{asymptotic behavior of beta-hat}
-\label{sec-2}
 
 \begin{itemize}
 \item assumptions
@@ -116,8 +105,8 @@
        distribution.
 \end{itemize}
 \end{itemize}
+
 \subsection{discussion of assumption on X'X}
-\label{sec-2-1}
 
 \begin{itemize}
 \item Greene makes the assumption that $n^{-1} X'X \to Q$ in
@@ -130,8 +119,8 @@
          Chebychev's weak law of large numbers
 \end{itemize}
 \end{itemize}
+
 \subsection{proof of consistency}
-\label{sec-2-2}
 
      We want to prove that $\hat\beta \to \beta$ in probablilty.  We
      can do that by plugging through the algebra
@@ -172,8 +161,8 @@
 \item $\hat\beta - \beta = O_p(1) o_p(1) = o_p(1)$ and converges to
        zero in probability.
 \end{itemize}
-\subsection{consistency of $s^2$ \textbf{:hw:}}
-\label{sec-2-3}
+
+\subsection{consistency of $s^2$}
 
      we want to show that $s^2 \to \sigma^2$ in probability
 \begin{itemize}
@@ -193,8 +182,8 @@
 \item finally, $n^{-1} \sum_i \epsilon_i^2$ converges in probability
        to $\sigma^2$ by Markov's lln.
 \end{itemize}
+
 \subsection{asymptotic normality of $\hat\beta$}
-\label{sec-2-4}
 
      We'll do a similar argument for asymptotic normality
 \begin{itemize}

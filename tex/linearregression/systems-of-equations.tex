@@ -9,18 +9,10 @@
 \part*{Systems of equations}%
 \addcontentsline{toc}{part}{Systems of equations}
 
-\begin{itemize}
-\item covered on
-\begin{itemize}
-\item \textit{2009-11-16 Mon}, \textit{2009-11-18 Wed}
-\item \textit{2010-12-07 Tue}, \textit{2010-12-09 Thu}
-\item \textit{2011-12-08 Thu}
-\end{itemize}
-\item Discussed in chapter 10.1 and 10.2 of Greene and 3.7 in Kleiber
-     and Zeileis
-\end{itemize}
+Discussed in chapter 10.1 and 10.2 of \citet{Gre_2011} and 3.7 in
+\citet{KlZ_2008}
+
 \section{Introduction}
-\label{sec-1}
 
 \begin{itemize}
 \item There are lots of panel implications to what we're discussing,
@@ -49,10 +41,9 @@
         better than OLS.
 \end{itemize}
 \end{itemize}
+
 \section{setup}
-\label{sec-2}
 \subsection{notation}
-\label{sec-2-1}
 
 \begin{itemize}
 \item We want to write these two models as
@@ -68,8 +59,8 @@
        \binom{\epsilon_{1i}}{ \epsilon_{2i}}\]
        for $i = 1,\dots,n$.
 \end{itemize}
+
 \subsection{assumptions}
-\label{sec-2-2}
 
 \begin{description}
 \item[Exogeneity] \[E(\binom{\varepsilon_{1i}}{\varepsilon_{2i}} \mid X) = 0\] for all $i$
@@ -84,8 +75,8 @@
                 regressors and errors hold to allow for us to apply
                 laws of large numbers, etc.
 \end{description}
+
 \subsection{estimation with known covariance matrix}
-\label{sec-2-3}
 
 \begin{itemize}
 \item We want to rewrite the equations as
@@ -133,8 +124,8 @@
          math on your own.  The logic is identical to OLS or GLS.
 \end{itemize}
 \end{itemize}
+
 \subsection{estimation with unknown covariance}
-\label{sec-2-4}
 
 \begin{itemize}
 \item Big difference from single-equation case
@@ -162,8 +153,8 @@
        \Sigma \quad i.p.\]
 \item plug in to GLS formula for a feasible estimator
 \end{itemize}
+
 \subsection{Simplification of SUR}
-\label{sec-2-5}
 
      The SUR becomes the OLS estimator in two specific and informative
      cases
@@ -174,9 +165,8 @@
 \item VARs in macro, for example
 \end{itemize}
 \end{itemize}
-\paragraph{zero correlation}
-\label{sec-2-5-1}
 
+\paragraph{zero correlation}
 \begin{itemize}
 \item formula for SUR estimator:
        \[\hat\beta_{SUR} = (X'(\Sigma \otimes I)^{-1}X)^{-1}X'(\Sigma
@@ -196,9 +186,8 @@
           \binom{\hat\beta_{1,ols}}{\hat\beta_{2,ols}}$
 \end{itemize}
 \end{itemize}
-\paragraph{Identical regressors in both models}
-\label{sec-2-5-2}
 
+\paragraph{Identical regressors in both models}
 \begin{itemize}
 \item Let $X_1$ and $X_2$ both equal $X$
 \item Use the simplified form of the SUR estimator:
@@ -223,11 +212,10 @@
 \item Multiply through and everything cancels, giving
         \[\hat\beta_{SUR} = \binom{\hat\beta_{1,ols}}{\hat\beta_{2,ols}}\]
 \end{itemize}
-\subsection{Hypothesis testing}
-\label{sec-2-6}
-\paragraph{similarities to OLS/GLS}
-\label{sec-2-6-1}
 
+\subsection{Hypothesis testing}
+
+\paragraph{similarities to OLS/GLS}
 \begin{itemize}
 \item $\hat\beta_{SUR}$ is the estimate of $\beta_1$ and $\beta_2$
         stacked on top of eachother
@@ -249,9 +237,8 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\paragraph{nature of hypothesis}
-\label{sec-2-6-2}
 
+\paragraph{nature of hypothesis}
 \begin{itemize}
 \item We can write both sorts of hypotheses as
         \[ R \beta = q \]
@@ -268,5 +255,5 @@
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../../additionaltopics"
+%%% TeX-master: "../../linearregression"
 %%% End:

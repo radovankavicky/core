@@ -9,27 +9,9 @@
 \part*{Law of large numbers}%
 \addcontentsline{toc}{part}{Law of large numbers}
 
-\begin{itemize}
-\item \textit{2012-10-18 Thu}, \textit{2012-10-16 Tue}, \textit{2012-10-04 Thu}
-\end{itemize}
-\section{Convergence of point estimators \textbf{:09:10:}}
-\label{sec-1}
+\section{Convergence of point estimator}
 
-\begin{itemize}
-\item Covered on
-\begin{itemize}
-\item \textit{2009-09-14 Mon}, \textit{2009-09-16 Wed}
-\item \textit{2010-09-14 Tue}, \textit{2010-09-16 Thu}
-\item \textit{2011-10-04 Tue}, \textit{2011-10-11 Tue}, \textit{2011-10-13 Thu}
-\end{itemize}
-\item Reading:
-\begin{itemize}
-\item Greene D.1, D.2.1--D.2.3
-\item Casella \& Berger 5.5.1, 5.5.2, 10.1; Greene 14 (maybe)
-\end{itemize}
-\end{itemize}
 \subsection{Introduction to asymptotics}
-\label{sec-1-1}
 
 \begin{itemize}
 \item We've talked about point estimation
@@ -62,9 +44,8 @@
          distribution to have an idea about the behavior of these estimators.
 \end{itemize}
 \end{itemize}
-\paragraph{Outline of results}
-\label{sec-1-1-1}
 
+\paragraph{Outline of results}
 \begin{itemize}
 \item Two crucial (families of) results:
 \begin{itemize}
@@ -102,9 +83,8 @@
 \item That's what I mean by ``family of theorems''
 \end{itemize}
 \end{itemize}
-\paragraph{Illustrative simulations for LLN}
-\label{sec-1-1-2}
 
+\paragraph{Illustrative simulations for LLN}
 \begin{itemize}
 \item LLNs suggest that $\bar X$ should converge in some sense to the mean
 \item Some R code illustrates that point
@@ -125,9 +105,8 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\paragraph{Illustrative simulations for CLT}
-\label{sec-1-1-3}
 
+\paragraph{Illustrative simulations for CLT}
 \begin{itemize}
 \item CLTs suggest that $\bar X$ should be asymp. normal, even though variance vanishes
 \item Some R code illustrates that point
@@ -147,17 +126,15 @@
 \item \texttt{hist(replicate(10000, sqrt(1000) * mean(rexp(1000))), 150)}
 \end{itemize}
 \end{itemize}
-\paragraph{Interpretation}
-\label{sec-1-1-4}
 
+\paragraph{Interpretation}
 \begin{itemize}
 \item As long as the DGP belongs to a large class (finite mean and
         variance, weak dependence), the behavior of $\bar X$ doesn't
         really depend on the details of the DGP
 \end{itemize}
-\subsection{$L_p$ convergence}
-\label{sec-1-2}
 
+\subsection{$L_p$ convergence}
 \begin{itemize}
 \item A stronger form of convergence than convergence in probability,
         but easier to conceptualize.
@@ -201,9 +178,8 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\paragraph{Definition}
-\label{sec-1-2-1}
 
+\paragraph{Definition}
 \begin{itemize}
 \item Define the $L_p$ norm $(p \geq 1)$ of a random variable $X$ as $\|X\|_p = (E X^p)^{\frac1p}$
 \item Let $Y_1, Y_2, \dots$ be a sequence of random variables and let
@@ -216,9 +192,8 @@
         another random vector, $Y_n \to^{L_p} Y$ if each element of
         $Y_n$ converges in $L_p$ to the corresponding element of $Y$.
 \end{itemize}
-\paragraph{Code to plot on the screen}
-\label{sec-1-2-2}
 
+\paragraph{Code to plot on the screen}
 \begin{itemize}
 \item Know from motivating example that $\bar X \to \mu$ in $L_2$ if
         $X$ is i.i.d with finite mean and variance.
@@ -248,9 +223,8 @@
 \item \texttt{plot(L2 \textasciitilde{} n, type = "l")}
 \end{itemize}
 \end{itemize}
-\paragraph{Remarks}
-\label{sec-1-2-3}
 
+\paragraph{Remarks}
 \begin{itemize}
 \item If $\{Y_n\}$ is a sequence of random variables that converges in
         $L_p$ to some constant $c$ then it converges in $L_r$ to $c$ for
@@ -292,9 +266,8 @@
 \end{itemize}
 \end{description}
 \end{itemize}
-\subsection{Convergence in probability}
-\label{sec-1-3}
 
+\subsection{Convergence in probability}
 \begin{itemize}
 \item Convergence in probability (which we invoked for WLLN without
        defining it) is a weaker form of convergence than $L_p$
@@ -310,13 +283,12 @@
          0$ as $n \to \infty$.
 \end{itemize}
 \end{itemize}
-\paragraph{Discussion \textbf{:hw:}}
-\label{sec-1-3-1}
 
+\paragraph{Discussion}
 \begin{enumerate}
 \item Notation. arrow and plim.
 \item if $X_n$ converges in $L_p$ for $p \geq 1$, then $X_n$
-          converges in probability.  (prove this for homework).
+          converges in probability.\sidenote{You should prove this on your own for homework.}
 \item Obviously, the converse doesn't hold (we've given a
           counterexample).  However, you might have notice that the
           counterexample involves a small part of the pmf ``escaping'' off
@@ -331,8 +303,6 @@
           $X_n$ converges to $c$ in probability and that $g$ is a
           function and is continuous at $c$.  Then $g(X_n)$ converges in
           probability to $g(c)$.
-\begin{itemize}
-\item Proof (Assign for homework if you're short on time)
 \begin{itemize}
 \item remember the definition of a continuous function.  $g$ is
               continuous at $c$ if for every $\varepsilon >0$, there
@@ -362,16 +332,11 @@
                  probability to $\Sigma^{-1}$
 \end{description}
 \item More generally, have $g(plim\ X_n) = plim\ g(X_n)$ even if
-            $plim\ X_n$ is stochastic.
-\begin{itemize}
-\item proof more complicated; students should try to do it for
-              homework.
-\end{itemize}
-\end{itemize}
+            $plim\ X_n$ is stochastic.\sidenote{Try to prove this 
+              on your own for homework.}
 \end{enumerate}
-\paragraph{Weak law of large numbers}
-\label{sec-1-3-2}
 
+\paragraph{Weak law of large numbers}
 \begin{itemize}
 \item As I said earlier, the Weak LLN is a family of results that can
        be basically stated: Suppose $\{X_n\}$ is a sequence of random
@@ -401,12 +366,16 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\subsection{Big-O, little-o notation \textbf{:hw:}}
-\label{sec-1-4}
 
+\subsection{Big-O, little-o notation \textbf{:hw:}}
 \begin{itemize}
 \item This notation makes it easier to carry along remainder terms in
-       proofs.
+  proofs.\sidenote{For homework:
+\begin{itemize}
+\item prove that $O_p(1) + o_p(1) = O_p(1)$
+\item prove that $n O_p(n) = O_p(n^2)$
+\item come up with other interesting facts and prove them.
+\end{itemize}}
 \item Little o:
 \begin{itemize}
 \item A sequence of random variables $X_n$ is $o_p(1)$ as $n \to
@@ -425,7 +394,7 @@
 \item Captures the idea of being bounded for a random variable
          (i.e. ``bounded in probability'')
 \end{itemize}
-\item Be careful, even though it's written as an inequality, the direction matters:
+\item Be careful, even though it's written as an equality, the direction matters:
 \begin{itemize}
 \item $o_p(1) = O_p(1)$ but $O_p(1) \neq o_p(1)$
 \item First statement means, ``if a sequence converges to zero in
@@ -444,17 +413,10 @@
 \item then $P[|X_n| > c]  = 0$ for any $c > 1$
 \item but $X_n$ does not converge to zero in probability.
 \end{itemize}
-\item For homework:
-\begin{itemize}
-\item prove that $O_p(1) + o_p(1) = O_p(1)$
-\item prove that $n O_p(n) = O_p(n^2)$
-\item come up with other interesting facts and prove them.
 \end{itemize}
 \end{itemize}
-\end{itemize}
-\subsection{Almost sure convergence}
-\label{sec-1-5}
 
+\subsection{Almost sure convergence}
 \begin{itemize}
 \item This is a somewhat unintuitive convergence concept that is stronger
         than convergence in probability.
@@ -486,9 +448,8 @@
 \item almost sure convergence implies convergence in probability, but
         not vice versa.
 \end{itemize}
-\paragraph{Example of almost sure convergence (from SLLN)}
-\label{sec-1-5-1}
 
+\paragraph{Example of almost sure convergence (from SLLN)}
 \begin{itemize}
 \item Remember that the SLLN implies that $\bar X_n \to \mu$ a.s.
 \item \texttt{library(lattice)}
@@ -508,9 +469,8 @@
 \item \texttt{xyplot(xbar \textasciitilde{} n, data = as.data.frame(d), group = i, col = rgb(0,0,0,.4), type = "l")}
 \end{itemize}
 \end{itemize}
-\paragraph{Example of convergence i.p. but not a.s.}
-\label{sec-1-5-2}
 
+\paragraph{Example of convergence i.p. but not a.s.}
 \begin{itemize}
 \item a sequence of r.v. that converges to zero in probability, but
         not almost surely.
@@ -542,17 +502,17 @@
 \item \texttt{X <- rep(NA, n)}
 \item \texttt{for (i in 1:n) \{}
   \begin{description}
-  \item[→] \texttt{X[i] <- (num-1)/den < U \&\& U < = num/den}
-  \item[→] \texttt{if (num==den) \{}
+  \item[.] \texttt{X[i] <- (num-1)/den < U \&\& U < = num/den}
+  \item[.] \texttt{if (num==den) \{}
     \begin{description}
-    \item[→] \texttt{num = 1}
-    \item[→] \texttt{den = den + 1}
+    \item[.] \texttt{num = 1}
+    \item[.] \texttt{den = den + 1}
     \end{description}
-  \item[→] \texttt{\} else \{}
+  \item[.] \texttt{\} else \{}
     \begin{description}
-    \item[→] \texttt{num = num+1}
+    \item[.] \texttt{num = num+1}
     \end{description}
-  \item[→] \texttt{\}\}}
+  \item[.] \texttt{\}\}}
   \end{description}
 \item \texttt{X\}}
 \end{itemize}
@@ -581,9 +541,8 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\paragraph{Strong law of large numbers}
-\label{sec-1-5-3}
 
+\paragraph{Strong law of large numbers}
 \begin{itemize}
 \item Similar to weak law of large numbers, but with almost sure
        convergence.  I'll give an example
@@ -591,19 +550,16 @@
           variables with mean $\mu$ then $\bar X \to \mu$ almost
           surely.
 \end{itemize}
+
 \subsection{Consistency}
-\label{sec-1-6}
-
      Consistency is an asymptotic version of unbiasedness
-\paragraph{Definition}
-\label{sec-1-6-1}
 
+\paragraph{Definition}
       an estimator $\hat \theta$ is a consistent estimator of the
       parameter $\theta$ if $\hat \theta \xrightarrow{p} \theta$ for
       any value of $\theta$.
-\paragraph{Basic result for consistency \textbf{:hw:}}
-\label{sec-1-6-2}
 
+\paragraph{Basic result for consistency \textbf{:hw:}}
 \begin{itemize}
 \item Statement of the result
 \begin{itemize}
@@ -627,9 +583,9 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\paragraph{Consistency of MLE (CB Thm 10.1.6, Greene sec 14.4)}
-\label{sec-1-6-3}
 
+\paragraph{Consistency of MLE (\citealp[Theorem 10.1.6]{CaB_2001} and
+  \citealp[Section 14.4]{Gre_2011})}
 \begin{itemize}
 \item We're just going to mention the result
 \begin{itemize}
@@ -644,16 +600,15 @@
 \begin{itemize}
 \item Note, doesn't always hold, but usually holds.
 \item A good homework exercise---look up the regularity conditions
-          in CB or Greene and see if common families (gamma,
+          in \citet{CaB_2001} or \citet{Gre_2011} and see if common families (gamma,
           exponential, uniform, etc) satisfy them; then try to prove consistency
           directly.
-\item There are weaker conditions than listed in CB (in particular,
+\item There are weaker conditions than listed in \citet{CaB_2001} (in particular,
           we can relax i.i.d)
 \end{itemize}
 \end{itemize}
-\paragraph{Consistency of method of moments estimators}
-\label{sec-1-6-4}
 
+\paragraph{Consistency of method of moments estimators}
 \begin{itemize}
 \item Suppose that $X_1,\dots,X_n \sim f(\cdot; \theta)$ where
         $\theta$ is a $k$-vector, $(E X_i,\dots,E X_i^k) =

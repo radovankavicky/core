@@ -9,17 +9,7 @@
 \part*{Linear regression and MLE}%
 \addcontentsline{toc}{part}{Linear regression and MLE}
 
-\begin{itemize}
-\item cover on
-\begin{itemize}
-\item \textit{2009-09-30 Wed}, \textit{2009-10-14 Wed}, \textit{2009-10-19 Mon}
-\item \textit{2010-09-28 Tue}, \textit{2010-10-21 Thu}
-\item \textit{2011-09-13 Tue}, \textit{2011-10-27 Thu}
-\item \textit{2012-09-11 Tue}, \textit{2012-09-13 Thu}
-\end{itemize}
-\end{itemize}
 \section{Introduction}
-\label{sec-1}
 
 \begin{itemize}
 \item look at the uniform$(0,b)$ example suppose $n = 1$
@@ -48,8 +38,8 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
+
 \section{Definition}
-\label{sec-2}
 
 \begin{itemize}
 \item for the MLE estimator, we start with the density, but view it as a
@@ -59,11 +49,10 @@
 \end{itemize}
 \item the MLE of $\theta$ is $argmax_\theta L(\theta; x_1,\dots,x_n)$
 \end{itemize}
-\section{Examples}
-\label{sec-3}
-\subsection{iid draws from uniform$(a,b)$}
-\label{sec-3-1}
 
+\section{Examples}
+
+\subsection{iid draws from uniform$(a,b)$}
 \begin{itemize}
 \item $L(a,b; x_1,\dots,x_n) = \prod_i 1\{x_i \in [a,b]\} (b-a)^{-1}$
 \item $= ({1 \over b-a})^{n}$ if all $x_i \in [a,b]$ and zero otherwise.
@@ -74,9 +63,8 @@
 \item so $\hat b = \max x_i$ and $\hat a = \min x_i$
 \end{itemize}
 \end{itemize}
-\subsection{linear regression.}
-\label{sec-3-2}
 
+\subsection{linear regression.}
 \begin{itemize}
 \item $(Y_i,X_i) \sim iid$
 \begin{itemize}
@@ -106,8 +94,8 @@
 \end{itemize}
 \item students should verify that this is a maximum on their own.
 \end{itemize}
+
 \section{More remarks on mle}
-\label{sec-4}
 
 \begin{itemize}
 \item unlike method of moments, where we connect our parameters to

@@ -9,45 +9,34 @@
 \part*{Multivariate random vectors}%
 \addcontentsline{toc}{part}{Multivariate random vectors}
 
-\begin{itemize}
-\item Cover on \textit{2012-08-30 Thu}
-\item Reading:
-\begin{itemize}
-\item CB chapter 4
-\item Greene B.6-B.11 (along with next lecture)
-\end{itemize}
-\item The borel sigma field on $\Re^k$, denoted $\mathbb{B}^k$ is the
+ The borel sigma field on $\Re^k$, denoted $\mathbb{B}^k$ is the
      smallest sigma-field containing the clos.ed
      rectangles: \[\{[a_1,b_1] \times \cdots \times [a_k,b_k] : -
      \infty \leq a_i \leq b_i \leq \infty\}\]
-\end{itemize}
+
 \section{multivariate distributions}
-\label{sec-1}
 \subsection{marginal distribution}
-\label{sec-1-1}
 
 \begin{itemize}
 \item since a random vector is just a vector of random variables, each
        element has its own distribution
 \item these are called ``marginal distributions''
 \end{itemize}
+
 \subsection{joint distribution}
-\label{sec-1-2}
 
 \begin{itemize}
 \item different elements can depend on each other
 \item this dependence isn't reflected in the marginal distributions
 \item is reflecteded in the ``joint distribution'' of the entire vector
 \end{itemize}
-\paragraph{definition}
-\label{sec-1-2-1}
 
+\paragraph{definition}
       The joint distribution, $F_X$, of the $k$-dimensional random
       vector $X$ is define as the function 
       \[ F_X(x_1,\dots,x_k) = P(X_1 \leq x_1,\dots,X_k \leq x_k) \]
-\paragraph{relationship between joint and marginal}
-\label{sec-1-2-2}
 
+\paragraph{relationship between joint and marginal}
 \begin{itemize}
 \item marginal distributions tell you less about the random vector
 \item can get marginals from joint, but not vice-versa.
@@ -68,16 +57,14 @@
 \item the marginals do not determine the joint (maybe do for hw)
 \end{itemize}
 \end{itemize}
+
 \section{multivariate densities}
-\label{sec-2}
 \subsection{joint and marginal distributions and densities}
-\label{sec-2-1}
 
       Same as before: we want to define weights on points, not just on
       regions.
-\paragraph{definitions}
-\label{sec-2-1-1}
 
+\paragraph{definitions}
 \begin{itemize}
 \item marginal densities are the densities of the individual elements
 \item joint densities describe the simultaneous behavior of all of
@@ -92,9 +79,8 @@
           \int_{-\infty}^{c_k} f(y_1,\dots,y_k) dy_1 \dots dy_k \]
 \end{itemize}
 \end{itemize}
-\paragraph{properties}
-\label{sec-2-1-2}
 
+\paragraph{properties}
 \begin{itemize}
 \item usual properties hold
 \begin{itemize}
@@ -108,8 +94,8 @@
           the density
 \end{itemize}
 \end{itemize}
+
 \subsection{transformations of random vectors}
-\label{sec-2-2}
 
 \begin{itemize}
 \item a general theory is very painful to work with (particularly
@@ -118,18 +104,16 @@
 \item The extension to higher-dimension random vectors is
         straightforward
 \end{itemize}
-\paragraph{Jacobian}
-\label{sec-2-2-1}
 
+\paragraph{Jacobian}
       Let $g: \Re^k \to \Re^k$ be a differentiable function.  The
       Jacobian of this function is the matrix of partial derivatives
       \[ J(x) = \begin{pmatrix} \partial g_1(x) / \partial x_1 & \partial
       g_1(x) / \partial x_2 & \cdots & \partial g_1 / \partial x_k \\
       \vdots \\ \partial g_k / \partial x_1 & \cdots & \cdots & \partial g_k /
       \partial x_k \end{pmatrix} \]
-\paragraph{result (Greene B.7.4)}
-\label{sec-2-2-2}
 
+\paragraph{result \citep[B.7.7]{Gre_2011}}
       Suppose that $X$ is a random vector in $\Re^k$ with joint
       density $f_X$ and that $g: \Re^k \to \Re^k$ is one-to-one from
       the support of $X$ to its image and let $Y = g(X)$.  Then the
@@ -139,15 +123,14 @@
 \begin{itemize}
 \item the restriction that $g$ be one-to-one can be relaxed.
 \end{itemize}
-\paragraph{transformations to lower dimension}
-\label{sec-2-2-3}
 
+\paragraph{transformations to lower dimension}
       the requirement that $g$ be from $\Re^k$ to $\Re^k$ is restrictive.
       For transformations from a higher dimension to a lower dimension,
       it's best to create an artificial transformation that's easy to
       work out, then integrate out the other dimension.
+
 \subsection{independence}
-\label{sec-2-3}
 
 \begin{itemize}
 \item remember how we defined independence for events
@@ -176,9 +159,9 @@
 \begin{itemize}
 \item $P[g(X_1) \in I_1 \cap h(X_2) \in I_2]$
 \begin{description}
-\item[→] $= P[X_1 \in g^{-1}(X_1) \cap X_2 \in h^{-1}(X_2)]$
-\item[→] $= P[X_1 \in g^{-1}(X_1)] P[X_2 \in h^{-1}(X_2)]$
-\item[→] $= P[g(X_1) \in I_1] P[h(X_2) \in I_2]$
+\item[.] $= P[X_1 \in g^{-1}(X_1) \cap X_2 \in h^{-1}(X_2)]$
+\item[.] $= P[X_1 \in g^{-1}(X_1)] P[X_2 \in h^{-1}(X_2)]$
+\item[.] $= P[g(X_1) \in I_1] P[h(X_2) \in I_2]$
 \end{description}
 \item here \[g^{-1}(I_1) = \{x : g(x) \in I_1\},\] we don't
              need $g$ to be invertible.
@@ -186,10 +169,9 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
+
 \section{Moments}
-\label{sec-3}
 \subsection{Expectation for a random vector}
-\label{sec-3-1}
 
 \begin{itemize}
 \item $\E X = (\E X_1,\dots,\E X_k)$
@@ -198,11 +180,10 @@
 \item If $X$ and $Y$ are independent with finite expectations, $\E XY
        = \E X \E Y$ (proof automatic).
 \end{itemize}
-\subsection{second moments}
-\label{sec-3-2}
-\paragraph{Variance}
-\label{sec-3-2-1}
 
+\subsection{second moments}
+
+\paragraph{Variance}
 \begin{itemize}
 \item for vectors, $var(X) = E(X - EX) (X - EX)'$
 \begin{itemize}
@@ -221,9 +202,8 @@
          has vcv $A \Sigma A'$.
 \end{itemize}
 \end{itemize}
-\paragraph{Covariance}
-\label{sec-3-2-2}
 
+\paragraph{Covariance}
 \begin{itemize}
 \item $cov(X,Y) = E(X - E X) (Y - EY) = E XY - EX EY$
 \begin{itemize}
@@ -244,16 +224,14 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\paragraph{Correlation}
-\label{sec-3-2-3}
 
+\paragraph{Correlation}
 \begin{itemize}
 \item Definition: $corr(X, Y) = cov(X,Y) / \sqrt{var(X)} \sqrt{var(Y)}$
 \item this is between -1 and 1, which will be an implication of the Cauchy-Schwarz inequality
 \end{itemize}
-\paragraph{Cauchy-schwarz inequality \textbf{:hw:}}
-\label{sec-3-2-4}
 
+\paragraph{Cauchy-schwarz inequality}
 \begin{itemize}
 \item Let $X$ and $Y$ be random variables.  Then $E (|X Y|) \leq
           \sqrt{E X^2} \sqrt{E Y^2}$

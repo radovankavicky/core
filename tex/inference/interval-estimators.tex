@@ -10,20 +10,10 @@
 \addcontentsline{toc}{part}{Interval estimators}
 
 \begin{itemize}
-\item Covered on
-\begin{itemize}
-\item \textit{2009-10-05 Mon}
-\item \textit{2010-10-05 Tue}
-\item \textit{2011-09-29 Thu}, \textit{2011-10-04 Tue}
+\item Reading \citet{CaB_2001} 9.1-9.3, \citet{Gre_2011} C.6
 \end{itemize}
-\item Reading
-\begin{itemize}
-\item CB 9.1-9.3
-\item Greene C.6
-\end{itemize}
-\end{itemize}
+
 \section{Intro}
-\label{sec-1}
 
 \begin{itemize}
 \item We can take the ``hypothesis testing mentality'' and apply it to
@@ -49,8 +39,8 @@
         indistinguishable from eachother too.
 \end{itemize}
 \end{itemize}
+
 \section{Definitions}
-\label{sec-2}
 
 \begin{itemize}
 \item An \emph{interval estimator} of a parameter $\theta$ is any pair of
@@ -61,12 +51,12 @@
       $[L(X),U(X)]$ is the probability $P_\theta[\theta \in [L(X), U(X)]]$
 \item The \emph{confidence coefficient} is $\inf_\theta P_\theta[\theta \in [L(X), U(X)]]$
 \end{itemize}
+
 \section{Relationship to hypothesis testing}
-\label{sec-3}
 
 \begin{itemize}
-\item we construct confidence intervals by inverting tests (Casella and
-      Berger section 9.2)
+\item we construct confidence intervals by inverting tests
+  \citep[Section 9.2]{CaB_2001}
 \begin{itemize}
 \item For each $\theta_0$, let $A(\theta_0)$ be the acceptance region
         of a level $\alpha$ test of $H_0: \theta = \theta_0$.  For each
@@ -102,17 +92,17 @@
 \begin{itemize}
 \item we're changing two things
 \begin{description}
-\item[→] the set $A(\mu_0)$ has samples as its elements
-\item[→] the set $C(x)$ has parameter values as its elements
-\item[→] $A(\mu_0)$ is different for different parameter values
-\item[→] $C(x)$ is different for different samples
+\item[.] the set $A(\mu_0)$ has samples as its elements
+\item[.] the set $C(x)$ has parameter values as its elements
+\item[.] $A(\mu_0)$ is different for different parameter values
+\item[.] $C(x)$ is different for different samples
 \end{description}
 \end{itemize}
 \end{itemize}
 \end{itemize}
 \end{itemize}
+
 \section{Pivoting the CDF}
-\label{sec-4}
 
 \begin{itemize}
 \item works for one parameter, continuous rv.
