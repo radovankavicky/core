@@ -1,0 +1,434 @@
+% Copyright © 2013, Gray Calhoun.  Permission is granted to copy,
+% distribute and/or modify this document under the terms of the GNU
+% Free Documentation License, Version 1.3 or any later version
+% published by the Free Software Foundation; with no Invariant
+% Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of
+% the license is included in the section entitled "GNU Free
+% Documentation License."
+
+\part*{Random variables, distributions, and densities}%
+\addcontentsline{toc}{part}{Random variables, distributions, and densities}
+
+\begin{itemize}
+\item Cover on \textit{2012-08-28 Tue}, \textit{2012-08-23 Thu}, \textit{2012-08-30 Thu}
+\item Reading:
+\begin{itemize}
+\item CB chapter 1
+\item Greene B.1-B.6 (overlap with next lecture too)
+\end{itemize}
+\end{itemize}
+\section{Set Theory and Probability Spaces}
+\label{sec-1}
+
+\begin{itemize}
+\item Covered on \textit{2009-08-26 Wed}, \textit{2009-08-24 Mon}, \textit{2010-08-26 Thu},
+      \textit{2011-08-23 Tue}, \textit{2011-08-25 Thu}
+\item Give out handout on set theory
+\item reading is ch 1.1--1.3 in CB
+\begin{itemize}
+\item If you've never read the counting
+        stuff, spend some time on it.  But it's not that important for
+        what we do in this class.
+\end{itemize}
+\end{itemize}
+\subsection{Key concepts}
+\label{sec-1-1}
+
+\begin{itemize}
+\item Probability space, a mathematical model for a statistical experiment
+\item Random variable, a map that assigns numbers to outcomes in the
+       statisical experiment
+\end{itemize}
+\subsection{Table of set theory results}
+
+This stuff is kind of important for working with probability spaces,
+but I don't enjoy lecturing on it.  Here you go!  Learn!
+
+Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
+
+\begin{fullwidth}
+\begin{tabular}{lp{4in}}
+  \toprule
+  \multicolumn{2}{c}{Finite Set Operations} \\
+  \midrule
+  Union        & $A₁ ∪ A₂ ≡ \{x ∈ S : x ∈ A₁ \text{ or } x∈ A₂\}$ \\
+  Intersection & $A₁ ∩ A₂ ≡ \{x ∈ S : x ∈ A₁ \text{ and } x ∈ A₂\}$ \\
+  Subset       & $A₁ ⊂ A₂$ if $A₁ ∩ A₂ = A₁$ \\
+  Equality     & $A₁ = A₂$ if $A₁ ⊂ A₂$ and $A₂ ⊂ A₁$ \\
+  Complement   & $A₁^c ≡ \{x ∈ S : x ∉ A₁\}$ \\
+  Difference   & $A₁ ∖ A₂ ≡ \{x ∈ S : x ∈ A₁ \text{ and } x ∉ A₂\}$ \\
+  Symmetric difference & $A₁ ▵ A₂ ≡ (A₁ ∖ A₂) ∪ (A₂ ∖ A₁)$ \\
+  \midrule
+  \multicolumn{2}{c}{Infinite Set Operations (can be defined for uncountable index sets as well)} \\
+  \midrule
+  Union        & $⋃_{k=1}^∞ A_k ≡ \{x ∈ S : x ∈ A_k$ for at least one $k ∈ 1,2,…\}$ \\
+  Intersection & $⋂_{k=1}^∞ A_k ≡ \{x ∈ S : x ∈ A_k$ for all $k ∈ 1,2,…\}$ \\
+  Infimum      & $\inf_{k ≥ n} A_k ≡ ⋂_{k=n}∞ A_k$ \\
+  Supremum     & $\sup_{k ≥ n} A_k ≡ ⋃_{k=n}^∞ A_k$ \\
+  lim inf      & $\liminf_{n \to ∞} A_n ≡ ⋃_{n=1}^∞ ⋂_{k=n}^∞ A_k$ \\
+  lim sup      & $\limsup_{n \to ∞} A_n ≡ ⋂_{n=1}^∞ ⋃_{k=n}^∞ A_k$ \\
+  \midrule
+  \multicolumn{2}{c}{Other definitions} \\
+  \midrule
+  limit 
+  & Suppose that $A, A₁, A₂, …$ is a sequence of subsets of $S$ and that $\limsup_{n → ∞} A_n = \liminf_{n → ∞} A_n = A$.
+  Then $A$ is the limit of $\{A_n\}$. \\
+  Disjoint 
+  & $A₁$ and $A₂$ are disjoint if $A₁ ∩ A₂ = ∅$. \\
+  Pairwise disjoint 
+  & $A₁, A₂, …$ are pairwise disjoint if $A_i ∩ A_j = ∅$ for all $i$ and $j$ such that $i ≠ j$. \\
+  Partition & If $A₁,A₂,…$ are pairwise disjoint and $⋃_{i=1}^∞ A_i = S$ then $\{A_i\}$ forms a partition of $S$. \\
+  Power set & The power set of $S$, denoted $\mathcal{P}(S)$, is the set of all subsets of $S$.
+  $\mathcal{P}(S) ≡ \{x : x ⊂ S\}$ \\
+\bottomrule
+\end{tabular}
+\end{fullwidth}
+
+\subsection{Probability spaces}
+\label{sec-1-2}
+
+     A probability space is the triple: $(S, \Omega, P)$ where
+\begin{itemize}
+\item $S$ is a sample space
+\begin{itemize}
+\item The set of all possible outcomes of a (possibly hypothetical)
+         experiment is called the \emph{sample space} of the experiment.
+\item An event is a subset of $S$
+\end{itemize}
+\item $\Omega$ is a sigma-field (information set)
+\begin{itemize}
+\item A collection $B$ of subsets of the set $S$ is a sigma
+         algebra if it satisfies (give intuition for 2 and 3)
+\begin{itemize}
+\item $S \in  \Omega$
+\item If $A \in  B$ then $A^c \in  \Omega$
+\item If $A_1, A_2, \dots \in  \Omega$, then $\bigcup_{i=1}^\infty A_i
+           \in  \Omega$
+\end{itemize}
+\end{itemize}
+\item $P$ is a probability measure
+\begin{itemize}
+\item A function $P$ is a probability measure on $\Omega$ if
+\begin{itemize}
+\item $P:  B \to [0,1]$
+\item if $A_1,A_2,\dots$ are disjoint then $P(\bigcup_{i=1}^\infty
+           A_i) = \sum_{i=1}^\infty P(A_i)$
+\item $P(S) = 1$
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+\paragraph{Matching pennies example:}
+\label{sec-1-2-1}
+
+\begin{itemize}
+\item Use ``matching pennies'' as an example
+\begin{itemize}
+\item outcomes: HH, HT, TH, TT
+\item sample space is \{HH, HT, TH, TT\}
+\end{itemize}
+\item Define strategies here too:
+\begin{itemize}
+\item Prob A plays H is 1/3
+\item Prob B plays H is 4/5
+\end{itemize}
+\item events: subsets of \{HH, HT, TH, TT\}
+\begin{itemize}
+\item Ie, the event that player B wins is \{HT, TH\}
+\end{itemize}
+\item Want to assign probabilities to events using the strategy above
+\begin{itemize}
+\item Assign to a smaller set of manageable events (generating
+          class) and then use rules to extend to other events.
+\begin{itemize}
+\item Generating class: \{{HH\}, \{HT\}, \{TH\}, \{TT\}}
+\begin{itemize}
+\item Note this \textbf{isn't} a sigma field
+\end{itemize}
+\end{itemize}
+\item Just going by what we wrote earlier:
+\begin{itemize}
+\item P(A plays heads) = 1/3 = P(\{HH, HT\}) = P(\{HH\}) + P(\{HT\})
+\item P(A plays tails) = 2/3 = P(\{TH, TT\}) = P(\{TH\}) + P(\{TT\})
+\item P(B plays heads) = 4/5 = P(\{HH, TH\}) = P(\{HH\}) + P(\{TH\})
+\item P(B plays tails) = 1/5 = P(\{HT, TT\}) = P(\{HT\}) + P(\{TT\})
+\end{itemize}
+\item Four unknowns, four equations; solve to get probabilities:
+\begin{itemize}
+\item P(\{HH\}) = 4/15
+\item P(\{HT\}) = 1/15
+\item P(\{TH\}) = 8/15
+\item P(\{TT\}) = 2/15
+\end{itemize}
+\end{itemize}
+\item Sigma fields:
+\begin{itemize}
+\item Player A's info set: \{S, $\emptyset$, \{HH, HT\}, \{TH, TT\}\}
+\item Player B's info set: \{S, $\emptyset$, \{HH, TH\}, \{HT, TT\}\}
+\item Sigma field denoting whether or not A wins: 
+          \{S, $\emptyset$, \{HH, TT\}, \{HT, TH\}\}
+\item Power set is a sigma field too
+\end{itemize}
+\end{itemize}
+\paragraph{conditioning on an event}
+\label{sec-1-2-2}
+
+\begin{itemize}
+\item Often, knowing that one event happens tells us something about
+        how likely other events are
+\begin{itemize}
+\item Say we know A plays heads; what's the prob. that A wins?
+\item In this example, it's obviously the probability that B plays
+          heads (4/5), but we can get a formula as well
+\end{itemize}
+\item Definition (1.3.2 in CB): if \emph{A} and \emph{B} are events in \emph{S},
+        and $P(B) > 0$, then ``the conditional probability of A given
+        B'', written as $P(A \mid B)$, is
+        \[P(A \mid B) = \frac{P(A \cap B)}{P(B)}\]
+\begin{itemize}
+\item note: $A$ and $B$ are mutually exclusive means $P(A \cap
+          B) = 0$, and we have $P(A \mid B) = 0$ as well.
+\item obviously, $P(B \mid B) = 1$
+\item verify that it's a probability measure.
+\end{itemize}
+\item Bayes's Rule (Theorem 1.3.5, which is more complicated):
+        Let $A$ and $B$ be any sets in $S$ with positive probability.
+        Then \[P(A \mid B) = P(B \mid A) P(A) / P(B)\]
+\item Continue Example from earlier:
+        \[P(A wins | A plays heads) = P({HH, TT} | {HH, HT}) =
+        \frac{P(\{HH, TT\} \cap \{HH, HT\})}{P(\{HH, HT\})} =
+        \frac{4/15}{1/3} = 4/5\]
+\end{itemize}
+\paragraph{independence}
+\label{sec-1-2-3}
+
+      Two events are independent if knowing whether or not one
+      happened does not help you know the probability of the second
+\begin{description}
+\item[Definition] events $A$ and $B$ are independent if \[P(A \cap
+                      B) = P(A) P(B)\]
+\item[implication] \[P(A \mid B) = \frac{P(A \cap B)}{P(B)} =
+                       \frac{P(A) P(B)}{P(B)} = P(A)\]
+\item[example] two coin flips
+\begin{itemize}
+\item A = ``first coin is heads'' = \{HT, HH\}
+\item B = ``second coin is heads'' = \{TH, HH\}
+\item under previous prob measure, A and B are independent: \[P(A
+          \cap B) = P(\{HH\}) = 1/4 \text{ and } P(A)P(B) = (1/2)^2 = 1/4\]
+\end{itemize}
+\end{description}
+\subsection{random variables}
+\label{sec-1-3}
+
+\begin{itemize}
+\item we can map one event space (sigma-field) to another
+\begin{itemize}
+\item this lets us transfer the probability measure to another
+        measurable space
+\end{itemize}
+\item most of the time, we map an abstract measureable space (ie hands
+      of cards) to $\Re$
+\begin{itemize}
+\item imposes an ordering
+\item imposes distance
+\item lets us simplify things a lot more.
+\end{itemize}
+\item We're going to think about things like $P[X \in A]$ where $A
+      \subset \Re$
+\item The point of using random variables is to translate a very
+      abstract ``experiment'' to concrete numbers.  In this situation,
+      the sigma-field is giong to really let us think about the
+      information conveyed by particular choices of rvs.
+\item The ``borel sigma-field'', denoted $\mathcal B$, has the sample
+      space $\Re$ and is the smallest sigma field containing the
+      clo.sed intervals
+\end{itemize}
+\paragraph{definition of random variables}
+\label{sec-1-3-1}
+
+\begin{itemize}
+\item Let $\mathcal{F}$ be a sigma-field on a sample space $S$, and
+        let $X$ be a function from $S$ to $\Re$.  $X$ is a random
+        variable if it is ``measurable.''
+\item $X$ is \underline{measurable} if $X^{-1}(B) \in \mathcal{F}$ for all $B
+        \in \mathbb{B}$
+\end{itemize}
+\section{Distribution functions}
+\label{sec-2}
+
+\begin{itemize}
+\item Covered \textit{2009-08-26 Wed}, \textit{2010-08-26 Thu}, \textit{2011-08-25 Thu},
+      \textit{2009-08-31 Mon}, \textit{2010-09-02 Thu}, \textit{2011-08-25 Thu}
+\item Greene, B.2, B.1
+\item Casella Berger 1.5, 1.6, 4.1, 4.2
+\end{itemize}
+\subsection{definition}
+\label{sec-2-1}
+
+     The cumulative distribution function of a random variable $X$,
+     denoted $F_X$, is defined by $F_X(x) = P[X \leq x]$ for all x.
+\subsection{properties}
+\label{sec-2-2}
+
+     The distribution function of a random variable always exists and
+     satisfies
+\begin{enumerate}
+\item $\lim_{x \to -\infty} F_X(x) = 0$
+\item $\lim_{x \to \infty} F_X(x) = 1$
+\item $F_X$ is non-decreasing in $x$.
+\item $F_X$ is right-continuous.  For every number $x_0$, $\lim_{x
+        \downarrow x_0} F(x) = F(x_0)$
+\end{enumerate}
+\subsection{additional definitions}
+\label{sec-2-3}
+
+     A random variable is \emph{discrete} if its cdf is a step function and
+     is \emph{continuous} if its cdf is continuous.  (our previous example is
+     neither discrete nor continuous)
+\subsection{basic property}
+\label{sec-2-4}
+
+\begin{itemize}
+\item $P[X \in (a, b]] = F_X(b) - F_X(a)$
+\end{itemize}
+\section{Densities}
+\label{sec-3}
+
+    Covered on 
+\begin{itemize}
+\item \textit{2009-08-26 Wed}, \textit{2009-09-02 Wed},
+\item \textit{2010-09-02 Thu}, \textit{2010-08-27 Fri}, \textit{2010-09-07 Tue}
+      \textit{2011-08-30 Tue},
+\item CB 1.6, 4.1, 4.2
+\end{itemize}
+\subsection{motivation}
+\label{sec-3-1}
+
+     The cdf is awkward to work with directly.  Often we really want to
+     know something like the probability that a random variable $X$
+     equals a specific value.
+\subsection{discrete rv}
+\label{sec-3-2}
+
+     For discrete rv, talking about the probability that the rv takes a
+     specific value is meaningful.
+\paragraph{definition of probability mass function}
+\label{sec-3-2-1}
+
+\begin{itemize}
+\item Definition: the probability mass function of a discrete rv
+        $X$, denoted $f_X(x)$, is defined as $P(X = x)$ for all $x$.
+\item I'm going to call these ``densities'' from now on; you should know
+        this terminology for the future, though.
+\end{itemize}
+\paragraph{relationship between pmf and distribution}
+\label{sec-3-2-2}
+
+      The mass function and the distribution function are related by:
+      \[F_X(x) = \sum_{y \leq x} f_X(y)\]
+\subsection{continuous random variables.}
+\label{sec-3-3}
+
+\begin{itemize}
+\item The probability that a continuous r.v. takes a specific value
+       is zero:
+\begin{itemize}
+\item suppose $P[X = x] > \varepsilon$ for ever $x \in [0,1]$.
+\item Then \[P[X=x_1 \cup X = x_2 \cup \cdots \cup X = x_n] =
+         \sum_{i=1}^n P[X = x_i] = n \varepsilon\] for distinct $x_1,\dots,x_n$
+\item if $\varepsilon > 0$ then $P[X = x_1 \cup \dots \cup X
+         = x_n] > 1$ for all $n > 1/\varepsilon$, which is a contradiction
+\end{itemize}
+\item The relationship between the distribution function and the mass
+       function should remind you of \[ F_X(x) = \int_{ -\infty}^{x}
+       f_X(y) dy.\]
+\item We're going to take this relationship as our starting point for
+       the continuous random variables
+\end{itemize}
+\paragraph{definition}
+\label{sec-3-3-1}
+
+      The probability density function (pdf) of a continuous random
+      variable $X$ with distribution $F_X(\cdot)$ is the function $f_X$
+      that satisfies \[ F_X(x) = \int_{-\infty}^{x} f_X(y) dy\]
+\paragraph{notes}
+\label{sec-3-3-2}
+
+\begin{itemize}
+\item if $F$ is differentiable, we can get $f$ by differentiation.
+\item continuous random variables take on any particular value
+        with probability zero
+\item if you're comfortable using Dirac's delta function, this second
+        definition encompasses both the continuous and discrete case
+        (which is why I'll call both cases `pdfs').
+\item The \underline{support} of a random variable is the set of points where
+        its density is positve: $\{x \in \Re \mid f_X(x) > 0\}$
+\end{itemize}
+\subsection{properties of densities}
+\label{sec-3-4}
+
+\begin{itemize}
+\item $f_X(x) \geq 0$ for all $x$
+\item for discrete rv: $\sum_x f_X(x) = 1$
+\item for continuous rv: $\int_{-\infty}^{\infty} f_X(y) dy = 1$
+\end{itemize}
+\subsection{transformations}
+\label{sec-3-5}
+
+\begin{itemize}
+\item CB 2.1, 4.3; Greene B.5
+\end{itemize}
+\paragraph{introduction}
+\label{sec-3-5-1}
+
+      Suppose we have a continuous random variable $X: S \to \Re$.
+\begin{itemize}
+\item as we've discussed; this is just a way to define a new and more
+        convenient probability space on the real line;
+\item we know that $X$ has a distribution $F$ and a density $f$.
+\item what happens if we look at $X^2$ instead?
+\begin{itemize}
+\item it's an rv (don't worry about measurability
+\item how are its distribution and density related to the distribution
+          and density of the original random variable?
+\end{itemize}
+\end{itemize}
+\paragraph{motivating example}
+\label{sec-3-5-2}
+
+\begin{itemize}
+\item Suppose $X$ has the mass function
+\begin{itemize}
+\item $P[X = 0] = 1/2$
+\item $P[X = 1] = 1/4$
+\item $P[X = 2] = 1/4$
+\end{itemize}
+(draw the distribution)
+\item the mass for $X^2$ is easy to guess:
+        \[P[X^2 = x] = P[X = \sqrt{x}] = \begin{cases}
+          1/2 & x = 0 \\
+          1/4 & x = 1 \\
+          1/4 & x = 4 \\
+        \end{cases}\]
+\end{itemize}
+\paragraph{formula for density of a transformed rv}
+\label{sec-3-5-3}
+
+\begin{itemize}
+\item Greene B.5
+\item Suppose that Y = g(X), where X is a random variable with density
+        $f_X$ and g is a continuous, monotone function with continuously
+        differentiable inverse.  The
+        density of Y, $f_Y$, is given by the equation
+        \[ f_Y(y) = f_X(g^{-1}(y)) | d/dy g^{-1}(y) | \]
+        for y in the range of g and zero elsewhere
+\item if g is not monotone, you need to split up the domain into parts
+        over which g is monotone: see Casella and Berger for details if
+        you are interested.
+\item do proof (comes from differentiating distribution function)
+\end{itemize}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../../probability"
+%%% End: 

@@ -1,0 +1,668 @@
+% Copyright © 2013, Gray Calhoun.  Permission is granted to copy,
+% distribute and/or modify this document under the terms of the GNU
+% Free Documentation License, Version 1.3 or any later version
+% published by the Free Software Foundation; with no Invariant
+% Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of
+% the license is included in the section entitled "GNU Free
+% Documentation License."
+
+\part*{Law of large numbers}%
+\addcontentsline{toc}{part}{Law of large numbers}
+
+\begin{itemize}
+\item \textit{2012-10-18 Thu}, \textit{2012-10-16 Tue}, \textit{2012-10-04 Thu}
+\end{itemize}
+\section{Convergence of point estimators \textbf{:09:10:}}
+\label{sec-1}
+
+\begin{itemize}
+\item Covered on
+\begin{itemize}
+\item \textit{2009-09-14 Mon}, \textit{2009-09-16 Wed}
+\item \textit{2010-09-14 Tue}, \textit{2010-09-16 Thu}
+\item \textit{2011-10-04 Tue}, \textit{2011-10-11 Tue}, \textit{2011-10-13 Thu}
+\end{itemize}
+\item Reading:
+\begin{itemize}
+\item Greene D.1, D.2.1--D.2.3
+\item Casella \& Berger 5.5.1, 5.5.2, 10.1; Greene 14 (maybe)
+\end{itemize}
+\end{itemize}
+\subsection{Introduction to asymptotics}
+\label{sec-1-1}
+
+\begin{itemize}
+\item We've talked about point estimation
+\begin{itemize}
+\item For unbiased estimators, low variance is better
+\item Can calculate the distribution via transformation theorem
+\end{itemize}
+\item Everything relies on knowing the finite sample distributions
+\begin{itemize}
+\item Not realistic
+\end{itemize}
+\item Moreover, there is a common structure in a lot of the estimators
+       we've derived
+\begin{itemize}
+\item Method of moments estimator: $\hat\theta =
+         g^{-1}(\frac{1}{n}\sum_i X_i, \dots, \frac{1}{n} \sum_i X_i^k)$
+\begin{itemize}
+\item estimator is a function of averages
+\end{itemize}
+\item MLE: often FOC are $\frac{1}{n} \sum_i \frac{d}{d\theta}
+         f(x_i; \theta) = 0$
+\begin{itemize}
+\item estimator may inherit properties of averages
+\end{itemize}
+\end{itemize}
+\item Suggests that we maybe should try to study behavior of averages
+\begin{itemize}
+\item If there is a systematic behavior exhibited by averages, then
+         we don't necessarily need to know the finite sample
+         distribution to have an idea about the behavior of these estimators.
+\end{itemize}
+\end{itemize}
+\paragraph{Outline of results}
+\label{sec-1-1-1}
+
+\begin{itemize}
+\item Two crucial (families of) results:
+\begin{itemize}
+\item LLN
+\begin{itemize}
+\item Generic version: Under some conditions (weak dependence, few
+           extreme observations), 
+           $\frac{1}{n} \sum_{i=1}^n X_i \to \frac{1}{n} \sum_{i=1}^n E X_i$
+           in some sense
+\item Weak LLN (an example): If $X_1,X_2,\dots \sim i.i.d. (\mu,
+           \sigma^2)$ then $\bar X \to \mu$ in probability.
+\begin{itemize}
+\item We'll discuss convergence in probability soon.
+\end{itemize}
+\item Strong LLN (an example): If $X_1,X_2,\dots \sim i.i.d. (\mu,
+           \sigma^2)$ then $\bar X \to \mu$ almost surely.
+\begin{itemize}
+\item We'll discuss almost sure convergence later.
+\item Almost sure convergence implies convergence in
+             probability, but not vice versa (hence the names)
+\end{itemize}
+\end{itemize}
+\item CLT
+\begin{itemize}
+\item Generic version: Under some conditions (weak dependence, few
+           extreme observations), $\frac{1}{\sqrt{n}} \sum_{i=1}^n X_i
+           \to N$ in some sense.
+\item An example: Suppose that $X_1, X_2, \dots \sim i.i.d. (\mu, \sigma^2)$
+           then $\sqrt{n}(\bar X - \mu) \to N(0, \sigma^2)$ in distribution.
+\begin{itemize}
+\item We'll discuss what ``convergence in distribution'' means
+\end{itemize}
+\end{itemize}
+\item All of these assumptions can be weakened considerably.
+\item That's what I mean by ``family of theorems''
+\end{itemize}
+\end{itemize}
+\paragraph{Illustrative simulations for LLN}
+\label{sec-1-1-2}
+
+\begin{itemize}
+\item LLNs suggest that $\bar X$ should converge in some sense to the mean
+\item Some R code illustrates that point
+\begin{itemize}
+\item \texttt{hist(replicate(1000, mean(runif(10, -1, 1))), 150, xlim = c(-1,1))}
+\begin{itemize}
+\item redo for 100, 1000, 10000
+\end{itemize}
+\item i.i.d. uniform clearly satisfies the conditions listed above
+\item Other dists do too
+\begin{itemize}
+\item \texttt{hist(replicate(1000, mean(rexp(1000))), 150, xlim = c(-1,1))}
+\item \texttt{hist(replicate(1000, mean(rt(1000, df = 5))), 150, xlim = c(-1,1))}
+\end{itemize}
+\item What happens for dis that doesn't?
+\begin{itemize}
+\item \texttt{hist(replicate(1000, mean(rt(1000, df=1))), 150, xlim = c(-1,1))}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\paragraph{Illustrative simulations for CLT}
+\label{sec-1-1-3}
+
+\begin{itemize}
+\item CLTs suggest that $\bar X$ should be asymp. normal, even though variance vanishes
+\item Some R code illustrates that point
+\begin{itemize}
+\item \texttt{hist(replicate(10000, mean(runif(10, -1, 1))), 150)}
+\begin{itemize}
+\item redo for 100, 1000, 10000
+\end{itemize}
+\item \texttt{hist(replicate(10000, mean(rexp(1000))), 150)}
+\end{itemize}
+\item We can see where the $\sqrt{n}$ factor comes from:
+\begin{itemize}
+\item $var(\sqrt{n} \bar X) = \frac{n}{n^2} \sum_{i=1}^n var(X_i) = \sigma^2$
+\item scaling by any less makes the variance still go to zero
+\item scaling by any more and the variance blows up
+\item \texttt{hist(replicate(10000, sqrt(100) * mean(rexp(100))), 150)}
+\item \texttt{hist(replicate(10000, sqrt(1000) * mean(rexp(1000))), 150)}
+\end{itemize}
+\end{itemize}
+\paragraph{Interpretation}
+\label{sec-1-1-4}
+
+\begin{itemize}
+\item As long as the DGP belongs to a large class (finite mean and
+        variance, weak dependence), the behavior of $\bar X$ doesn't
+        really depend on the details of the DGP
+\end{itemize}
+\subsection{$L_p$ convergence}
+\label{sec-1-2}
+
+\begin{itemize}
+\item A stronger form of convergence than convergence in probability,
+        but easier to conceptualize.
+\item Suppose we have $n$ iid $(\mu, \sigma^2)$ random variables,
+        $X_1,\dots,X_n$.  Consider the sample mean, $\bar X \equiv
+        n^{-1} \sum_{i=1}^n$.  What happens when $n$ gets large?
+\item what happens to the mean?  Well,
+\begin{itemize}
+\item $E \bar X = n^{-1} \sum_{i=1}^n E X_i$
+\begin{itemize}
+\item $= n^{-1} \sum \mu$
+\item $= \mu$
+\end{itemize}
+\item so the mean doesn't depend on $n$ at all.
+\end{itemize}
+\item What happens to the variance?
+\begin{itemize}
+\item $var \bar X = n^{-2} var \sum_{i=1}^n X_i$
+\begin{itemize}
+\item $= n^{-2} E(\sum_i X_i - \mu)^2$
+\item $= n^{-2} E\left(\sum_{i,j} (X_i - \mu)(X_j - \mu)\right)$
+\item $= n^{-2} E \sum_{i=2}n (X_i - \mu)^2 + 2 n^{-2} E \sum_{i = 1}^n
+            \sum_{j = 1}^{i-1} (X_i - \mu) (X_j - \mu)$
+\item $= n^{-2} \sum_{i} E(X_i - \mu)^2 +  2 n^{-2} \sum_{i = 2}^n
+            \sum_{j = 1}^{i-1} E (X_i - \mu) (X_j - \mu)$
+\item $= n^{-2}\sum_i \sigma^2$
+\item $= \sigma^2/n$
+\end{itemize}
+\end{itemize}
+\item What happens to the distribution? (draw it).
+\item So, this seems like a reasonable form of convergence;
+\begin{itemize}
+\item Note that $E \bar X \to \mu$ and $var(\bar X) \to 0$ iff
+          $E(\bar X - \mu)^2 \to 0$
+\begin{itemize}
+\item which happens iff $(E(\bar X - \mu)^2)^{\frac12} \to 0$
+\item This last formulation is convenient since
+            $(E(X-Y)^2)^{\frac12}$ defines a measure of the distance
+            between the random variables $X$ and $Y$
+\item Analagous to Euclidean distance in $\Re^k$.
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\paragraph{Definition}
+\label{sec-1-2-1}
+
+\begin{itemize}
+\item Define the $L_p$ norm $(p \geq 1)$ of a random variable $X$ as $\|X\|_p = (E X^p)^{\frac1p}$
+\item Let $Y_1, Y_2, \dots$ be a sequence of random variables and let
+        $Y$ be another r.v.  If $\|Y_n - Y\|_p \to 0$ then $Y_n$
+        converges in $L_p$ to $Z$.
+\begin{itemize}
+\item This can be written $Y_n \to{L_p} Y$
+\end{itemize}
+\item If $Y_1,Y_2,\dots$ is a sequence of random vectors and $Y$ is
+        another random vector, $Y_n \to^{L_p} Y$ if each element of
+        $Y_n$ converges in $L_p$ to the corresponding element of $Y$.
+\end{itemize}
+\paragraph{Code to plot on the screen}
+\label{sec-1-2-2}
+
+\begin{itemize}
+\item Know from motivating example that $\bar X \to \mu$ in $L_2$ if
+        $X$ is i.i.d with finite mean and variance.
+\item Going to look at behavior of $\bar X$ when $X$ is uniform(-1,1), so $\mu = 0$
+\item To type into R for behavior of rvs:
+\begin{itemize}
+\item \texttt{hist(replicate(1000, mean(runif(n = 100, -1, -1))), 70, xlim = c(-1,1))}
+\item \texttt{hist(replicate(1000, mean(runif(n = 500, -1, -1))), 70, xlim = c(-1,1))}
+\item \texttt{hist(replicate(1000, mean(runif(n =1500, -1, -1))), 70, xlim = c(-1,1))}
+\end{itemize}
+\item Another view:
+\begin{itemize}
+\item \texttt{n <- seq(from = 10, to = 10000, length = 100)}
+\item \texttt{xbar <- do.call(rbind, lapply(n, function(n) \{}
+\begin{itemize}
+\item \texttt{xbars <- replicate(1000, mean(runif(n, -1, -1)))}
+\item \texttt{cbind(y = xbars, n = n)\}))}
+\end{itemize}
+\item \texttt{jitter <- runif(nrow(xbar), -10, 10)}
+\item \texttt{plot(xbar[,1] \textasciitilde{} xbar[,2] + jitter, col = rgb(0,0,0,0.2))}
+\end{itemize}
+\item To approximate $\|\bar X - \mu\|_2$:
+\begin{itemize}
+\item \texttt{L2 <- rep(NA, 100)}
+\item \texttt{n <- seq(from = 10, to = 10000, length = 100)}
+\item \texttt{for (i in 1:100)              L2[i] <- mean(replicate(1000, mean(runif(n = n[i], -1, -1)))\textasciicircum{}2)\textasciicircum{}0.5}
+\item \texttt{plot(L2 \textasciitilde{} n, type = "l")}
+\end{itemize}
+\end{itemize}
+\paragraph{Remarks}
+\label{sec-1-2-3}
+
+\begin{itemize}
+\item If $\{Y_n\}$ is a sequence of random variables that converges in
+        $L_p$ to some constant $c$ then it converges in $L_r$ to $c$ for
+        all $1 \leq r < p$.
+\item also called ``convergence in $p$ th mean'' (or, for $p = 2$,
+        convergence in quadratic mean).
+\item Convergence in $L_p$ requires that the $p$ th moment exists.
+        This is not always guaranteed.
+\item doesn't cover every case that we'd think of as ``convergence''
+\begin{description}
+\item[An example] Let $W_n = n$ with probability $1/n$ and $W_n = 0$
+          with probability $1 - 1/n$.
+\begin{itemize}
+\item Draw pictures
+\item Probability $W_n = 0$ converges to 1 as $n \to \infty$.
+\item But the expected value of $W_n = 1$, and the value of $\lVert
+            W_n \rVert_1 = E | W_n | = 0 P[W_n = 0] + n P[W_n = n] = 1$
+            as well; so we don't have convergence in $L_1$.
+\end{itemize}
+\item[Code] We can see the failure of convergence pretty easily:
+\begin{itemize}
+\item Looking at the plots of the series
+\begin{itemize}
+\item \texttt{Wn <- do.call(rbind, lapply(n, function(n) \{}
+\begin{itemize}
+\item \texttt{Ws <- replicate(1000, n * rbinom(1, 1, 1/n))}
+\item \texttt{cbind(y = Ws, n = n)\}))}
+\end{itemize}
+\item \texttt{jitter <- runif(nrow(Wn), -10, 10)}
+\item \texttt{plot(Wn[,1] \textasciitilde{} Wn[,2] + jitter, col = rgb(0,0,0,0.2))}
+\end{itemize}
+\item Looking at $L_2$ convergence:
+\begin{itemize}
+\item \texttt{L2 <- rep(NA, 100)}
+\item \texttt{n <- seq(from = 10, to = 10000, length = 100)}
+\item \texttt{for (i in 1:100)                  L2[i] <- mean(replicate(10000, n * rbinom(1, 1, 1/n))\textasciicircum{}2)\textasciicircum{}0.5}
+\item \texttt{plot(L2 \textasciitilde{} n, type = "l")}
+\end{itemize}
+\end{itemize}
+\end{description}
+\end{itemize}
+\subsection{Convergence in probability}
+\label{sec-1-3}
+
+\begin{itemize}
+\item Convergence in probability (which we invoked for WLLN without
+       defining it) is a weaker form of convergence than $L_p$
+       convergence.
+\item A sequence of random variables $Y_n$ converges in probability to
+       $Y$ if \[ P[\lvert Y_n - Y \rvert > \varepsilon] \to 0 \] for
+       any positive constant $\varepsilon$.
+\item Note that convergence in probability is implied by convergence
+       in $L_p$ (students should prove this for homework)
+\item Take $W_n$ as before.  Does $W_n$ converge to zero in probability?
+\begin{itemize}
+\item $P[\lvert W_n \rvert > \varepsilon] \leq P[W_n = n] = 1/n \to
+         0$ as $n \to \infty$.
+\end{itemize}
+\end{itemize}
+\paragraph{Discussion \textbf{:hw:}}
+\label{sec-1-3-1}
+
+\begin{enumerate}
+\item Notation. arrow and plim.
+\item if $X_n$ converges in $L_p$ for $p \geq 1$, then $X_n$
+          converges in probability.  (prove this for homework).
+\item Obviously, the converse doesn't hold (we've given a
+          counterexample).  However, you might have notice that the
+          counterexample involves a small part of the pmf ``escaping'' off
+          to infinity.  If we impose conditions that prevent that from
+          happening, then convergence in probability implies convergence
+          in $L_p$.  This additional condition is called ``uniform
+          integrability'', and we won't cover it in the course.
+\item To prove convergence in probability, we usually just prove that
+          the mean and variance converge.  This in turn implies
+          convergence in $L_2$.
+\item A useful result holds for continuous functions: suppose that
+          $X_n$ converges to $c$ in probability and that $g$ is a
+          function and is continuous at $c$.  Then $g(X_n)$ converges in
+          probability to $g(c)$.
+\begin{itemize}
+\item Proof (Assign for homework if you're short on time)
+\begin{itemize}
+\item remember the definition of a continuous function.  $g$ is
+              continuous at $c$ if for every $\varepsilon >0$, there
+              exists a $\delta > 0$ such that $|g(c + h) - g(c)| <
+              \varepsilon$ for all $-\delta \leq h \leq \delta$.
+\item We want to prove that $P[|g(X_n) - g(c)| > \gamma]
+              \to 0$ for all $\gamma > 0$.
+\item So, take $\gamma$ as given.  Then define $\delta$ so that
+              $|g(c + h) - g(c)| \leq \gamma$ for all $-\delta \leq h \leq \delta$.
+\begin{itemize}
+\item so $|X_n - c| < \delta$ implies $|g(X_n) - g(c)| \leq \gamma$
+\item $P[|X_n - c| < \delta] \leq P[|g(X_n) - g(c)| \leq \gamma]$
+\item $P[|g(X_n) - g(c)| > \gamma] \leq P[|X_n - c| \geq \delta] \to 0$ 
+                since $X_n \to^p c$.
+\end{itemize}
+\item Since $X_n$ converges to $c$, there exists an $N$
+              such that $P[|X_n - c| \geq \delta] < \beta$ for
+              all $n \geq N$
+\item this last step completes the proof.
+\end{itemize}
+\item Theorem D.14 in Greene gives some important implications of
+            this result.
+\begin{description}
+\item[One important case] suppose you show that the sequence of
+                 matrices $W_n$ converges in probability to $\Sigma$.
+                 How would you show that $W_n^{-1}$ converges in
+                 probability to $\Sigma^{-1}$
+\end{description}
+\item More generally, have $g(plim\ X_n) = plim\ g(X_n)$ even if
+            $plim\ X_n$ is stochastic.
+\begin{itemize}
+\item proof more complicated; students should try to do it for
+              homework.
+\end{itemize}
+\end{itemize}
+\end{enumerate}
+\paragraph{Weak law of large numbers}
+\label{sec-1-3-2}
+
+\begin{itemize}
+\item As I said earlier, the Weak LLN is a family of results that can
+       be basically stated: Suppose $\{X_n\}$ is a sequence of random
+       variables with mean $\mu$.  Under some conditions, $n^{-1}
+       \sum_{i=1}^n X_i \to \mu$ in probability.
+\item Khinchine's WLLN :: If $X_1,\dots,X_n$ is a iid sequence of
+          random variables with mean $\mu$ then $plim \bar X = \mu$.
+\begin{itemize}
+\item Here we don't assume that second moments exist.  So the earlier
+         proof doesn't work
+\end{itemize}
+\item Chebychev's WLLN :: Suppose that $X_1,\dots,X_n$ is an
+          independent sequence of r.v. with $E X_i = \mu_i$ and $var
+          X_i = \sigma_i^2$ and that $n^{-2} \sum_i \sigma_i^2 \to 0$
+          as $n \to \infty$.  Then $plim \bar X - \bar \mu = 0$.
+\begin{itemize}
+\item discuss intuition with a picture.
+\item Example where variance condition fails; suppose $\sigma_i^2 = i$, $\mu_i = 0$.
+\begin{itemize}
+\item Then $\|\bar X_n\|_2 = (var(\bar X))^{\frac12}$
+\begin{itemize}
+\item $= \frac{1}{n^2} \sum_i var(X_i)^2$
+\item $= \frac{1}{n^2} \sum_i i$
+\item $= \frac12 + \frac{1}{2n} \to \frac{1}{2}$
+\end{itemize}
+\item Convergence in probability fails.
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\subsection{Big-O, little-o notation \textbf{:hw:}}
+\label{sec-1-4}
+
+\begin{itemize}
+\item This notation makes it easier to carry along remainder terms in
+       proofs.
+\item Little o:
+\begin{itemize}
+\item A sequence of random variables $X_n$ is $o_p(1)$ as $n \to
+         \infty$ if $X_n \to^p 0$
+\item Written as $X_n = o_p(1)$
+\item $X_n = o_p(n)$ as $n \to \infty$ if $X_n/n = o_p(1)$
+\end{itemize}
+\item Big O:
+\begin{itemize}
+\item $X_n$ is $O_p(1)$ as $n \to \infty$ if, for each $\epsilon >
+         0$, there are constants $c$ and $N$ such that $P[|X_n| > c] < \epsilon$ for every $n > N$.
+\begin{itemize}
+\item Written as $X_n = O_p(1)$
+\end{itemize}
+\item $X_n = O_p(n)$ if $X_n/n = O_p(1)$
+\item Captures the idea of being bounded for a random variable
+         (i.e. ``bounded in probability'')
+\end{itemize}
+\item Be careful, even though it's written as an inequality, the direction matters:
+\begin{itemize}
+\item $o_p(1) = O_p(1)$ but $O_p(1) \neq o_p(1)$
+\item First statement means, ``if a sequence converges to zero in
+         probability, it is bounded in probability.''
+\item A proof: let $X_n$ be an $o_p(1)$ sequence.
+\begin{itemize}
+\item Then, $X_n \to 0$ in probability, so, for each positive
+           $\epsilon$ and $\delta$, there is a value of $N$ such that
+           \[P[|X_n| > \delta] < \epsilon\] for every $n > N$.
+\item So the big O condition holds with $c = \delta$
+\end{itemize}
+\item A counterexample to the second ``claim'' that $O_p(1) = o_p(1)$
+\begin{itemize}
+\item means ``if a sequence is bounded in probability, it converges to zero in probability''
+\item let $X_n$ be i.i.d. uniform(0,1)
+\item then $P[|X_n| > c]  = 0$ for any $c > 1$
+\item but $X_n$ does not converge to zero in probability.
+\end{itemize}
+\item For homework:
+\begin{itemize}
+\item prove that $O_p(1) + o_p(1) = O_p(1)$
+\item prove that $n O_p(n) = O_p(n^2)$
+\item come up with other interesting facts and prove them.
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\subsection{Almost sure convergence}
+\label{sec-1-5}
+
+\begin{itemize}
+\item This is a somewhat unintuitive convergence concept that is stronger
+        than convergence in probability.
+\item Remember that a random variable is a function from a sample space
+        to the real line;
+\begin{enumerate}
+\item so if we have the probability space $(\Omega,
+           \mathcal F, P)$ and $\omega$ is an element of $\Omega$, we know
+           that $X_j(\omega)$ is equal to some number.
+\item $X_j(\omega')$ might be equal to a different number.
+\item So we can talk about different sequences of numbers that
+           depend on $\omega$
+\begin{itemize}
+\item $X_1(\omega), X_2(\omega), \dots, X_k(\omega)$.
+\item $X_1(\omega'), X_2(\omega'), \dots, X_k(\omega')$.
+\end{itemize}
+\item For a given $\omega$, the sequence of outcomes might
+           converge, for a different $\omega$, the sequence might not.
+\item If the probability of drawing a value of $\omega$ that gives a
+           convergent sequence of real numbers is one, this means that
+           the sequence of random variables also converges, and in a very
+           ``strong'' way.
+\end{enumerate}
+\item Definition: The sequence of random variables $Y_n$ converges
+        \emph{almost surely} to the random variable $Y$ if, for every
+        $\varepsilon > 0$, \[ P[\lim_{n \to \infty} | Y_n - Y | <
+        \varepsilon] = 1 \]
+\item notation -- arrow with a.s. over it
+\item almost sure convergence implies convergence in probability, but
+        not vice versa.
+\end{itemize}
+\paragraph{Example of almost sure convergence (from SLLN)}
+\label{sec-1-5-1}
+
+\begin{itemize}
+\item Remember that the SLLN implies that $\bar X_n \to \mu$ a.s.
+\item \texttt{library(lattice)}
+\item \texttt{d <- do.call(rbind, lapply(1:30, function(i) \{}
+\begin{itemize}
+\item \texttt{xs <- runif(300, -1, 1)}
+\item \texttt{cbind(i = i, n = 1:300, xbar = cumsum(xs)/(1:300))\}))}
+\end{itemize}
+\item Plotting individual sequences:
+\begin{itemize}
+\item \texttt{xyplot(xbar \textasciitilde{} n, data = as.data.frame(d), group = i, col = "black", type = "l", subset = i==1)}
+\item \texttt{xyplot(xbar \textasciitilde{} n, data = as.data.frame(d), group = i, col = "black", type = "l", subset = i==2)}
+\item \texttt{xyplot(xbar \textasciitilde{} n, data = as.data.frame(d), group = i, col = "black", type = "l", subset = i==3)}
+\end{itemize}
+\item Plotting them all:
+\begin{itemize}
+\item \texttt{xyplot(xbar \textasciitilde{} n, data = as.data.frame(d), group = i, col = rgb(0,0,0,.4), type = "l")}
+\end{itemize}
+\end{itemize}
+\paragraph{Example of convergence i.p. but not a.s.}
+\label{sec-1-5-2}
+
+\begin{itemize}
+\item a sequence of r.v. that converges to zero in probability, but
+        not almost surely.
+\item Let $U$ be a r.v. from the uniform(0,1) distribution.
+\begin{itemize}
+\item Define the sequence: (draw this sequence)
+\begin{itemize}
+\item $X_1(U) = 1$
+\item $X_2(U) = 1\{U \leq 1/2\}$,
+\item $X_3(U) = 1\{U > 1/2\}$,
+\item $X_4(U) = 1\{U \leq 1/3\}$
+\item $X_5(U) = 1\{1/3 < U \leq 2/3\}$
+\item $X_6(U) = 1\{U > 2/3\}$
+\item etc.
+\end{itemize}
+\item Obviously, each $X_n$ is either zero or one, and the
+          probability it is one decreases with $n$.
+\item But, for any value of $U$, $X_n(U)$ does not converge to zero
+          ---there are always later values that are equal to one.
+\end{itemize}
+\item to plot them:
+\begin{itemize}
+\item function to generate $X_1,\dots,X_n$
+\begin{itemize}
+\item \texttt{Xseq <- function(U, n) \{}
+\begin{itemize}
+\item \texttt{den <- 1}
+\item \texttt{num <- 1}
+\item \texttt{X <- rep(NA, n)}
+\item \texttt{for (i in 1:n) \{}
+  \begin{description}
+  \item[→] \texttt{X[i] <- (num-1)/den < U \&\& U < = num/den}
+  \item[→] \texttt{if (num==den) \{}
+    \begin{description}
+    \item[→] \texttt{num = 1}
+    \item[→] \texttt{den = den + 1}
+    \end{description}
+  \item[→] \texttt{\} else \{}
+    \begin{description}
+    \item[→] \texttt{num = num+1}
+    \end{description}
+  \item[→] \texttt{\}\}}
+  \end{description}
+\item \texttt{X\}}
+\end{itemize}
+\end{itemize}
+\item To plot them (repeat the plot several times)
+\begin{itemize}
+\item \texttt{plot(X(runif(1), 500), type = "l")}
+\end{itemize}
+\item For plotting several at once:
+\begin{itemize}
+\item \texttt{d <- do.call(rbind, lapply(1:100, function(i)) \{}
+\begin{itemize}
+\item \texttt{U <- runif(1)}
+\item \texttt{cbind(i = i, U = U, X = Xseq(U, 500), n = 1:500)\})}
+\end{itemize}
+\item \texttt{d <- as.data.frame(d)}
+\item Marginals (to see convergence in probability)
+\begin{itemize}
+\item \texttt{d\$jitter <- runif(nrow(d), -5, 5)}
+\item \texttt{xyplot(X \textasciitilde{} n + jitter, data = d, col = rgb(0,0,0,.2), subset = n \%\% 100 = 1)}
+\end{itemize}
+\item Sample paths
+\begin{itemize}
+\item \texttt{xyplot(X \textasciitilde{} n, d, group = i, col = rgb(0,0,0,.3), type = "l", subset = i < 10)}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\paragraph{Strong law of large numbers}
+\label{sec-1-5-3}
+
+\begin{itemize}
+\item Similar to weak law of large numbers, but with almost sure
+       convergence.  I'll give an example
+\item Kolmogorov's SLLN :: If $\{X_n\}$ is a sequence of iid random
+          variables with mean $\mu$ then $\bar X \to \mu$ almost
+          surely.
+\end{itemize}
+\subsection{Consistency}
+\label{sec-1-6}
+
+     Consistency is an asymptotic version of unbiasedness
+\paragraph{Definition}
+\label{sec-1-6-1}
+
+      an estimator $\hat \theta$ is a consistent estimator of the
+      parameter $\theta$ if $\hat \theta \xrightarrow{p} \theta$ for
+      any value of $\theta$.
+\paragraph{Basic result for consistency \textbf{:hw:}}
+\label{sec-1-6-2}
+
+\begin{itemize}
+\item Statement of the result
+\begin{itemize}
+\item Let $\hat\theta_n$ be a sequence of estimators of $\theta$ such
+          that, for every $\theta$,
+\begin{enumerate}
+\item $var_\theta(\hat\theta_n) \to 0$
+\item $E_\theta (\hat\theta_n) \to 0$
+\end{enumerate}
+\item then $W_n$ is consistent for $\theta$
+\end{itemize}
+\item Proof:
+\begin{itemize}
+\item Follows immediately from Cauchy-Schwarz
+\item Want to show $\Pr[|\hat \theta_n - \theta| > \epsilon] \to 0$ for all $\epsilon > 0$
+\item $\Pr[|\hat \theta_n - \theta| > \epsilon] \leq \dfrac{E(\hat\theta_n - \theta)^2}{\epsilon^2}$
+\begin{itemize}
+\item $= \dfrac{E((\hat\theta_n - E\hat\theta_n)+ (E\hat\theta_n - \theta))^2}{\epsilon^2}$
+\item $= \dfrac{E(\hat\theta_n - E\hat\theta_n)^2}{\epsilon^2} + 2 \dfrac{E((\hat\theta_n - E\hat\theta_n)(E\hat\theta_n - \theta))}{\epsilon^2} + \dfrac{(E\hat\theta_n - \theta)^2}{\epsilon^2}$
+\item $= o(1) + 0 + o(1)$
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\paragraph{Consistency of MLE (CB Thm 10.1.6, Greene sec 14.4)}
+\label{sec-1-6-3}
+
+\begin{itemize}
+\item We're just going to mention the result
+\begin{itemize}
+\item you'll see it in more detail next semester
+\item we won't mention the assumptions
+\item But, this is a big justification for using MLE as a general method
+\end{itemize}
+\item Suppose that $X_1,\dots,X_n \sim i.i.d.\ f(x; \theta)$ where
+        $f$ satisfies some technical regularity conditions and suppose
+        $\hat\theta_n$ is the MLE of $\theta$.  Then $\hat\theta_n
+        \to^p \theta$ as $n \to \infty$.
+\begin{itemize}
+\item Note, doesn't always hold, but usually holds.
+\item A good homework exercise---look up the regularity conditions
+          in CB or Greene and see if common families (gamma,
+          exponential, uniform, etc) satisfy them; then try to prove consistency
+          directly.
+\item There are weaker conditions than listed in CB (in particular,
+          we can relax i.i.d)
+\end{itemize}
+\end{itemize}
+\paragraph{Consistency of method of moments estimators}
+\label{sec-1-6-4}
+
+\begin{itemize}
+\item Suppose that $X_1,\dots,X_n \sim f(\cdot; \theta)$ where
+        $\theta$ is a $k$-vector, $(E X_i,\dots,E X_i^k) =
+        g(\theta_1,\dots,\theta_k)$, $g^{-1}$ is continuous, and that
+        $\frac{1}{n} \sum_i X_i^k$ obeys a weak LLN.  Then the Method
+        of Moments estimator of $\theta$ is consistent.
+\end{itemize}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../../pointestimation"
+%%% End: 

@@ -1,0 +1,754 @@
+% Copyright © 2013, Gray Calhoun.  Permission is granted to copy,
+% distribute and/or modify this document under the terms of the GNU
+% Free Documentation License, Version 1.3 or any later version
+% published by the Free Software Foundation; with no Invariant
+% Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of
+% the license is included in the section entitled "GNU Free
+% Documentation License."
+
+\part*{Bayesian statistics}%
+\addcontentsline{toc}{part}{Bayesian statistics}
+
+\begin{itemize}
+\item Covered on
+\begin{itemize}
+\item \textit{2010-10-12 Tue}, \textit{2010-10-14 Thu}, \textit{2010-10-19 Tue}
+\end{itemize}
+\item Reading
+\begin{itemize}
+\item CB 5.6, 7.2.3
+\item Greene 16
+\end{itemize}
+\end{itemize}
+\section{introduction to bayesian statistics}
+\label{sec-1}
+
+\begin{itemize}
+\item For classical statistics (what we've been doing so far), unknown parameters are treated as fixed.
+\begin{itemize}
+\item reasonable perspective
+\item can be limiting
+\begin{itemize}
+\item What would you do if you have to make a forecast and have no data?
+\end{itemize}
+\end{itemize}
+\item For Bayesian statistics, we treat the unknown parameter as a
+      random variable
+\end{itemize}
+\subsection{mathematics}
+\label{sec-1-1}
+
+\begin{itemize}
+\item dead simple.
+\item denote the whole sample as $X$ (ie $X_1,\dots,X_n$)
+\begin{itemize}
+\item we'll assume that this is iid, but that's not important
+\end{itemize}
+\item suppose that $X_i \sim f_X(\cdot; \theta)$
+\begin{itemize}
+\item this specification is part of the model
+\item this part looks like what we've done
+\end{itemize}
+\item now, suppose that $\theta \sim f_\theta$
+\begin{itemize}
+\item so the previous line really should be
+         \[X_i \mid \theta \sim f_X(\cdot, \theta)\]
+\item this density represents what we believe about the unknown
+         parameters $\theta$ before we look at any data
+\item called the \emph{prior} distribution
+\item parameters on this density are called ``hyperparameters''
+\end{itemize}
+\item We're going to base decisions on the posterior distribution of
+       $\theta$, which is updated to reflect what we've learned from
+       the data
+\begin{itemize}
+\item posterior distribution is the conditional distribution
+         $f_\theta(t \mid X)$
+\item we get this using Bayes's rule:
+         \[f_\theta(t \mid X = x) = \frac{f_X(x \mid \theta = t) f_\theta(t)}{f_X(x)}\]
+\end{itemize}
+\item If we need to represent the posterior by a single number, we
+       can do this as long as we have a loss function
+\begin{itemize}
+\item Remember, a loss function is some function $L$
+\begin{itemize}
+\item convex
+\item $L(0) = 0$
+\item these conditions can be generalized
+\end{itemize}
+\item estimator is the value $\hat\theta$ that minimizes
+         \[ E(L(\theta - \hat \theta \mid X_1,\dots,X_n) \]
+\begin{itemize}
+\item expectation is over $\theta$
+\end{itemize}
+\item similar to certainty-equivalence.
+\end{itemize}
+\end{itemize}
+\subsection{example}
+\label{sec-1-2}
+
+\begin{itemize}
+\item Suppose $X_i \sim i.i.d.\ bernoulli(\theta)$
+\begin{itemize}
+\item we're interested in $\sum_i X_i \sim\ bernoulli(n, \theta)$
+\item $f(x \mid \theta) = \binom{n}{x} \theta^x (1-\theta)^{n-x}$
+\end{itemize}
+\item A prior might be that $\theta \sim\ uniform(0,1)$
+\end{itemize}
+\section{Choice of prior}
+\label{sec-2}
+
+\begin{itemize}
+\item There are three ``standard'' methods for choosing a priod
+\begin{itemize}
+\item Uninformative prior
+\begin{itemize}
+\item ad hoc
+\item formalized
+\end{itemize}
+\item Conjugate prior
+\item carefully considered prior (this is less common)
+\end{itemize}
+\end{itemize}
+\subsection{Uninformative prior}
+\label{sec-2-1}
+
+\begin{itemize}
+\item One chosen to (in a way) minimize the knowledge embodied in
+       the prior
+\item Often people use ad hoc uninformative priors
+\begin{itemize}
+\item can give misleading results
+\end{itemize}
+\item Formal method of getting uninformative prior:
+\begin{itemize}
+\item prior density should be proportional to $\sqrt{|I(\theta)|}$
+\begin{itemize}
+\item ``abs'' is determinant
+\item $I(\theta)$ is the `information matrix' from the
+           Cramer-Rao lower bound
+           \[I_{ij}(\theta) = E[ \frac\partial{\partial \theta_i} \log
+           f_X(X \mid \theta) \cdot  \frac\partial{\partial \theta_j} \log
+           f_X(X \mid \theta) ]\]
+\end{itemize}
+\end{itemize}
+\item Reference prior
+\begin{itemize}
+\item Chooses the prior distribution that maximizes the expected
+         distance between prior ( $f_\theta(\cdot)$ ) and posterior (
+         $f_\theta(\cdot \mid X)$ ) distributions
+\item often gives same result as Jeffreys Prior
+\end{itemize}
+\end{itemize}
+\subsection{Conjugate prior}
+\label{sec-2-2}
+
+\begin{itemize}
+\item A conjugate prior is one that is chosen so that the prior and
+       the posterior are in the same family
+\begin{itemize}
+\item computationally convenient
+\end{itemize}
+\item Definition: (from Cassella Berger 7.2.3)  Let $\mathcal{F}$ denote the class of pdfs $f_X(x \mid \theta)$.  A class $\Pi$
+       of prior distributions is a \emph{conjugate family} for $\mathcal F$ if the posterior is in the class $\Pi$ for all $f$ in $\mathcal F$,
+       all priors in $\Pi$, and all $x$.
+\item Uniform is a special case of beta distribution with
+       parameters (1,1)
+\item consider beta prior with parameters $\alpha$ and $\beta$ and
+       $X \sim \operatorname{binomial}(n,p)$ DGP
+\begin{itemize}
+\item $p_\theta(t) = \frac{\Gamma(\alpha + \beta) t^{\alpha-1}
+         (1-t)^{\beta-1}}{\Gamma(\alpha) \Gamma(\beta)}$
+     \item $p_{X}(S \mid \theta) = \binom{n}{S} \theta^S
+       (1-\theta)^{n-S} = \frac{\Gamma(n + 1)}{\Gamma(S + \Gamma(n - S
+         + 1)} \theta^S (1-\theta)^{n-s}$
+\item To get posterior, combine the distributions as before
+\begin{itemize}
+\item $p_\theta(t \mid data) 
+           = K \times \frac{\Gamma(n + 1)}{\Gamma(S + 1) \Gamma(n - S + 1)} t^S (1-t)^{n-S} \times \frac{\Gamma(\alpha + \beta) t^{\alpha-1} (1-t)^{\beta-1}}{\Gamma(\alpha) \Gamma(\beta)}$
+\begin{itemize}
+\item $= K \times \frac{\Gamma(n + 1) \Gamma(\alpha + \beta)}{\Gamma(S + 1) \Gamma(n - S + 1) \Gamma(\alpha) \Gamma(\beta)} t^{\alpha + S - 1} (1 - t)^{\beta + n - S - 1}$
+\end{itemize}
+\item we can recognize that this is the beta($\alpha + S, \beta + n - S$) density again; so we must have 
+           \[ K = (\frac{\Gamma(n + 1) \Gamma(\alpha + \beta)}{\Gamma(S + 1) \Gamma(n - S + 1)\Gamma(\alpha)\Gamma(\beta)})^{-1} \frac{\Gamma(\alpha + \beta + n)}{\Gamma(\alpha + S)\Gamma(\beta + n)} \]
+\end{itemize}
+\item This is the beta distribution again:
+\begin{itemize}
+\item mean is $(S + \alpha) / (n + \alpha + \beta)$
+\end{itemize}
+\end{itemize}
+\item for any bernoulli, if the prior is $beta(\alpha,\beta)$ the
+       posterior is $beta(S + \alpha, N - S + \beta)$
+\end{itemize}
+\paragraph{advantages}
+\label{sec-2-2-1}
+
+\begin{itemize}
+\item mathematical convenience
+\item interpretation as an augmented dataset
+\begin{itemize}
+\item Another way to interpret the prior in this case
+\begin{itemize}
+\item suppose we'd observed other data previously
+\item $\alpha$ is the number of successes we observed
+\item $\beta$ is the number of failures
+\end{itemize}
+\item Increasing $\alpha$ and $\beta$ decreases the variance of the prior
+\begin{itemize}
+\item makes the prior have a larger effect on our estimator
+\end{itemize}
+\item we see this for some families of distributions (exponential family)
+\end{itemize}
+\end{itemize}
+\subsection{Asymptotics}
+\label{sec-2-3}
+
+\begin{itemize}
+\item What happens as $N \to \infty$ (for conjugate prior)
+\item $\alpha$ and $\beta$ are fixed, so $\frac{R + \alpha}{R + G +
+       \alpha + \beta}$ behaves like $\frac{R}{R+G}$
+\item ie the prior doesn't matter and the Bayesian estimator
+       (squared error loss) and MLE behave the same
+\item typically the case for general priors, but one can construct
+       counterexamples
+\end{itemize}
+\section{Implementing the prior numerically}
+\label{sec-3}
+
+\begin{itemize}
+\item for conjugate priors, everything is easy (if you know the analytical form)
+\item otherwise, finding the density is kind of a bitch:
+      \[f_\theta(t \mid X = x) \propto f_X(x \mid \theta = t) f_\theta(t)\]
+\item On the computer, though, it's easy using metropolis-hastings algorithm
+\begin{itemize}
+\item remember the accept-reject algorithm we used for homework
+\begin{itemize}
+\item want to draw from some $X \sim f$ w/ support between 0 and 1,
+         height between zero and one.
+\begin{itemize}
+\item draw candidate $X$ from uniform distribution
+\item draw another variable $V$ from uniform distribution
+\item if $V \leq f(X)$, keep $X$, otherwise draw another $X$ and $V$.
+\end{itemize}
+\item can be extended to non-uniform for both
+\item problem, though:
+\begin{itemize}
+\item requires candidate density to be ``larger'' than real density
+\begin{description}
+\item[→] really talking about in the tails.
+\item[→] draw
+\end{description}
+\end{itemize}
+\item metropolis algorithm gets around this restriction
+\begin{itemize}
+\item one problem: gives asymptotic/approximate results
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\subsection{description of algorithm (Casella Berger, p. 254)}
+\label{sec-3-1}
+
+     Suppose you can generate $V \sim f_V$, and the density $f_Y$
+     has the same support
+\begin{enumerate}
+\item Generate $Z_0 \sim f_V$
+\item To generate $Z_i$, $i > 0$:
+\begin{itemize}
+\item Generate $V_i \sim f_V$
+\item Set $Z_i$
+\begin{itemize}
+\item $= V_i$ with probability $\min\{ f_Y(V_i)/ f_V(V_i)
+            \times f_V(Z_{i-1}) / f_Y(Z_{i-1}), 1\}$
+\end{itemize}
+\item $= Z_{i-1}$ otherwise
+\end{itemize}
+\item As $i \to \infty$, $Z_i \to f_Y$ in distribution.
+\end{enumerate}
+\subsection{simple example}
+\label{sec-3-2}
+\paragraph{ergodicity}
+\label{sec-3-2-1}
+
+\begin{itemize}
+\item let $V =$
+\begin{itemize}
+\item 0 with probability 1/4
+\item 1 with probability 3/4
+\end{itemize}
+\item let $Y =$
+\begin{itemize}
+\item 0 with probability 1/2
+\item 1 with probability 1/2
+\end{itemize}
+\item suppose $Z_{i-1} = 0$ and draw $V_i$
+\begin{itemize}
+\item if $V_i = 0$, $Z_i = 0$ always
+\item if $V_i = 1$, $Z_i$ equals
+\begin{itemize}
+\item 1 with probability 1/3
+\item 0 with probability 2/3
+\end{itemize}
+\item so $Z_i \mid Z_{i-1} = 0$ is
+\begin{itemize}
+\item 0 with prob $1/4 + 2/3 \times 3/4 = 3/4$
+\item 1 with prob $1/3 \times 3/4 = 1/4$
+\end{itemize}
+\end{itemize}
+\item suppose $Z_{i-1} = 1$ and draw $V_i$
+\begin{itemize}
+\item if $V_i = 0$, $Z_i$ is
+\begin{itemize}
+\item 0 with probability $\min(.5/.25 \times .75/.5, 1) =
+            \min(3,1) = 1$
+\item 1 with prob 0
+\end{itemize}
+\item if $V_i = 1$, $Z_i$ is 1 always
+\item so $Z_i \mid Z_{i-1} = 1$ is
+\begin{itemize}
+\item 0 with prob 1/4
+\item 1 with prob 3/4
+\end{itemize}
+\end{itemize}
+\item Now, suppose we have $Z_{i-1} \sim f_Y$
+\begin{itemize}
+\item 0 with prob 1/2
+\item 1 with prob 1/2
+\end{itemize}
+\item Then $Pr[Z_i = 0] = P[Z_i = 0 \mid Z_{i-1}=0] P[Z_{i-1} = 0] + P[Z_i = 0 \mid Z_{i-1}=1] P[Z_{i-1} = 1]$
+\begin{itemize}
+\item $= \frac{3}{4} \frac{1}{2} + \frac{1}{4} \frac{1}{2} = \frac12$
+\end{itemize}
+\item So once we have a draw from $f_Y$, we can use the
+        metropolis-hastings algorithm to generate another draw from $f_y$
+\end{itemize}
+\paragraph{getting the initial draw from $f_Y$}
+\label{sec-3-2-2}
+
+\begin{itemize}
+\item we can represent the ``transitions'' as a matrix
+\item set $$P = \begin{pmatrix} 3/4 & 1/4 \\ 1/4 & 3/4 \end{pmatrix}$$
+\item each row represents $P[Z_i = z \mid Z_{i-1} = z']$
+\begin{itemize}
+\item different rows give different $z'$
+\end{itemize}
+\item we can let the row-vector $Z_0 = (1-p, p)$ represent the
+        probabilities that the initial $Z_0$ is 0 or 1.
+\item Then, $Z_0 P$ gives probabilities that $Z_1$ is zero or 1
+\begin{itemize}
+\item $Z_0 P^2$ gives probs that $Z_2$ is zero or 1
+\item dot dot dot
+\item $Z_0 P^i$ gives probs that $Z_i$ is zero or 1
+\end{itemize}
+\item we can diagonalize $P$
+        \[P = Q D Q^{-1}\]
+        with
+        \[Q = \begin{pmatrix} 1 & -1/4 \\ 1 &
+        1/4 \end{pmatrix},\qquad 
+        Q^{-1} = \begin{pmatrix} 1/2 & 1/2 \\ -2 & 2 \end{pmatrix},
+        \qquad 
+        D = \begin{pmatrix} 1 & 0 \\ 0 & 1/2 \end{pmatrix}\]
+\begin{itemize}
+\item Q gives the right-eigenvectors of P
+\item $Q^{-1}$ gives the left eigenvectors of $P$
+\item D gives the eigenvalues of P
+\end{itemize}
+\item note that 
+        \[P^{i} = (Q D Q^{-1})^n = Q D^n Q^{-1} = Q \begin{pmatrix}
+        1^n & 0 \\ 0 & 0.5^n \end{pmatrix} Q^{-1} \to Q \begin{pmatrix}
+        1^n & 0 \\ 0 & 0 \end{pmatrix} = \begin{pmatrix} 0.5 & 0.5
+        \\ 0.5 & 0.5 \end{pmatrix}\]
+\item so $Z_0 P^n = (1-p, p) P^n \to ((1-p)/2 + p/2, (1-p)/2 +
+        p/2) = (1/2, 1/2)$
+\begin{itemize}
+\item no matter what density we start with, after a large number
+          of steps we'll get draws from close to the marginal
+          distribution.
+\item quick numeric example (going to be much better behaved than
+          typical mcmc application)
+\begin{itemize}
+\item \texttt{mpower <- function(M, power) \{}
+\item \texttt{Mp <- M}
+\item \texttt{for (i in seq\_len(power-1)) Mp <- Mp \%*\% M}
+\item \texttt{Mp\}}
+\item \texttt{P <- matrix(c(3/4,1/4,1/4,3/4), 2, 2)}
+\item \texttt{c(1,0) \%*\% P}
+\item \texttt{c(1,0) \%*\% mpower(P, 3)}
+\item \texttt{c(1,0) \%*\% mpower(P, 10)}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\paragraph{wrap up of example}
+\label{sec-3-2-3}
+
+\begin{itemize}
+\item we made some simplifications
+\begin{itemize}
+\item finite number of possible values
+\end{itemize}
+\item basic result holds much more generally (ie continuous rv)
+\end{itemize}
+\subsection{numeric example}
+\label{sec-3-3}
+
+\begin{itemize}
+\item data: $X \mid \theta \sim$ binom($10, \theta$)
+\begin{itemize}
+\item \texttt{n <- 10}
+\item \texttt{x <- rbinom(1, n, runif(1))}
+\item \texttt{x}
+\end{itemize}
+\item want to find
+\begin{enumerate}
+\item posterior distribution
+\item minimum risk estimtor for squared-error (ie the mean of the posterior)
+\item estimator that minimizes $E(L(p - \hat p) \mid X$ where
+          $L(e) = \exp(-e) - 1$ if $e < 0$, \emph{e} if $e \geq 0$
+\begin{itemize}
+\item \texttt{L2 <- function(e) ifelse(e < 0, exp(-e) - 1, e)}
+\item \texttt{curve(L2(x), from = -1, to = 1)}
+\end{itemize}
+\end{enumerate}
+\item prior: $\theta \sim k \phi(x)$ if $x \in (1/4, 3/4)$, 0 otherwise
+\begin{itemize}
+\item $k$ chosen so that it integrates to 1
+\item not necessarily realistic
+\item note that Bayes rule tells us that anywhere the prior is zero,
+         the posterior will be zero as well, so the posterior's going to be 
+         between 1/4 and 3/4
+\item need a function that will generate from prior:
+\begin{itemize}
+\item \texttt{rprior <- function() \{}
+\begin{itemize}
+\item \texttt{repeat \{}
+\item \texttt{x <- rnorm(1)}
+\item \texttt{if (x > 0.25 \& x < 0.75) break}
+\item \texttt{\}}
+\item \texttt{x}
+\item \texttt{\}}
+\end{itemize}
+\item \texttt{hist(replicate(600, rprior()), 40, freq = FALSE, xlim = c(0,1))}
+\end{itemize}
+\item need a function that will evaluate (proportional to) prior:
+\begin{itemize}
+\item \texttt{dprior <- function(p) ifelse(p > 0.25 \& p < 0.75, dnorm(p), 0)}
+\item \texttt{curve(dprior(x), from = 0, to = 1, n = 1000, add = TRUE)}
+\end{itemize}
+\item need to evaluate the density of the posterior:
+\begin{itemize}
+\item \texttt{dposterior <- function(p, x, n) dbinom(x, n, p) * dprior(p)}
+\item \texttt{curve(dposterior(x), from = 0, to = 1, col = "red", add = TRUE, n = 1000)}
+\end{itemize}
+\item note: this is a toy example, so we really could just use this 
+         function to calculate the mean, minimal loss estimator, etc.
+\begin{itemize}
+\item \texttt{mass <- integrate(function(p) dposterior(p, x, n), lower = 0.25, upper = 0.75)}
+\item expected value: \texttt{integrate(function(p) p * dposterior(p, x, n) / mass\$value, lower = 0.25, upper = 0.75)}
+\item minimum loss: \texttt{optimize(f = function(phat) integrate(function(p) L2(p - phat) * dposterior(p, x, n) / mass\$value, lower = 0.25, upper = 0.75)\$value, lower = 0.25, upper = 0.75)}
+\item \textbf{but} in bigger problems (more parameters, more complicated distributions), these
+           direct solutions won't be feasible\ldots{} they'll take too long.
+\item metropolis hastings can still work in those bigger problems
+\end{itemize}
+\end{itemize}
+\item to implement, initialize vector of draws (``burn'' first 1000, use second 1000)
+\begin{itemize}
+\item \texttt{nsim <- 2000}
+\item \texttt{Z <- c(rprior(), rep(NaN, nsim))}
+\end{itemize}
+\item make function that generates $Z_i$ given $Z_{i-1}$
+\begin{itemize}
+\item \texttt{rZ <- function(Zprev, rv, fv, fy) \{}
+\begin{itemize}
+\item \texttt{V <- rv()}
+\item \texttt{U <- runif(1)}
+\item \texttt{probV <- fy(V) * fv(Zprev) / (fv(V) * fy(Zprev))}
+\item \texttt{if (U < probV) return(V)}
+\item \texttt{else return(Zprev)\}}
+\end{itemize}
+\end{itemize}
+\item run mcmc
+\begin{itemize}
+\item \texttt{for (i in seq\_len(nsim) + 1)}
+\begin{itemize}
+\item \texttt{Z[i] <- rZ(Z[i-1], rv = rprior, fv = dprior, fy = function(p) dposterior(p, x, n))}
+\end{itemize}
+\end{itemize}
+\item get posterior:
+\begin{itemize}
+\item \texttt{hist(Z[-(1:1000)], 40)}
+\item \texttt{curve(dposterior(x)/mass\$value, from = 0, to = 1, col = "red", add = TRUE, n = 1000)}
+\end{itemize}
+\item get estimates:
+\begin{itemize}
+\item expected value: \texttt{mean(Z[-(1:1000)])}
+\item minimum loss: \texttt{optimize(function(phat) mean(L2(Z[-(1:1000)] - phat)), lower = 0.25, upper=0.75)}
+\end{itemize}
+\item look at the actual draws of $Z$
+\begin{itemize}
+\item \texttt{plot(Z[1500:1700], type = "o")}
+\item really dependent (which makes sense), ie not iid draws
+\item doesn't matter, because there is weak enough dependence that we
+         can still get averages, etc.
+\end{itemize}
+\item what happens if our prior doesn't actually contain the ``true'' $p$?
+\begin{itemize}
+\item draw $x$
+\begin{itemize}
+\item \texttt{x <- rbinom(1, n, .9)}
+\end{itemize}
+\item reset $Z$ and rerun mcmc (same as before)
+\begin{itemize}
+\item \texttt{Z <- c(rprior(), rep(NaN, nsim))}
+\item \texttt{for (i in seq\_len(nsim) + 1)}
+\begin{itemize}
+\item \texttt{Z[i] <- rZ(Z[i-1], rv = rprior, fv = dprior, fy = function(p) dposterior(p, x, n))}
+\end{itemize}
+\end{itemize}
+\item \texttt{hist(Z[-(1:1000)], 40)}
+\item bunches up at edge of support
+\end{itemize}
+\end{itemize}
+\section{Bayesian modeling for OLS}
+\label{sec-4}
+
+\begin{itemize}
+\item Covered on \textit{2010-11-16 Tue}
+\item For OLS, we have to specify a joint prior for
+\begin{itemize}
+\item $\sigma$ (ie $E(\varepsilon_{i}^{2}\mid X)$)
+\item $\beta$
+\item For convenience, we'll specify a prior for $\beta$
+        conditional on $\sigma^2$.
+\end{itemize}
+\item We'll discuss conjugate and noninformative priors
+\item Need to specify distribution of the random variables (Y): $N(X\beta,
+      \sigma^{2} I)$ given $X$
+\begin{itemize}
+\item We'll continue to condition on $X$ (assume X and $\beta$ and
+        $\gamma$ are independent).
+\end{itemize}
+\end{itemize}
+\subsection{densities for beta}
+\label{sec-4-1}
+
+\begin{itemize}
+\item Finite sample theory and asymptotics indicate that
+       $\hat{\beta}$ is going to behave as though it is approximately normal.
+\item Suggests that getting a normal posterior might be a good idea
+\item suggests that starting with a normal prior (for congugate) is too.
+\item Prior :: $p(\beta \mid 1/\sigma^{2}) = N(\beta_{0}, \sigma^2 \Sigma_{0})$
+\begin{itemize}
+\item ie prior is normal with known mean and variance
+\end{itemize}
+\end{itemize}
+\paragraph{posterior distribution}
+\label{sec-4-1-1}
+
+\begin{itemize}
+\item Use Bayes' rule to get posterior:
+        \[ p(\beta \mid X, Y, \sigma^{2}) = \frac{p(Y \mid
+        X, \beta, \sigma^{2}) p(\beta \mid X,
+        \sigma^{2})}{p(Y \mid X, \sigma^{2})}\]
+\item $Y$ given $X$, $\beta$, and $\sigma^{2}$ is
+        (obviously) normal
+\begin{itemize}
+\item mean $X\beta$
+\item variance $\sigma^{2} I$
+\end{itemize}
+\item posterior is
+        \[p(\beta \mid X, Y, \sigma^2) \propto (\frac{1}{\sqrt{2 \pi
+        \sigma^2}})^n \exp(-\frac{1}{2\sigma^2}(Y - X\beta)'(Y -
+        X\beta)) \times (\frac{1}{\sqrt{2^k \pi^k \det(\sigma^2 \Sigma_0)}})
+        \exp(- \frac{1}{2} (\beta - \beta_0)'(\sigma^2
+        \Sigma_0)^{-1} (\beta - \beta_0))\]
+\begin{itemize}
+\item terms inside the exponentials can be written as ($\hat\sigma^2$ and
+          $\hat \beta$ are the MLE estimators)
+          \[\exp(- \frac{1}{2 \sigma^2} \{(\hat \varepsilon - X(\beta -
+          \hat\beta))' (\hat \varepsilon - X(\beta - \hat\beta))\]
+\begin{itemize}
+\item \[(\beta - \beta_0)'\Sigma_0^{-1}(\beta - \beta_0)\})\]
+\end{itemize}
+which can be rewritten as 
+          \[\exp(- \frac{n \hat\sigma^2}{2 \sigma^2}) \exp(-
+          \frac{1}{2\sigma^2} \{(\beta - \hat\beta)'X'X(\beta -
+          \hat\beta) + (\beta - \beta_0)\Sigma_0^{-1}(\beta - \beta_0)\})\]
+\item To get this into something more useful, we want to rewrite
+          \[(\beta - \hat\beta)'X'X(\beta -
+          \hat\beta) + (\beta - \beta_0)\Sigma_0^{-1}(\beta - \beta_0)
+          = (\beta - a \beta_0 - b \hat\beta)'V(\beta - a \beta_0 - b \hat\beta)\]
+\begin{itemize}
+\item expand both sides and match to find $a$, $b$, and $V$, giving
+\begin{itemize}
+\item $\beta'V\beta = \beta'X'X\beta + \beta \Sigma_0^{-1} \beta$
+\begin{description}
+\item[→] $V = X'X + \Sigma_0^{-1}$
+\end{description}
+\item $\beta'V a \beta_0 = \beta'\Sigma_0^{-1}\beta_0$
+\begin{description}
+\item[→] $V a = \Sigma_0^{-1}$
+\item[→] $a = V^{-1} \Sigma_0^{-1} = (X'X + \Sigma_0^{-1})^{-1} \Sigma_0^{-1}$
+\end{description}
+\item $\beta'V b \hat\beta = \beta'X'X \hat\beta$
+\begin{description}
+\item[→] $V b = X'X$
+\item[→] $b = V^{-1} X'X = (X'X + \Sigma_0^{-1})^{-1} X'X = I -
+                a$
+\end{description}
+\end{itemize}
+\item so we have 
+            \[\beta'X'X\beta + \beta \Sigma_0^{-1} \beta = (\beta - a
+            \beta_0 - (I - a) \hat\beta)'(X'X + \Sigma_0^{-1}) (\beta - a
+            \beta_0 - (I - a) \hat\beta)\]
+            with $a = (X'X + \Sigma_0^{-1})^{-1}\Sigma_0^{-1}$
+\item the posterior of $\beta$ is $N(a \beta_0 + (I - a)\hat\beta,
+            \sigma^2 (X'X + \Sigma_0^{-1})^{-1})$
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\paragraph{interpretation from a classical perspective}
+\label{sec-4-1-2}
+
+\begin{itemize}
+\item We can get a classical estimator by using the posterior mean:
+        \[ \hat{\beta}_{bayes} = a \beta_{0} + (I - a)\hat{\beta} \]
+\item shrinkage estimator
+\begin{itemize}
+\item ridge is a special case with $\beta_0 = 0$ and $\Sigma_0 \propto I$
+\end{itemize}
+\item Can think of the posterior as an average of the prior and MLE
+\begin{itemize}
+\item Will be biased (in general)
+\item will have smaller variance than the OLS estimator.
+\end{itemize}
+\item In general, as sample size increases and as certainty in
+        prior decreases, the ``Bayesian'' estimator behaves more like the
+        OLS estimator
+\end{itemize}
+\paragraph{uninformative prior}
+\label{sec-4-1-2-1}
+
+\begin{itemize}
+\item $\Sigma_{0}$ denotes how strong our beliefs are
+\begin{itemize}
+\item small value indicates that we are very confident in our
+           prior mean
+\item large value indicates that we don't have a lot of
+           confidence in our prior mean
+\end{itemize}
+\item As $\Sigma_{0} \to \infty$, $\Sigma_{0}^{-1}$ converges to zero
+\begin{itemize}
+\item mean of posterior converges to $\hat{\beta}$
+\item variance of posterior converges to $\sigma^{2}(X'X)^{-1}$
+\end{itemize}
+\item ie, the Bayesian estimator converges to OLS as the prior
+         becomes less informative
+\item interpretation makes sense: when you don't have strong
+         beliefs, you should weight the data heavily
+\end{itemize}
+\paragraph{asymptotics}
+\label{sec-4-1-2-2}
+
+\begin{itemize}
+\item As $n \to \infty$, $X'X \to \infty$ and $a \to 0$
+\item Same as with uninformative prior; bayesian estimator
+         converges to OLS estimator as $n$ gets large
+\item makes sense: when you have a lot of data, you shouldn't rely
+         too heavily on your prior beliefs.
+\end{itemize}
+\subsection{densities for sigma-squared}
+\label{sec-4-2}
+
+\begin{itemize}
+\item Conjugate prior for $1/\sigma^{2}$ is the gamma distribution,
+       so $\sigma^2$ has an inverse-gamma distribution:
+       \[p_{\sigma^2}(\sigma^2 \mid \alpha, \delta) =
+       \frac{\delta^\alpha}{\Gamma(\alpha)}
+       (\frac1{\sigma^2})^{\alpha+1} e^{-\frac{\beta}{\sigma^2}},\quad
+       \alpha,\delta > 0\]
+\begin{itemize}
+\item mean is $\delta / (\alpha - 1)$ for $\alpha > 1$
+\item variance is $\beta^2 / (\alpha-1)^2(\alpha-2)$ for $\alpha > 2$
+\end{itemize}
+\item Joint prior for $\beta$ and $1/\sigma^{2}$ is called the
+       Normal-Gamma prior:
+       \[p_{\beta,\sigma^2}(\beta, \sigma^2 \mid \Sigma_0, \alpha,
+       \delta) = (\frac{1}{\sqrt{2^k \pi^k \det(\sigma^2 \Sigma_0)}})
+       \exp(- \frac{1}{2} (\beta - \beta_0)'(\sigma^2
+       \Sigma_0)^{-1} (\beta - \beta_0))
+       \times        \frac{\delta^\alpha}{\Gamma(\alpha)}
+       (\frac1{\sigma^2})^{\alpha+1} e^{-\frac{\delta}{\sigma^2}}\]
+\item We can work out the posterior as before:
+       \[p(\beta, \sigma^2 \mid X, Y) \propto (\frac{1}{\sqrt{2 \pi
+        \sigma^2}})^n \exp(-\frac{1}{2\sigma^2}(Y - X\beta)'(Y -
+        X\beta)) \quad\times (\frac{1}{\sqrt{2^k \pi^k \det(\sigma^2 \Sigma_0)}})
+        \exp(- \frac{1}{2} (\beta - \beta_0)'(\sigma^2
+        \Sigma_0)^{-1} (\beta - \beta_0)) \quad\times        \frac{\delta^\alpha}{\Gamma(\alpha)}
+       (\frac1{\sigma^2})^{\alpha+1} \exp(-\frac{\delta}{\sigma^2})
+       =  (\frac{1}{\sqrt{2 \pi \sigma^2}})^n  (\frac{1}{\sqrt{2^k \pi^k
+       \det(\sigma^2 \Sigma_0)}}) \exp(- \frac{n \hat\sigma^2}{2
+       \sigma^2}) \quad \times \exp(-
+          \frac{1}{2\sigma^2} \{(\beta - \hat\beta)'X'X(\beta -
+          \hat\beta) + (\beta - \beta_0)\Sigma_0^{-1}(\beta -
+       \beta_0)\})\quad\times        \frac{\delta^\alpha}{\Gamma(\alpha)}
+       (\frac1{\sigma^2})^{\alpha+1} \exp(-\frac{\delta}{\sigma^2})  \]
+       which is proportional to 
+       \[ (\frac{1}{2 \pi \sigma^2})^{k/2} \det(X'X + \Sigma_0^{-1})
+       \exp( -\frac{1}{2\sigma^2} (\beta - a \beta_0 - (I -
+       a)\hat\beta)' \times (X'X + \Sigma_0^{-1})(\beta - a \beta_0 - (I - a)\hat\beta))
+        \times (\frac{1}{2 \pi \sigma^2})^{\frac{n}{2}}
+       \exp(- \frac{n\hat\sigma^2}{2\sigma^2})       \frac{\delta^\alpha}{\Gamma(\alpha)}
+       (\frac1{\sigma^2})^{\alpha+1} \exp(-\frac{\delta}{\sigma^2})\]
+\begin{itemize}
+\item The first part is the posterior of $\beta$ conditional on $\sigma^2$.
+\item We can rewrite the second part to be more interpretable:
+\item combining terms and dropping scale constants gives:
+         \[(\frac{1}{\sigma^2})^{n/2 + \alpha + 1} \exp(- \frac{\hat\sigma^2 n/2 +
+         \delta}{\sigma^2})\]
+\item after thinking for a bit, we can see that this is the kernel of an inverse
+         gamma with parameters
+\begin{itemize}
+\item $n/2+\alpha$ and
+\item $\hat\sigma^2 n/2 + \delta$
+\end{itemize}
+\item mean is \[\frac{\hat\sigma^2 n/2 + \delta}{n/2 + \alpha - 1}
+         = \hat\sigma^2 \frac{n}{n + 2\alpha - 2} +
+         \delta(\frac{2}{n + 2\alpha - 2})\]
+\item to interpret this,
+\begin{itemize}
+\item define prior mean: $\sigma_0^2 = \frac{\delta}{\alpha - 1}$
+\item $\delta = \sigma^2_0 (\alpha - 1)$
+\item posterior mean becomes 
+           \[\hat\sigma^2 \frac{n}{n + 2\alpha - 2} +
+           \sigma_0^2(\frac{2 \alpha - 2}{n + 2\alpha - 2}) =
+           w \hat\sigma^2 + (1-w) \sigma_0^2\]
+\item Bayes estimate is a weighted average of the MLE and the
+           prior mean
+\item as $n \to \infty$, $w \to 1$ and MLE dominates
+\item we can write prior variance as $\sigma_0^4 / (\alpha - 2)$
+\begin{itemize}
+\item for $\sigma_0$ fixed, as $\alpha \to \infty$ prior
+             variance converges to zero and $w \to 0$ as well, so
+             posterior mean dominates.
+\item for $\sigma_0$ fixed, as $\alpha \to 1$ from above, $w$
+             converges to 1 again and MLE dominates
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\subsection{putting it all together}
+\label{sec-4-3}
+
+     After the analysis above, we can write the posterior density of
+     $\beta$ and $\sigma^2$ explicitly as
+     \[ (\frac{1}{2 \pi \sigma^2})^{k/2} \det(X'X + \Sigma_0^{-1})
+     \exp( -\frac{1}{2\sigma^2} (\beta - a \beta_0 - (I -
+     a)\hat\beta)' \times (X'X + \Sigma_0^{-1})(\beta - a \beta_0 - (I - a)\hat\beta))
+      \times \frac{(\hat\sigma^2 n/2 + \delta)^{\alpha +
+     n/2}}{\Gamma(n/2 + \alpha)} (\frac{1}{\sigma^2})^{n/2 + \alpha +
+     1} \exp(-\frac{\hat\sigma^2 n/2 + \delta}{\sigma^2}) \]
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../additionaltopics"
+%%% End:

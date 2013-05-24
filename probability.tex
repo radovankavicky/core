@@ -1,0 +1,48 @@
+\documentclass[nofonts]{tufte-latex/tufte-handout}
+\input{latex-shared/common-preamble}
+\input{tex/local_preamble}
+
+\title{Econometrics Core: Probability Overview}
+
+\begin{document}
+\maketitle
+
+\bigskip\noindent%
+Copyright © 2013, Gray Calhoun.  Permission is granted to copy,
+distribute and/or modify this document under the terms of the GNU Free
+Documentation License, Version 1.3 or any later version published by
+the Free Software Foundation; with no Invariant Sections, no
+Front-Cover Texts, and no Back-Cover Texts.  A copy of the license is
+included in the Appendix entitled ``GNU Free Documentation License''
+and is also available online at
+\url{http://www.gnu.org/copyleft/fdl.html}.
+
+This text was produced as part of the Econometrics Free Library
+project.  The project's goal is to produce high-quality free (and
+open-source) Econometrics textbooks and reference material.  More
+information about this project is available at its homepage,
+\url{http://www.econometricslibrary.org}, including information on how
+to participate.  This text is typeset in \XeLaTeX\ and there is a link
+to the source of the document at the project's homepage as well.
+
+\addcontentsline{toc}{part}{Table of Contents}%
+\tableofcontents
+
+\include{tex/probability/introduction-to-probability}
+\include{tex/probability/random-variables}
+\include{tex/probability/univariate-moments}
+\include{tex/probability/random-vectors}
+\include{tex/probability/conditioning}
+\include{tex/probability/problems}
+\appendix
+\include{LICENSE}
+
+\part*{References}%
+\addcontentsline{toc}{part}{References}
+\bibliography{latex-shared/references,tex/local_references}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "probability"
+%%% End:

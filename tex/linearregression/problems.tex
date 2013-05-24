@@ -1,0 +1,143 @@
+% Copyright © 2013, Gray Calhoun.  Permission is granted to copy,
+% distribute and/or modify this document under the terms of the GNU
+% Free Documentation License, Version 1.3 or any later version
+% published by the Free Software Foundation; with no Invariant
+% Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of
+% the license is included in the section entitled "GNU Free
+% Documentation License."
+
+\part*{Problem Set}%
+\addcontentsline{toc}{part}{Problem Set}
+
+This is a collection of problems for self-study.
+
+\begin{enumerate}
+\item Prove that the OLS estimator $\βh$ and the OLS residuals $\hat
+  u$ are uncorrelated.
+
+\item Suppose that 
+\begin{equation}
+  y_i = β₁ + β₂ x_i + u_i,  
+\end{equation}
+with $u_i ∣ X ∼ (0, σ²)$ and $x_i ∼ (μ,τ²)$.  Please derive a test
+statistic for the null hypothesis $β₁ = β₂²$ against the alternative
+$β₁ ≠ β₂²$.
+
+\item Suppose that $y₁,…,y_n$ are i.i.d. with $y_i ∣ x_i ∼ N(x_i'β,
+  σ²)$ and each $x_i$ a $k × 1$ vector.  Prove that the OLS estimator
+  is the best unbiased estimator of $β$.  Note that this is a stronger
+  result than the Gauss-Markov theorem, since we are claiming that OLS
+  is also better than nonlinear unbiased estimators.
+
+\item We have the model $Y = Xβ + u$, where $n^{-1} X'X$ obeys a law
+  of large numbers, $u$ is homoskedastic, and $n^{-1/2} ∑_i x_i u_i$
+  obeys a central limit theorem.  Let $F$ be the F-statistic for the
+  null hypothesis that $Rβ = 0$, where $R$ is an arbitrary $J × (K +
+  1)$ vector
+  \begin{enumerate}
+  \item Suppose that the null hypothesis is true.  How does the
+    variance of $F$ behave as $n → ∞$?  How does the mean of $F$
+    behave?
+  \item Suppose that $Rβ = δ$ for some nonzero vector $δ$, so the null
+    hypothesis is false.  How do your answers from the first part
+    change?
+  \item What do your answers to the previous questions tell you about
+    the power of the F-test as $n → ∞$?
+  \end{enumerate}
+
+\item Suppose that you are interested in the model $y_i = β₀ + x_iβ₁
+  + u_i$ where $x_i$ is a random scalar, $\E(u_i ∣ X) = 0$ and the
+  observations are i.i.d. But suppose that we do not observe $x_i$
+  directly but instead we observe $w_i = x_i + u_i$, where $u_i$ is
+  another error term.
+
+  \begin{enumerate}
+  \item Prove that, if $u_i$ is perfectly correlated with $x_i$, OLS
+    is essentially consistent in the following sense: let $\dot x_i =
+    (x_i - \E x_i) / sd(x_i)$ and let $\dot w_i = (w_i - \E w_i) /
+    sd(w_i)$.  Then the OLS coefficient in the regression of $y_t$ on
+    $\dot x_i$ is the same as that of the regression of $y_i$ on $\dot
+    w_i$.
+  \item Prove that, if $u_i$ is independent of $x_i$ and $u_i$, OLS is
+    inconsistent even after standardizing the variables.
+  \item Derive the MLE of $β₁$ under the assumption that $u_i$ and
+    $u_i$ are independent mean-zero normal and determine whether it is
+    consistent.
+  \item Suppose now that $u_i$ and $u_i$ are independent, mean zero
+    normal random variables, but now assume that we have another
+    regressor $z_i = x_i + v_i$, where $v_i$ is another mean-zero,
+    normal error term that's independent of $u_i$ and $u_i$.  Derive
+    the MLE of $β₁$ and determine whether it is consistent.  For bonus
+    points and well-deserved pride: is it asymptotically normal?
+  \end{enumerate}
+
+\item Suppose that you estimate the model $y_i = β₀ + β₁ x_{i1} + β₂
+  x_{i2} + u_i$ with OLS and calculate the F-test for the null
+  hypothesis $β₁ = 1$.  The $p$-value for this test is $0.03$ and
+  $\βh₁$ is 0.54.  In the following questions, you can assume that all
+  of the necessary OLS assumptions hold.
+
+  \begin{enumerate}
+  \item How would you use this information to test against the
+    one-sided alternative that $β₁ > 1$ at the 5\% level?  Do you
+    reject the null in favor of this alternative?
+  \item How does your answer change if the alternative is $β₁ < 1$?
+    Do you reject in favor of this alternative?
+  \item Based on your answers to the previous two questions, please
+    outline a procedure to test the general null hypothesis that $Rβ ≤
+    q$, where the inequality holds element by element.
+  \end{enumerate}
+
+\item Let $y_i$ and $x_i$ be i.i.d. random scalars and $\E x_i = 0$.
+  Suppose that you estimate two models: $y_i = μ + u_i$ and $y_i = β₀
+  + β₁ x_i + v_i.$ Calculate the bias and variance of $\hat μ$ and
+  $\hat β₀$.  How do they depend on $β₁$?
+
+\item Suppose that we have the model $y_i = β₀ + β₁ x_{1i} + β₂ x_{2i}
+  + β₃ x_{3i} + u_i$ where $\E(u_i ∣ X) = 0$ but the errors may be
+  heteroskedastic.
+
+  \begin{enumerate}
+  \item Suppose you want to test the null hypothesis $β_i ≤ 0$ for all
+    $i = 1,…,3$ against the alternative that $β_i > 0$ for at least
+    one $i$ (note that this is a single null hypothesis against a
+    single alternative).  How could you use the multiple hypothesis
+    techniques we discussed in class to test this hypothesis?
+  \item If this procedure rejects the null that all of the $β_i$ are
+    weakly negative, do we know why?  Specifically, do we know which
+    of the $β_i$ is positive?  In what sense?
+  \item Please write an R program to implement your answer to the
+    first part of the question.
+  \end{enumerate}
+
+\item Suppose that we have two equations we want to estimate:
+  \begin{equation}
+    \label{eq:1}
+    Y₁ = X₁ 'β₁ + u₁
+  \end{equation}
+  and
+  \begin{equation}
+    \label{eq:2}
+    Y₂ = X₂'β₂ + u₂
+  \end{equation}
+  $\E(u ∣ X₁, X₂) = 0$ and $\E(u u' ∣ X₁, X₂) = σ ⊗ I$, $u = (u₁,
+  u₂)'$.  The Gauss-Markov theorem states that the GLS estimator for
+  $β₁$ and $β₂$ in the regression
+  \begin{equation}
+    \label{eq:3}
+    \begin{pmatrix} Y₁ \\ Y₂ \end{pmatrix}
+    = \begin{pmatrix} X₁ & 0 \\ 0 & X₂ \end{pmatrix} 
+    \begin{pmatrix} β₁ \\ β₂ \end{pmatrix}
+    + \begin{pmatrix} u₁ \\ u₂ \end{pmatrix}
+  \end{equation}
+  is BLUE.  But what if we only care about $β₁$, and so we just use
+  the SUR estimate of $β₁$?  Equation \eqref{eq:1} on its own
+  satisfies the Gauss-Markov assumptions, so the OLS estimator of $β₁$
+  should be BLUE too.  But both estimators can't be BLUE, can they?
+  They're different except in a few special cases.  What's going on?
+\end{enumerate}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../../linearregression"
+%%% End: 

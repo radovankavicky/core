@@ -1,0 +1,48 @@
+% Copyright © 2013, Gray Calhoun.  Permission is granted to copy,
+% distribute and/or modify this document under the terms of the GNU
+% Free Documentation License, Version 1.3 or any later version
+% published by the Free Software Foundation; with no Invariant
+% Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of
+% the license is included in the section entitled "GNU Free
+% Documentation License."
+
+\part*{Asymptotic evaluation of point estimators}%
+\addcontentsline{toc}{part}{Asymptotic evaluation of point estimators}
+
+\begin{itemize}
+\item Cover on \textit{2012-10-23 Tue},
+\end{itemize}
+\section{Asymptotic Efficiency}
+\label{sec-1}
+
+\begin{itemize}
+\item To talk about efficiency, we need to restrict our attention to
+      asymptotically normal estimators
+\begin{itemize}
+\item rules out pathalogical counterexamples
+\item I should add one next year (homework?)
+\item kind of makes sense; for normal r.v. only the mean and
+        variance matter; for other asymp. distributions other
+        parameters are more important.
+\end{itemize}
+\item If $\hat\theta_n$ satisfies $m_n (\hat\theta_n - \theta) \to^d
+      N(0, \sigma^2)$ for some (increasing) sequence $m_n$ then
+      $\sigma^2$ is the asymptotic variance of $\hat\theta_n$.
+\item Suppose that $X_1,\dots,X_n$ have the likelihood fn $L(\theta;
+      X)$ and that $\hat\theta_n$ is a sequence of estimators of
+      $\theta$.  $\hat\theta_n$ is asymptotically efficient for
+      $\theta$ if $m_n (\hat\theta_n - \theta) \to^d N(0, \sigma^2)$
+      and 
+      \[\sigma^2 = \Big[E_\theta ((\tfrac{\partial}{\partial \theta} \log L(\theta; X))^2)\big]^-1\].
+\begin{itemize}
+\item i.e. $\hat\theta_n$ achieves the CR lower bound in the limit.
+\end{itemize}
+\item Nice result: under regularity conditions (like we saw before),
+      MLEs are consistent and asymptotically normal as well as
+      efficient.
+\end{itemize}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../../pointestimation"
+%%% End: 

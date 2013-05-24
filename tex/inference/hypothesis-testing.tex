@@ -1,0 +1,328 @@
+% Copyright © 2013, Gray Calhoun.  Permission is granted to copy,
+% distribute and/or modify this document under the terms of the GNU
+% Free Documentation License, Version 1.3 or any later version
+% published by the Free Software Foundation; with no Invariant
+% Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of
+% the license is included in the section entitled "GNU Free
+% Documentation License."
+
+\part*{Hypothesis testing}%
+\addcontentsline{toc}{part}{Hypothesis testing}
+
+\begin{itemize}
+\item Covered on
+\begin{itemize}
+\item \textit{2009-09-30 Wed}, \textit{2009-10-05 Mon}
+\item \textit{2010-09-30 Thu}
+\item \textit{2011-09-20 Tue}, \textit{2011-09-22 Thu}, \textit{2011-09-27 Tue},
+       \textit{2011-09-29 Thu}
+\end{itemize}
+\item Reading
+\begin{itemize}
+\item CB 8.1, 8.2.3, 8.3.1, 8.3.3-8.3.5
+\item Greene C.7
+\end{itemize}
+\end{itemize}
+\section{Introduction}
+\label{sec-1}
+
+\begin{itemize}
+\item Motivation
+\begin{itemize}
+\item there are many settings where we care what the unknown
+       coefficients are.
+\begin{itemize}
+\item forecasting
+\item setting policy
+\end{itemize}
+\item there are plenty of other settings where we don't really care what
+       the coefficients are, but just want to know whether the
+       coefficient is above some threshold
+\end{itemize}
+\item Example: have a basic relationship: $wage_t = \beta_0 + \beta_1
+     \times education_t + \varepsilon_t$
+\begin{itemize}
+\item may want to know whether $\beta_1$ is positive
+\item may want to know whether $\beta_1$ is above some threshold that
+       makes funding a program worthwhile
+\item probably don't care about whether or not $\beta_1$ is exactly
+       2.95 vs 2.97 -- they probably mean exactly the same thing as far
+       as your decision is concerned.  But $-0.01$ vs 0.01 probably don't
+       mean exactly the same thing as far as decisions are concerned
+\item For (most) estimation, though, we would treat mismeasuring the
+       true parameter by 0.02 the same, whether the true value was 2.95
+       or $-0.01$
+\end{itemize}
+\end{itemize}
+\section{Basic setup for testing}
+\label{sec-2}
+\subsection{Definition of test statistic}
+\label{sec-2-1}
+
+\begin{itemize}
+\item Suppose that you have two different hypotheses about the
+       unknown parameters of the DGP
+\begin{description}
+\item[null] $\theta \in \Theta_0$
+\begin{itemize}
+\item the null hypothesis is what we would believe about $\theta$ if we
+           had no data about the problem
+\end{itemize}
+\item[alternative] $\theta \in \Theta_a$
+\begin{itemize}
+\item the alternaive hypothesis is a candidate belief that might be true.
+\item but we need \textbf{strong} evidence before we believe it
+\end{itemize}
+\end{description}
+\item A \emph{test statistc} is a statistic that specifies the following:
+\begin{enumerate}
+\item For which samples do we make the decision to accept $\theta_a$
+          (our alternative) as true
+\item For which samples do we \textbf{not} make that decision, and instead
+          act as though $\theta_0$ were true.
+\end{enumerate}
+\end{itemize}
+\subsection{Example of a test statistic}
+\label{sec-2-2}
+
+\begin{itemize}
+\item Suppose $X_1,\dots,X_n \sim iid N(\mu,1)$ and we have the hypotheses:
+\begin{description}
+\item[null] $\mu = 0$
+\item[alt] $\mu = 1$
+\end{description}
+\item we can use the standard one-sided test statistic:
+\begin{description}
+\item[reject 0] if $\sqrt{n} (\bar X - \mu_0) / \sigma = \sqrt{n}
+                     \bar X \geq 1.64$
+\item[accept 0] if $\sqrt{n} \bar X < 1.64$
+\end{description}
+\item tells us that we reject null for any sample that gives us a mean
+       greater than $1.64 / \sqrt{n}$ and do not reject for other
+       samples
+\end{itemize}
+\subsection{Error types and probabilities}
+\label{sec-2-3}
+
+\begin{itemize}
+\item Test statistics can't be foolproof.
+\begin{itemize}
+\item Even if $\mu = 0$, we'll see some samples that have a sample
+         mean greater than $1.64 / \sqrt{n}$
+\item If $\mu = 1$, we'll also see samples with a small mean
+\item The key aspect of statistical testing is that we can calculate
+         the probabilities of making different sorts of errors, and
+         design procedures that make errors that we're comfortable with.
+\end{itemize}
+\item Possible outcomes:
+\begin{itemize}
+\item null is true, test statistic does not reject
+\begin{itemize}
+\item great!
+\end{itemize}
+\item null is true, test statistic does reject
+\begin{itemize}
+\item problem
+\end{itemize}
+\item null is false, test statistic does not reject
+\begin{itemize}
+\item problem
+\end{itemize}
+\item null is false, test statistic rejects
+\begin{itemize}
+\item great!
+\end{itemize}
+\end{itemize}
+\item key philosophy behind testing:
+\begin{itemize}
+\item we set up the problems so that the null is what we'd do
+         without data.
+\item consequently, if the null is false, but the test statistic
+         does not reject, it's not so bad
+\item \textbf{but} if the null is true and we reject it, that is bad.
+\begin{itemize}
+\item we should need more evidence to change our behaviour than we
+           would need to keep doing the same thing we were.
+\end{itemize}
+\item advantages of this approach:
+\begin{itemize}
+\item simplifies the mathematics considerably
+\item intuitively appealing.
+\item matches up with actual practice in ``academic'' scientific experiments
+\end{itemize}
+\end{itemize}
+\item terminology
+\begin{itemize}
+\item type one error: reject when you shouldn't
+\item type two error: don't reject when you should
+\item power: probability that the test rejects (usually will depend
+         on the value of the true parameter).
+\begin{itemize}
+\item formally, let $\beta(\theta) = P_\theta[reject]$.  $\beta(\theta)$ is the power function.
+\end{itemize}
+\item size: probability that the test rejects if the null hypothesis is true;
+\begin{itemize}
+\item i.e. probability of type I error
+\item a test is \emph{size} $\alpha$ if $\sup_{\theta \in \Theta_0} \beta(\theta) = \alpha$
+\item a test is \emph{level} $\alpha$ if $\sup_{\theta \in \Theta_0} \beta(\theta) \leq \alpha$
+\item \textbf{size} is what we care most about.  We want to set the size
+\end{itemize}
+\item valid: a test that has correct size -- ie rejects if the null
+         is true at the percentages we want
+\item unbiased: a test is unbiased if $\inf_{\theta \in \Theta_A} \beta(\theta) \geq \alpha$
+\end{itemize}
+\end{itemize}
+\subsection{Motivating example}
+\label{sec-2-4}
+
+\begin{itemize}
+\item sometimes we can monkey with a statistic to get a test
+\item think back to normal distribution with $H_0: \mu = 0$ vs
+       $H_a: \mu = 1$ and we want to test at 5\%
+\begin{itemize}
+\item statistic was $\sqrt{n} \bar X$.
+\item if $\mu = 0$, then we know that $\sqrt{n} \bar X$ is standard normal.
+\item $\bar X > 0$ is evidence against the null, so let's try to
+         find a threshold that preserves size
+\begin{itemize}
+\item find $c$ such that $\Pr[\sqrt{n} \bar X \geq c] = 0.05$
+\item $\Pr[\sqrt{n} \bar X \geq c] = 1 - \Pr[\sqrt{n} \bar X < c]$
+\begin{itemize}
+\item $= 1 - \Pr[\sqrt{n} \bar X \leq c]$ (continuity)
+\item $= 1 - \Phi(c)$
+\end{itemize}
+\item so, $\Phi(c) = 0.95$ and $c = \Phi^{-1}(0.95) \approx 1.64$
+\end{itemize}
+\item So the probability that $\sqrt{n} \bar X \geq 1.64 = 0.05$
+\item so, the probability of rejecting if the null hypothesis is
+         true is 0.05.
+\begin{itemize}
+\item the size of the test is 0.05
+\item if we want to change the size of the test, all we have to
+           do is change 1.64 to a different number.
+\end{itemize}
+\end{itemize}
+\item power
+\begin{itemize}
+\item knowing the distribution under the null gives us size
+\item to find out the power, we want to know the distribution under
+         the alternative
+\begin{itemize}
+\item if $\mu = 1$ then $\sqrt{n}(\bar X - 1)$ is standard normal.
+\item $\beta(1) = P[\sqrt{n} \bar X \geq 1.64] = P[\sqrt{n}(\bar
+           X - 1) \geq 1.64 - \sqrt{n}] = 1 - \Phi(1.64 - \sqrt{n}) \to 1$
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\subsection{p-values}
+\label{sec-2-5}
+
+\begin{itemize}
+\item Say you're working, do a test at 5\% and want to show your advisor
+\item maybe your advisor is more or less tolerant of type 1 error
+\item so you test at 10\%, 9.9\%, 9.8\%, etc and record rejections and acceptances
+\item but, you could summarize that by looking at the smallest critical value for which you would reject
+\item this critical value is the p-value
+\end{itemize}
+\section{Multiple comparisons}
+\label{sec-3}
+
+    Some special issues come up when we have many hypotheses.  I need
+    to figure out some simulations to motivate this stuff.
+\subsection{Intersection-Union Test}
+\label{sec-3-1}
+
+\begin{itemize}
+\item Suppose the null can be written as an intersection of simpler nulls:
+\begin{itemize}
+\item $H_0: \theta \in \bigcup_{\gamma \in \Gamma} \Theta_\gamma$ vs. 
+         $H_A: \theta \notin \bigcap_{\gamma \in \Gamma} \Theta_\gamma$
+\item It is easy to find tests for each individual set:
+\begin{itemize}
+\item $T_\gamma$ tests the null $\theta \in \Theta_\gamma$
+           vs. $\theta \notin \Theta_\gamma$ for each $\gamma$.
+\end{itemize}
+\item If $T_\gamma$ is a level-$\alpha$ test with rejection region
+         $R_\gamma$ (ie it rejects if $(x_1,\dots,x_n) \in R$), then
+         the test with rejection region $\bigcap_{\gamma \in \Gamma}
+         R_\gamma$ is the IU Test and has level $\alpha$
+\end{itemize}
+\item Note that we don't need to correct the critical values here
+\end{itemize}
+\paragraph{Proof of validity}
+\label{sec-3-1-1}
+
+\begin{itemize}
+\item We know that, under the null, $\theta \in \Theta_\gamma'$ for at least one $\gamma'$
+\item $\Pr_\theta[(X_1,\dots,X_n) \in \bigcap_\gamma R_\gamma] \leq \Pr_\theta[(X_1,\dots, X_n) \in R_{\gamma'}] \leq \alpha$
+\end{itemize}
+\subsection{Union-Intersection Test}
+\label{sec-3-2}
+\paragraph{Setup of UIT}
+\label{sec-3-2-1}
+
+\begin{itemize}
+\item Suppose the null can be written as an intersection of simpler nulls:
+\begin{itemize}
+\item $H_0: \theta \in \bigcap_{\gamma \in \Gamma} \Theta_\gamma$ vs. 
+         $H_A: \theta \notin \bigcap_{\gamma \in \Gamma} \Theta_\gamma$
+\item It is easy to find tests for each individual set:
+\begin{itemize}
+\item $T_\gamma$ tests the null $\theta \in \Theta_\gamma$
+           vs. $\theta \notin \Theta_\gamma$ for each $\gamma$.
+\end{itemize}
+\item If $T_\gamma$ is a level-$\frac{\alpha}{\# \Gamma}$ test with
+         rejection region $R_\gamma$ (ie it rejects if
+         $(x_1,\dots,x_n) \in R$), then the test with rejection region
+         $\bigcup_{\gamma \in \Gamma} R_\gamma$ is the UI Test and has
+         level $\alpha$
+\end{itemize}
+\item Note that we don't need to use a stepdown procedure here
+\item Could still do better if we used the joint distribution of $T_\gamma$
+\end{itemize}
+\paragraph{Show that testing at $\alpha$ doesn't work}
+\label{sec-3-2-2}
+\paragraph{Proof of validity}
+\label{sec-3-2-3}
+
+\begin{itemize}
+\item Follows from the same argument as in multiple comparisons
+\item $\Pr_\theta[(X_1,\dots,X_n) \in \bigcup_{\gamma} R_\gamma] \leq \sum_{\gamma \in \Gamma} \Pr_\theta[(X_1,\dots,X_n) \in R_\gamma]$
+\begin{itemize}
+\item $\leq \sum_\gamma \frac{\alpha}{\#\Gamma}$
+\item $= \alpha$
+\end{itemize}
+\end{itemize}
+\subsection{Multiple hypothesis testing}
+\label{sec-3-3}
+
+\begin{itemize}
+\item Suppose we have a bunch of hypotheses $\theta \in
+       \Theta_\gamma$, but instead of being interested in knowing
+       about compound hypotheses, we're interested in all of them
+\begin{itemize}
+\item have many different parameters
+\item Put up empirical example where we're looking at regressors
+\end{itemize}
+\item Now we want to control the rate of ``familywise error''
+\begin{itemize}
+\item Let $I$ index the true nulls: $I = \{\gamma \in \Gamma : \theta_\gamma \in \Theta_\gamma\}$
+\item FWE is \[\sup_{\theta: \theta_\gamma \in \Theta_\gamma, \gamma \in I} P_\theta[T_\gamma \text{ rejects for at least one } \gamma \in I]\]
+\item want this error probability to be less than $\alpha$
+\end{itemize}
+\item As with UIT, testing each one at $\alpha$ doesn't work
+\begin{itemize}
+\item show this
+\end{itemize}
+\end{itemize}
+\paragraph{Bonferroni bound}
+\label{sec-3-3-1}
+\paragraph{Bonferroni-Holm stepdown}
+\label{sec-3-3-2}
+\paragraph{Critical values from the joint distribution}
+\label{sec-3-3-3}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../inference"
+%%% End:
