@@ -1,6 +1,12 @@
 Project News
 ============
 
+### Version 0.1.3, hotfix release
+Wildcard expansion in the pdf dependencies still isn't working, so
+this patch switches back to list the individual pdfs explicitly.  It's
+not very exciting, but there aren't many pdf files so it shouldn't be
+too much of a pain to deal with manually.
+
 ### Version 0.1.2, hotfix release
 The Makefile wasn't handling automatic directory detection well.  This
 release puts the pdfs into a variable and uses the wildcard function

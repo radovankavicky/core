@@ -11,7 +11,12 @@ pdfs = probability.pdf pointestimation.pdf inference.pdf additionaltopics.pdf
 
 all: $(pdfs)
 
-$(pdfs): %.pdf: %.tex $(wildcard tex/%/*.tex) $(latexdeps)
+probability.pdf: $(wildcard tex/probability/*.tex)
+pointestimation.pdf: $(wildcard tex/pointestimation/*.tex)
+inference.pdf: $(wildcard tex/inference/*.tex)
+additionaltopics.pdf: $(wildcard tex/additionaltopics/*.tex)
+
+$(pdfs): %.pdf: %.tex $(latexdeps)
 	$(latexmk) $(latexmkFLAGS) -bibtex- $< && $(latexmk) -c $<
 
 clean:
