@@ -15,7 +15,7 @@ dateinfo := "\\date{$(shell git show -s --date=short --format=%cd HEAD), \
   version $(shell git describe --tags)}"
 
 ybibtex = probability.pdf pointestimation.pdf
-nbibtex = inference.pdf additionaltopics.pdf linearregression.pdf
+nbibtex = inference.pdf additionaltopics.pdf linearregression.pdf LICENSE_standalone.pdf
 
 all: $(ybibtex) $(nbibtex) LICENSE_standalone.pdf
 
@@ -26,12 +26,17 @@ ver:
 VERSION.tex:
 	echo $(dateinfo) > $@
 
-$(nbibtex): %.pdf: %.tex $(wildcard tex/%/*.tex) $(latexdeps) VERSION.tex
+probability.pdf: $(wildcard tex/probability/*.tex) VERSION.tex
+pointestimation.pdf: $(wildcard tex/pointestimation/*.tex) VERSION.tex
+inference.pdf: $(wildcard tex/inference/*.tex) VERSION.tex
+additionaltopics.pdf: $(wildcard tex/additionaltopics/*.tex) VERSION.tex
+inference.pdf: $(wildcard tex/inference/*.tex) VERSION.tex
+LICENSE_standalone.pdf: LICENSE_standalone.tex LICENSE.tex
+
+$(nbibtex): %.pdf: %.tex $(latexdeps)
 	$(latexmk) $(latexmkFLAGS) -bibtex- $< && $(latexmk) -c $<
-$(ybibtex): %.pdf: %.tex $(wildcard tex/%/*.tex) $(latexdeps) VERSION.tex
+$(ybibtex): %.pdf: %.tex $(latexdeps)
 	$(latexmk) $(latexmkFLAGS) $< && $(latexmk) -c $<
-LICENSE_standalone.pdf: LICENSE_standalone.tex LICENSE.tex $(latexdeps)
-	$(latexmk) $(latexmkFLAGS) -bibtex- $< && $(latexmk) -c $<
 
 clean:
 	rm -f $(foreach ext,$(crud),*.$(ext)) *~
