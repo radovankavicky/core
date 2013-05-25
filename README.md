@@ -63,15 +63,21 @@ Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
 copy of the license is included in the file LICENSE.tex and is also
 available online at <http://www.gnu.org/copyleft/fdl.html>.
 
+### Additional files available under different licenses
+
+The LaTeX class this project uses was developed by the Tufte-LaTeX
+project under the Apache 2.0 license, available at
+<http://www.apache.org/licenses/LICENSE-2.0>, and the Copyright is
+held by Kevin Godby, Bil Kleb, and Bill Wood.  The Apache 2.0 license
+applies to the files:
+
+* `tex/tufte.bst`
+* `tex/tufte-book.cls`
+* `tex/tufte-common.def`
+* `tex/tufte-handout.cls`
+
 Development Notes
 -----------------
-
-* The `latex-shared` and `tufte-latex` subdirectories are shared
-  across several projects.  Please do not submit patches that contain
-  changes to those directories.  If you think that you need to edit
-  those files, please propose your changes on the project mailing
-  list.  The "original" sources of those directories can be found on
-  the EFL project's GitHub page.
 
 * To generate pdfs, run the command `make` in the top-level directory
   of this project (you'll need to have `make` installed, obviously).
@@ -79,18 +85,22 @@ Development Notes
 * Type `make ver` to update the date and version information included
   in each pdf file.
 
-* Please email the mailing list if you run into problems or have any
-  other questions.
+* Please email the mailing list (see below) if you run into problems
+  or have any other questions.
 
 More information
 ----------------
 
 There are two "best" ways of contacting us.  The first is through the
-mailing list for the
-[Econometrics Free Library](http://www.econometricslibrary.org),
+mailing list for the [Econometrics Free
+Library](http://www.econometricslibrary.org),
 <econometricslibrary@librelist.com> (this is the mailing list for our
-parent project); the [Librelist homepage](http://librelist.com/) has more information about sending messages to this discussion list and [archives are available online as well](http://librelist.com/browser/econometricslibrary/).  The second is by
-[filing an issue report for the project](https://github.com/EconometricsLibrary/GraduateText/issues/new).
+parent project); the [Librelist homepage](http://librelist.com/) has
+more information about sending messages to this discussion list and
+[archives are available online as
+well](http://librelist.com/browser/econometricslibrary/).  The second
+is by [filing an issue report for the
+project](https://github.com/EconometricsLibrary/GraduateText/issues/new).
 
 If you find an error in the text, please let us know through one of
 those methods.  If you'd like to contribute to this project, please

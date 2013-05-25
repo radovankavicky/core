@@ -1,0 +1,46 @@
+% Copyright © 2013, authors of the "Econometrics Core" textbook; a
+% complete list of authors is available in the file AUTHORS.tex.
+
+% Permission is granted to copy, distribute and/or modify this
+% document under the terms of the GNU Free Documentation License,
+% Version 1.3 or any later version published by the Free Software
+% Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+% Back-Cover Texts.  A copy of the license is included in the file
+% LICENSE.tex and is also available online at
+% <http://www.gnu.org/copyleft/fdl.html>.
+
+\author{Econometrics Free Library Project} 
+\input{VERSION}
+
+\usepackage{amssymb,amsmath}
+\usepackage{fontspec,unicode-math,xltxtra,xunicode,booktabs}
+\setromanfont[Ligatures=TeX]{TeX Gyre Pagella}
+\setsansfont[Ligatures=TeX,Scale=MatchLowercase]{TeX Gyre Heros}
+% \setmonofont[Scale=MatchLowercase]{Inconsolata}
+\setmathfont{Asana-Math}
+
+\frenchspacing
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\renewcommand\bibname{}
+\renewcommand\refname{}
+\renewcommand\contentsname{}
+\bibliographystyle{abbrvnat}
+\setcitestyle{round}
+\newcommand{\email}[1]{\href{mailto:#1}{\nolinkurl{<#1>}}}
+
+% Workaround for bug in the tufte-latex class
+\renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace = 8}\scshape#1}}
+\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace = 15}#1}}
+
+% Math shortcuts
+
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\avar}{avar}
+\DeclareMathOperator{\N}{N}
+\DeclareMathOperator{\invWishart}{inverse\ Wishart}
+\DeclareMathOperator{\cov}{cov}
+
+\newcommand{\βh}{\hat{β}}
+\newcommand{\Σh}{\hat{Σ}}
