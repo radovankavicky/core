@@ -58,8 +58,7 @@ under the terms of the
 [GNU Free Documentation License](http://www.gnu.org/copyleft/fdl.html),
 Version 1.3 or any later version published by the Free Software
 Foundation; with no Invariant Sections, no Front-Cover Texts and no
-Back-Cover Texts. A copy of the license is included at
-<https://github.com/EconometricsLibrary/GraduateText/blob/master/LICENSE.txt>.
+Back-Cover Texts. A copy of the license is included in LICENSE.tex.
 
 Development Notes
 -----------------
@@ -73,6 +72,9 @@ Development Notes
 
 * To generate pdfs, run the command `make` in the top-level directory
   of this project (you'll need to have `make` installed, obviously).
+
+* Type `make ver` to update the date and version information included
+  in each pdf file.
 
 * Please email the mailing list if you run into problems or have any
   other questions.

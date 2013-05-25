@@ -1,6 +1,14 @@
 Project News
 ============
 
+### Version 0.1.4
+* Add homework problems to each document
+* Add table of set theory results that was a former handout
+* Split off linear regression materials as a separate document
+* Move licensing information to a standalone handout
+* Split off versioning information from repo and generate document
+  dates on-the-fly (type make ver; make -j).
+
 ### Version 0.1.3, hotfix release
 Wildcard expansion in the pdf dependencies still isn't working, so
 this patch switches back to list the individual pdfs explicitly.  It's
