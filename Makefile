@@ -19,7 +19,8 @@ latexmkFLAGS := -xelatex -silent
 # Note that there is not a dependence on LICENSE.tex; if you plan to
 # disseminate these documents on their own, make sure to include the
 # FDL as an appendix.
-latexdeps := tex/tufte-handout.cls tex/tufte-common.def tex/common_preamble.tex
+latexdeps := tex/tufte-handout.cls tex/tufte-common.def \
+  tex/common_preamble.tex tex/references.bib
 
 dateinfo := "\\date{$(shell git show -s --date=short --format=%cd HEAD), \
   version $(shell git describe --tags)}"
