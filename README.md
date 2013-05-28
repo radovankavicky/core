@@ -106,4 +106,7 @@ If you find an error in the text, please let us know through one of
 those methods.  If you'd like to contribute to this project, please
 subscribe to the mailing list.
 
-Thanks!
+You can also follow dedicated RSS feeds that announce new commits to
+the project's GitHub repositories:
+* [the master branch](https://github.com/EconometricsLibrary/CoreEconometricsText/commits/master.atom)
+* [the development branch](https://github.com/EconometricsLibrary/CoreEconometricsText/commits/dev.atom)
