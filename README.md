@@ -8,47 +8,14 @@ a PhD core course and make it available through the
 
 The project is just getting started. Use at your own risk!
 
-Chapters
---------
+Material covered
+----------------
 
-### Probability
-
-* Introduction to probability lectures
-* Random variables, distributions, and densities
-* Univariate Moments
-* Multivariate random vectors
-* Conditioning
-
-### Point estimation and identification
-
-* Overview of point estimation
-* Introduction to linear regression
-* Linear regression and Method of Moments
-* Linear regression and MLE
-* Finite sample evaluation of point estimators
-* Finite sample properties of Linear regression
-* Law of large numbers
-* Central Limit Theorem
-* Asymptotic evaluation of point estimators
-* Asymptotic properties of linear regression
-
-### Inference
-
-* Hypothesis testing
-* Interval estimators
-* Likelihood ratio test
-* Asymptotic inference
-* Linear Regression
-* Bootstrap
-
-### Additional Issues
-
-* Issues in modeling
-* Bayesian statistics
-* heteroskedasticity
-* Systems of equations
-* Endogeneity and introduce 2sls (unwritten)
-* Asymptotics of two-stage least squares (unwritten)
+* Probability (see probability.tex for a list of sections)
+* Point estimation (pointestimation.tex)
+* Inference (inference.tex)
+* Linear regression (linearregression.tex)
+* Additional topics (additionaltopics.tex)
 
 License
 -------
