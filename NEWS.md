@@ -11,6 +11,15 @@ Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
 copy of the license is included in the file LICENSE.tex and is also
 available online at <http://www.gnu.org/copyleft/fdl.html>.
 
+Version 0.2.0
+-------------
+* Removes most of the lecture-notes cruft from the documents;
+  references to specific dates, exams, etc.
+* Splits the authors list into a separate appendix
+* Cleans up the README file
+* Moves 'shared' documents into the main repo to make development
+  faster and easier.
+
 ### Version 0.1.4
 * Add homework problems to each document
 * Add table of set theory results that was a former handout
