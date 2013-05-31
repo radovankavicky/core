@@ -12,21 +12,23 @@
 \part*{Bayesian statistics}%
 \addcontentsline{toc}{part}{Bayesian statistics}
 
-Reading: 5.6 and 7.2.3 in \citet{CaB_2001}, Chapter 16 in \citet{Gre_2011}
-
-\section{introduction to bayesian statistics}
+\section{Introduction}
 
 \begin{itemize}
-\item For classical statistics (what we've been doing so far), unknown parameters are treated as fixed.
-\begin{itemize}
-\item reasonable perspective
-\item can be limiting
-\begin{itemize}
-\item What would you do if you have to make a forecast and have no data?
-\end{itemize}
-\end{itemize}
-\item For Bayesian statistics, we treat the unknown parameter as a
-      random variable
+
+\item We're going to take a fairly moderate perspective on Bayesian
+  statistics.  In contrast to point estimation or hypothesis testing,
+  here we characterize our uncertainty about the unknown parameters of
+  the likelihood function by modeling them as random parameters as
+  well.  Note that this does ont require us to actually think that
+  they are random; it's just a convenient way to characterize our
+  uncertainty.
+
+\item The density before we observe any data is called our
+  \emph{prior} density.  The goal of the statistical exercise now is
+  to update that density based on the observed data, giving us a
+  \emph{posterior} density.
+
 \end{itemize}
 
 \subsection{mathematics}
@@ -734,5 +736,5 @@ which can be rewritten as
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../../additionaltopics"
+%%% TeX-master: "../../finitesample"
 %%% End:

@@ -20,16 +20,15 @@ latexmkFLAGS := -xelatex -silent
 # disseminate these documents on their own, make sure to include the
 # FDL as an appendix.
 latexdeps := tex/tufte-handout.cls tex/tufte-common.def \
-  tex/common_preamble.tex tex/references.bib
+  tex/common_preamble.tex VERSION.tex
 
 dateinfo := "\\date{$(shell git show -s --date=short --format=%cd HEAD), \
   version $(shell git describe --tags)}"
 
-ybibtex = probability.pdf pointestimation.pdf
-nbibtex = inference.pdf additionaltopics.pdf linearregression.pdf \
-  LICENSE_standalone.pdf AUTHORS_standalone.pdf
+texts = probability.pdf finitesample.pdf linearregression.pdf asymptotics.pdf
+support = LICENSE_standalone.pdf AUTHORS_standalone.pdf
 
-all: $(ybibtex) $(nbibtex) LICENSE_standalone.pdf
+all: $(texts) $(support)
 
 ver:
 	echo $(dateinfo) > VER.tmp
@@ -38,18 +37,16 @@ ver:
 VERSION.tex:
 	echo $(dateinfo) > $@
 
-probability.pdf: $(wildcard tex/probability/*.tex) VERSION.tex
-pointestimation.pdf: $(wildcard tex/pointestimation/*.tex) VERSION.tex
-inference.pdf: $(wildcard tex/inference/*.tex) VERSION.tex
-additionaltopics.pdf: $(wildcard tex/additionaltopics/*.tex) VERSION.tex
-inference.pdf: $(wildcard tex/inference/*.tex) VERSION.tex
-LICENSE_standalone.pdf: LICENSE.tex
-AUTHORS_standalone.pdf: AUTHORS.tex
+probability.pdf: $(wildcard tex/probability/*.tex)
+finitesample.pdf: $(wildcard tex/finitesample/*.tex)
+asymptotics.pdf: $(wildcard tex/asymptotics/*.tex)
+linearregression.pdf: $(wildcard tex/linearregression/*.tex)
 
-$(nbibtex): %.pdf: %.tex $(latexdeps)
-	$(latexmk) $(latexmkFLAGS) -bibtex- $< && $(latexmk) -c $<
-$(ybibtex): %.pdf: %.tex $(latexdeps)
+$(texts): %.pdf: %.tex $(latexdeps) tex/references.bib
 	$(latexmk) $(latexmkFLAGS) $< && $(latexmk) -c $<
+
+$(support): %_standalone.pdf: %_standalone.tex %.tex $(latexdeps)
+	$(latexmk) $(latexmkFLAGS) -bibtex- $< && $(latexmk) -c $<
 
 clean:
 	rm -f $(foreach ext,$(crud),*.$(ext)) *~

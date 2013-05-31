@@ -9,10 +9,10 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\part*{Linear Regression}%
-\addcontentsline{toc}{part}{Linear regression}
+\part*{Inference on linear regression}%
+\addcontentsline{toc}{part}{Inference on linear regression}
 
-\section{Estimation under restrictions}
+\section{Estimation of linear regression under restrictions}
 
 \begin{itemize}
 \item This material is based on \citet{Gre_2011} 5.1, 5.2, and 5.3.2.
@@ -503,11 +503,99 @@
 
 \section{Testing multiple hypotheses}
 
+Some special issues come up when we have many hypotheses.  I need to
+figure out some simulations to motivate this stuff.
+
+\subsection{Intersection-Union Test}
+
 \begin{itemize}
-\item Fill in
+\item Suppose the null can be written as an intersection of simpler nulls:
+\begin{itemize}
+\item $H_0: \theta \in \bigcup_{\gamma \in \Gamma} \Theta_\gamma$ vs. 
+         $H_A: \theta \notin \bigcap_{\gamma \in \Gamma} \Theta_\gamma$
+\item It is easy to find tests for each individual set:
+\begin{itemize}
+\item $T_\gamma$ tests the null $\theta \in \Theta_\gamma$
+           vs. $\theta \notin \Theta_\gamma$ for each $\gamma$.
 \end{itemize}
+\item If $T_\gamma$ is a level-$\alpha$ test with rejection region
+         $R_\gamma$ (ie it rejects if $(x_1,\dots,x_n) \in R$), then
+         the test with rejection region $\bigcap_{\gamma \in \Gamma}
+         R_\gamma$ is the IU Test and has level $\alpha$
+\end{itemize}
+\item Note that we don't need to correct the critical values here
+\end{itemize}
+
+\paragraph{Proof of validity}
+\begin{itemize}
+\item We know that, under the null, $\theta \in \Theta_\gamma'$ for at least one $\gamma'$
+\item $\Pr_\theta[(X_1,\dots,X_n) \in \bigcap_\gamma R_\gamma] \leq \Pr_\theta[(X_1,\dots, X_n) \in R_{\gamma'}] \leq \alpha$
+\end{itemize}
+
+\subsection{Union-Intersection Test}
+
+\paragraph{Setup of UIT}
+\begin{itemize}
+\item Suppose the null can be written as an intersection of simpler nulls:
+\begin{itemize}
+\item $H_0: \theta \in \bigcap_{\gamma \in \Gamma} \Theta_\gamma$ vs. 
+         $H_A: \theta \notin \bigcap_{\gamma \in \Gamma} \Theta_\gamma$
+\item It is easy to find tests for each individual set:
+\begin{itemize}
+\item $T_\gamma$ tests the null $\theta \in \Theta_\gamma$
+           vs. $\theta \notin \Theta_\gamma$ for each $\gamma$.
+\end{itemize}
+\item If $T_\gamma$ is a level-$\frac{\alpha}{\# \Gamma}$ test with
+         rejection region $R_\gamma$ (ie it rejects if
+         $(x_1,\dots,x_n) \in R$), then the test with rejection region
+         $\bigcup_{\gamma \in \Gamma} R_\gamma$ is the UI Test and has
+         level $\alpha$
+\end{itemize}
+\item Note that we don't need to use a stepdown procedure here
+\item Could still do better if we used the joint distribution of $T_\gamma$
+\end{itemize}
+
+\paragraph{Show that testing at $\alpha$ doesn't work}
+
+\paragraph{Proof of validity}
+\begin{itemize}
+\item Follows from the same argument as in multiple comparisons
+\item $\Pr_\theta[(X_1,\dots,X_n) \in \bigcup_{\gamma} R_\gamma] \leq \sum_{\gamma \in \Gamma} \Pr_\theta[(X_1,\dots,X_n) \in R_\gamma]$
+\begin{itemize}
+\item $\leq \sum_\gamma \frac{\alpha}{\#\Gamma}$
+\item $= \alpha$
+\end{itemize}
+\end{itemize}
+
+\subsection{Multiple hypothesis testing}
+
+\begin{itemize}
+\item Suppose we have a bunch of hypotheses $\theta \in
+       \Theta_\gamma$, but instead of being interested in knowing
+       about compound hypotheses, we're interested in all of them
+\begin{itemize}
+\item have many different parameters
+\item Put up empirical example where we're looking at regressors
+\end{itemize}
+\item Now we want to control the rate of ``familywise error''
+\begin{itemize}
+\item Let $I$ index the true nulls: $I = \{\gamma \in \Gamma : \theta_\gamma \in \Theta_\gamma\}$
+\item FWE is \[\sup_{\theta: \theta_\gamma \in \Theta_\gamma, \gamma \in I} P_\theta[T_\gamma \text{ rejects for at least one } \gamma \in I]\]
+\item want this error probability to be less than $\alpha$
+\end{itemize}
+\item As with UIT, testing each one at $\alpha$ doesn't work
+\begin{itemize}
+\item show this
+\end{itemize}
+\end{itemize}
+
+\paragraph{Bonferroni bound}
+
+\paragraph{Bonferroni-Holm stepdown}
+
+\paragraph{Critical values from the joint distribution}
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../../inference"
+%%% TeX-master: "../../finitesample"
 %%% End:

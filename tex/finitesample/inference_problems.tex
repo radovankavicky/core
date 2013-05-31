@@ -1,0 +1,80 @@
+% Copyright © 2013, authors of the "Econometrics Core" textbook; a
+% complete list of authors is available in the file AUTHORS.tex.
+
+% Permission is granted to copy, distribute and/or modify this
+% document under the terms of the GNU Free Documentation License,
+% Version 1.3 or any later version published by the Free Software
+% Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+% Back-Cover Texts.  A copy of the license is included in the file
+% LICENSE.tex and is also available online at
+% <http://www.gnu.org/copyleft/fdl.html>.
+
+\part*{Problem set, hypothesis testing}%
+\addcontentsline{toc}{part}{Problem set, hypothesis testing}
+
+\begin{enumerate}
+
+\item Let $\{y_t\}$ be an iid $N(0,σ²)$ sequence.  Define $S_T =
+  (T-1)^{-1} ∑_{t=1}^T (y_t - \bar y)²$.
+  \begin{enumerate}
+  \item Prove that $\sqrt{n} (S_T - σ²) → N(0,2σ⁴)$ in
+    distribution.
+  \item Calculate the asymptotic distribution of $\log S_T$.
+  \item Do your results depend on the normality of $y_t$?
+  \item Calculate the 90th and 95th percentile for $S_T$ with
+    arbitrary values of $σ²$ using both of these asymptotic
+    distributions.
+  \item Use each of these results to derive a test of the null
+    hypothesis $σ² = σ₀²$ against the null $σ² > σ₀²$, where $σ₀²$ is
+    a known but arbitrary value.  Your answer should give two formulas
+    for the test's critical value---each one depends on $σ₀²$ and $α$
+    (the nominal size of the test) and you should have a separate
+    answer for each asymptotic approximation.
+  \item Let $c₁$ and $c₂$ denote the 90th percentiles that you
+    calculated in question ?.  Simulate 1000 i.i.d. standard normal
+    samples with $n = 50$ and calculate the probability that $S_T$ is
+    less than each of these percentiles.
+  \item Repeat the previous question for the 95th percentiles.
+  \item Plot a histogram of your 1000 simulated $S_T$ along with each
+    approximate density for $S_T$.  What do these results tell you
+    about the quality of the approximations?
+  \item You can also prove that $(T-1) S_T$ has a chi-square
+    distribution with $T-1$ degrees of freedom in finite samples.
+    Calculate the 90th and 95th percentiles of $S_T$ using this
+    chi-square distribution and repeat the previous two simulations.
+    How do these simulations compare to the previous simulations?
+  \item Repeat the previous three questions using a skewed
+    distribution and a heavy-tailed distribution (changing the
+    approximation as necessary).  How do the results change?  How do
+    they change if you use different values of $n$?
+  \item What do these simulations tell you about using these
+    approximations for testing.  Focus on the usual confidence levels
+    (i.e. 10\%, 5\%, and 1\% tests).
+  \end{enumerate}
+
+\item Suppose that $X₁,…,X_n$ are distributed uniform$(0,b)$.  Derive
+  the LRT for the null hypothesis $b ≥ b₀$ against the alternative $b
+  < b₀$ and also for the null hypothesis $b ≤ b₀$ against $b > b₀$.
+  Please discuss and compare the tests.
+
+\item Suppose that $X₁,…,X_n$ are i.i.d. uniform($a$,$b$).  Derive the
+  LRT of the null hypothesis $\E X_i = 0$ against the two-sided
+  alternative $\E X_i ≠ 0$.
+
+\item Let $X = (X₁,…,X_n)$ be a random sample and let $θ$ be some
+  parameter of interest.  For each $θ₀$, let $A(θ₀)$ be the acceptance
+  region of a level $α$ test of the null hypothesis that $θ = θ₀$.
+  For each sample $x$, define a set $C(x)$ in the parameter space
+  by
+  \begin{equation}
+     C(x) = \{ θ₀ : x ∈ A(θ₀) \}.
+  \end{equation}
+  Prove that the random set $C(X)$ is a $1-α$ confidence set for the
+  parameter $θ$.
+
+\end{enumerate}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../../finitesample"
+%%% End: 

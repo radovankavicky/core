@@ -1,7 +1,7 @@
 \documentclass{tex/tufte-handout}
 \input{tex/common_preamble}
 
-\title{Econometrics Core: Understanding Linear Regression}
+\title{Econometrics Core: Linear Regression}
 
 \begin{document}
 \maketitle
@@ -29,24 +29,17 @@ to the source of the document at the project's homepage as well.
 \addcontentsline{toc}{part}{Table of Contents}%
 \tableofcontents
 
-\part*{Overview}%
-\addcontentsline{toc}{part}{Overview}
-
-This document is a placeholder at the moment.  It will be filled with
-wonderful material about how to interpret linear regression, two-stage
-least squares, etc.
-
-\include{tex/linearregression/issues-in-modeling}
+\include{tex/linearregression/introduction}
+\include{tex/linearregression/modeling}
 \include{tex/linearregression/heteroskedasticity}
-\include{tex/linearregression/systems-of-equations}
+\include{tex/linearregression/systems_of_equations}
 \include{tex/linearregression/problems}
 
-% \appendix          % Uncomment to include the license and author list if
-% \include{AUTHORS}  % you are distributing this document on its own.
-% \include{LICENSE}
+% \include{AUTHORS}  % Uncomment to include the license and author list if
+% \include{LICENSE}  % you are distributing this document on its own.
 
 \part*{References}%
-\addcontentsline{toc}{part}{References}
+\addcontentsline{toc}{part}{References}%
 \bibliography{tex/references}
 \end{document}
 

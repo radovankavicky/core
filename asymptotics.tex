@@ -1,7 +1,7 @@
 \documentclass{tex/tufte-handout}
 \input{tex/common_preamble}
 
-\title{Econometrics Core: Point Estimation and Identification}
+\title{Econometrics Core: Asymptotic Statistics}
 
 \begin{document}
 \maketitle
@@ -29,21 +29,16 @@ to the source of the document at the project's homepage as well.
 \addcontentsline{toc}{part}{Table of Contents}%
 \tableofcontents
 
-\include{tex/pointestimation/point-estimation}
-\include{tex/pointestimation/intro-linear-regression}
-\include{tex/pointestimation/linear-regression-mom}
-\include{tex/pointestimation/linear-regression-mle}
-\include{tex/pointestimation/point-estimators-finite-sample}
-\include{tex/pointestimation/linear-regression-finite-sample}
-\include{tex/pointestimation/law-of-large-numbers}
-\include{tex/pointestimation/central-limit-theorem}
-\include{tex/pointestimation/point-estimator-asymptotics}
-\include{tex/pointestimation/linear-regression-asymptotics}
-\include{tex/pointestimation/problems}
+\include{tex/asymptotics/law_of_large_numbers}
+\include{tex/asymptotics/central_limit_theorem}
+\include{tex/asymptotics/point_estimationi}
+\include{tex/asymptotics/linear_regression}
+\include{tex/asymptotics/inference}
+\include{tex/asymptotics/bootstrap}
+\include{tex/asymptotics/problems}
 
-% \appendix          % Uncomment to include the license and author list if
-% \include{AUTHORS}  % you are distributing this document on its own.
-% \include{LICENSE}
+% \include{AUTHORS}  % Uncomment to include the license and author list if
+% \include{LICENSE}  % you are distributing this document on its own.
 
 \part*{References}%
 \addcontentsline{toc}{part}{References}
@@ -52,5 +47,5 @@ to the source of the document at the project's homepage as well.
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "pointestimation"
+%%% TeX-master: "asymptotics"
 %%% End:
