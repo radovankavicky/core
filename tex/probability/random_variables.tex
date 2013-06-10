@@ -48,8 +48,8 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
   Intersection & $⋂_{k=1}^∞ A_k ≡ \{x ∈ S : x ∈ A_k$ for all $k ∈ 1,2,…\}$ \\
   Infimum      & $\inf_{k ≥ n} A_k ≡ ⋂_{k=n}∞ A_k$ \\
   Supremum     & $\sup_{k ≥ n} A_k ≡ ⋃_{k=n}^∞ A_k$ \\
-  lim inf      & $\liminf_{n \to ∞} A_n ≡ ⋃_{n=1}^∞ ⋂_{k=n}^∞ A_k$ \\
-  lim sup      & $\limsup_{n \to ∞} A_n ≡ ⋂_{n=1}^∞ ⋃_{k=n}^∞ A_k$ \\
+  lim inf      & $\liminf_{n → ∞} A_n ≡ ⋃_{n=1}^∞ ⋂_{k=n}^∞ A_k$ \\
+  lim sup      & $\limsup_{n → ∞} A_n ≡ ⋂_{n=1}^∞ ⋃_{k=n}^∞ A_k$ \\
   \midrule
   \multicolumn{2}{c}{Other definitions} \\
   \midrule
@@ -82,19 +82,19 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \item A collection $B$ of subsets of the set $S$ is a sigma
          algebra if it satisfies (give intuition for 2 and 3)
 \begin{itemize}
-\item $S \in  \Omega$
-\item If $A \in  B$ then $A^c \in  \Omega$
-\item If $A_1, A_2, \dots \in  \Omega$, then $\bigcup_{i=1}^\infty A_i
-           \in  \Omega$
+\item $S ∈  \Omega$
+\item If $A ∈  B$ then $A^c ∈  \Omega$
+\item If $A₁, A₂, ... ∈  \Omega$, then $\bigcup_{i=1}^∞ A_i
+           ∈  \Omega$
 \end{itemize}
 \end{itemize}
 \item $P$ is a probability measure
 \begin{itemize}
 \item A function $P$ is a probability measure on $\Omega$ if
 \begin{itemize}
-\item $P:  B \to [0,1]$
-\item if $A_1,A_2,\dots$ are disjoint then $P(\bigcup_{i=1}^\infty
-           A_i) = \sum_{i=1}^\infty P(A_i)$
+\item $P:  B → [0,1]$
+\item if $A₁,A₂,...$ are disjoint then $P(\bigcup_{i=1}^∞
+           A_i) = ∑_{i=1}^∞ P(A_i)$
 \item $P(S) = 1$
 \end{itemize}
 \end{itemize}
@@ -164,20 +164,20 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \end{itemize}
 \item Definition \citep[Definition 1.3.2]{CaB_2001}: if \emph{A} and
   \emph{B} are events in \emph{S}, and $P(B) > 0$, then ``the
-  conditional probability of A given B'', written as $P(A \mid B)$, is
-        \[P(A \mid B) = \frac{P(A \cap B)}{P(B)}\]
+  conditional probability of A given B'', written as $P(A ∣ B)$, is
+        \[P(A ∣ B) = \frac{P(A ∩ B)}{P(B)}\]
 \begin{itemize}
-\item note: $A$ and $B$ are mutually exclusive means $P(A \cap
-          B) = 0$, and we have $P(A \mid B) = 0$ as well.
-\item obviously, $P(B \mid B) = 1$
+\item note: $A$ and $B$ are mutually exclusive means $P(A ∩
+          B) = 0$, and we have $P(A ∣ B) = 0$ as well.
+\item obviously, $P(B ∣ B) = 1$
 \item verify that it's a probability measure.
 \end{itemize}
 \item Bayes's Rule \citep[Theorem 1.3.5, which is more complicated]{CaB_2001}:
         Let $A$ and $B$ be any sets in $S$ with positive probability.
-        Then \[P(A \mid B) = P(B \mid A) P(A) / P(B)\]
+        Then \[P(A ∣ B) = P(B ∣ A) P(A) / P(B)\]
 \item Continue Example from earlier:
         \[P(A wins | A plays heads) = P({HH, TT} | {HH, HT}) =
-        \frac{P(\{HH, TT\} \cap \{HH, HT\})}{P(\{HH, HT\})} =
+        \frac{P(\{HH, TT\} ∩ \{HH, HT\})}{P(\{HH, HT\})} =
         \frac{4/15}{1/3} = 4/5\]
 \end{itemize}
 
@@ -186,16 +186,16 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
       Two events are independent if knowing whether or not one
       happened does not help you know the probability of the second
 \begin{description}
-\item[Definition] events $A$ and $B$ are independent if \[P(A \cap
+\item[Definition] events $A$ and $B$ are independent if \[P(A ∩
                       B) = P(A) P(B)\]
-\item[implication] \[P(A \mid B) = \frac{P(A \cap B)}{P(B)} =
+\item[implication] \[P(A ∣ B) = \frac{P(A ∩ B)}{P(B)} =
                        \frac{P(A) P(B)}{P(B)} = P(A)\]
 \item[example] two coin flips
 \begin{itemize}
 \item A = ``first coin is heads'' = \{HT, HH\}
 \item B = ``second coin is heads'' = \{TH, HH\}
 \item under previous prob measure, A and B are independent: \[P(A
-          \cap B) = P(\{HH\}) = 1/4 \text{ and } P(A)P(B) = (1/2)^2 = 1/4\]
+          ∩ B) = P(\{HH\}) = 1/4 \text{ and } P(A)P(B) = (1/2)² = 1/4\]
 \end{itemize}
 \end{description}
 
@@ -208,20 +208,20 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
         measurable space
 \end{itemize}
 \item most of the time, we map an abstract measureable space (ie hands
-      of cards) to $\Re$
+      of cards) to $\RR$
 \begin{itemize}
 \item imposes an ordering
 \item imposes distance
 \item lets us simplify things a lot more.
 \end{itemize}
-\item We're going to think about things like $P[X \in A]$ where $A
-      \subset \Re$
+\item We're going to think about things like $P[X ∈ A]$ where $A
+      \subset \RR$
 \item The point of using random variables is to translate a very
       abstract ``experiment'' to concrete numbers.  In this situation,
       the sigma-field is giong to really let us think about the
       information conveyed by particular choices of rvs.
 \item The ``borel sigma-field'', denoted $\mathcal B$, has the sample
-      space $\Re$ and is the smallest sigma field containing the
+      space $\RR$ and is the smallest sigma field containing the
       clo.sed intervals
 \end{itemize}
 
@@ -229,10 +229,10 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 
 \begin{itemize}
 \item Let $\mathcal{F}$ be a sigma-field on a sample space $S$, and
-        let $X$ be a function from $S$ to $\Re$.  $X$ is a random
+        let $X$ be a function from $S$ to $\RR$.  $X$ is a random
         variable if it is ``measurable.''
-\item $X$ is \underline{measurable} if $X^{-1}(B) \in \mathcal{F}$ for all $B
-        \in \mathbb{B}$
+\item $X$ is \underline{measurable} if $X^{-1}(B) ∈ \mathcal{F}$ for all $B
+        ∈ \mathbb{B}$
 \end{itemize}
 
 \section{Distribution functions}
@@ -240,18 +240,18 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \subsection{definition}
 
      The cumulative distribution function of a random variable $X$,
-     denoted $F_X$, is defined by $F_X(x) = P[X \leq x]$ for all x.
+     denoted $F_X$, is defined by $F_X(x) = P[X ≤ x]$ for all x.
 
 \subsection{properties}
 
      The distribution function of a random variable always exists and
      satisfies
 \begin{enumerate}
-\item $\lim_{x \to -\infty} F_X(x) = 0$
-\item $\lim_{x \to \infty} F_X(x) = 1$
+\item $\lim_{x → -∞} F_X(x) = 0$
+\item $\lim_{x → ∞} F_X(x) = 1$
 \item $F_X$ is non-decreasing in $x$.
-\item $F_X$ is right-continuous.  For every number $x_0$, $\lim_{x
-        \downarrow x_0} F(x) = F(x_0)$
+\item $F_X$ is right-continuous.  For every number $x₀$, $\lim_{x
+        \downarrow x₀} F(x) = F(x₀)$
 \end{enumerate}
 
 \subsection{additional definitions}
@@ -263,7 +263,7 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \subsection{basic property}
 
 \begin{itemize}
-\item $P[X \in (a, b]] = F_X(b) - F_X(a)$
+\item $\Pr[X ∈ (a, b]] = F_X(b) - F_X(a)$
 \end{itemize}
 
 \section{Densities}
@@ -291,7 +291,7 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \paragraph{relationship between pmf and distribution}
 
       The mass function and the distribution function are related by:
-      \[F_X(x) = \sum_{y \leq x} f_X(y)\]
+      \[F_X(x) = ∑_{y ≤ x} f_X(y)\]
 
 \subsection{continuous random variables.}
 
@@ -299,15 +299,15 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \item The probability that a continuous r.v. takes a specific value
        is zero:
 \begin{itemize}
-\item suppose $P[X = x] > \varepsilon$ for ever $x \in [0,1]$.
-\item Then \[P[X=x_1 \cup X = x_2 \cup \cdots \cup X = x_n] =
-         \sum_{i=1}^n P[X = x_i] = n \varepsilon\] for distinct $x_1,\dots,x_n$
-\item if $\varepsilon > 0$ then $P[X = x_1 \cup \dots \cup X
-         = x_n] > 1$ for all $n > 1/\varepsilon$, which is a contradiction
+\item suppose $\Pr[X = x] > \ep$ for ever $x ∈ [0,1]$.
+\item Then
+  \[\Pr[X=x₁ ∪ X = x₂ ∪ ⋯ ∪ X = x_n] = ∑_{i=1}^n \Pr[X = x_i] = n \ep\]
+  for distinct $x₁,...,x_n$
+\item if $\ep > 0$ then $\Pr[X = x₁ ∪ ... ∪ X = x_n] > 1$ for all
+  $n > 1/\ep$, which is a contradiction
 \end{itemize}
 \item The relationship between the distribution function and the mass
-       function should remind you of \[ F_X(x) = \int_{ -\infty}^{x}
-       f_X(y) dy.\]
+  function should remind you of \[ F_X(x) = ∫_{ -∞}^{x} f_X(y) dy.\]
 \item We're going to take this relationship as our starting point for
        the continuous random variables
 \end{itemize}
@@ -315,8 +315,8 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \paragraph{definition}
 
       The probability density function (pdf) of a continuous random
-      variable $X$ with distribution $F_X(\cdot)$ is the function $f_X$
-      that satisfies \[ F_X(x) = \int_{-\infty}^{x} f_X(y) dy\]
+      variable $X$ with distribution $F_X(·)$ is the function $f_X$
+      that satisfies \[ F_X(x) = ∫_{-∞}^{x} f_X(y) dy\]
 
 \paragraph{notes}
 
@@ -328,28 +328,28 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
         definition encompasses both the continuous and discrete case
         (which is why I'll call both cases `pdfs').
 \item The \underline{support} of a random variable is the set of points where
-        its density is positve: $\{x \in \Re \mid f_X(x) > 0\}$
+        its density is positve: $\{x ∈ \RR ∣ f_X(x) > 0\}$
 \end{itemize}
 
 \subsection{properties of densities}
 
 \begin{itemize}
-\item $f_X(x) \geq 0$ for all $x$
-\item for discrete rv: $\sum_x f_X(x) = 1$
-\item for continuous rv: $\int_{-\infty}^{\infty} f_X(y) dy = 1$
+\item $f_X(x) ≥ 0$ for all $x$
+\item for discrete rv: $∑_x f_X(x) = 1$
+\item for continuous rv: $∫_{-∞}^{∞} f_X(y) dy = 1$
 \end{itemize}
 
 \subsection{transformations}
 
 \paragraph{introduction}
 
-      Suppose we have a continuous random variable $X: S \to \Re$.
+      Suppose we have a continuous random variable $X: S → \RR$.
 
 \begin{itemize}
 \item as we've discussed; this is just a way to define a new and more
         convenient probability space on the real line;
 \item we know that $X$ has a distribution $F$ and a density $f$.
-\item what happens if we look at $X^2$ instead?
+\item what happens if we look at $X²$ instead?
 \begin{itemize}
 \item it's an rv (don't worry about measurability
 \item how are its distribution and density related to the distribution
@@ -367,12 +367,14 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
 \item $P[X = 2] = 1/4$
 \end{itemize}
 (draw the distribution)
-\item the mass for $X^2$ is easy to guess:
-        \[P[X^2 = x] = P[X = \sqrt{x}] = \begin{cases}
-          1/2 & x = 0 \\
-          1/4 & x = 1 \\
-          1/4 & x = 4 \\
-        \end{cases}\]
+\item the mass for $X²$ is easy to guess:
+  \[\Pr[X² = x] = \Pr[X = \sqrt{x}] =
+  \begin{cases}
+    1/2 & x = 0 \\
+    1/4 & x = 1 \\
+    1/4 & x = 4 \\
+  \end{cases}
+  \]
 \end{itemize}
 
 \paragraph{formula for density of a transformed rv}

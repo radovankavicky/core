@@ -19,10 +19,10 @@
       density (call the variables X and Y) \textbf{leave up}
 \item illustrate integrating the density along one axis
 \item note: we also might want to know, if we observed the hypothetical
-      value of $X$, $x_0$, what would the density of $Y$ look like.
+      value of $X$, $x₀$, what would the density of $Y$ look like.
 \begin{itemize}
 \item slice this out in the drawing
-\item formally, want to use $f(x_0, y)$ as a function of $y$.
+\item formally, want to use $f(x₀, y)$ as a function of $y$.
 \end{itemize}
 \item can we interpret this as a density?
 \begin{itemize}
@@ -33,8 +33,7 @@
 \item solution:
 \begin{itemize}
 \item rescale so that the area is 1:
-        \[ \frac{f(x_0, y)}{\int_{-\infty}^{\infty} f(x_0, z) dz} =
-        \frac{f(x_0, y)}{f_X(x_0)}\]
+  \[ \frac{f(x₀, y)}{∫_{-∞}^∞ f(x₀, z) dz} = \frac{f(x₀, y)}{f_X(x₀)}\]
 \end{itemize}
 \end{itemize}
 
@@ -42,8 +41,8 @@
 
     Let $X$ and $Y$ be random vectors.  The joint density of $Y$
     given that $X = x$ is given by
-    \[ f_Y(y \mid X = x) = \frac{f_{X,Y}(x, y)}{f_X(x)} \]
-    if $f_X(x) \neq 0$.  (if this last quantity equals zero, then
+    \[ f_Y(y ∣ X = x) = \frac{f_{X,Y}(x, y)}{f_X(x)} \]
+    if $f_X(x) ≠ 0$.  (if this last quantity equals zero, then
     conditioning on that particular value doesn't make sense.  note
     that we're allowing the probability of $X=x$ to be zero).
 
@@ -51,19 +50,19 @@
 
 \begin{itemize}
 \item independence: if $X$ and $Y$ are independent then 
-      $f_Y(y \mid X = x) = f_Y(y)$
+  $f_Y(y ∣ X = x) = f_Y(y)$
 \begin{itemize}
 \item makes sense from mathematical definition
 \item makes sense from the picture
 \end{itemize}
-\item joint density: $f_{X,Y}(x,y) = f_Y(y \mid X = x) f_X(x)$
+\item joint density: $f_{X,Y}(x,y) = f_Y(y ∣ X = x) f_X(x)$
 \begin{itemize}
 \item this gives a convenient way to build up joint densities
         (especially in time series or in computational Bayesian
         estimation).
 \end{itemize}
 \item can define conditional distribution as
-      \[ F_Y(y \mid X=x) = \int_{-\infty}^y f_Y(z \mid X = x) dz \]
+      \[ F_Y(y ∣ X = x) = ∫_{-∞}^y f_Y(z ∣ X = x) dz \]
 \end{itemize}
 
 \section{conditional expectation}
@@ -78,10 +77,10 @@
 \begin{itemize}
 \item draw picture with joint density
 \end{itemize}
-\item $E(Y \mid X = x) = \int y f_Y(y \mid X = x) dy$
+\item $\E(Y ∣ X = x) = ∫ y f_Y(y ∣ X = x) dy$
 \item there are other, more fundamental ways to derive conditional
          expectations that we're not going to worry about.
-\item write $E(Y \mid X)$ when we don't want to focus on a specific
+\item write $\E(Y ∣ X)$ when we don't want to focus on a specific
          value.
 \end{itemize}
 \item Also give information set interpretation
@@ -92,26 +91,28 @@
      For all of these, suppose that $X$ and $Y$ are two random variables.
 \begin{itemize}
 \item Conditional expectation is a function of $x$.
-\item $E(Y \mid X)$ is a function of $X$.
-\item If $Y = g(X)$, then $E(Y \mid X) = Y$
+\item $\E(Y ∣ X)$ is a function of $X$.
+\item If $Y = g(X)$, then $\E(Y ∣ X) = Y$
 \begin{itemize}
 \item conditional density of $Y$ given $X$ is degenerate:
-\item $P[Y = c \mid X = x] =$
-\begin{itemize}
-\item 1 if $c = g(x)$
-\item 0 otherwise
+  \begin{equation*}
+    \Pr[Y = c ∣ X = x] =
+    \begin{cases}
+      1 & c = g(x) \\
+      0 & \text{otherwise}
+    \end{cases}
+  \end{equation*}
+\item So $\E(Y ∣ X = x) = g(x) × 1$
 \end{itemize}
-\item So $E(Y \mid X = x) = g(x) \times 1$
-\end{itemize}
-\item If $X = (X_1, X_2)$ then we have the relationships
+\item If $X = (X₁, X₂)$ then we have the relationships
 \begin{itemize}
-\item $E(E(Y \mid X) \mid X_1) = E(Y \mid X_1)$ a.s.
-\item $E(E(Y \mid X_1) \mid X) = E(Y \mid X_1)$ a.s.
-\item interpret these as ``information sets''; $X_1$ contains
+\item $\E(\E(Y ∣ X) ∣ X₁) = \E(Y ∣ X₁)$ a.s.
+\item $\E(\E(Y ∣ X₁) ∣ X) = \E(Y ∣ X₁)$ a.s.
+\item interpret these as ``information sets''; $X₁$ contains
           less information than $X$
-\item $E(X_1 Y \mid X) = X_1 E(Y \mid X)$
+\item $\E(X₁ Y ∣ X) = X₁ \E(Y ∣ X)$
 \end{itemize}
-\item If $Y \geq 0$ then $E(Y \mid X) \geq 0$ almost surely.
+\item If $Y ≥ 0$ then $\E(Y ∣ X) ≥ 0$ almost surely.
 \begin{itemize}
 \item need to make the a.s. distinction because this is a random variable
 \end{itemize}
@@ -121,20 +122,20 @@
 
      Give some intuition and a picture.
 \begin{description}
-\item[result] $E E(Y \mid X) = E Y$
-\item[proof] $E Y = \int y f_Y(y) dy$
-\begin{itemize}
-\item $= \int \int y f_{X,Y}(x,y) dx dy$
-\item $= \int \int y f_Y(y \mid X = x) f_X(x) dx dy$
-\item $= \int \int y f_Y(y \mid X = x) dy f_X(x) dx$
-\item $= \int E(Y \mid X = x) f_X(x) dx$
-\item $= E E(Y \mid X)$
-\end{itemize}
+\item[result] $\E \E(Y ∣ X) = \E Y$
+\item[proof]
+  \begin{align*}
+    \E Y &= ∫ y f_Y(y) dy \\
+    &= ∫ ∫ y f_{X,Y}(x,y) dx dy \\
+    &= ∫ ∫ y f_Y(y ∣ X = x) f_X(x) dx dy \\
+    &= ∫ ∫ y f_Y(y ∣ X = x) dy f_X(x) dx \\
+    &= ∫ \E(Y ∣ X = x) f_X(x) dx \\
+    &= \E \E(Y ∣ X)
+  \end{align*}
 \end{description}
 
 \subsection{Analogue to LIE}\sidenote{prove for homework}
-
-     \[var(X) = var(E(X|Y)) + E(var(X|Y))\]
+\[\var(X) = \var(\E(X|Y)) + \E(\var(X|Y))\]
 \begin{itemize}
 \item students should prove on their own
 \item conditional expectation has lower variance than original rv

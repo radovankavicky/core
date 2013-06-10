@@ -39,11 +39,11 @@
 \subsection{definition}
 
 \begin{itemize}
-\item The mean (or expected value) of a random variable, X, denoted
-       E X, is defined for continuous r.v. by \[ E X =
-       \int_{-\infty}^{\infty} x f_X(x) dx \]
-\item for discrete rv, \[ E X = \sum_x x f_X(x) dx \]
-\item for random vectors, $E Y = (E Y_1, \dots, E Y_k)$
+\item The mean (or expected value) of a random variable, $X$, denoted
+  $\E X$, is defined for continuous r.v. by
+  \[ \E X = ∫_{-∞}^{∞} x f_X(x) dx \]
+\item for discrete rv, \[ \E X = ∑_x x f_X(x) dx \]
+\item for random vectors, $\E Y = (\E Y₁, ..., \E Y_k)$
 \end{itemize}
 
 \subsection{interpretation}
@@ -53,45 +53,43 @@
        average usually)
 \item point where the densities would balance
 \item ``closest'' to a random draw on average, in the sense that
-       $E(X - E X)^2 \leq E(X - c)^2$ for any point c.
+  $\E(X - \E X)² ≤ \E(X - c)²$ for any point c.
 \end{itemize}
 
 \subsection{other points}
 
 \begin{itemize}
-\item if $E|X| = \infty$, we say that the mean does not exist.
+\item if $\E|X| = ∞$, we say that the mean does not exist.
 \begin{itemize}
 \item happens if the density has ``fat tails''
 \end{itemize}
-\item the mean is sometimes written as $EX = \int_{-\infty}^{\infty} x
-       dF(x)$ since $dF/dx = f$
-\item basic linearity: $E(a X + b) = a E X + b$ for constants $a$
+\item the mean is sometimes written as $\E X = ∫_{-∞}^{∞} x dF(x)$
+  since $dF/dx = f$
+\item basic linearity: $\E(a X + b) = a \E X + b$ for constants $a$
        and $b$
-\item The expectation of $Y = g(X)$ is given by \[ E g(X) =
-       \int_{-\infty}^\infty g(x) f_X(x) dx \] which is a much
+\item The expectation of $Y = g(X)$ is given by
+  \[ \E g(X) = ∫_{-∞}^∞ g(x) f_X(x) dx \] which is a much
        easier way to go than to calculate the density
        of the transformed rv.
 \begin{itemize}
 \item holds for random vectors too
 \end{itemize}
 \item as a consequence, we have the result: If $X$ and $Y$ are
-       independent then $E XY = EX E Y$
-\begin{itemize}
-\item $EXY = \int\int x y f_{X,Y}(x,y) dx dy$
-\begin{itemize}
-\item $= \int\int xy f_X(x) f_Y(y) dx dy$
-\item $= \int x f_X(x) dx \int y f_Y(y) dy$
-\item $= EX EY$
-\end{itemize}
-\end{itemize}
+  independent then $\E XY = \E X \E Y$
+  \begin{align*}
+    \E XY &= ∫∫ x y f_{X,Y}(x,y) dx dy \\
+    &= ∫∫ xy f_X(x) f_Y(y) dx dy \\
+    &= ∫ x f_X(x) dx ∫ y f_Y(y) dy \\
+    &= \E X \E Y
+  \end{align*}
 \end{itemize}
 
 \subsection{Jensen's inequality}
 
 \begin{itemize}
-\item a function $g(x)$ is convex if $g(\lambda x + (1-\lambda)y)
-       \leq \lambda g(x) + (1-\lambda) g(y)$ for $\lambda \in [0,1]$
-\item For any random variable $X$, $\E g(X) \geq g(\E X)$ for any
+\item a function $g(x)$ is convex if $g(λx + (1-λ)y) ≤ λg(x) + (1-λ)g(y)$
+  for $λ ∈ [0,1]$
+\item For any random variable $X$, $\E g(X) ≥ g(\E X)$ for any
        convex $g$.
 \end{itemize}
 
@@ -105,11 +103,11 @@
 \subsection{median}
 
 \begin{itemize}
-\item Def: the median of a distribution F is the value c such that $P(X
-       \leq c) \geq 1/2$ and $P(X \geq c) \geq 1/2$.
+\item Def: the median of a distribution F is the value c such that
+  $\Pr(X ≤ c) ≥ 1/2$ and $\Pr(X ≥ c) ≥ 1/2$.
 \item the median is not necessarily unique
 \item if X is continuous, the median satisfies 
-       \[ E | X - c | \geq E | X - median(X) | \]
+  \[ \E | X - c | ≥ \E | X - \median(X) | \]
        for any other constant $c$; so this is another way of chosing
        ``the closest value to the average draw'' for a different
        interpretation of close.
@@ -134,9 +132,9 @@
 
 \begin{itemize}
 \item measures ``how far'' an random draw is from its expected value
-\item definition: $var(X) = E(X - E X)^2$
+\item definition: $\var(X) = \E(X - \E X)²$
 \begin{itemize}
-\item equivalently, $var(X) = E(X^2) - (EX)^2$
+\item equivalently, $\var(X) = \E(X²) - (\E X)²$
 \item obviously this is nonnegative
 \end{itemize}
 \item standard deviation is the square root of the variance
@@ -150,50 +148,50 @@
 \begin{itemize}
 \item Useful special case of the transformation formula:
 \item Let $X$ be a random variable with density $f_X$ and let $f$ be
-      the density of $\sigma X + \mu$ for some constant $\mu$ and
-      positive constant $\sigma$.  Then \[f(x) = \frac{1}{\sigma}
-      f_X\left(\frac{x - \mu}{\sigma}\right)\] for all $x$.
+  the density of $σ X + μ$ for some constant $μ$ and positive constant
+  $σ$.  Then \[f(x) = \frac{1}{σ} f_X\left(\frac{x - μ}{σ}\right)\]
+  for all $x$.
 \begin{itemize}
-\item This family of pdfs is called the ``location-scale family
-        with standard pdf $f(x)$".
-\item $\mu$ is the \emph{location parameter}
-\item $\sigma$ is the \emph{scale parameter}
+\item This family of pdfs is called the ``location-scale family with
+  standard pdf $f(x)$.''
+\item $μ$ is the \emph{location parameter}
+\item $σ$ is the \emph{scale parameter}
 \end{itemize}
-\item The family $\{f_X(x - \mu) : \mu \in \mathbb{R}\}$ is a
-      ``location family'' (i.e. only $\mu$ varies)
-\item The family $\{(1/\sigma) f_X(x/\sigma) : \sigma > 0\}$ is a
-      ``scale family'' (i.e. only \$$\sigma$ varies)
-\item $1/\sigma f_X(\frac{x - \mu}{\sigma})$ is a pdf for any density
-      $f_X$ and constants $\mu$ and $\sigma > 0$.
+\item The family $\{f_X(x - μ) : μ ∈ \RR\}$ is a ``location family''
+  (i.e. only $μ$ varies)
+\item The family $\{(1/σ) f_X(x/σ) : σ > 0\}$ is a ``scale family''
+  (i.e. only $σ$ varies)
+\item $1/σ f_X(\frac{x - μ}{σ})$ is a pdf for any density $f_X$ and
+  constants $μ$ and $σ > 0$.
 \end{itemize}
 
 \section{other moments}
 
 \begin{itemize}
 \item If $X$ is a random variable, we say that the kth moment of $X$
-      exists if $E|X|^k$ is finite
+  exists if $\E|X|^k$ is finite
 \item skewness: (draw picture)
 \begin{description}
-\item[Greene's definition] $E(X - E X)^3$
-\item[more common] $E(X - E X)^3 / \sigma^3$
+\item[Greene's definition] $\E(X - \E X)³$
+\item[more common] $\E(X - \E X)³ / σ³$
 \end{description}
 \item kurtosis: (draw picture; move mass from center to tails)
 \begin{description}
-\item[Greene's definition] $E(X - E X)^4$
-\item[more common] $E(X - E X)^4 / \sigma^4$
-\item[excess] $E(X - E X)^4 / \sigma^4 - 3$
+\item[Greene's definition] $\E(X - \E X)⁴$
+\item[more common] $\E(X - \E X)⁴ / σ⁴$
+\item[excess] $\E(X - \E X)⁴ / σ⁴ - 3$
 \end{description}
 \item in general, we might look at powers like these
 \begin{itemize}
-\item kth moment: $E X^k$
-\item kth central moment: $E(X - EX)^k$
+\item kth moment: $\E X^k$
+\item kth central moment: $\E(X - EX)^k$
 \end{itemize}
 \item Consequence of Jensen's inequality: if the \$p\$th moment is
       finite, so are all moments between 0 and $p$.
 \begin{itemize}
-\item Proof: let $q \in (0, p)$.  \[\E |X|^p = \E[( |X|^q)^{p/q}]
-        \leq [\E(|X|^q)]^{p/q}\] since $p/q > 1$.  Since the last
-        quantity is finite, so is the first.
+\item Proof: let $q ∈ (0, p)$.
+  \[\E |X|^p = \E[( |X|^q)^{p/q}] ≤ [\E(|X|^q)]^{p/q}\]
+  since $p/q > 1$.  Since the last quantity is finite, so is the first.
 \end{itemize}
 \end{itemize}
 
