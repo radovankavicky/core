@@ -12,10 +12,12 @@ Material covered
 ----------------
 
 * Probability (see probability.tex for a list of sections)
-* Point estimation (pointestimation.tex)
-* Inference (inference.tex)
+* Finite-sample statistics (finitesample.tex)
+  * Point estimation
+  * Hypothesis testing
+  * Bayesian inference
+* Asymptotics (asymptotics.tex)
 * Linear regression (linearregression.tex)
-* Additional topics (additionaltopics.tex)
 
 License
 -------
