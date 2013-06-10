@@ -25,7 +25,7 @@
 \item unbiasedness of the estimators
 \item formula for variance of the estimators
 \item gauss-markov theorem
-\item unbiasedness of $s^2$
+\item unbiasedness of $s²$
 \item zero correlation between errors and beta-hat
 \end{itemize}
 
@@ -45,10 +45,10 @@
 \subsection{asymptotics}
 
 \begin{itemize}
-\item we could plug in any distribution for $\epsilon$ and then use
-       transformation formulas to get the density of $\hat\beta$ given $X$.
+\item we could plug in any distribution for $ε$ and then use
+       transformation formulas to get the density of $\βh$ given $X$.
 \item each distribution for the errors would give us a different
-       distribution for $\hat\beta$.
+       distribution for $\βh$.
 \item \textbf{open up R}
 \begin{itemize}
 \item make a function 
@@ -91,126 +91,124 @@
 \begin{itemize}
 \item assumptions
 \begin{itemize}
-\item $Y = X\beta + \epsilon$
-\item $\epsilon$ is iid $(0, \sigma^2)$ given $X$ and has finite
-       $2+\delta$ moments for some positive number $\delta$
+\item $Y = Xβ + ε$
+\item $ε$ is iid $(0, σ²)$ given $X$ and has finite $2+δ$ moments for
+  some positive number $δ$
 \item $x_i$ is independent across $i$
 \item for each i, $x_i x_i'$ has uniformly finite variance
-\item $E x_i x_i' = Q_i$ which is uniformly finite and positive definite.
+\item $\E x_i x_i' = Q_i$ which is uniformly finite and positive definite.
 \end{itemize}
 \item conclusion
 \begin{itemize}
-\item $\hat\beta \to \beta$ in probability
-\item $s^2 \to \sigma^2$ in probability
-\item $\sqrt{n}(\hat\beta - \beta) \to N(0, \sigma^2 Q^{-1})$ in
-       distribution.
+\item $\βh → β$ in probability
+\item $s² → σ²$ in probability
+\item $\sqrt{n}(\βh - β) → N(0, σ² Q^{-1})$ in distribution.
 \end{itemize}
 \end{itemize}
 
 \subsection{discussion of assumption on X'X}
 
 \begin{itemize}
-\item Greene makes the assumption that $n^{-1} X'X \to Q$ in
+\item Greene makes the assumption that $n^{-1} X'X → Q$ in
        probability where $Q$ is a positive definite matrix.
 \item this condition is implied by the one we're using
 \begin{itemize}
-\item $n^{-1} X'X = n^{-1} \sum_i x_i x_i'$, so define $Q =
-         \lim_{n\to\infty} n^{-1} \sum_i Q_i$ and we get $n^{-1} \sum_i
-         x_i x_i' - Q \to 0$ in probability as a consequence of
-         Chebychev's weak law of large numbers
+\item $n^{-1} X'X = n^{-1} ∑_i x_i x_i'$, so define $Q = \lim_{n → ∞}
+  n^{-1} ∑_i Q_i$ and we get $n^{-1} ∑_i x_i x_i' - Q → 0$ in
+  probability as a consequence of Chebychev's weak law of large
+  numbers
 \end{itemize}
 \end{itemize}
 
 \subsection{proof of consistency}
 
-     We want to prove that $\hat\beta \to \beta$ in probablilty.  We
+     We want to prove that $\βh → β$ in probablilty.  We
      can do that by plugging through the algebra
 \begin{itemize}
-\item going to show that $\hat\beta - \beta \to 0$ in probability
-\item $\hat\beta - \beta = (\sum_i x_i x_i')^{-1} \sum_i x_i
-       \varepsilon_i$
-\begin{itemize}
-\item $= (n^{-1} \sum_i x_i x_i')^{-1} n^{-1} \sum_i x_i \epsilon_i$
-\item $= \left[(n^{-1} \sum_i x_i x_i')^{-1} n^{-1}  -
-         Q^{-1}\right] \sum_i x_i \epsilon_i + Q^{-1} n^{-1} \sum_i
-         x_i \epsilon_i$
-\item $= O_p(1) n^{-1} \sum_i x_i \epsilon_i$
-\begin{itemize}
-\item remember what $n^{-1} \sum_i x_i x_i' = O_p(1)$ means -- it
+\item going to show that $\βh - β → 0$ in probability
+  \begin{align*}
+    \βh - β &= (∑_i x_i x_i')^{-1} ∑_i x_i \ep_i \\
+    &= (n^{-1} ∑_i x_i x_i')^{-1} n^{-1} ∑_i x_i ε_i \\
+    &= \left[(n^{-1} ∑_i x_i x_i')^{-1} n^{-1}
+       - Q^{-1}\right] ∑_i x_i ε_i + Q^{-1} n^{-1} ∑_i x_i ε_i \\
+    &= O_p(1) n^{-1} ∑_i x_i ε_i
+  \end{align*}
+\item remember what $n^{-1} ∑_i x_i x_i' = O_p(1)$ means -- it
            means that for each element of the matrix (we'll call the ij
-           element $(n^{-1} X'X)_{ij}$) for every positive \$$\delta$,
-           there exists a finite constant $C_\delta$ and a number
-           $N_\delta$ such that \[ P[|(n^{-1} X'X)_{ij} | > C_\delta] <
-           \delta \] for all $n > N_\delta$
-\item we know from chebychev's inequality that \[ P[|(n^{-1}
-            X'X)_{ij} | > C] < E |(n^{-1} X'X)_{ij} |^2 / C^2\]
-\item $\leq n^{-1} \sum_t E |(x_{it} x_{jt}| / C^2$
+           element $(n^{-1} X'X)_{ij}$) for every positive $δ$,
+           there exists a finite constant $C_δ$ and a number
+           $N_δ$ such that
+           \[ \Pr[|(n^{-1} X'X)_{ij} | > C_δ] < δ \] for all $n > N_δ$
+\item we know from chebychev's inequality that
+  \begin{align*}
+    \Pr[|(n^{-1} X'X)_{ij} | > C]
+    &< \E |(n^{-1} X'X)_{ij} |² / C² \\
+    &≤ n^{-1} ∑_t \E |(x_{it} x_{jt}| / C²
+  \end{align*}
 \item this is finite because we are assuming finite means and variances.
-\item so, for any $\delta$, we just choose $N$ and $C$ big enough
+\item so, for any $δ$, we just choose $N$ and $C$ big enough
            to ensure that the inequality holds for all $n > N$.
-\end{itemize}
-\item now, $E(x_i \epsilon_i) = E E(\epsilon_i \mid x_i) = 0$
-\item also, $var(x_i \epsilon_i) = E(x_i x_i' \epsilon_i^2)$
-\begin{itemize}
-\item $= E E(x_i x_i' \epsilon_i^2 \mid x_i)$
-\item $= \sigma^2 E(x_i x_i')$
-\item $= \sigma^2 Q_i$
-\end{itemize}
-\item so $n^{-1} \sum_i x_i \epsilon_i$ satisfies Chebychev's LLN
+\item now, $\E(x_i ε_i) = \E \E(ε_i ∣ x_i) = 0$
+\item also,
+  \begin{align*}
+    \var(x_i ε_i) &= \E(x_i x_i' ε_i²) \\
+    &= \E \E(x_i x_i' ε_i² ∣ x_i) \\
+    &= σ² \E(x_i x_i') \\
+    &= σ² Q_i 
+  \end{align*}
+\item so $n^{-1} ∑_i x_i ε_i$ satisfies Chebychev's LLN
          and converges to its mean, zero.
-\end{itemize}
-\item $\hat\beta - \beta = O_p(1) o_p(1) = o_p(1)$ and converges to
+\item $\βh - β = O_p(1) o_p(1) = o_p(1)$ and converges to
        zero in probability.
 \end{itemize}
 
-\subsection{consistency of $s^2$}
+\subsection{consistency of $s²$}
 
-     we want to show that $s^2 \to \sigma^2$ in probability
+     we want to show that $s² → σ²$ in probability
 \begin{itemize}
-\item $s^2 = {1 \over n - k - 1} \sum_i (y_i - x_i'\hat\beta)^2$
-\begin{itemize}
-\item $= {1 \over n - k - 1} \sum_i (\epsilon_i - x_i'(\hat\beta-\beta))^2$
-\item $= {1 \over n - k - 1} \sum_i (\epsilon_i^2 - 2 \epsilon_i
-         x_i'(\hat\beta-\beta) + (x_i'(\hat\beta-\beta))^2)$
-\item \[= {1 \over n - k - 1} \sum_i \epsilon_i^2 - 2 (\hat\beta -
-         \beta)' {1 \over n - k - 1} \sum_i  x_i \epsilon_i +
-         (\hat\beta - \beta)' {1 \over n - k - 1} \sum_i x_i x_i'
-         (\hat\beta - \beta)\]
-\item $=  {n \over n - k - 1} n^{-1} \sum_i \epsilon_i^2 + o_p(1)
-         o_p(1) + o_p(1)'O_p(1)o_p(1)$
-\item $= n^{-1} \sum_i \epsilon_i^2 + o_p(1)$
-\end{itemize}
-\item finally, $n^{-1} \sum_i \epsilon_i^2$ converges in probability
-       to $\sigma^2$ by Markov's lln.
+\item
+  \begin{align*}
+    s² &= \ov{n-k-1} ∑_i (y_i - x_i'\βh)² \\
+    &= \ov{n-k-1} ∑_i (ε_i - x_i'(\βh-β))² \\
+    &= \ov{n-k-1} ∑_i (ε_i² - 2 ε_i x_i'(\βh-β) + (x_i'(\βh-β))²) \\
+    &= \ov{n-k-1} ∑_i ε_i²
+       - 2 (\βh - β)' \ov{n-k-1} ∑_i  x_i ε_i
+       + (\βh - β)' \ov{n-k-1} ∑_i x_i x_i' (\βh - β) \\
+    &= \ov{n-k-1} n^{-1} ∑_i ε_i²
+       + o_p(1) o_p(1) + o_p(1)'O_p(1)o_p(1) \\
+    &= n^{-1} ∑_i ε_i² + o_p(1)
+  \end{align*}
+\item finally, $n^{-1} ∑_i ε_i²$ converges in probability to $σ²$ by
+  Markov's lln.
 \end{itemize}
 
-\subsection{asymptotic normality of $\hat\beta$}
+\subsection{asymptotic normality of $\βh$}
 
      We'll do a similar argument for asymptotic normality
 \begin{itemize}
-\item $\sqrt{n}(\hat\beta - \beta) = (n^{-1} \sum_i x_i x_i')^{-1}
-       n^{-1/2} \sum_i x_i \epsilon_i$
-\begin{itemize}
-\item $= ((n^{-1} \sum_i x_i x_i')^{-1} - Q^{-1}) n^{-1/2} \sum_i
-         x_i \epsilon_i + Q^{-1} n^{-1/2} \sum_i x_i \epsilon_i$
-\end{itemize}
+\item
+  \begin{align*}
+    \sqrt{n}(\βh - β)
+    &= (n^{-1} ∑_i x_i x_i')^{-1} n^{-1/2} ∑_i x_i ε_i \\
+    &= ((n^{-1} ∑_i x_i x_i')^{-1} - Q^{-1}) n^{-1/2} ∑_i
+       x_i ε_i + Q^{-1} n^{-1/2} ∑_i x_i ε_i
+  \end{align*}
 \item so, we're going to show two things
 \begin{itemize}
-\item $n^{-1/2} \sum_i x_i \epsilon_i$ is asymptotically normal
-\item $((n^{-1} \sum_i x_i x_i')^{-1} - Q^{-1}) \to 0$ in
+\item $n^{-1/2} ∑_i x_i ε_i$ is asymptotically normal
+\item $((n^{-1} ∑_i x_i x_i')^{-1} - Q^{-1}) → 0$ in
          probability (which we discussed earlier)
 \end{itemize}
 \item for normality
 \begin{itemize}
-\item we already showed that each $x_i \epsilon_i$ has mean zero and
-         variance $\sigma^2 Q_i$
-\item we can appy the lindberg-feller CLT to show $n^{-1/2} \sum_i
-         x_i \epsilon_i$ converges in distribution to $N(0, Q)$
+\item we already showed that each $x_i ε_i$ has mean zero and variance
+  $σ² Q_i$
+\item we can appy the lindberg-feller CLT to show $n^{-1/2} ∑_i x_i
+  ε_i$ converges in distribution to $N(0, Q)$
 \end{itemize}
-\item consequently, $\sqrt{n}(\hat\beta - \beta) = o_p(1) + Q^{-1}
-       \sum_i x_i \epsilon_i$ and converges in distribution to a normal
-       with mean zero and variance $\sigma^2 Q^{-1}$ which is just what
-       we wanted to show.
+\item consequently, $\sqrt{n}(\βh - β) = o_p(1) + Q^{-1} ∑_i x_i ε_i$
+  and converges in distribution to a normal with mean zero and
+  variance $σ² Q^{-1}$ which is just what we wanted to show.
 \end{itemize}
 
 %%% Local Variables: 

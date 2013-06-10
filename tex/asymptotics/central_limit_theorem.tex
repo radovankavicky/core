@@ -63,30 +63,28 @@
 
      Let $\{X_n\}$ be a sequence of random variables with cdfs $F_n$.
      $X_n$ converges in distribution to a random variable $X$ with cdf
-     $F(\cdot)$ if $$\lim_{n\to\infty} \lvert F_n(c) - F(c) \rvert = 0$$
-     for all continuitiy points $c$ of $F(\cdot)$.
+     $F(·)$ if 
+     \[ \lim_{n → ∞} \lvert F_n(c) - F(c) \rvert = 0 \]
+     for all continuitiy points $c$ of $F(·)$.
 
 \subsection{Discussion}
 
 \begin{itemize}
 \item Discuss point of continuity with a picture.
-\item written (usually) $X_n \xrightarrow{d} F$ or $X_n
-       \xrightarrow{d} X$.
+\item written (usually) $X_n →^d F$ or $X_n →^d X$.
 \item A few useful results \citep[D.16]{Gre_2011}
 \begin{enumerate}
-\item If $X_n \xrightarrow{d} X$ and $Y_n \xrightarrow{p} c$ (a
-          constant) then $X_n Y_n \xrightarrow{d} c X$ and $X_n + Y_n
-          \xrightarrow{d} X + c$
-\item If $X_n \xrightarrow{d} X$ and $g(\cdot)$ is a continuous
-          function, then $g(X_n)\xrightarrow{d} g(X)$
-\item If $Y_n \xrightarrow{d} Y$ and $X_n - Y_n \xrightarrow{p} 0$
-          then $X_n \xrightarrow{d} Y$.
+\item If $X_n →^d X$ and $Y_n →^p c$ (a constant) then
+  $X_n Y_n →^d c X$ and $X_n + Y_n →^d X + c$
+\item If $X_n →^d X$ and $g(·)$ is a continuous function, then
+  $g(X_n) →^d g(X)$
+\item If $Y_n →^d Y$ and $X_n - Y_n →^p 0$ then $X_n →^d Y$.
 \begin{itemize}
 \item give intuitive proof.
 \end{itemize}
 \end{enumerate}
-\item for convergence to a constant only: If $Y_n \xrightarrow{d} c$
-       for $c$ a constant, then $Y_n \xrightarrow{p} c$.
+\item for convergence to a constant only: If $Y_n →^d c$ for $c$ a
+  constant, then $Y_n →^p c$.
 \item how does one prove convergence in distribution?
 \begin{itemize}
 \item don't usually sit down with the distribution functions.
@@ -98,12 +96,12 @@
          don't have time to get into this in detail)
 \begin{description}
 \item[moment generating function] The moment generating function
-              of a random vector $X$ is defined as $E e^{t'X}$
+  of a random vector $X$ is defined as $\E e^{t'X}$
 \begin{itemize}
 \item doesn't always exist.
 \end{itemize}
 \item[characteristic function] The characteristic function of a
-              random vector $X$ is defined as $E e^{it'X}$
+  random vector $X$ is defined as $\E e^{it'X}$
 \begin{itemize}
 \item always exists
 \item requires that you know some complex analysis.
@@ -147,60 +145,57 @@
 
 \subsection{Lindberg-Levy Central Limit Theorem (want to leave up)}
 
-     If $X_1,\dots,X_n$ are iid $(\mu, \sigma^2)$ then 
-     \[\sqrt{n} (\bar X - \mu) \xrightarrow{d} N(0,\sigma^2).\]
+If $X₁,...,X_n$ are iid $(μ, σ²)$ then \[\sqrt{n} (\Xb - μ) →^d N(0,σ²).\]
 
 \begin{itemize}
-\item illustrate with pictures what this means (distribution of $\bar
-       X$), then blow it up.
+\item illustrate with pictures what this means (distribution of
+  $\Xb$), then blow it up.
 \end{itemize}
 
 \subsection{Lindberg-Feller CLT (a variation)}
 
-     Suppose that $X_1,\dots,X_n$ are independent random variables with
-     $X_i \sim (\mu_i, \sigma_i^2)$ and $\bar \mu = n^{-1}\sum_{i=1}^n
-     \mu_i$ and $\bar{\sigma^2} = n^{-1} \sum_{i=1}^n \sigma_i^2$.  If
-     $\bar{\sigma}^2$ converges and if
-     \[\lim_{n\to\infty} \max(\sigma_i^2)/(n\sqrt{\bar{\sigma}^2}) = 0\]
-     then $$\sqrt{n}(\bar x - \bar \mu)/\sqrt{\bar{\sigma^2}} \xrightarrow{d} N(0,1)$$
+     Suppose that $X₁,...,X_n$ are independent random variables with
+     $X_i ∼ (μ_i, σ²_i)$ and $\μb = n^{-1}∑_{i=1}^n μ_i$ and
+     $\bar{σ²} = n^{-1} ∑_{i=1}^n σ²_i$.  If $\bar{σ}²$ converges and if
+     \[\lim_{n→∞} \max(σ²_i)/(n\sqrt{\bar{σ}²}) = 0\]
+     then 
+     \[\sqrt{n}(\Xb - \μb)/\sqrt{\bar{σ²}} →^d N(0,1)\]
 
 \begin{itemize}
 \item illustrate with pictures what this means
 \item counter example for variance assumption:
 \begin{itemize}
-\item suppose that $\sigma_i^2 = 2^{-i}$.
-\item $\bar{\sigma^2} = n^{-1} \sum_{i=1}^n 2^{-i} = n^{-1}(1 - (1/2)^n)$
-\item $\max(\sigma_i^2)/(n\bar{\sigma}^2) = 1/(1-0.5^n) \to 1$.
+\item suppose that $σ²_i = 2^{-i}$.
+\item $\bar{σ²} = n^{-1} ∑_{i=1}^n 2^{-i} = n^{-1}(1 - (1/2)^n)$
+\item $\max(σ²_i)/(n\bar{σ}²) = 1/(1-0.5^n) → 1$.
 \item problem in this example: the first few random variables are
          going to have a large influence on the average; compare to
-         $\sigma_i^2 = 4$ if $i$ is even and 1 if $i$ is odd.
+         $σ²_i = 4$ if $i$ is even and 1 if $i$ is odd.
 \end{itemize}
 \end{itemize}
 
 \subsection{multivariate Lindberg-Levy CLT}
 
-     If $X_1,\dots,X_n$ are iid random vectors with mean $\mu$ and vcv
-     $\Sigma$, then $$\sqrt{n}(\bar X - \mu) \xrightarrow{d}
-     N(0,\Sigma)$$.
+If $X₁,...,X_n$ are iid random vectors with mean $μ$ and vcv $Σ$,
+then \[\sqrt{n}(\Xb - μ) →^d N(0,Σ).\]
 \begin{description}
 \item[proof] Want to use the Cramer-Wold device.
 \begin{description}
 \item[statement] Let $X$ be a random $k$-vector.  If $a'X$
                   is normally distributed for every deterministic
                   $k$-vector $a$, then $X$ is multivariate normal.
-\item[implication] if $a'(\sqrt{n}(\bar X - \mu))$ is
+\item[implication] if $a'(\sqrt{n}(\Xb - μ))$ is
                   asymptotically normal with mean zero and variance
-                  $a'\Sigma a$ for any choice of $a$, then conclusion
+                  $a'Σ a$ for any choice of $a$, then conclusion
                   holds.
 \item[first] Let $a$ be an arbitrary vector of constants
                            with the same dimension as $X_i$.
-\item[argument] consider the sequence $a'X_1, \dots,
+\item[argument] consider the sequence $a'X₁,...,
                               a'X_n$.
 \begin{itemize}
-\item iid $(a'\mu, a'\Sigma a)$
+\item iid $(a'μ, a'Σ a)$
 \item this sequence satisfies the Lindeberg-Levy CLT,
-                    so $$\sqrt{n}(a'\bar X - a'\mu) \xrightarrow{d}
-                    N(0,a'\Sigma a)$$
+  so \[\sqrt{n}(a'\Xb - a'μ) →^d N(0,a'Σ a)\]
 \item This holds for any choice of $a$, so we're done.
 \end{itemize}
 \end{description}
@@ -227,10 +222,10 @@
        trying to rule out cases like this one:
 \begin{itemize}
 \item let $Z$ be bernoulli(1/2)
-\item let $\varepsilon_i$ be iid (0,1)
-\item define $X_i = Z + \varepsilon_i$ (and we only see the $X$ s).
-\item Then the mean of $X_i$ is 1/2, the variance is $var(Z +
-         \varepsilon_i) = 1/4 + 1 = 5/4$.
+\item let $\ep_i$ be iid (0,1)
+\item define $X_i = Z + \ep_i$ (and we only see the $X$ s).
+\item Then the mean of $X_i$ is 1/2, the variance is $\var(Z + \ep_i)
+  = 1/4 + 1 = 5/4$.
 \item obviously, this does not converge to a normal r.v.
 \begin{itemize}
 \item plot graphs
@@ -240,12 +235,12 @@
 \end{itemize}
 \item what's happening?
 \begin{itemize}
-\item suppose we see $X_1 = 4$.  Makes it extremely unlikely that
+\item suppose we see $X₁ = 4$.  Makes it extremely unlikely that
            $Z = 1$ (can calculate from Bayes rule).
 \item so if we see $X_i = 4$, we know that different values of
-           $X_2$ are likely.
+           $X₂$ are likely.
 \item more imporantly, we know that different values of $X_n$ are
-           likely -- the density of $X_i$ depends on $X_1$, no matter
+           likely -- the density of $X_i$ depends on $X₁$, no matter
            how far apart in time they are.
 \end{itemize}
 \item caveat :: there's a sense that even this result should be
@@ -262,17 +257,17 @@
      result is sometimes awkward if the function is awkward, so there's
      a simpler approximation we can usually use.
 \begin{itemize}
-\item draw picture (behavior of $\bar X$ and smooth function $g$).
+\item draw picture (behavior of $\Xb$ and smooth function $g$).
 \item two random sequences:
 \begin{itemize}
-\item $g(\bar X) - g(\mu)$ and $g'(\mu) (\bar X - \mu)$
+\item $g(\Xb) - g(μ)$ and $g'(μ) (\Xb - μ)$
 \item Taylor expansion suggests
-         \[g(\bar X) = g(\mu) + g'(\mu) (\bar X - \mu) + remainder\]
+         \[g(\Xb) = g(μ) + g'(μ) (\Xb - μ) + remainder\]
          so
-         \[\sqrt{n} (g(\bar X) - g(\mu)) = g'(\mu) \sqrt{n} (\bar X - \mu) + \sqrt{n} remainder\]
-\item we know that $\sqrt{n} g'(\mu) (\bar X - \mu)$ is
+         \[\sqrt{n} (g(\Xb) - g(μ)) = g'(μ) \sqrt{n} (\Xb - μ) + \sqrt{n} remainder\]
+\item we know that $\sqrt{n} g'(μ) (\Xb - μ)$ is
          asymptotically normal.
-\item suggests that $\sqrt{n}(g(\bar X) - g(\mu))$ is asymptotically
+\item suggests that $\sqrt{n}(g(\Xb) - g(μ))$ is asymptotically
          normal as well.
 \end{itemize}
 \end{itemize}
@@ -280,14 +275,13 @@
 \subsection{statement (Casella and Berger)}
 
      Let $\{Y_n\}$ be a sequence of random variables that satisfies
-     \[\sqrt{n}(Y_n - \theta) \xrightarrow{d} N(0,\sigma^2).\]  Suppose
-     that the function $g$ is differentiable at $\theta$ and $g'(\theta)
-     \neq 0$.  Then
-     \[\sqrt{n}[g(Y_n) - g(\theta)] \xrightarrow{d} N(0,
-     \sigma^2[g'(\theta)]^2).\]
+     \[\sqrt{n}(Y_n - θ) →^d N(0,σ²).\]  
+     Suppose that the function $g$ is differentiable at $θ$ and $g'(θ)
+     ≠ 0$.  Then
+     \[\sqrt{n}[g(Y_n) - g(θ)] →^d N(0, σ²[g'(θ)]²).\]
 \begin{description}
 \item[note] follows from a Taylor expansion of $g(Y_n)$ around
-               $g(\theta)$.  If $g'(\theta)=0$, you can get a
+               $g(θ)$.  If $g'(θ)=0$, you can get a
                distributional result by taking a second order expansion.
 \end{description}
 
