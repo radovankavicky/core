@@ -14,14 +14,16 @@
 
 \begin{itemize}
 \item If we know the distribution of the random sample, and want to
-      test a hypothesis about the unknown parameters, we can use the
-      likelihood ratio test to get a test statistic.
+  test a hypothesis about the unknown parameters, we can use the
+  likelihood ratio test to get a test statistic.
 \item test statistic is given by
-  \[γ(x₁,...,x_n) = {\sup_{θ ∈ Θ_0} L(θ; x₁,...,x_n) \over \sup_{θ ∈
-      Θ_0 \cup Θ_a} L(θ; x₁,...,x_n)}\]
+  \begin{equation*}
+    Λ(x₁,…,x_n) =
+    \frac{\sup_{θ ∈ Θ₀} L(θ; x₁,…,x_n)}{\sup_{θ ∈ Θ₀ ∪ Θ_a} L(θ; x₁,…,x_n)}
+  \end{equation*}
 \begin{itemize}
 \item $L(θ; x₁,...,x_n)$ is the likelihood function
-\item reject if $γ(x₁,...,x_n) ≤ c$ where $c$ is chosen
+\item reject if $Λ(x₁,...,x_n) ≤ c$ where $c$ is chosen
         so that the test has the correct prespecified size.
 \end{itemize}
 \item you can draw some pictures connecting this to the maximum
