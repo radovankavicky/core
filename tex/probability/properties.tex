@@ -342,6 +342,154 @@
          dist
 \end{itemize}
 
+\section{Properties of specific distributions}
+
+\paragraph{results on quadratic forms}
+\begin{itemize}
+\item Let $X$ be a random $k$-vector and let $A$ be a $k × k$
+        deterministic matrix.  $X'A X$ is a (random) quadratic form.
+\begin{itemize}
+\item normally we view each element of $X$ as coming from the same (or
+          similar) distributions
+\end{itemize}
+\item $X'AX = ∑_{i,j} X_i X_j A_{ij}$
+\begin{itemize}
+\item write this out using element-by-element representation of $X$ and $A$
+\end{itemize}
+\item usually we only think about symmetric matrices:
+        \[ X' A X = X'(A/2 + A'/2)X \quad a.s.\]
+        which is always symmetric
+\end{itemize}
+
+\paragraph{mean \citep[Formula in][]{SL03}}
+\begin{description}
+\item[result] Let $X$ be an $n × 1$ vector of random variables, and
+  let $A$ be an $n × n$ symmetric matrix.  If $\E X = μ$ and $\var(X) =
+  Σ$, then \[ \E X'AX = \tr(A Σ) + μ'Aμ \]
+\item[proof] we're going to use three things: a scalar equals its own
+                 trace, linearity of the expectation, and a property of
+                 the trace: $\tr(XY) = \tr(YX)$ as long as both are
+                 conformable.
+  \begin{align*}
+    \E(X'AX) &= \tr(\E(X'AX)) \\
+    &= \E(\tr(X'AX)) \\
+    &= \E(\tr(AXX')) \\
+    &= \tr(\E(AXX')) \\
+    &= \tr(A \E(XX')) \\
+    &= \tr(A (\var(X) + μμ')) \\
+    &= \tr(AΣ) + \tr(A μμ') \\
+    &= \tr(AΣ) + μ'Aμ 
+  \end{align*}
+\end{description}
+
+\paragraph{variance \citep[also in][]{SL03}}
+\begin{description}
+\item[result] let $X₁,...,X_n$ be independent r.v. with means
+  $θ₁,...,θ_n$, and the same 2nd, 3rd and 4th central moments $μ₂$,
+  $μ₃$, $μ₄$.  If $A$ is an $n × n$ symmetric matrix and $a$ is a
+  column vector of the diagonal elements of $A$, then
+  \[ \var(X'AX) = (μ₄ - 3 μ₂²)a'a + 2 μ₂² \tr(A²) + 4 μ₂ θ'A² θ + 4 μ₃
+  θ' A a \]
+\item[proof] Take $X'A X = ∑_{ij} ((X_i - θ_i) + θ_i) ((X_j - θ_j) +
+  θ_j) A_{ij}$, multiply out and take the variance.
+\end{description}
+
+\subsection{Results for Normal random variables}
+\begin{itemize}
+\item Density, etc. are in \citet{CB02} appendix
+\item multivariate: mean $μ$ and variance $Σ$:
+  \[ f(x) = \frac{1}{\sqrt{2ⁿ πⁿ \det(Σ)}} exp(-1/2(x - μ)'Σ^{-1}(x- μ)) \]
+\item written $N(μ, Σ)$
+\item assumes $Σ$ is p.d.; can be extended to allow for positive
+      semi-definite as well.
+\item you should draw the shape of the density and some elliptical
+      contour plots
+\end{itemize}
+
+\paragraph{important properties: \textbf{:hw:}}
+\begin{itemize}
+\item If $X$ is a $k$-dimensional multivariate normal with mean $μ$
+  and variance $Σ$, $A X + b$ is also multivariate normal for any
+  constant $n × k$ matrix $A$ and $n$-vector $b$.
+\begin{itemize}
+\item mean is $A μ + b$
+\item variance is $A Σ A'$
+\item if $n > k$, it will be a degenerate distribution.
+\item example: $X ∼ N(0,1)$, $A = (1/\sqrt{2}, 1/\sqrt{2})$ and $b = 0$.
+\begin{itemize}
+\item draw picture (rotation)
+\end{itemize}
+\end{itemize}
+\item If $X$ is multivariate normal with mean $μ$ and variance $Σ$,
+  and $Σ^{1/2}$ is a symmetric matrix such that $Σ^{1/2} Σ^{1/2} = Σ$,
+  then $(Σ^{1/2})^{-1} (X - μ)$ is multivariate standard normal.
+\item independence
+        If $X$ and $Y$ are uncorrelated normal random vectors, then they
+        are independent
+\begin{itemize}
+\item follows from multiplying out square terms in density and
+          factorizing.
+\end{itemize}
+\item if $(X₁,X₂) ∼ N((μ₁,μ₂), \begin{pmatrix} Σ_{11} & Σ_{12} \\ Σ_{12}' & Σ_{22} \end{pmatrix}$ then
+\begin{itemize}
+\item $X₁ ∼ N(μ₁, Σ_{11})$
+\item $X₂ ∼ N(μ₂, Σ_{22})$
+\item $X₁ ∣ X₂ ∼ N(μ₁ + Σ_{12} Σ_{22}^{-1} (X₂ - μ₂), Σ_{11} - Σ_{12}'Σ_{22}^{-1} Σ_{12})$
+\begin{itemize}
+\item note that the conditional mean of $X₁$ depends on $X₂$, but the conditional variance doesn't.
+\end{itemize}
+\end{itemize}
+\item a few consequences of independence:
+        Let $X$ be a $k$-dimensional standard normal random vector.
+\begin{enumerate}
+\item If $A$ is a $k × j$ matrix and $B$ a $k × l$ matrix such that
+  $A'B = 0$, then $A'X$ and $B'X$ are independent.
+\item If $P$ is a $k× k$ idempotent matrix and $PB = 0$ then
+           $X'PX$ and $B'X$ are independent
+\begin{itemize}
+\item A matrix $P$ is idempotent if $P = PP$
+\item These represent projections in $\RR^k$
+\begin{itemize}
+\item suppose some matrix $P$ represents a projection mapping $z$ to a linear subspace of $z$.
+\item clearly, applying $P$ to $Pz$ shouldn't do anything, since $Pz$ is already in the subspace
+\item this implies that a projection should satisfy $Pz = P² z$ for all $z$, or $P = P²$
+\end{itemize}
+\end{itemize}
+\item if $P$ and $Q$ are idempotent and $PQ = 0$ then $X'PX$ and
+           $X'QX$ are independent.
+\end{enumerate}
+\end{itemize}
+
+\paragraph{derived distributions}
+
+\paragraph{chi-squared distribution}
+
+\paragraph{definition}
+       Let $X₁,...,X_k$ be independent standard normal.  The
+       chi-squared distribution with $k$ degrees of freedom is the
+       distribution of $∑_{i=1}^k X²_i$.
+
+\paragraph{theorem}
+       Let $X ∼ N(0, I_n)$ and let $P$ be a symmetric $n × n$
+       matrix.  Then $X'PX$ is chi-squared with $k$ degrees of freedom
+       iff $P$ is idempotent with rank $k$.
+
+\paragraph{other results}
+if $X$ and $Y$ are independent chi-squared with $df_X$ and
+         $df_Y$ degrees of freedom, then $X + Y$ is chi-square with
+         $df_X + df_Y$ degrees of freedom.
+
+\paragraph{t-distribution}
+      If $X$ is a standard normal and $Y$ is a chi-squared with $n$ dof
+      and $X$ and $Y$ are independent, then $X/\sqrt{Y/n}$ is a $t(n)$
+      random variable.
+
+\paragraph{F-distribution}
+       if $X$ and $Y$ are independent chi-squared with $df_X$ and $df_Y$
+       degrees of freedom, then $\frac{X/df_X}{Y/df_Y}$ is an $F(df_X,
+       df_Y)$ random variable.
+
+
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "../../probability"

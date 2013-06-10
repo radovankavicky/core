@@ -1,0 +1,111 @@
+% Copyright © 2013, authors of the "Econometrics Core" textbook; a
+% complete list of authors is available in the file AUTHORS.tex.
+
+% Permission is granted to copy, distribute and/or modify this
+% document under the terms of the GNU Free Documentation License,
+% Version 1.3 or any later version published by the Free Software
+% Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+% Back-Cover Texts.  A copy of the license is included in the file
+% LICENSE.tex and is also available online at
+% <http://www.gnu.org/copyleft/fdl.html>.
+
+\part*{Multiple hypothesis testing in linear regression}%
+\addcontentsline{toc}{part}{Multiple hypothesis testing in linear regression}
+
+
+\section{Testing multiple hypotheses}
+
+Some special issues come up when we have many hypotheses.  I need to
+figure out some simulations to motivate this stuff.
+
+\subsection{Intersection-Union Test}
+
+\begin{itemize}
+\item Suppose the null can be written as an intersection of simpler
+  nulls:
+  \begin{itemize}
+  \item $H₀: θ ∈ ⋃_{γ ∈ Γ} θ_γ$ vs.  $H_A: θ ∉ ⋂_{γ ∈ Γ} θ_γ$
+  \item It is easy to find tests for each individual set:
+    \begin{itemize}
+    \item $T_γ$ tests the null $θ ∈ θ_γ$ vs. $θ ∉ θ_γ$ for each $γ$.
+    \end{itemize}
+  \item If $T_γ$ is a level-$α$ test with rejection region $R_γ$ (ie
+    it rejects if $(x₁,…,x_n) ∈ R$), then the test with rejection
+    region $⋂_{γ ∈ Γ} R_γ$ is the IU Test and has level $α$
+  \end{itemize}
+\item Note that we don't need to correct the critical values here
+\end{itemize}
+
+\paragraph{Proof of validity}
+\begin{itemize}
+\item We know that, under the null, $θ ∈ θ_γ'$ for at least one $γ'$
+\item $\Pr_θ[(X₁,…,X_n) ∈ ⋂_γ R_γ] ≤ \Pr_θ[(X₁,…, X_n) ∈ R_{γ'}] ≤ α$
+\end{itemize}
+
+\subsection{Union-Intersection Test}
+
+\paragraph{Setup of UIT}
+\begin{itemize}
+\item Suppose the null can be written as an intersection of simpler
+  nulls:
+  \begin{itemize}
+  \item $H₀: θ ∈ ⋂_{γ ∈ Γ} θ_γ$ vs.  $H_A: θ ∉ ⋂_{γ ∈ Γ} θ_γ$
+  \item It is easy to find tests for each individual set:
+    \begin{itemize}
+    \item $T_γ$ tests the null $θ ∈ θ_γ$ vs. $θ ∉ θ_γ$ for each $γ$.
+    \end{itemize}
+  \item If $T_γ$ is a level-$\frac{α}{\# Γ}$ test with rejection
+    region $R_γ$ (ie it rejects if $(x₁,…,x_n) ∈ R$), then the test
+    with rejection region $⋃_{γ ∈ Γ} R_γ$ is the UI Test and has level
+    $α$
+  \end{itemize}
+\item Note that we don't need to use a stepdown procedure here
+\item Could still do better if we used the joint distribution of $T_γ$
+\end{itemize}
+
+\paragraph{Show that testing at $α$ doesn't work}
+
+\paragraph{Proof of validity}
+\begin{itemize}
+\item Follows from the same argument as in multiple comparisons
+  \begin{align*}
+    \Pr_θ[(X₁,…,X_n) ∈ ⋃_{γ} R_γ] 
+    &≤ ∑_{γ ∈ Γ} \Pr_θ[(X₁,…,X_n) ∈ R_γ] \\
+    &≤ ∑_γ \frac{α}{\#Γ} \\
+    &= α
+  \end{align*}
+\end{itemize}
+
+\subsection{Multiple hypothesis testing}
+
+\begin{itemize}
+\item Suppose we have a bunch of hypotheses $θ ∈ θ_γ$, but instead of
+  being interested in knowing about compound hypotheses, we're
+  interested in all of them
+  \begin{itemize}
+  \item have many different parameters
+  \item Put up empirical example where we're looking at regressors
+  \end{itemize}
+\item Now we want to control the rate of ``familywise error''
+  \begin{itemize}
+  \item Let $I$ index the true nulls: $I = \{γ ∈ Γ : θ_γ ∈ θ_γ\}$
+  \item FWE is \[\sup_{θ: θ_γ ∈ θ_γ, γ ∈ I} \Pr_θ[T_γ \text{ rejects
+      for at least one } γ ∈ I]\]
+  \item want this error probability to be less than $α$
+  \end{itemize}
+\item As with UIT, testing each one at $α$ doesn't work
+  \begin{itemize}
+  \item show this
+  \end{itemize}
+\end{itemize}
+
+\paragraph{Bonferroni bound}
+
+\paragraph{Bonferroni-Holm stepdown}
+
+\paragraph{Critical values from the joint distribution}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../linearregression"
+%%% End:

@@ -211,6 +211,223 @@
   variance $σ² Q^{-1}$ which is just what we wanted to show.
 \end{itemize}
 
+
+\section{Hypothesis testing in the limit}
+
+\subsection{Testing linear hypotheses}
+
+\paragraph{t-test}
+
+\paragraph{justifying the t-test}
+\begin{itemize}
+\item what does the previous asymptotic result tell us about the
+  t-statistic?
+\item suppose we want to test the null hypothesis
+  \[ β_j ≤ 1 \] so we construct the t-statistic
+\item can we use it?
+\item we know that, if the null is true,
+  \[ \frac{β_j - 1}{\sqrt{s² q_i}} → N(0,1) \] in distribution
+  (where $q_i$ is the $(i,i)$ element of $(X'X)^{-1}$)
+\item we also know that $t_{n-k-1} → N(0,1)$ as $n → ∞$
+\begin{itemize}
+\item
+  \[t_{n-k-1} = \frac{Z₀}{\sqrt{(n-k-1)^{-1} ∑_{i=1}^{n-k-1} Z_i²}}\]
+  in distribution, where each of the $Z_i$ is an independent
+  standard normal.
+\item The sum in the denominator obeys a law of large numbers, so it
+  converges to its mean, 1, in probability
+\end{itemize}
+\end{itemize}
+
+\paragraph{interpretation/conclusion}
+\begin{itemize}
+\item We have two approaches for testing the hypothesis that $\βh_i =
+  β_i^*$ (or has an inequality) based on asymptotic approximations
+\begin{enumerate}
+\item calculate $\frac{\βh_i - β_i}{\sqrt{s² q_i}}$ and compare to
+  critical values from the normal distribution.
+\item calculate and compare to critical values from the
+  $t$-distribution.
+\end{enumerate}
+\item These will almost always give you the same answer.
+  \begin{itemize}
+  \item the critical values for the t-distribution will always be a
+    little bit bigger
+  \item this happens because we replace the scaled chi-squared
+    distribution in the denominator with the constant 1
+  \end{itemize}
+\item If they don't give you the same answer, watch out.
+  \begin{itemize}
+  \item you should probably go with the $t$-distribution (since it's
+    more conservative)
+  \item this discrepency is telling you that you don't have enough
+    observations to get reliable asymptotic approximations
+  \item doesn't mean that you should believe the errors are normal,
+    but it means that you should probably play it safe and not reject.
+  \item If you run into this situation, you'll want to think about
+    what you're doing a little more carefully.
+  \end{itemize}
+\end{itemize}
+
+\paragraph{F test/Wald test}
+
+\paragraph{introduction}
+\begin{itemize}
+\item Suppose we want to test the general restriction $Rβ = q$
+\item If the errors are normal, we know that the F-test is valid
+\item What is the asymptotic distribution of the F-test if the errors
+  aren't normal?
+\end{itemize}
+
+\paragraph{asymptotic distribution}
+We can rewrite the F-statistic as
+\[ J^{-1} (R\βh - q)'[s² R(X'X)^{-1}R']^{-1}(R\βh - q) \]
+\begin{itemize}
+\item under the null, we know that $q = Rβ$, so we also know that
+  $R(\βh - β) = R\βh - q$
+\item we know from earlier that $\sqrt{n} R(\βh - β)$ converges in
+  distribution to $N(0, σ² R Q^{-1} R')$
+\item so, we know that \[\sqrt{n} (R\βh - q)' (σ² R Q^{-1} R')^{-1}
+  \sqrt{n} (R\βh - q) \] converges in distribution to a chi-square
+  with $J$ degrees of freedom
+\begin{itemize}
+\item $\sqrt{n}(R\βh - q)$ is a $J$-vector and is asymptotically
+  normal.
+\item $\sqrt{n}(σ² R Q^{-1} R')^{-1/2} (R\βh - q)$ is an
+  asymptotically standard normal $J$ vector.
+\end{itemize}
+\item we want to show that \[ (R\βh - q)'[s² R(X'X)^{-1}R']^{-1}(R\βh
+  - q) = J^{-1} (R\βh - q)'[σ² RQ^{-1}R']^{-1}(R\βh - q) + o_p(1)\]
+  \begin{itemize}
+  \item this will show that $J F$ is asymptotically chi-square with
+    $J$ degrees of freedom.
+  \item multiply $(R\βh - q)$ by $\sqrt{n}$ and bring $n^{-1}$ next to
+    $X'X$.
+  \item we know that $s² → σ²$ and $n^{-1} X'X → Q$ in probability
+  \item so, we get the convergence we need.
+  \end{itemize}
+\item So, we know that the F statistic is equal in distribution to a
+  $J^{-1} χ_J²$ random variable as $n → ∞$.
+\end{itemize}
+
+\paragraph{conclusion/interpretation}
+
+\paragraph{behavior of F distribution}
+
+\begin{itemize}
+\item have the same issue we saw with the t-distribution
+\item the $F_{J, n-k-1}$ distribution is defined to be the same as the
+  distribution of
+  \[{J^{-1} ∑_{i=1}^J Z_i² \over (n-k-1)^{-1} ∑_j W_j²}\] where each
+  $Z$ and $W$ is an independent standard normal.
+\item as $n → ∞$, the denominator converges to 1 in probability
+\item the numerator is unaffected and is a $χ²_J / J$ random variable.
+\item so the F-distribution becomes more and more like the chi square
+  as well.
+\end{itemize}
+
+\paragraph{conclusion}
+\begin{itemize}
+\item You can use either the $F_{J, n-k-1}$ or the Chi-square $J$ to
+  construct a hypothesis test.
+  \begin{itemize}
+  \item calculate the F test statistic
+  \item get the critical values from a table or the computer
+  \item reject if test stat is greater than critical values
+  \end{itemize}
+\item Just like with t-test, using the finite sample test (F) is more
+  conservative than the asymptotic test
+  \begin{itemize}
+  \item critical values are a little bigger
+  \item this is a bigger deal when you're testing lots of restrictions
+    simultaneously, so you are more likely to get disagreement than
+    you did with the t-test
+  \item use the F critical values!
+  \end{itemize}
+\end{itemize}
+
+\subsection{Testing nonlinear hypotheses}
+\paragraph{motivation}
+What if we want to test the hypothesis that $c(β) = q$ where $c$ is a
+function from $\RR^{k+1}$ to $\RR^J$?
+\begin{itemize}
+\item Do we know anything about the finite-sample distribution of
+  $c(\βh)$ that we could use to construct a test statistic?
+  \begin{itemize}
+  \item as usual, if we specify a distribution for the errors, we
+    could crank through the algebra and derive the distribution of
+    $c(\βh)$
+  \item won't give us a general procedure
+  \item won't necessarily be easy to impose the null hypothesis.
+  \end{itemize}
+\item Maybe we can get a procedure that uses the asymptotic
+  distribution of $c(\βh)$ under the null
+\end{itemize}
+
+\paragraph{initial asymptotics}
+\begin{itemize}
+\item suppose that $c$ is differentiable
+\item we can use the delta-method to show that $\sqrt{n}(c(\βh) -
+  c(β))$ is asymptotically normal
+\item a first-order taylor expansion gives us
+  \[ \sqrt{n} c(\βh) = \sqrt{n} c(β) + {\partial c(β) \over \partial
+    β'} \sqrt{n} (\βh - β) + o_p(1) \] where $\partial c(β)
+  \over \partial β'$ is a $J × k+1$ matrix of partial derivatives.
+\item We know that \[{\partial c(β) \over \partial β'} \sqrt{n} (\βh -
+  β)\] converges in distribution to a normal r.v. with mean zero and
+  variance \[ \left({\partial c(β) \over \partial β'}\right) σ² Q^{-1}
+  \left({\partial c(β) \over \partial β'}\right)'\]
+\item Then $\sqrt{n} (c(\βh) - c(β))$ also converges to \[ N\left(0,
+    \left({\partial c(β) \over \partial β'}\right) σ² Q^{-1}
+    \left({\partial c(β) \over \partial β'}\right) \right)\]
+\end{itemize}
+
+\paragraph{hypothesis testing}
+\begin{itemize}
+\item Under the null hypothesis, we know that $c(β) = q$, so
+  $\sqrt{n}(c(\βh) - q)$ has the same asymptotic distribution as
+  $\sqrt{n}(c(\βh) - c(β))$
+\item so we can do the same trick as before to get a chi-square test
+  statistic
+  \begin{itemize}
+  \item we estimate the variance with \[ \left({\partial c(\βh)
+        \over \partial \βh'}\right)s² (n^{-1}X'X)^{-1} \left({\partial
+        c(\βh) \over \partial \βh'}\right)\]
+    \begin{itemize}
+    \item know $\βh → β$ so $\left({\partial c(\βh) \over \partial
+          \βh'}\right) → \left({\partial c(β) \over \partial
+          β'}\right)$ in probability
+    \item know that $s² (n^{-1} X'X)^{-1} → σ²Q^{-1}$ in probability
+    \end{itemize}
+    \[{c(\βh) \over \partial \βh'}\Big)s² (n^{-1}X'X)^{-1}
+    \left({\partial c(\βh) \over \partial \βh'}\right)\] - know $\βh →
+    β$ so $\left({\partial c(\βh) \over \partial \βh'}\right) →
+    \left({\partial c(β) \over \partial β'}\right)$ in probability -
+    know that $s² (n^{-1} X'X)^{-1} → σ²Q^{-1}$ in probability
+  \end{itemize}
+  \[{c(\βh) \over \partial \βh'}\Big)s² (n^{-1}X'X)^{-1}
+  \left({\partial c(\βh) \over \partial \βh'}\right)\] - know $\βh →
+  β$ so $\left({\partial c(\βh) \over \partial \βh'}\right) →
+  \left({\partial c(β) \over \partial β'}\right)$ in probability -
+  know that $s² (n^{-1} X'X)^{-1} → σ²Q^{-1}$ in probability
+\item Our test statistic is
+  \[ (c(\βh) - q)' \left[\left({\partial c(\βh) \over \partial
+        \βh'}\right)s² (n^{-1}X'X)^{-1} \left({\partial c(\βh)
+        \over \partial \βh'}\right) \right]^{-1} (c(\βh) - q) \]
+\item asymptotically chi-square with $J$ degrees of freedom
+\item one additional point
+\begin{itemize}
+\item we need to verify that the population variance matrix is
+  invertible
+\item ie we need \[\left({\partial c(β) \over \partial β'}\right)\] to
+  have full rank
+\item in ``standard'' applications this is true, but it \textbf{may}
+  not be true
+\item can use a similar procedure but higher order expansion and
+  usually won't wind up with a chi-square statistic.
+\end{itemize}
+\end{itemize}
+
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "../../asymptotics"
