@@ -19,11 +19,10 @@
 \begin{itemize}
 \item Suppose you have two relationships you are interested in
         (return data, say)
-        \[r_{jt} - r_{ft} = \alpha_j + \beta_j (r_{mt} - r_{ft}) +
-        \epsilon_{it}\]
+        \[r_{jt} - r_{ft} = α_j + β_j (r_{mt} - r_{ft}) + ε_{it}\]
 \begin{itemize}
 \item $j = 1,2$
-\item $t = 1,2,3,\dots$
+\item $t = 1,2,3,...$
 \item $r_{it}$ is the return on asset $i$
 \item $r_{ft}$ is the risk-free rate of return (ie T-bills)
 \item $r_{mt}$ is the return on the entire market.
@@ -45,26 +44,25 @@
 
 \begin{itemize}
 \item We want to write these two models as
-       \[y_1 = X_1 \beta_1 + \epsilon_1\]
+       \[y₁ = X₁ β₁ + ε₁\]
        and
-       \[y_2 = X_2 \beta_2 + \epsilon_2\]
+       \[y₂ = X₂ β₂ + ε₂\]
 \begin{itemize}
-\item each $y_i$ is $n\times 1$
+\item each $y_i$ is $n × 1$
 \end{itemize}
 \item alternatively
-       \[ \binom{y_{1i}}{y_{2i}} =
-       \binom{x_{1i}'\beta_1}{x_{2i}'\beta_2} + 
-       \binom{\epsilon_{1i}}{ \epsilon_{2i}}\]
-       for $i = 1,\dots,n$.
+  \[ \binom{y_{1i}}{y_{2i}} = \binom{x_{1i}'β₁}{x_{2i}'β₂} + 
+  \binom{ε_{1i}}{ ε_{2i}}\]
+       for $i = 1,...,n$.
 \end{itemize}
 
 \subsection{assumptions}
 
 \begin{description}
-\item[Exogeneity] \[E(\binom{\varepsilon_{1i}}{\varepsilon_{2i}} \mid X) = 0\] for all $i$
-\item[homoskedasticity] \[E(\binom{\epsilon_{1i}}{\epsilon_{2i}} \binom{\epsilon_{1i}}{\epsilon_{2i}}' \mid X ) = \Sigma\]
-\item[uncorrelated errors] \[E(\binom{\epsilon_{1i}}{\epsilon_{2i}}
-          \binom{\epsilon_{1j}}{\epsilon_{2j}}' \mid X ) = 0\] if $i \neq j$.
+\item[Exogeneity] \[E(\binom{\ep_{1i}}{\ep_{2i}} ∣ X) = 0\] for all $i$
+\item[homoskedasticity] \[E\Big(\binom{ε_{1i}}{ε_{2i}} \binom{ε_{1i}}{ε_{2i}}' ∣ X \Big) = Σ\]
+\item[uncorrelated errors] \[E\Big(\binom{ε_{1i}}{ε_{2i}}
+  \binom{ε_{1j}}{ε_{2j}}' ∣ X \Big) = 0\] if $i ≠ j$.
 \begin{itemize}
 \item allow errors to be correlated across equations but not across
          observations
@@ -78,45 +76,43 @@
 
 \begin{itemize}
 \item We want to rewrite the equations as
-       \[ \binom{\mathbf{y}_1}{\mathbf{y}_2} = (\begin{matrix} \mathbf{X}_1
-       & 0 \\ 0 & \mathbf{X}_2  \end{matrix})
-       \binom{\beta_1}{\beta_2} +
-      \binom{\mathbf{\varepsilon}_1}{\mathbf{\varepsilon}_2} \]
+       \[ \binom{\mathbf{y}₁}{\mathbf{y}₂} = \begin{pmatrix} \mathbf{X}₁
+       & 0 \\ 0 & \mathbf{X}₂  \end{pmatrix}
+       \binom{β₁}{β₂} +
+      \binom{\mathbf{\ep}₁}{\mathbf{\ep}₂} \]
 \begin{itemize}
-\item ie $\mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon}$
+\item ie $\mathbf{y} = \mathbf{X} \mathbf{β} + \mathbf{ε}$
 \end{itemize}
 \item Remarkable thing is that we can estimate this model by GLS
 \begin{itemize}
-\item Note that $E(\mathbf{\epsilon} \mid \mathbf{X}) = 0$
-\item Moreover, \[E(\mathbf{\epsilon} \mathbf{\epsilon}' \mid \mathbf{X}) =
-         \Sigma \otimes I = (\begin{matrix} \sigma_{11}^2 I &
-         \sigma_{12} I \\ \sigma_{21} I & \sigma_{22}^2
-         I \end{matrix})\]
+\item Note that $E(\mathbf{ε} ∣ \mathbf{X}) = 0$
+\item Moreover,
+  \[E(\mathbf{ε} \mathbf{ε}' ∣ \mathbf{X}) = Σ ⊗ I =
+  \begin{pmatrix} σ²_{11} I & σ_{12} I \\ σ_{21} I & σ²_{22} I \end{pmatrix}\]
 \item So the model satisfies the requirements for GLS regression to
          be BLUE, even though the dependent variable is different for
          the two equations.
 \end{itemize}
-\item Assume that $\Sigma$ is known for now, 
-        \[\hat\beta_{GLS} = (X'(\Sigma \otimes I)^{-1}X)^{-1}X'(\Sigma
-        \otimes I)^{-1}Y\]
+\item Assume that $Σ$ is known for now, 
+  \[\βh_{GLS} = (X'(Σ ⊗ I)^{-1}X)^{-1}X'(Σ ⊗ I)^{-1}Y\]
 \begin{itemize}
 \item simplify this further:
 \begin{itemize}
-\item $(\Sigma \otimes I)^{-1} = \Sigma^{-1} \otimes I$
+\item $(Σ ⊗ I)^{-1} = Σ^{-1} ⊗ I$
 \begin{itemize}
-\item Let $\gamma_{ij}$ denote the $i,j$ element of $\Sigma^{-1}$
+\item Let $γ_{ij}$ denote the $i,j$ element of $Σ^{-1}$
 \end{itemize}
 \item as a result
-           \[\hat\beta_{SUR} = (\begin{matrix}
-            \gamma_{11} X_1'X_1 & \gamma_{12} X_1'X_2 \\
-            & \gamma_{22} X_2'X_2 \end{matrix})^{-1} 
-            (\begin{matrix} \gamma_{11} X_1'y_1 + \gamma_{12} X_1'y_2
-           \\ \gamma_{12} X_2'y_1 + \gamma_{22}
-           X_2'y_2\end{matrix}) \]
+  \[\βh_{SUR} = \begin{pmatrix}
+    γ_{11} X₁'X₁ & γ_{12} X₁'X₂ \\ & γ_{22} X₂'X₂ 
+  \end{pmatrix}^{-1} 
+  \begin{pmatrix}
+    γ_{11} X₁'y₁ + γ_{12} X₁'y₂ \\ γ_{12} X₂'y₁ + γ_{22} X₂'y₂
+  \end{pmatrix} \]
 \end{itemize}
 \end{itemize}
 \item variance-covariance matrix is found as usual:
-        \[var(\hat\beta_{GLS} \mid X) = (X'(\Sigma \otimes I)^{-1}X)^{-1}\]
+  \[\var(\βh_{GLS} ∣ X) = (X'(Σ ⊗ I)^{-1}X)^{-1}\]
 \begin{itemize}
 \item if you don't see this right away, please work through the
          math on your own.  The logic is identical to OLS or GLS.
@@ -132,23 +128,21 @@
 \item here, we assume homoskedasticity and uncorrelated observations
 \item allow correlation across equations.
 \end{itemize}
-\item We can estimate \$$\Sigma$ pretty easily:
+\item We can estimate $Σ$ pretty easily:
 \begin{itemize}
-\item let $(\hat\epsilon_{i1}, \hat\epsilon_{i2})$ be the pair of
+\item let $(\εh_{i1}, \εh_{i2})$ be the pair of
          residuals for observation $i$ from the OLS estimation
 \begin{itemize}
 \item \textbf{remember} OLS is consistent
-\item so $(\hat\epsilon_{i1}, \hat\epsilon_{i2})$ is consistent for
-           $(\epsilon_{i1}, \epsilon_{i2})$
+\item so $(\εh_{i1}, \εh_{i2})$ is consistent for $(ε_{i1}, ε_{i2})$
 \end{itemize}
-\item LLN would impliy that \[ n^{-1} \sum_i (\epsilon_{i1},
-         \epsilon_{i2})' (\epsilon_{i1}, \epsilon_{i2}) \to \Sigma\] in
-         probability
+\item LLN would impliy that
+  \[ n^{-1} ∑_i (ε_{i1}, ε_{i2})' (ε_{i1}, ε_{i2}) → Σ\] in
+  probability
 \end{itemize}
-\item Consistency of the residuals implies \[\hat\Sigma = n^{-1}
-       \sum_i (\hat\epsilon_{i1},
-       \hat\epsilon_{i2})'(\hat\epsilon_{i1},\hat \epsilon_{i2})\to
-       \Sigma \quad i.p.\]
+\item Consistency of the residuals implies
+  \[\Σh = n^{-1} ∑_i (\εh_{i1}, \εh_{i2})'(\εh_{i1},\hat ε_{i2})→ Σ
+  \quad i.p.\]
 \item plug in to GLS formula for a feasible estimator
 \end{itemize}
 
@@ -167,67 +161,70 @@
 \paragraph{zero correlation}
 \begin{itemize}
 \item formula for SUR estimator:
-       \[\hat\beta_{SUR} = (X'(\Sigma \otimes I)^{-1}X)^{-1}X'(\Sigma
-       \otimes I)^{-1}Y\]
-\item Suppose that $\sigma_{12} = 0$, so
-        \[ \Sigma \otimes I = (\begin{matrix} \sigma_{11}^2 I & 0 \\ 0
-        & \sigma_{22}^2 I \end{matrix})\]
+  \[\βh_{SUR} = (X'(Σ ⊗ I)^{-1}X)^{-1}X'(Σ ⊗ I)^{-1}Y\]
+\item Suppose that $σ_{12} = 0$, so
+  \[ Σ ⊗ I = (\begin{matrix} σ_{11}² I & 0 \\ 0 & σ_{22}² I \end{matrix})\]
 \begin{itemize}
-\item First part becomes \[(X'( \Sigma \otimes I)^{-1} X)
-          = (\begin{matrix} X_1'X_1 / \sigma_{11}^2 & 0 \\ 0 & X_2'X_2
-          / \sigma_{22}^2 \end{matrix}) \]
+\item First part becomes
+  \[(X'( Σ ⊗ I)^{-1} X) =
+  \begin{pmatrix} X₁'X₁ / σ_{11}² & 0 \\ 0 & X₂'X₂ / σ_{22}² \end{pmatrix}\]
 \item Second part becomes 
-          \[X'(\Sigma \otimes I)^{-1}Y = \binom{X_1' y_1 /
-          \sigma_{11}^2}{X_2'y_2 / \sigma_{22}^2}\]
-\item $\hat\beta_{SUR} =
-          \binom{(X_1'X_1)^{-1}X_1'y_1}{(X_2'X_2)^{-1}X_2'y_2} =
-          \binom{\hat\beta_{1,ols}}{\hat\beta_{2,ols}}$
+  \[X'(Σ ⊗ I)^{-1}Y = \binom{X₁' y₁ / σ_{11}²}{X₂'y₂ / σ_{22}²}\]
+\item $\βh_{SUR} = \binom{(X₁'X₁)^{-1}X₁'y₁}{(X₂'X₂)^{-1}X₂'y₂} =
+  \binom{\βh_{1,ols}}{\βh_{2,ols}}$
 \end{itemize}
 \end{itemize}
 
 \paragraph{Identical regressors in both models}
 \begin{itemize}
-\item Let $X_1$ and $X_2$ both equal $X$
+\item Let $X₁$ and $X₂$ both equal $X$
 \item Use the simplified form of the SUR estimator:
-        \[\hat\beta_{SUR} = (\begin{matrix} \gamma_{11} X_1'X_1 &
-        \gamma_{12} X_1'X_2 \\ & \gamma_{22}
-        X_2'X_2 \end{matrix})^{-1} (\begin{matrix} \gamma_{11}
-        X_1'y_1 + \gamma_{12} X_1'y_2 \\ \gamma_{12} X_2'y_1 +
-        \gamma_{22} X_2'y_2\end{matrix}) = \]
-\item \[= (\begin{matrix} \gamma_{11} X'X & \gamma_{12} X'X \\ &
-        \gamma_{22}X'X \end{matrix})^{-1} (\begin{matrix} \gamma_{11}
-        X'y_1 + \gamma_{12}X'y_2 \\ \gamma_{12} X'y_1 + \gamma_{22}
-        X'y_2\end{matrix})\]
-\item First term becomes $(\Sigma^{-1} \otimes X'X)^{-1}$ which
-        equals $\Sigma \otimes (X'X)^{-1}$
-\item second term becomes \[\binom{X'X
-        (\gamma_{11}\hat\beta_{1,ols} + \gamma_{12}\hat\beta_{2,ols})}{X'X
-        (\gamma_{21}\hat\beta_{1,ols} +
-        \gamma_{22}\hat\beta_{2,ols})}   \]
+  \begin{align*}
+    \βh_{SUR}
+    &= \begin{pmatrix}
+      γ_{11} X₁'X₁ & γ_{12} X₁'X₂ \\ & γ_{22} X₂'X₂ 
+    \end{pmatrix}^{-1}
+    \begin{pmatrix}
+      γ_{11} X₁'y₁ + γ_{12} X₁'y₂ \\ γ_{12} X₂'y₁ + γ_{22} X₂'y₂
+    \end{pmatrix} \\
+    &= \begin{pmatrix}
+      γ_{11} X'X & γ_{12} X'X \\ & γ_{22}X'X
+    \end{pmatrix}^{-1}
+    \begin{pmatrix}
+      γ_{11} X'y₁ + γ_{12}X'y₂ \\ γ_{12} X'y₁ + γ_{22} X'y₂
+    \end{pmatrix}
+  \end{align*}
+\item First term becomes $(Σ^{-1} ⊗ X'X)^{-1}$ which equals
+  $Σ ⊗ (X'X)^{-1}$
+\item second term becomes
+  \[\begin{pmatrix}
+    X'X (γ_{11}\βh_{1,ols} + γ_{12}\βh_{2,ols}) \\
+    X'X (γ_{21}\βh_{1,ols} + γ_{22}\βh_{2,ols})
+  \end{pmatrix}\]
 \begin{itemize}
 \item Premultipy each $X'y_j$ with $X'X(X'X)^{-1}$
 \end{itemize}
 \item Multiply through and everything cancels, giving
-        \[\hat\beta_{SUR} = \binom{\hat\beta_{1,ols}}{\hat\beta_{2,ols}}\]
+  \[\βh_{SUR} = \binom{\βh_{1,ols}}{\βh_{2,ols}}\]
 \end{itemize}
 
 \subsection{Hypothesis testing}
 
 \paragraph{similarities to OLS/GLS}
 \begin{itemize}
-\item $\hat\beta_{SUR}$ is the estimate of $\beta_1$ and $\beta_2$
+\item $\βh_{SUR}$ is the estimate of $β₁$ and $β₂$
         stacked on top of eachother
-\item We can test hypotheses about the $\beta$ as usual
+\item We can test hypotheses about the $β$ as usual
 \begin{itemize}
 \item hypotheses about a single equation
-          \[ \beta_{1,1} = 0 \]
+          \[ β_{1,1} = 0 \]
           for example
 \item hypotheses about coefficients from different equations
 \begin{itemize}
 \item For example:
 \begin{itemize}
-\item $Y_1$ is log consumption of one good (imagine an individual)
-\item $Y_2$ is log consumption of another, similar good
+\item $Y₁$ is log consumption of one good (imagine an individual)
+\item $Y₂$ is log consumption of another, similar good
 \item Regressors include log prices
 \item may want to test that the elasticty of both goods are
               the same
@@ -239,16 +236,13 @@
 \paragraph{nature of hypothesis}
 \begin{itemize}
 \item We can write both sorts of hypotheses as
-        \[ R \beta = q \]
-\item the variance of $R\hat\beta - R\beta$ is given by $R(X'(\Sigma
-        \otimes I)^{-1}X)^{-1}R'$
+        \[ R β = q \]
+\item the variance of $R\βh - Rβ$ is given by $R(X'(Σ ⊗ I)^{-1}X)^{-1}R'$
 \item Under the null, 
-        \[(R\hat\beta - q)'\left(R(X'(\Sigma \otimes
-        I)^{-1}X)R'\right)^{-1}(R\hat\beta - q)\] is asymptotically
-        chi-square with $J$-degrees of freedom
-\item Since $\hat\Sigma$ is consistent for $\Sigma$, so is
-        \[(R\hat\beta - q)'\left(R(X'(\hat\Sigma \otimes
-        I)^{-1}X)R'\right)^{-1}(R\hat\beta - q)\]
+  \[(R\βh - q)'\left(R(X'(Σ ⊗ I)^{-1}X)R'\right)^{-1}(R\βh - q)\]
+  is asymptotically chi-square with $J$-degrees of freedom
+\item Since $\Σh$ is consistent for $Σ$, so is
+  \[(R\βh - q)'\left(R(X'(\Σh ⊗ I)^{-1}X)R'\right)^{-1}(R\βh - q)\]
 \end{itemize}
 
 %%% Local Variables:
