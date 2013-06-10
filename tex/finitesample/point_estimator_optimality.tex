@@ -17,11 +17,11 @@
      whether it measures the parameter it is supposed to well or not?
 \item So, we derive the theoretical properties of the estimator.
 \begin{itemize}
-\item remember, an estimator is a function of data, $g(x_1,\dots,x_n)$
-\item we look at the distribution of the \emph{random variable} $g(X_1,\dots,X_n)$
+\item remember, an estimator is a function of data, $g(x₁,...,x_n)$
+\item we look at the distribution of the \emph{random variable} $g(X₁,...,X_n)$
 \item this distribution is called the \emph{sample distribution}
-\item we usually care about the properties of $\hat \theta -
-       \theta_0$ where $\theta_0$ is the population parameter that
+\item we usually care about the properties of $\θh -
+       θ₀$ where $θ₀$ is the population parameter that
        we're trying to measure.
 \end{itemize}
 \item generally want
@@ -34,19 +34,19 @@
 \section{Unbiasedness}
 
 \begin{itemize}
-\item definition: If $\hat \theta$ is an estimator of $\theta_0$,
-       the bias of $\hat \theta$ equals $E \hat \theta - \theta_0$.
+\item definition: If $\θh$ is an estimator of $θ₀$,
+       the bias of $\θh$ equals $E \θh - θ₀$.
        An estimator is \emph{unbiased} if its bias equals zero for any
-       value of $\theta_0$
-\item motivates definition of efficient: If $\hat \theta_1$ and $\hat
-       \theta_2$ are two unbiased estimators of a parameter $\theta$,
-       $\hat \theta_1$ is more efficient than $\hat \theta_2$ if the
-       variance of $\hat \theta_1$ is less than that of $\hat \theta_2$.
+       value of $θ₀$
+\item motivates definition of efficient: If $\θh₁$ and $\hat
+       θ₂$ are two unbiased estimators of a parameter $θ$,
+       $\θh₁$ is more efficient than $\θh₂$ if the
+       variance of $\θh₁$ is less than that of $\θh₂$.
 \begin{itemize}
-\item for multivariate $\hat\theta$, we need $Var(\hat\theta_2) -
-         Var(\hat\theta_1)$ to be positive definite.
+\item for multivariate $\θh$, we need $\var(\θh₂) -
+         \var(\θh₁)$ to be positive definite.
 \end{itemize}
-\item An estimator $\hat\theta$ of $\theta$ is the best unbiased
+\item An estimator $\θh$ of $θ$ is the best unbiased
        estimator if it is unbiased and has smaller variance than any
        other unbiased estimator
 \item an interesting question is, what is the smallest variance that
@@ -62,25 +62,25 @@
 \begin{itemize}
 \item Statement of result:
 \begin{itemize}
-\item Suppose $X_1,\dots,X_n$ have a joint density with likelihood
-         $L(\theta; X)$ and let $\hat\theta$ be an estimator of
-         $\theta$ with finite variance and \[\tfrac{d}{d\theta} \int_\mathcal{X} \hat\theta(x) L(\theta; x) dx = \int_\mathcal{X} \hat\theta(x) \tfrac{d}{d\theta} L(\theta; x) dx\]
-         where $\mathcal{X}$ is the support of $X_1,\dots,X_n$.
-\item Then \[var(\hat\theta) \geq \frac{(\tfrac{d}{d\theta} E \hat\theta(X))^2}{E (\tfrac{d}{d\theta} \log L(\theta; X))^2}\]
-\item If $X_i \sim i.i.d. f$, then this becomes
-         \[var(\hat\theta) \geq \frac{(\tfrac{d}{d\theta} E \hat\theta(X))^2}{n E (\tfrac{d}{d\theta} \log f(x; \theta))^2}\]
+\item Suppose $X₁,...,X_n$ have a joint density with likelihood
+         $L(θ; X)$ and let $\θh$ be an estimator of
+         $θ$ with finite variance and \[\tfrac{d}{dθ} ∫_\mathcal{X} \θh(x) L(θ; x) dx = ∫_\mathcal{X} \θh(x) \tfrac{d}{dθ} L(θ; x) dx\]
+         where $\mathcal{X}$ is the support of $X₁,...,X_n$.
+\item Then \[\var(\θh) ≥ \frac{(\tfrac{d}{dθ} \E \θh(X))²}{\E (\tfrac{d}{dθ} \log L(θ; X))²}\]
+\item If $X_i ∼ i.i.d. f$, then this becomes
+         \[\var(\θh) ≥ \frac{(\tfrac{d}{dθ} \E \θh(X))²}{n \E (\tfrac{d}{dθ} \log f(x; θ))²}\]
 \end{itemize}
-\item $X_1,\dots,X_n \sim$ i.i.d. $N(\mu, \sigma^2)$
+\item $X₁,...,X_n ∼$ i.i.d. $N(μ, σ²)$
 \begin{itemize}
-\item MLE is sample mean; mean $\mu$ variance $\sigma^2/n$
-\item $d/d\mu \log L(\mu, \sigma^2; X) = \sum_i (x_i - \mu)/\sigma^2$
-\item So CR lower-bound is $\dfrac{1}{n \E (x_i-\mu)^2/\sigma^4} = \sigma^2/n$
+\item MLE is sample mean; mean $μ$ variance $σ²/n$
+\item $d/dμ \log L(μ, σ²; X) = ∑_i (x_i - μ)/σ²$
+\item So CR lower-bound is $\dfrac{1}{n \E (x_i-μ)²/σ^4} = σ²/n$
 \item And sample mean achieves the CR lower bound, so it's the best
          unbiased estimator.
 \end{itemize}
 \item Proof: students should read the Casella-Berger proofs on their own.
 \item Multivariate version (for unbiased estimators):
-       \[var(\hat\theta) \geq (E \Big[\tfrac{d}{d\theta} \log L(\theta; X)) (\tfrac{d}{d\theta} \log L(\theta; X))'\Big]^{-1}\]
+       \[\var(\θh) ≥ \Big[\E (\tfrac{d}{dθ} \log L(θ; X)) (\tfrac{d}{dθ} \log L(θ; X))'\Big]^{-1}\]
 \item Discussion
 \begin{itemize}
 \item If any unbiased estimator attains this variance, it is MVUE and
@@ -91,63 +91,59 @@
 \begin{itemize}
 \item usual setup
 \begin{itemize}
-\item \$(X$_i$,Y$_i$) $\sim$ i.i.d.\$
-\item $Y_i \mid X_i \sim N(\beta_0 + \beta_1 X_i, \sigma^2)$
-\item $X_i \sim f$
-\item $\hat\beta = (X'X)^{-1} X'Y$ with
+\item $(X_i,Y_i) ∼ i.i.d.$
+\item $Y_i ∣ X_i ∼ N(β₀ + β₁ X_i, σ²)$
+\item $X_i ∼ f$
+\item $\βh = (X'X)^{-1} X'Y$ with
 \begin{itemize}
-\item $X = \begin{pmatrix} 1 & X_1 \\ \vdots \\ 1 & X_n \end{pmatrix}$
-\item $Y = (Y_1, \dots, Y_n)$
+\item $X = \begin{pmatrix} 1 & X₁ \\ ⋮ \\ 1 & X_n \end{pmatrix}$
+\item $Y = (Y₁, ..., Y_n)$
 \end{itemize}
 \end{itemize}
-\item $\hat\beta$ is unbiased:
+\item $\βh$ is unbiased:
 \begin{itemize}
-\item even stronger, $E(\hat\beta \mid X) = \beta$ (which implies unbiasedness)
-\item $E(\hat\beta \mid X) = E((X'X)^{-1} X'Y \mid X)$
-\begin{itemize}
-\item $=(X'X)^{-1}X' \E(Y \mid X)$
-\item $=(X'X)^{-1}X'X\beta$
-\item $=\beta$
+\item even stronger, $\E(\βh ∣ X) = β$ (which implies unbiasedness)
+  \begin{align*}
+    \E(\βh ∣ X) &= \E((X'X)^{-1} X'Y ∣ X) \\
+    &= (X'X)^{-1}X' \E(Y ∣ X) \\
+    &= (X'X)^{-1}X'Xβ \\
+    &= β
+  \end{align*}
 \end{itemize}
-\end{itemize}
-\item We can calculate conditional and unconditional variance of $\hat\beta$:
-\begin{itemize}
-\item $var(\hat\beta \mid X) = E((\hat\beta - \beta)(\hat\beta - \beta)' \mid X)$
-\begin{itemize}
-\item $E((X'X)^{-1}X'\varepsilon\varepsilon'X(X'X)^{-1} \mid X)$
-\item $(X'X)^{-1}X' E(\varepsilon\varepsilon' \mid X) X(X'X)^{-1}$
-\item $\sigma^2 (X'X)^{-1}$
-\end{itemize}
-\item $var(\hat\beta) = E var(\hat\beta \mid X) + var(E(\hat\beta \mid X)) = \sigma^2 E(X'X)^{-1}$
+\item We can calculate conditional and unconditional variance of $\βh$:
+  \begin{align*}
+    \var(\βh ∣ X) &= \E((\βh - β)(\βh - β)' ∣ X) \\
+    &= \E((X'X)^{-1}X'\ep\ep'X(X'X)^{-1} ∣ X) \\
+    &= (X'X)^{-1}X' \E(\ep\ep' ∣ X) X(X'X)^{-1} \\
+    &= σ² (X'X)^{-1}
+  \end{align*}
+\item $\var(\βh) = \E \var(\βh ∣ X) + \var(\E(\βh ∣ X)) = σ² \E(X'X)^{-1}$
 \end{itemize}
 \item Is this the best unbiased estimator?
 \begin{itemize}
 \item unconditional exercise:
 \begin{itemize}
 \item we know that any unbiased estimator has variance greater than or equal to
-\begin{description}
-\item[.] $\Big[E \Big[\tfrac{d}{d\theta} \log L(\theta; X)) (\tfrac{d}{d\theta} \log L(\theta; X))'\Big]\Big]^{-1}$
-\begin{description}
-\item[.] $=\Big[\sigma^{-4} \sum_i E (y_i - \beta_0 - \beta_1 x_i \mid x_i)^2 \begin{pmatrix} 1 & x_i \\ x_i & x_i^2 \end{pmatrix}\Big]^{-1}$
-\item[.] $= \sigma^2 (E\ X'X)^{-1}$
-\end{description}
-\end{description}
+  \begin{equation*}
+    \begin{split}
+      \Big[\E \Big[\tfrac{d}{dθ} \log & L(θ; X)) (\tfrac{d}{dθ} \log L(θ; X))'\Big]\Big]^{-1} \\
+      &= \Big[σ^{-4} ∑_i \E (y_i - β₀ - β₁ x_i ∣ x_i)² \begin{pmatrix} 1 & x_i \\ x_i & x²_i \end{pmatrix}\Big]^{-1} \\
+      &= σ² (\E X'X)^{-1}
+    \end{split}
+  \end{equation*}
 \item so we don't know.
 \item But, this equals the variance if $X$ is deterministic
 \item Suggests that we co this conditional on $X$
 \end{itemize}
 \item conditional exercise\{
 \begin{itemize}
-\item we know that any estimator $b$ s.t. $E(b \mid X) = \beta$ has conditional variance greater than or equal to
-\begin{description}
-\item[.] $\Big[E\Big(\tfrac{d}{d\theta} \log L(\theta; X)) (\tfrac{d}{d\theta} \log L(\theta; X))' \mid X\Big)\Big]^{-1}$
-\begin{description}
-\item[.] $= \sigma^2 (X'X)^{-1}$
-\end{description}
-\end{description}
-\item so $\hat\beta$ achieves lower bound conditional on $X$
+\item we know that any estimator $b$ s.t. $\E(b ∣ X) = β$ has conditional variance greater than or equal to
+\begin{equation*}
+  \Big[\E\Big(\tfrac{d}{dθ} \log L(θ; X)) (\tfrac{d}{dθ} \log L(θ; X))' ∣ X\Big)\Big]^{-1}
+  = σ² (X'X)^{-1}
+\end{equation*}
+\item so $\βh$ achieves lower bound conditional on $X$
 \item holds unconditonally as well, too.
-\end{itemize}
 \end{itemize}
 \end{itemize}
 \end{itemize}
@@ -161,22 +157,20 @@
 \item how should we think about this?
 \begin{itemize}
 \item take a convex function $L$.
-\item The pain we feel from mis-estimating $\theta_0$ is
-         $L(\hat\theta - \theta_0)$
+\item The pain we feel from mis-estimating $θ₀$ is $L(\θh - θ₀)$
 \item we can compare the \emph{risk} of two estimators, and choose the
          estimator with the smallest risk
 \begin{itemize}
 \item risk is defined as expected loss
-\item if $E L(\hat\theta_1 - \theta_0)$ is smaller than $E
-           L(\hat\theta_2 - \theta_0)$, we're going to be better off on
-           average by using estimator 1
+\item if $\E L(\θh₁ - θ₀)$ is smaller than $\E L(\θh₂ - θ₀)$, we're
+  going to be better off on average by using estimator 1
 \item can be motivated by utility theory and expected utility;
            then the best estimator is linked to certainty equivalence.
            (see \emph{The Handbook of Economic Forecasting} (2006) chapter
            by Machina and Granger
 \end{itemize}
 \end{itemize}
-\item one loss function that is very popular: $L(x) = x^2$
+\item one loss function that is very popular: $L(x) = x²$
 \begin{itemize}
 \item gives MSE criterion.
 \end{itemize}
@@ -194,12 +188,12 @@
 \item the same problem we ran into when we didn't impose it and just
         looked at variance shows up
 \begin{itemize}
-\item $p_1 = \bar X$
-\item $p_2 = 1/2$
-\item $mse(p_1) = bias(p_1)^2 + variance(p_1) = p(1-p)/n$
-\item $mse(p_2) = (1/2 - p)^2$
+\item $p₁ = \Xb$
+\item $p₂ = 1/2$
+\item $mse(p₁) = bias(p₁)² + variance(p₁) = p(1-p)/n$
+\item $mse(p₂) = (1/2 - p)²$
 \end{itemize}
-\item sometimes $p_1$ will have smaller mse; sometimes $p_2$ will.
+\item sometimes $p₁$ will have smaller mse; sometimes $p₂$ will.
 \item so, not really a good general way to construct estimators, but
         you'll often see estimators that are otherwise ``reasonable''
         compared by MSE too

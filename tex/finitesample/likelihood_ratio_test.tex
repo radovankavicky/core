@@ -17,12 +17,11 @@
       test a hypothesis about the unknown parameters, we can use the
       likelihood ratio test to get a test statistic.
 \item test statistic is given by
-      \[\gamma(x_1,\dots,x_n) = {\sup_{\theta \in \Theta_0} L(\theta;
-      x_1,\dots,x_n) \over \sup_{\theta \in \Theta_0 \cup \Theta_a} L(\theta;
-      x_1,\dots,x_n)}\]
+  \[γ(x₁,...,x_n) = {\sup_{θ ∈ Θ_0} L(θ; x₁,...,x_n) \over \sup_{θ ∈
+      Θ_0 \cup Θ_a} L(θ; x₁,...,x_n)}\]
 \begin{itemize}
-\item $L(\theta; x_1,\dots,x_n)$ is the likelihood function
-\item reject if $\gamma(x_1,\dots,x_n) \leq c$ where $c$ is chosen
+\item $L(θ; x₁,...,x_n)$ is the likelihood function
+\item reject if $γ(x₁,...,x_n) ≤ c$ where $c$ is chosen
         so that the test has the correct prespecified size.
 \end{itemize}
 \item you can draw some pictures connecting this to the maximum
@@ -32,14 +31,14 @@
 \subsection{Uniform LRT}
 
 \begin{itemize}
-\item suppose that $X_1,\dots,X_n$ is iid $uniform(0,b)$ and we want
-      to test the null hypothesis $b \geq 1$ vs $b < 1$.
+\item suppose that $X₁,...,X_n$ is iid $uniform(0,b)$ and we want
+      to test the null hypothesis $b ≥ 1$ vs $b < 1$.
 \begin{itemize}
 \item use pictures to motivate a lot of this
 \item get the statistic
 \begin{itemize}
-\item calculate the likelihood: $L(b; x_1,\dots,x_n) = b^{-n}$ if
-          $b \geq \max_i X_i$, zero otherwise.
+\item calculate the likelihood: $L(b; x₁,...,x_n) = b^{-n}$ if
+  $b ≥ \max_i X_i$, zero otherwise.
 \begin{itemize}
 \item introduce the order statistics:
 \begin{description}
@@ -48,46 +47,43 @@
 \item[.] through $x_{(n)} = \max_i x_i$
 \end{description}
 \end{itemize}
-\item The denominator of the test statistic is just $\sup_{b >
-          0} L(b; x_1,\dots,x_n) = x_{(n)}^{-n}$
-\item The numerator is also $x_{(n)}^{-n}$ as long as $x_{(n)}
-          \geq 1$.  Otherwise, the numerator is 1
+\item The denominator of the test statistic is just
+  $\sup_{b > 0} L(b; x₁,...,x_n) = x_{(n)}^{-n}$
+\item The numerator is also $x_{(n)}^{-n}$ as long as $x_{(n)} ≥ 1$.
+  Otherwise, the numerator is 1
 \begin{itemize}
-\item $\sup_{b \geq 1} L(b; x_1,\dots,x_n)$
+\item $\sup_{b ≥ 1} L(b; x₁,...,x_n)$
 \end{itemize}
 \item so the likelihood ratio test statistic is
 \begin{itemize}
-\item 1 if $x_{(n)} \geq 1$
+\item 1 if $x_{(n)} ≥ 1$
 \item $x_{(n)}^{-n}$ if $x_{(n)} < 1$
 \end{itemize}
-\item we're going to reject if $x_{(n)} \leq c$ for some value of
+\item we're going to reject if $x_{(n)} ≤ c$ for some value of
           $c$ that we're going to calculate
 \begin{itemize}
 \item this makes intuitive sense -- if the maximum value we
-            see is much less than 1, it is unlikely that $b \geq
+            see is much less than 1, it is unlikely that $b ≥
             1$.
-\item if $x_{(n)} \geq 1$ we know that the alternative can't be true
+\item if $x_{(n)} ≥ 1$ we know that the alternative can't be true
 \end{itemize}
 \end{itemize}
 \item get the critical value from the distribution of $x_{(n)}$
 \begin{itemize}
 \item we're going to reject if $x_{(n)}$ is small
-\item since we know $X_1,\dots,X_n$ is uniform, we know the
+\item since we know $X₁,...,X_n$ is uniform, we know the
           distribution of $X_{(n)}$
-\item want to find $c$ so that $\sup_b \Pr_b[X_{(n)} \leq c] = \alpha$
-\begin{itemize}
-\item $\sup_{b \geq 1} \Pr_b[X_{(n)} \leq c] = \sup_{b\geq 1} \Pr_b[\tfrac{X_{(n)}}{b} \leq \tfrac{c}{b}]$
-\begin{description}
-\item[.] $=\sup_{b \geq 1} \Pr_b[\tfrac{X_1}{b} \leq \tfrac{c}{b}, \dots, \tfrac{X_n}{b} \leq \tfrac{c}{b}]$
-\item[.] $=\sup_{b \geq 1} \Pr_b[\tfrac{X_1}{b} \leq \tfrac{c}{b}] \cdots \Pr_b[\tfrac{X_n}{b} \leq \tfrac{c}{b}]$ (independence)
-\begin{description}
-\item[.] Note that $\tfrac{X_{(n)}}{b} \sim uniform(0,1)$
-\end{description}
-\item[.] $= \sup_{b \geq 1} \tfrac{c^n}{b^n}$
-\item[.] $= c^n$
-\end{description}
-\item so $c = \alpha^{\frac1n}$
-\end{itemize}
+\item want to find $c$ so that $\sup_b \Pr_b[X_{(n)} ≤ c] = α$
+  \begin{align*}
+    \sup_{b ≥ 1} \Pr_b[X_{(n)} ≤ c]
+    &= \sup_{b≥ 1} \Pr_b[X_{(n)}/b ≤ c/b] \\
+    &= \sup_{b ≥ 1} \Pr_b[X₁/b ≤ c/b, ..., X_n/b ≤ c/b] \\
+    &= \sup_{b ≥ 1} \Pr_b[X₁/b ≤ c/b] ⋯ \Pr_b[X_n/b ≤ c/b] \\
+    &= \sup_{b ≥ 1} cⁿ/bⁿ \\
+    &= cⁿ
+  \end{align*}
+  where we're using the fact that $X_i/b ∼ uniform(0,1)$.  So
+  $c = α^{1/n}$
 \end{itemize}
 \item plugging in specific numbers
 \begin{itemize}
@@ -101,7 +97,7 @@
 \item mean(stats <= crit)
 \item repeat for n = 100, n = 1000, and discuss different critical values
 \end{itemize}
-\item suppose $n = 10$ and $\alpha = 0.05$
+\item suppose $n = 10$ and $α = 0.05$
 \begin{itemize}
 \item gives critical value of $0.05^{0.10} = 0.74$
 \end{itemize}
@@ -109,7 +105,7 @@
           compare it to $0.74$
 \begin{itemize}
 \item if it is less than 0.74, we reject the null hypothesis
-            that $b \geq 1$
+            that $b ≥ 1$
 \item otherwise, we don't reject
 \end{itemize}
 \item if $n = 100$, the critical value becomes 0.97
@@ -126,12 +122,11 @@
 
 \begin{itemize}
 \item Helps us think about the best possible power
-\item Def of UMP: Let C be a class of tests for testing $\theta \in
-      \Theta_0$ against $\theta\in\Theta_0^c$.  A test in C with power
-      function $\beta(\theta)$ is a \emph{uniformly most powerful} (UMP)
-      class C test if $\beta(\theta) \geq \beta'(\theta)$ for all
-      $\theta \in \Theta^c$ and all $\beta'$ that are power functions
-      of tests in C.
+\item Def of UMP: Let C be a class of tests for testing $θ ∈ Θ_0$
+  against $θ ∈ Θ_0^c$.  A test in C with power function $β(θ)$ is a
+  \emph{uniformly most powerful} (UMP) class C test if $β(θ) ≥ β'(θ)$
+  for all $θ ∈ Θ^c$ and all $β'$ that are power functions of tests in
+  C.
 \item Usefulness really shows up in asymptotics
 \item Often there is no UMP class C test
 \begin{itemize}
@@ -142,21 +137,19 @@
 \subsection{Statement of Lemma}
 
 \begin{itemize}
-\item Consider testing $\theta = \theta_0$ vs $\theta = \theta_1$
-       where the pdf for each parameter value is $f(x; \theta_i)$, $i
-       = 1,2$, using a test with rejection region $R$ such that, for
-       some $k \geq 0$,
+\item Consider testing $θ = θ_0$ vs $θ = θ₁$ where the pdf for each
+  parameter value is $f(x; θ_i)$, $i = 1,2$, using a test with
+  rejection region $R$ such that, for some $k ≥ 0$,
 \begin{itemize}
-\item $x \in R$ if $f(x; \theta_1) > k f(x; \theta_0)$
-\item $x \notin R$ if $f(x; \theta_1) < k f(x; \theta_0)$
+\item $x ∈ R$ if $f(x; θ₁) > k f(x; θ_0)$
+\item $x ∉ R$ if $f(x; θ₁) < k f(x; θ_0)$
 \end{itemize}
 \item Then
 \begin{enumerate}
-\item Any size $\alpha$ test with such a rejection region is a UMP level $\alpha$-test
-\item If there is a size $\alpha$ test with such a rejection
-          region for $k > 0$, then every UMP level $\alpha$ test has
-          size $\alpha$ and every UMP level $\alpha$ test has this
-          rejection region almost surely.
+\item Any size $α$ test with such a rejection region is a UMP level $α$-test
+\item If there is a size $α$ test with such a rejection region for $k
+  > 0$, then every UMP level $α$ test has size $α$ and every UMP level
+  $α$ test has this rejection region almost surely.
 \end{enumerate}
 \item Notes
 \begin{itemize}

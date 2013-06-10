@@ -25,13 +25,13 @@
        the coefficients are, but just want to know whether the
        coefficient is above some threshold
 \end{itemize}
-\item Example: have a basic relationship: $wage_t = \beta_0 + \beta_1
-     \times education_t + \varepsilon_t$
+\item Example: have a basic relationship: $wage_t = β₀ + β₁
+     × education_t + \ep_t$
 \begin{itemize}
-\item may want to know whether $\beta_1$ is positive
-\item may want to know whether $\beta_1$ is above some threshold that
+\item may want to know whether $β₁$ is positive
+\item may want to know whether $β₁$ is above some threshold that
        makes funding a program worthwhile
-\item probably don't care about whether or not $\beta_1$ is exactly
+\item probably don't care about whether or not $β₁$ is exactly
        2.95 vs 2.97 -- they probably mean exactly the same thing as far
        as your decision is concerned.  But $-0.01$ vs 0.01 probably don't
        mean exactly the same thing as far as decisions are concerned
@@ -49,12 +49,12 @@
 \item Suppose that you have two different hypotheses about the
        unknown parameters of the DGP
 \begin{description}
-\item[null] $\theta \in \Theta_0$
+\item[null] $θ ∈ Θ₀$
 \begin{itemize}
-\item the null hypothesis is what we would believe about $\theta$ if we
+\item the null hypothesis is what we would believe about $θ$ if we
            had no data about the problem
 \end{itemize}
-\item[alternative] $\theta \in \Theta_a$
+\item[alternative] $θ ∈ Θ_a$
 \begin{itemize}
 \item the alternaive hypothesis is a candidate belief that might be true.
 \item but we need \textbf{strong} evidence before we believe it
@@ -62,26 +62,26 @@
 \end{description}
 \item A \emph{test statistc} is a statistic that specifies the following:
 \begin{enumerate}
-\item For which samples do we make the decision to accept $\theta_a$
+\item For which samples do we make the decision to accept $θ_a$
           (our alternative) as true
 \item For which samples do we \textbf{not} make that decision, and instead
-          act as though $\theta_0$ were true.
+          act as though $θ₀$ were true.
 \end{enumerate}
 \end{itemize}
 
 \subsection{Example of a test statistic}
 
 \begin{itemize}
-\item Suppose $X_1,\dots,X_n \sim iid N(\mu,1)$ and we have the hypotheses:
+\item Suppose $X₁,...,X_n ∼ iid N(μ,1)$ and we have the hypotheses:
 \begin{description}
-\item[null] $\mu = 0$
-\item[alt] $\mu = 1$
+\item[null] $μ = 0$
+\item[alt] $μ = 1$
 \end{description}
 \item we can use the standard one-sided test statistic:
 \begin{description}
-\item[reject 0] if $\sqrt{n} (\bar X - \mu_0) / \sigma = \sqrt{n}
-                     \bar X \geq 1.64$
-\item[accept 0] if $\sqrt{n} \bar X < 1.64$
+\item[reject 0] if $\sqrt{n} (\Xb - μ₀) / σ = \sqrt{n}
+                     \Xb ≥ 1.64$
+\item[accept 0] if $\sqrt{n} \Xb < 1.64$
 \end{description}
 \item tells us that we reject null for any sample that gives us a mean
        greater than $1.64 / \sqrt{n}$ and do not reject for other
@@ -93,9 +93,9 @@
 \begin{itemize}
 \item Test statistics can't be foolproof.
 \begin{itemize}
-\item Even if $\mu = 0$, we'll see some samples that have a sample
+\item Even if $μ = 0$, we'll see some samples that have a sample
          mean greater than $1.64 / \sqrt{n}$
-\item If $\mu = 1$, we'll also see samples with a small mean
+\item If $μ = 1$, we'll also see samples with a small mean
 \item The key aspect of statistical testing is that we can calculate
          the probabilities of making different sorts of errors, and
          design procedures that make errors that we're comfortable with.
@@ -144,18 +144,18 @@
 \item power: probability that the test rejects (usually will depend
          on the value of the true parameter).
 \begin{itemize}
-\item formally, let $\beta(\theta) = P_\theta[reject]$.  $\beta(\theta)$ is the power function.
+\item formally, let $β(θ) = \Pr_θ[reject]$.  $β(θ)$ is the power function.
 \end{itemize}
 \item size: probability that the test rejects if the null hypothesis is true;
 \begin{itemize}
 \item i.e. probability of type I error
-\item a test is \emph{size} $\alpha$ if $\sup_{\theta \in \Theta_0} \beta(\theta) = \alpha$
-\item a test is \emph{level} $\alpha$ if $\sup_{\theta \in \Theta_0} \beta(\theta) \leq \alpha$
+\item a test is \emph{size} $α$ if $\sup_{θ ∈ Θ₀} β(θ) = α$
+\item a test is \emph{level} $α$ if $\sup_{θ ∈ Θ₀} β(θ) ≤ α$
 \item \textbf{size} is what we care most about.  We want to set the size
 \end{itemize}
 \item valid: a test that has correct size -- ie rejects if the null
          is true at the percentages we want
-\item unbiased: a test is unbiased if $\inf_{\theta \in \Theta_A} \beta(\theta) \geq \alpha$
+\item unbiased: a test is unbiased if $\inf_{θ ∈ Θ_A} β(θ) ≥ α$
 \end{itemize}
 \end{itemize}
 
@@ -163,23 +163,23 @@
 
 \begin{itemize}
 \item sometimes we can monkey with a statistic to get a test
-\item think back to normal distribution with $H_0: \mu = 0$ vs
-       $H_a: \mu = 1$ and we want to test at 5\%
+\item think back to normal distribution with $H₀: μ = 0$ vs
+       $H_a: μ = 1$ and we want to test at 5\%
 \begin{itemize}
-\item statistic was $\sqrt{n} \bar X$.
-\item if $\mu = 0$, then we know that $\sqrt{n} \bar X$ is standard normal.
-\item $\bar X > 0$ is evidence against the null, so let's try to
+\item statistic was $\sqrt{n} \Xb$.
+\item if $μ = 0$, then we know that $\sqrt{n} \Xb$ is standard normal.
+\item $\Xb > 0$ is evidence against the null, so let's try to
          find a threshold that preserves size
 \begin{itemize}
-\item find $c$ such that $\Pr[\sqrt{n} \bar X \geq c] = 0.05$
-\item $\Pr[\sqrt{n} \bar X \geq c] = 1 - \Pr[\sqrt{n} \bar X < c]$
-\begin{itemize}
-\item $= 1 - \Pr[\sqrt{n} \bar X \leq c]$ (continuity)
-\item $= 1 - \Phi(c)$
+\item find $c$ such that $\Pr[\sqrt{n} \Xb ≥ c] = 0.05$
+  \begin{align*}
+    \Pr[\sqrt{n} \Xb ≥ c] &= 1 - \Pr[\sqrt{n} \Xb < c] \\
+    &= 1 - \Pr[\sqrt{n} \Xb ≤ c] \text{ (continuity)} \\
+    &= 1 - Φ(c)
+  \end{align*}
+  so, $Φ(c) = 0.95$ and $c = Φ^{-1}(0.95) \approx 1.64$
 \end{itemize}
-\item so, $\Phi(c) = 0.95$ and $c = \Phi^{-1}(0.95) \approx 1.64$
-\end{itemize}
-\item So the probability that $\sqrt{n} \bar X \geq 1.64 = 0.05$
+\item So the probability that $\sqrt{n} \Xb ≥ 1.64 = 0.05$
 \item so, the probability of rejecting if the null hypothesis is
          true is 0.05.
 \begin{itemize}
@@ -194,9 +194,9 @@
 \item to find out the power, we want to know the distribution under
          the alternative
 \begin{itemize}
-\item if $\mu = 1$ then $\sqrt{n}(\bar X - 1)$ is standard normal.
-\item $\beta(1) = P[\sqrt{n} \bar X \geq 1.64] = P[\sqrt{n}(\bar
-           X - 1) \geq 1.64 - \sqrt{n}] = 1 - \Phi(1.64 - \sqrt{n}) \to 1$
+\item if $μ = 1$ then $\sqrt{n}(\Xb - 1)$ is standard normal.
+\item $β(1) = P[\sqrt{n} \Xb ≥ 1.64] = P[\sqrt{n}(\bar
+           X - 1) ≥ 1.64 - \sqrt{n}] = 1 - Φ(1.64 - \sqrt{n}) → 1$
 \end{itemize}
 \end{itemize}
 \end{itemize}
@@ -224,8 +224,8 @@
 \begin{itemize}
 \item want to get a value
 \begin{itemize}
-\item have an unknown parameter $\theta$
-\item use that data to construct a best guess for $\theta$
+\item have an unknown parameter $θ$
+\item use that data to construct a best guess for $θ$
 \item we're going to use that value as though it were true
 \end{itemize}
 \end{itemize}
@@ -241,13 +241,13 @@
 \section{Definitions}
 
 \begin{itemize}
-\item An \emph{interval estimator} of a parameter $\theta$ is any pair of
-      functions $L(X)$ and $U(X)$ s.t. $L(x) \leq U(x)$ for all $x$
-      and, when we observe $x$ we make the inference $\theta \in
+\item An \emph{interval estimator} of a parameter $θ$ is any pair of
+      functions $L(X)$ and $U(X)$ s.t. $L(x) ≤ U(x)$ for all $x$
+      and, when we observe $x$ we make the inference $θ ∈
       [L(x), U(x)]$
 \item The \emph{coverage probability} of an interval estimator
-      $[L(X),U(X)]$ is the probability $P_\theta[\theta \in [L(X), U(X)]]$
-\item The \emph{confidence coefficient} is $\inf_\theta P_\theta[\theta \in [L(X), U(X)]]$
+      $[L(X),U(X)]$ is the probability $P_θ[θ ∈ [L(X), U(X)]]$
+\item The \emph{confidence coefficient} is $\inf_θ P_θ[θ ∈ [L(X), U(X)]]$
 \end{itemize}
 
 \section{Relationship to hypothesis testing}
@@ -256,43 +256,39 @@
 \item we construct confidence intervals by inverting tests
   \citep[Section 9.2]{CaB_2001}
 \begin{itemize}
-\item For each $\theta_0$, let $A(\theta_0)$ be the acceptance region
-        of a level $\alpha$ test of $H_0: \theta = \theta_0$.  For each
-        sample $x$, define a set $C(x)$ in the parameter space
-        by \[C(x) = \{\theta_0: x \in A(\theta_0)\}\].  Then the random
-        set $C(X)$ is a $1-\alpha$ confidence set.
+\item For each $θ₀$, let $A(θ₀)$ be the acceptance region of a level
+  $α$ test of $H₀: θ = θ₀$.  For each sample $x$, define a set $C(x)$
+  in the parameter space by \[C(x) = \{θ₀: x ∈ A(θ₀)\}\].  Then the
+  random set $C(X)$ is a $1-α$ confidence set.
 \item prove this result for hw
 \end{itemize}
 \item plot interval generated by the indicator functions: 1 if test
       rejects, zero otherwise. (on computer?)
 \item using this result
 \begin{itemize}
-\item suppose $X_1,\dots,X_n \sim N(\mu,\sigma^2)$ and we want to
-        construct a two-sided $1-\alpha$ confidence interval for $\mu$.
+\item suppose $X₁,...,X_n ∼ N(μ,σ²)$ and we want to construct a
+  two-sided $1-α$ confidence interval for $μ$.
 \begin{itemize}
-\item $\sigma^2$ is known
+\item $σ²$ is known
 \end{itemize}
 \item start by getting the family of tests:
 \begin{itemize}
-\item test of $H_0: \mu = \mu_0$ vs $\mu \neq \mu_0$ is given by:
+\item test of $H₀: μ = μ₀$ vs $μ ≠ μ₀$ is given by:
 \begin{description}
-\item[reject] if $\mu_0 > \bar X + z_{\alpha/2}
-                      \sigma / \sqrt{n}$ or $\mu_0 < \bar X - 
-                      z_{\alpha/2} \sigma / \sqrt{n}$.
+\item[reject] if $μ₀ > \Xb + z_{α/2} σ / \sqrt{n}$ or $μ₀ < \Xb -
+  z_{α/2} σ / \sqrt{n}$.
 \item[accept] otherwise
 \end{description}
-\item gives $A(\mu_0) = \{x :\bar X - z_{\alpha/2} \sigma /
-          \sqrt{n} \leq \mu_0 \leq \bar X + z_{\alpha/2} \sigma /
-          \sqrt{n}\}$
-\item then $C(x) = \{\mu :\bar X - z_{\alpha/2}  \sigma /
-          \sqrt{n} \leq \mu \leq \bar X + z_{\alpha/2} \sigma /
-          \sqrt{n}\}$
+\item gives $A(μ₀) = \{x :\Xb - z_{α/2} σ / \sqrt{n} ≤ μ₀ ≤ \Xb
+  + z_{α/2} σ / \sqrt{n}\}$
+\item then $C(x) = \{μ :\Xb - z_{α/2} σ / \sqrt{n} ≤ μ ≤ \Xb +
+  z_{α/2} σ / \sqrt{n}\}$
 \begin{itemize}
 \item we're changing two things
 \begin{description}
-\item[.] the set $A(\mu_0)$ has samples as its elements
+\item[.] the set $A(μ₀)$ has samples as its elements
 \item[.] the set $C(x)$ has parameter values as its elements
-\item[.] $A(\mu_0)$ is different for different parameter values
+\item[.] $A(μ₀)$ is different for different parameter values
 \item[.] $C(x)$ is different for different samples
 \end{description}
 \end{itemize}
@@ -304,48 +300,42 @@
 
 \begin{itemize}
 \item works for one parameter, continuous rv.
-\item suppose you have a statistic $\hat\theta$ and know that its distribution
-      function, $F(t; \theta)$, is a monotone function of $\theta$
+\item suppose you have a statistic $\θh$ and know that its distribution
+      function, $F(t; θ)$, is a monotone function of $θ$
 \begin{itemize}
-\item e.g. if $\hat\theta$ is normal with mean $\theta$ and variance one, then
-        $F(t; \theta) = \Phi(t - \theta)$ which is decreasing in
-        $\theta$.
+\item e.g. if $\θh$ is normal with mean $θ$ and variance one, then
+  $F(t; θ) = Φ(t - θ)$ which is decreasing in $θ$.
 \end{itemize}
-\item we can define a $1-\alpha$ confidence interval of the form
-      $[\theta_L(\hat\theta), \theta_U(\hat\theta)]$ by solving the
-      following equations for $\theta_L, \theta_U$
+\item we can define a $1-α$ confidence interval of the form
+  $[θ_L(\θh), θ_U(\θh)]$ by solving the following equations for $θ_L, θ_U$
 \begin{description}
-\item[decreasing in $\theta$] \[F(\hat\theta; \theta_U) = \alpha/2\]
-           and \[F(\hat\theta; \theta_L) = 1 - \alpha/2\]
-\item[increasing in $\theta$] \[F(\hat\theta; \theta_L) = \alpha/2\]
-           and \[F(\hat\theta; \theta_U) = 1 - \alpha/2\]
+\item[decreasing in $θ$] \[F(\θh; θ_U) = α/2\] and \[F(\θh; θ_L) = 1 - α/2\]
+\item[increasing in $θ$] \[F(\θh; θ_L) = α/2\] and \[F(\θh; θ_U) = 1 - α/2\]
 \end{description}
 note that the L and U are switched in the two formulae.
 \item You can also do this with asymptotic distributions (and that's the
      usual approach in economics for presenting asymptotic CI
-\item example: Let $X_1,\dots,X_n$ be iid $N(\theta, 1)$ and we want to
-     construct a two-sided 95\% interval for $\theta$.
+\item example: Let $X₁,...,X_n$ be iid $N(θ, 1)$ and we want to
+     construct a two-sided 95\% interval for $θ$.
 \begin{itemize}
-\item know that $\sqrt{n} (\bar X - \theta) \to N(0,1)$ in distribution.
-\item define $\hat\theta = \sqrt{n} \bar X$
+\item know that $\sqrt{n} (\Xb - θ) → N(0,1)$ in distribution.
+\item define $\θh = \sqrt{n} \Xb$
 \begin{itemize}
-\item $F(t; \theta) = \Phi(t - \theta \sqrt{n})$
-\item obviously, decreasing in $\theta$, so solve
+\item $F(t; θ) = Φ(t - θ \sqrt{n})$
+\item obviously, decreasing in $θ$, so solve
 \begin{itemize}
-\item $\Phi(\sqrt{n} \bar X - \theta_U \sqrt{n}) = 0.025$
-\item $\Phi(\sqrt{n} \bar X - \theta_L \sqrt{n}) = 0.975$
+\item $Φ(\sqrt{n} \Xb - θ_U \sqrt{n}) = 0.025$
+\item $Φ(\sqrt{n} \Xb - θ_L \sqrt{n}) = 0.975$
 \end{itemize}
 \item this becomes:
 \begin{itemize}
-\item $\sqrt{n} \bar X - \theta_U \sqrt{n} = \Phi^{-1}(0.025)$
-\item $\sqrt{n} \bar X - \theta_L \sqrt{n} = \Phi^{-1}(0.975)$
+\item $\sqrt{n} \Xb - θ_U \sqrt{n} = Φ^{-1}(0.025)$
+\item $\sqrt{n} \Xb - θ_L \sqrt{n} = Φ^{-1}(0.975)$
 \end{itemize}
 \item which in turn becomes:
 \begin{itemize}
-\item $\theta_U = \bar X - \Phi^{-1}(0.025) / \sqrt{n} = \bar X +
-           1.96/\sqrt{n}$
-\item $\theta_L = \bar X - \Phi^{-1}(0.975) / \sqrt{n} = \bar X -
-           1.96/\sqrt{n}$
+\item $θ_U = \Xb - Φ^{-1}(0.025) / \sqrt{n} = \Xb + 1.96/\sqrt{n}$
+\item $θ_L = \Xb - Φ^{-1}(0.975) / \sqrt{n} = \Xb - 1.96/\sqrt{n}$
 \end{itemize}
 \item which is the standard confidence interval.
 \end{itemize}

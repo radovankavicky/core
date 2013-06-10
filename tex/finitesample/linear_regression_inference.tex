@@ -20,18 +20,16 @@
 
 \subsection{introduction}
 
-    We've been looking at the model $Y = X\beta + \varepsilon$ or
-    (equation by equation) \[ y_i = x_{i,1} \beta_1 + \cdots +
-    x_{i,2} \beta_2 + \varepsilon_i \]
+We've been looking at the model $Y = Xβ + \ep$ or (equation by
+equation) \[ y_i = x_{i,1} β₁ + ⋯ + x_{i,2} β₂ + \ep_i \]
 \begin{itemize}
-\item what if you thought that (say) $\beta_1 = \beta_2$
-\item an example \citep[p. 81]{Gre_2011}; have a model of investment \[ \ln I_t
-      = \beta_1 + \beta_2 i_t + \beta_3 \Delta p_t + \beta_4 \ln Y_t +
-      \beta_5 t + \varepsilon_t \]
+\item what if you thought that (say) $β₁ = β₂$
+\item an example \citep[p. 81]{Gre_2011}; have a model of investment
+  \[ \log I_t = β₁ + β₂ i_t + β₃ Δp_t + β₄ \log Y_t + β_5 t + \ep_t \]
 \begin{itemize}
 \item $I_t$ is investment in period $t$
 \item $i_t$ is the nominal interest rate
-\item $\Delta p_t$ is the rate of inflation
+\item $Δp_t$ is the rate of inflation
 \item $Y_t$ is real output
 \item time trend
 \end{itemize}
@@ -40,11 +38,10 @@
       \emph{real} interest rate
 \begin{itemize}
 \item model becomes
-        \[ \ln I_t = \beta_1 + \beta_2 (i_t - \Delta p_t) + \beta_4 \ln
-        Y_t + \beta_5 t + \varepsilon_t \]
+  \[ \log I_t = β₁ + β₂ (i_t - Δp_t) + β₄ \log Y_t + β_5 t + \ep_t \]
 \item ie you want to estimate the first model under the restriction
-        that $\beta_2 = - \beta_3$.
-\item we will rewrite the restriction as $\beta_2 + \beta_3 = 0$.
+  that $β₂ = - β₃$.
+\item we will rewrite the restriction as $β₂ + β₃ = 0$.
 \end{itemize}
 \item So, how would you estimate the first equation under this
       restriction?
@@ -53,37 +50,36 @@
 \subsection{LM restrictions for a simple example}
 
 \begin{itemize}
-\item to derive the OLS estimators, we minimized $\sum_i (y_i -
-      x_i'\beta)^2$
+\item to derive the OLS estimators, we minimized $∑_i (y_i - x_i'β)²$
 \begin{itemize}
 \item this is equivalent to MLE under normality
 \end{itemize}
 \item If we want to estimate the restricted model, we can just minimize
-      $\sum_i (y_i - x_i'\beta)^2$ subject to the constraint that (in
-      the previous example) $\beta_2 + \beta_3 = 0$.
+  $∑_i (y_i - x_i'β)²$ subject to the constraint that (in the previous
+  example) $β₂ + β₃ = 0$.
 \begin{itemize}
-\item set up lagrangian: $\sum_i (y_i - x_i'\beta)^2 + (\beta_2 + \beta_3)\lambda$
+\item set up lagrangian: $∑_i (y_i - x_i'β)² + (β₂ + β₃)λ$
 \item gives foc:
 \begin{itemize}
-\item $(0, 1, 1, 0) \cdot \beta = 0$
+\item $(0, 1, 1, 0) · β = 0$
 \begin{itemize}
-\item rewrite this as $R\beta = 0$
+\item rewrite this as $Rβ = 0$
 \end{itemize}
-\item $0 = - 2 \sum_i x_i (y_i - x_i'\beta) + (0, 1, 1, 0)' \lambda$
+\item $0 = - 2 ∑_i x_i (y_i - x_i'β) + (0, 1, 1, 0)' λ$
 \begin{itemize}
-\item can be written $0 = 2 X'X\beta - 2 X'Y + R' \lambda$
+\item can be written $0 = 2 X'Xβ - 2 X'Y + R' λ$
 \end{itemize}
 \end{itemize}
 \item we can start to solve:
 \begin{itemize}
-\item $\hat\beta_R = \hat\beta - 1/2 (X'X)^{-1} R' \hat\lambda_R$
-\item $R \hat\beta_R = 0$ (scalar)
+\item $\βh_R = \βh - 1/2 (X'X)^{-1} R' \λh_R$
+\item $R \βh_R = 0$ (scalar)
 \begin{itemize}
-\item $= R \hat\beta - 1/2 R (X'X)^{-1} R' \hat\lambda_R$
+\item $= R \βh - 1/2 R (X'X)^{-1} R' \λh_R$
 \end{itemize}
 \end{itemize}
-\item so $- \hat\lambda_R/2 = (R (X'X)^{-1} R')^{-1} R\hat\beta$
-\item $\hat\beta_R = \hat\beta - (X'X)^{-1} R' [R(X'X)^{-1}R']^{-1} R\hat\beta$
+\item so $- \λh_R/2 = (R (X'X)^{-1} R')^{-1} R\βh$
+\item $\βh_R = \βh - (X'X)^{-1} R' [R(X'X)^{-1}R']^{-1} R\βh$
 \item For intuition, look at the fitted values
 \end{itemize}
 \end{itemize}
@@ -93,20 +89,18 @@
 \subsection{LM restrictions on a general example}
 
 \begin{itemize}
-\item suppose now that we have the restriction $R\beta = q$
+\item suppose now that we have the restriction $Rβ = q$
 \item take first order conditions for the lagrangian
-      \[ (Y - X\beta)'(Y - X\beta) + (R\beta - q)'\lambda \]
-      (now \$$\lambda$ is a vector)
+  \[ (Y - Xβ)'(Y - Xβ) + (Rβ - q)'λ \] (now $λ$ is a vector)
 \begin{itemize}
-\item $R\beta = q$
-\item $0 = 2 X'X - 2 X'Y + R' \lambda$
+\item $Rβ = q$
+\item $0 = 2 X'X - 2 X'Y + R' λ$
 \end{itemize}
 \item mimic the same steps as before
 \begin{itemize}
-\item $\hat\beta_R = \hat\beta - {1\over2} (X'X)^{-1} R'\hat\lambda_R$
-\item $-{1\over2} \hat\lambda_R = (R(X'X)^{-1}R')^{-1}(q - R\hat\beta)$
-\item $\hat\beta_R = \hat\beta + (X'X)^{-1} R'(R(X'X)^{-1}R')^{-1}
-        (q - R\hat\beta)$
+\item $\βh_R = \βh - \frac12 (X'X)^{-1} R'\λh_R$
+\item $-\frac12 \λh_R = (R(X'X)^{-1}R')^{-1}(q - R\βh)$
+\item $\βh_R = \βh + (X'X)^{-1} R'(R(X'X)^{-1}R')^{-1} (q - R\βh)$
 \end{itemize}
 \end{itemize}
 
@@ -114,8 +108,8 @@
 
 \begin{itemize}
 \item this is also the \textbf{restricted MLE} under normality
-\item estimator of $\sigma^2$ under this restriction is going to be ${1
-      \over n - k - 1 + rank(R)} \sum_i (y_i - x_i'\hat\beta_R)^2$
+\item estimator of $σ²$ under this restriction is going to be
+  $\ov{n - k - 1 + rank(R)} ∑_i (y_i - x_i'\βh_R)²$
 \end{itemize}
 
 \section{Hypothesis testing in finite samples}
@@ -128,11 +122,10 @@
 
 \begin{itemize}
 \item Suppose that we want to test an arbitrary linear hypothesis about
-       $\beta$; ie \[R \beta = q\] against the alternative \[R \beta \neq q\]
+  $β$; ie \[R β = q\] against the alternative \[R β ≠ q\]
 \begin{itemize}
-\item ie $R = (1, 0, 0, \dots)$ and $q = 0$ gives us a test that
-         $\beta_0 = 0$
-\item $R = I$ and $q = (0,0,\dots,0)$ gives us a test that all of the
+\item ie $R = (1, 0, 0, ...)$ and $q=0$ gives us a test that $β₀=0$
+\item $R = I$ and $q = (0,0,...,0)$ gives us a test that all of the
          coefficients are equal to zero.
 \end{itemize}
 \item for now, assume we have normal errors
@@ -146,12 +139,12 @@
 \begin{itemize}
 \item ie ${SSR_R - SSR \over SSR}$
 \begin{itemize}
-\item $SSR = \sum_i \hat\varepsilon_i^2$
+\item $SSR = ∑_i \eph²_i$
 \item don't need to present this, but can be written as \[
-            {(R^2 - R^2_R) / J \over (1-R^2) / (n-k-1)} \]
+  {(R² - R²_R) / J \over (1-R²) / (n-k-1)} \]
 \end{itemize}
 \item Our test is actually a scaled version of that:
-          \[ F = {(SSR_R - SSR)/J \over SSR / (n-k-1)} \]
+  \[ F = {(SSR_R - SSR)/J \over SSR / (n-k-1)} \]
 \begin{itemize}
 \item $J$ is the number of restrictions (ie dimension of $q$)
 \end{itemize}
@@ -163,46 +156,42 @@
 \paragraph{distribution of numerator}
 \begin{itemize}
 \item reexpress the numerator
-\begin{itemize}
-\item $SSR_R - SSR = (Y - X\hat\beta_R)'(Y - X\hat\beta_R) - (Y -
-             X\hat\beta)'(Y - X\hat\beta)$
-\item $= (\hat\beta - \hat\beta_R)'X'X(\hat\beta - \hat\beta_R)$
-             (you're proving this for homework)
-\item remember that $\hat\beta_R = \hat\beta + (X'X)^{-1}
-             R'(R(X'X)^{-1}R')(q - R\hat\beta)$
-\item $= (q -
-             R\hat\beta)'(R(X'X)^{-1}R')^{-1}R(X'X)^{-1}X'X(X'X)^{-1}R'(R(X'X)^{-1}R')^{-1}
-             (q - R\hat\beta)$
-\item $= (q -
-             R\hat\beta)'(R(X'X)^{-1}R')^{-1}R(X'X)^{-1} R'(R(X'X)^{-1}R')^{-1}
-             (q - R\hat\beta)$ after middle cancels
-\item $= (q -
-             R\hat\beta)'(R(X'X)^{-1}R')^{-1}(q - R\hat\beta)$
-\end{itemize}
+  \begin{align*}
+    SSR_R - SSR
+    &= (Y - X\βh_R)'(Y - X\βh_R) - (Y - X\βh)'(Y - X\βh) \\
+    &= (\βh - \βh_R)'X'X(\βh - \βh_R)
+  \end{align*}
+  (you're proving this for homework).  Remember that
+  \begin{align*}
+    \βh_R &= \βh + (X'X)^{-1} R'(R(X'X)^{-1}R')(q - R\βh) \\
+    &= (q - R\βh)' (R(X'X)^{-1}R')^{-1} R(X'X)^{-1}X'X(X'X)^{-1}R' (R(X'X)^{-1}R')^{-1} (q - R\βh) \\
+    &= (q - R\βh)' (R(X'X)^{-1}R')^{-1} R(X'X)^{-1} R'(R(X'X)^{-1}R')^{-1} (q - R\βh) \\
+    &= (q - R\βh)' (R(X'X)^{-1}R')^{-1} (q - R\βh)
+  \end{align*}
 \item distribution of numerator
 \begin{itemize}
-\item $q - R\hat\beta$ is normal with mean $q - R\beta$ and
-             variance $\sigma^2 R(X'X)^{-1}R'$
+\item $q - R\βh$ is normal with mean $q - Rβ$ and variance $σ²
+  R(X'X)^{-1}R'$
 \item under the null, this mean is zero.
-\item so we have a normal divided by its variance covariance matrix\ldots{}
-\item so $(q - R\hat\beta)'(R(X'X)^{-1}R')^{-1}(q - R\hat\beta)$
-             equals $\sigma^2$ chi-square r.v. with $J$ degrees of freedom
+\item so we have a normal divided by its variance covariance matrix...
+\item so $(q - R\βh)'(R(X'X)^{-1}R')^{-1}(q - R\βh)$ equals $σ²$
+  chi-square r.v. with $J$ degrees of freedom
 \end{itemize}
 \end{itemize}
 
 \paragraph{distribution of denominator}
 \begin{itemize}
-\item just like earlier, we know that $SSR = (n-k-1) s^2$ and $s^2$
-         and $\hat \beta$ are independent given $X$.
-\item denominator is $\sigma^2$ times a chi-square with $n-k-1$
+\item just like earlier, we know that $SSR = (n-k-1) s²$ and $s²$
+         and $\βh$ are independent given $X$.
+\item denominator is $σ²$ times a chi-square with $n-k-1$
          degrees of freedom and indpendent of the numerator.
 \end{itemize}
 
 \paragraph{distribution of statistic}
        distribution of $F$
 \begin{itemize}
-\item $F = {\sigma^2 \chi_J^2 / J \over \sigma^2 \chi_{n-k-1}^2 /
-         (n-k-1)}$ in distribution.
+\item $F = {σ² χ²_J / J \over σ² χ²_{n-k-1} / (n-k-1)}$ in
+  distribution.
 \item numerator and denominator are independent
 \item so this has an $F_{J, n-k-1}$ distribution under the null.
 \end{itemize}
@@ -212,7 +201,7 @@
 \item Denominator is not affected
 \item Numerator is
 \begin{itemize}
-\item for $R\hat\beta - q$ to have mean zero, we need the null to
+\item for $R\βh - q$ to have mean zero, we need the null to
           be true
 \item otherwise the numerator will get larger
 \end{itemize}
@@ -221,14 +210,14 @@
 \subsection{t-test}
 
 \begin{itemize}
-\item Suppose you wanted to test a single restriction, say $\beta_i =
+\item Suppose you wanted to test a single restriction, say $β_i =
        b$ for some known $b$.
-\item We know that ${\hat\beta_i - \beta_i \over \sqrt{s^2 q_i}}$ is
+\item We know that ${\βh_i - β_i \over \sqrt{s² q_i}}$ is
        the ratio of a standard normal r.v. and a chi-square/(n-k-1)
        random variable
 \item so it is $t$ with (n-k-1) degrees of freedom
-\item under the null, we know $\beta_i = b$, so we also have
-       ${\hat\beta_i - b \over \sqrt{s^2 q_i}}$
+\item under the null, we know $β_i = b$, so we also have
+       ${\βh_i - b \over \sqrt{s² q_i}}$
 \item we can use this as a test statistic:
 \begin{itemize}
 \item calculate the value of the r.v.
@@ -249,29 +238,22 @@
 \item how would we test this hypothesis?
 \begin{itemize}
 \item maybe derive the likelihood ratio test.
-\item remember, LRT is ${\sup_{\beta, \sigma^2: R\beta = q} L(\beta,
-         \sigma^2; Y \mid X) \over \sup_{\beta, \sigma^2} L(\beta,
-         \sigma^2; Y \mid X)}$ and we reject if this statistic is less
-         than a critical value $c$.
+\item remember, LRT is ${\sup_{β, σ²: Rβ = q} L(β, σ²; Y ∣ X) \over
+    \sup_{β, σ²} L(β, σ²; Y ∣ X)}$ and we reject if this statistic is
+  less than a critical value $c$.
 \end{itemize}
 \item we can plug in the MLEs
 \begin{itemize}
-\item $= {\hat\sigma^n \over \hat\sigma^n_{null}}
-         exp((2\hat\sigma^2_a)^{-1} \sum_i (y_i -
-         x_i'\hat\beta)^2 - (2\hat\sigma^2_0)^{-1} \sum_i (y_i - x_i'\hat\beta_0)^2)$
-\item note that $\hat\sigma^2_a = n^{-1} \sum_i (y_i -
-         x_i'\hat\beta_a)^2$
-\item $\hat\sigma^2_0 = n^{-1} \sum_i (y_i - x_i'\hat\beta_0)^2$
+\item $= {\σh^n \over \σh_{null}^n} exp((2\σh²_a)^{-1} ∑_i (y_i -
+  x_i'\βh)² - (2\σh²₀)^{-1} ∑_i (y_i - x_i'\βh₀)²)$
+\item note that $\σh²_a = n^{-1} ∑_i (y_i - x_i'\βh_a)²$
+\item $\σh²₀ = n^{-1} ∑_i (y_i - x_i'\βh₀)²$
 \item so the terms in the exponent cancel and we're left with
-         $(\hat\sigma^2 / \hat\sigma^2_R)^{n/2}$
+  $(\σh² / \σh²_R)^{n/2}$
 \end{itemize}
 \end{itemize}
 
 \section{Hypothesis testing in the limit}
-
-\begin{itemize}
-\item covered the material on \textit{2009-11-04 Wed} (I think)
-\end{itemize}
 
 \subsection{Testing linear hypotheses}
 
@@ -281,15 +263,15 @@
 \begin{itemize}
 \item what does the previous asymptotic result tell us about the t-statistic?
 \item suppose we want to test the null hypothesis
-         \[ \beta_j \leq 1 \] so we construct the t-statistic
+  \[ β_j ≤ 1 \] so we construct the t-statistic
 \item can we use it?
 \item we know that, if the null is true,
-         \[ {\beta_j - 1 \over \sqrt{s^2 q_i}} \to N(0,1) \] in
+         \[ {β_j - 1 \over \sqrt{s² q_i}} → N(0,1) \] in
          distribution (where $q_i$ is the ii element of $(X'X)^{-1}$)
-\item we also know that $t_{n-k-1} \to N(0,1)$ as $n\to\infty$
+\item we also know that $t_{n-k-1} → N(0,1)$ as $n→∞$
 \begin{itemize}
-\item \[t_{n-k-1} = {Z_0 \over \sqrt{(n-k-1)^{-1} \sum_{i=1}^{n-k-1}
-           Z_i^2}}\] in distribution, where each of the $Z_i$ is an
+\item \[t_{n-k-1} = {Z₀ \over \sqrt{(n-k-1)^{-1} ∑_{i=1}^{n-k-1}
+           Z²_i}}\] in distribution, where each of the $Z_i$ is an
            independent standard normal.
 \item The sum in the denominator obeys a law of large numbers, so
            it converges to its mean, 1, in probability
@@ -299,17 +281,17 @@
 \paragraph{interpretation/conclusion}
 \begin{itemize}
 \item We have two approaches for testing the hypothesis that
-         $\hat\beta_i = \beta_i^*$ (or has an inequality) based on
+         $\βh_i = β_i^*$ (or has an inequality) based on
          asymptotic approximations
 \begin{enumerate}
-\item calculate ${\hat\beta_i - \beta_i \over \sqrt{s^2 q_i}}$
+\item calculate ${\βh_i - β_i \over \sqrt{s² q_i}}$
             and compare to critical values from the normal distribution.
 \item calculate and compare to critical values from the
             $t$-distribution.
 \end{enumerate}
 \item These will \textbf{almost always} give you the same answer.
 \begin{itemize}
-\item the critical values for the t-distribution will always be a
+\item the critical values for the $t$-distribution will always be a
            little bit bigger
 \item this happens because we replace the scaled chi-squared
            distribution in the denominator with the constant 1
@@ -332,7 +314,7 @@
 
 \paragraph{introduction}
 \begin{itemize}
-\item Suppose we want to test the general restriction $R\beta = q$
+\item Suppose we want to test the general restriction $Rβ = q$
 \item If the errors are normal, we know that the F-test is valid
 \item What is the asymptotic distribution of the F-test if the
          errors aren't normal?
@@ -340,35 +322,33 @@
 
 \paragraph{asymptotic distribution}
        We can rewrite the F-statistic as
-       \[ J^{-1} (R\hat\beta - q)'[s^2 R(X'X)^{-1}R']^{-1}(R\hat\beta -
-       q) \]
+       \[ J^{-1} (R\βh - q)'[s² R(X'X)^{-1}R']^{-1}(R\βh - q) \]
 \begin{itemize}
-\item under the null, we know that $q = R\beta$, so we also know
-         that $R(\hat\beta - \beta) = R\hat\beta - q$
-\item we know from earlier that $\sqrt{n} R(\hat\beta - \beta)$
-         converges in distribution to $N(0, \sigma^2 R Q^{-1} R')$
-\item so, we know that \[\sqrt{n} (R\hat\beta - q)' (\sigma^2 R
-         Q^{-1} R')^{-1} \sqrt{n} (R\hat\beta - q) \] converges in
+\item under the null, we know that $q = Rβ$, so we also know
+         that $R(\βh - β) = R\βh - q$
+\item we know from earlier that $\sqrt{n} R(\βh - β)$
+         converges in distribution to $N(0, σ² R Q^{-1} R')$
+\item so, we know that \[\sqrt{n} (R\βh - q)' (σ² R
+         Q^{-1} R')^{-1} \sqrt{n} (R\βh - q) \] converges in
          distribution to a chi-square with $J$ degrees of freedom
 \begin{itemize}
-\item $\sqrt{n}(R\hat\beta - q)$ is a $J$-vector and is asymptotically
+\item $\sqrt{n}(R\βh - q)$ is a $J$-vector and is asymptotically
            normal.
-\item $\sqrt{n}(\sigma^2 R Q^{-1} R')^{-1/2} (R\hat\beta - q)$ is
+\item $\sqrt{n}(σ² R Q^{-1} R')^{-1/2} (R\βh - q)$ is
            an asymptotically standard normal $J$ vector.
 \end{itemize}
-\item we want to show that \[ (R\hat\beta - q)'[s^2
-         R(X'X)^{-1}R']^{-1}(R\hat\beta - q) = J^{-1} (R\hat\beta -
-         q)'[\sigma^2 RQ^{-1}R']^{-1}(R\hat\beta - q) + o_p(1)\]
+\item we want to show that \[ (R\βh - q)'[s² R(X'X)^{-1}R']^{-1}(R\βh
+  - q) = J^{-1} (R\βh - q)'[σ² RQ^{-1}R']^{-1}(R\βh - q) + o_p(1)\]
 \begin{itemize}
 \item this will show that $J F$ is asymptotically chi-square with
            $J$ degrees of freedom.
-\item multiply $(R\hat\beta - q)$ by $\sqrt{n}$ and bring $n^{-1}$
+\item multiply $(R\βh - q)$ by $\sqrt{n}$ and bring $n^{-1}$
            next to $X'X$.
-\item we know that $s^2 \to \sigma^2$ and $n^{-1} X'X \to Q$ in probability
+\item we know that $s² → σ²$ and $n^{-1} X'X → Q$ in probability
 \item so, we get the convergence we need.
 \end{itemize}
 \item So, we know that the F statistic is equal in distribution
-         to a $J^{-1} \chi_J^2$ random variable as $n \to \infty$.
+  to a $J^{-1} χ²_J$ random variable as $n → ∞$.
 \end{itemize}
 
 \paragraph{conclusion/interpretation}
@@ -379,10 +359,10 @@
 \item have the same issue we saw with the t-distribution
 \item the $F_{J, n-k-1}$ distribution is defined to be the same as
           the distribution of
-          \[{J^{-1} \sum_{i=1}^J Z_i^2 \over (n-k-1)^{-1} \sum_j
-          W_j^2}\] where each $Z$ and $W$ is an independent standard normal.
-\item as $n\to \infty$, the denominator converges to 1 in probability
-\item the numerator is unaffected and is a $\chi^2_J / J$ random variable.
+          \[{J^{-1} ∑_{i=1}^J Z²_i \over (n-k-1)^{-1} ∑_j W_j²}\] 
+          where each $Z$ and $W$ is an independent standard normal.
+\item as $n→ ∞$, the denominator converges to 1 in probability
+\item the numerator is unaffected and is a $χ²_J / J$ random variable.
 \item so the F-distribution becomes more and more like the chi
           square as well.
 \end{itemize}
@@ -412,89 +392,68 @@
      Reading is based on \citet{Gre_2011} Section 5.5.
 
 \paragraph{motivation}
-      What if we want to test the hypothesis that $c(\beta) = q$ where
-      $c$ is a function from $\mathbb{R}^{k+1}$ to $\mathbb{R}^J$?
+What if we want to test the hypothesis that $c(β) = q$ where $c$ is a
+function from $\RR^{k+1}$ to $\RR^J$?
 \begin{itemize}
 \item Do we know anything about the finite-sample distribution of
-        $c(\hat\beta)$ that we could use to construct a test statistic?
+  $c(\βh)$ that we could use to construct a test statistic?
 \begin{itemize}
 \item as usual, if we specify a distribution for the errors, we
           could crank through the algebra and derive the distribution of
-          $c(\hat\beta)$
+          $c(\βh)$
 \item won't give us a general procedure
 \item won't necessarily be easy to impose the null hypothesis.
 \end{itemize}
 \item Maybe we can get a procedure that uses the asymptotic
-        distribution of $c(\hat\beta)$ under the null
+  distribution of $c(\βh)$ under the null
 \end{itemize}
 
 \paragraph{initial asymptotics}
 \begin{itemize}
 \item suppose that $c$ is differentiable
 \item we can use the delta-method to show that
-        $\sqrt{n}(c(\hat\beta) - c(\beta))$ is asymptotically normal
+  $\sqrt{n}(c(\βh) - c(β))$ is asymptotically normal
 \item a first-order taylor expansion gives us
-        \[ \sqrt{n} c(\hat\beta) = \sqrt{n} c(\beta) +
-        {\partial c(\beta) \over \partial \beta'} \sqrt{n} (\hat\beta -
-        \beta) + o_p(1) \]
-        where $\partial c(\beta) \over \partial \beta'$ is a $J \times
-        k+1$ matrix of partial derivatives.
-\item We know that \[{\partial c(\beta) \over \partial \beta'}
-        \sqrt{n} (\hat\beta - \beta)\] converges in distribution to a
-        normal r.v. with mean zero and variance \[ \left({\partial
-        c(\beta) \over \partial \beta'}\right) \sigma^2 Q^{-1}
-        \left({\partial c(\beta) \over \partial \beta'}\right)'\]
-\item Then $\sqrt{n} (c(\hat\beta) - c(\beta))$ also converges to \[
-        N\left(0, \left({\partial
-        c(\beta) \over \partial \beta'}\right) \sigma^2 Q^{-1}
-        \left({\partial c(\beta) \over \partial \beta'}\right) \right)\]
+  \[ \sqrt{n} c(\βh) = \sqrt{n} c(β) + {∂ c(β) \over ∂ β'} \sqrt{n}
+  (\βh - β) + o_p(1) \] where $∂ c(β) \over ∂ β'$ is a $J × k+1$
+  matrix of partial derivatives.
+\item We know that \[{∂ c(β) \over ∂ β'} \sqrt{n} (\βh - β)\]
+  converges in distribution to a normal r.v. with mean zero and
+  variance \[ \left({∂ c(β) \over ∂ β'}\right) σ² Q^{-1} \left({∂ c(β)
+      \over ∂ β'}\right)'\]
+\item Then $\sqrt{n} (c(\βh) - c(β))$ also converges to 
+  \[ N\left(0, \left({∂ c(β) \over ∂ β'}\right) σ² Q^{-1} \left({∂
+        c(β) \over ∂ β'}\right) \right)\]
 \end{itemize}
 
 \paragraph{hypothesis testing}
 \begin{itemize}
-\item Under the null hypothesis, we know that $c(\beta) = q$, so
-        $\sqrt{n}(c(\hat\beta) - q)$ has the same asymptotic
-        distribution as $\sqrt{n}(c(\hat\beta) - c(\beta))$
+\item Under the null hypothesis, we know that $c(β) = q$, so
+  $\sqrt{n}(c(\βh) - q)$ has the same asymptotic distribution as
+  $\sqrt{n}(c(\βh) - c(β))$
 \item so we can do the same trick as before to get a chi-square test
         statistic
 \begin{itemize}
-\item we estimate the variance with \[ \left({\partial
-        c(\hat\beta) \over \partial \hat\beta'}\right)s^2 (n^{-1}X'X)^{-1}
-        \left({\partial c(\hat\beta) \over \partial \hat\beta'}\right)\]
+\item we estimate the variance with
+  \begin{equation*}
+    \left(\frac{∂c(\βh)}{∂\βh'}\right) s²(n^{-1}X'X)^{-1} \left(\frac{∂c(\βh)}{∂\βh'}\right)
+  \end{equation*}
 \begin{itemize}
-\item know $\hat\beta \to \beta$ so $\left({\partial c(\hat\beta)
-            \over \partial \hat\beta'}\right) \to \left({\partial
-            c(\beta) \over \partial \beta'}\right)$ in probability
-\item know that $s^2 (n^{-1} X'X)^{-1} \to \sigma^2Q^{-1}$ in
-            probability
+\item know $\βh →^p β$ so $\left({∂ c(\βh) \over ∂ \βh'}\right) →
+  \left({∂c(β) \over ∂ β'}\right)$ in probability
+\item know that $s² (n^{-1} X'X)^{-1} → σ²Q^{-1}$ in probability
 \end{itemize}
-\[{c(\hat\beta) \over \partial \hat\beta'}\Big)s^2 (n^{-1}X'X)^{-1}
-        \left({\partial c(\hat\beta) \over \partial \hat\beta'}\right)\]
-          - know $\hat\beta \to \beta$ so $\left({\partial c(\hat\beta)
-            \over \partial \hat\beta'}\right) \to \left({\partial
-            c(\beta) \over \partial \beta'}\right)$ in probability
-          - know that $s^2 (n^{-1} X'X)^{-1} \to \sigma^2Q^{-1}$ in
-            probability
 \end{itemize}
-\[{c(\hat\beta) \over \partial \hat\beta'}\Big)s^2 (n^{-1}X'X)^{-1}
-        \left({\partial c(\hat\beta) \over \partial \hat\beta'}\right)\]
-          - know $\hat\beta \to \beta$ so $\left({\partial c(\hat\beta)
-            \over \partial \hat\beta'}\right) \to \left({\partial
-            c(\beta) \over \partial \beta'}\right)$ in probability
-          - know that $s^2 (n^{-1} X'X)^{-1} \to \sigma^2Q^{-1}$ in
-            probability
 \item Our test statistic is 
-        \[ (c(\hat\beta) - q)' \left[\left({\partial
-        c(\hat\beta) \over \partial \hat\beta'}\right)s^2 (n^{-1}X'X)^{-1}
-        \left({\partial c(\hat\beta) \over \partial \hat\beta'}\right) \right]^{-1}
-        (c(\hat\beta) - q) \]
+  \[ (c(\βh) - q)' \left[\left({∂ c(\βh) \over ∂ \βh'}\right)s²
+    (n^{-1}X'X)^{-1} \left({∂ c(\βh) \over ∂ \βh'}\right) \right]^{-1}
+  (c(\βh) - q) \]
 \item asymptotically chi-square with $J$ degrees of freedom
 \item one additional point
 \begin{itemize}
 \item we need to verify that the population variance matrix is
           invertible
-\item ie we need \[\left({\partial c(\beta) \over \partial
-          \beta'}\right)\] to have full rank
+\item ie we need \[\left({∂ c(β) \over ∂ β'}\right)\] to have full rank
 \item in ``standard'' applications this is true, but it \textbf{may} not be true
 \item can use a similar procedure but higher order expansion and
           usually won't wind up with a chi-square statistic.
@@ -511,25 +470,22 @@ figure out some simulations to motivate this stuff.
 \begin{itemize}
 \item Suppose the null can be written as an intersection of simpler nulls:
 \begin{itemize}
-\item $H_0: \theta \in \bigcup_{\gamma \in \Gamma} \Theta_\gamma$ vs. 
-         $H_A: \theta \notin \bigcap_{\gamma \in \Gamma} \Theta_\gamma$
+\item $H₀: θ ∈ ⋃_{γ ∈ Γ} Θ_γ$ vs.  $H_A: θ ∉ ⋂_{γ ∈ Γ} Θ_γ$
 \item It is easy to find tests for each individual set:
 \begin{itemize}
-\item $T_\gamma$ tests the null $\theta \in \Theta_\gamma$
-           vs. $\theta \notin \Theta_\gamma$ for each $\gamma$.
+\item $T_γ$ tests the null $θ ∈ Θ_γ$ vs. $θ ∉ Θ_γ$ for each $γ$.
 \end{itemize}
-\item If $T_\gamma$ is a level-$\alpha$ test with rejection region
-         $R_\gamma$ (ie it rejects if $(x_1,\dots,x_n) \in R$), then
-         the test with rejection region $\bigcap_{\gamma \in \Gamma}
-         R_\gamma$ is the IU Test and has level $\alpha$
+\item If $T_γ$ is a level-$α$ test with rejection region $R_γ$ (ie it
+  rejects if $(x₁,...,x_n) ∈ R$), then the test with rejection region
+  $⋂_{γ ∈ Γ} R_γ$ is the IU Test and has level $α$
 \end{itemize}
 \item Note that we don't need to correct the critical values here
 \end{itemize}
 
 \paragraph{Proof of validity}
 \begin{itemize}
-\item We know that, under the null, $\theta \in \Theta_\gamma'$ for at least one $\gamma'$
-\item $\Pr_\theta[(X_1,\dots,X_n) \in \bigcap_\gamma R_\gamma] \leq \Pr_\theta[(X_1,\dots, X_n) \in R_{\gamma'}] \leq \alpha$
+\item We know that, under the null, $θ ∈ Θ_γ'$ for at least one $γ'$
+\item $\Pr_θ[(X₁,...,X_n) ∈ ⋂_γ R_γ] ≤ \Pr_θ[(X₁,..., X_n) ∈ R_{γ'}] ≤ α$
 \end{itemize}
 
 \subsection{Union-Intersection Test}
@@ -538,52 +494,49 @@ figure out some simulations to motivate this stuff.
 \begin{itemize}
 \item Suppose the null can be written as an intersection of simpler nulls:
 \begin{itemize}
-\item $H_0: \theta \in \bigcap_{\gamma \in \Gamma} \Theta_\gamma$ vs. 
-         $H_A: \theta \notin \bigcap_{\gamma \in \Gamma} \Theta_\gamma$
+\item $H₀: θ ∈ ⋂_{γ ∈ Γ} Θ_γ$ vs.  $H_A: θ ∉ ⋂_{γ ∈ Γ} Θ_γ$
 \item It is easy to find tests for each individual set:
 \begin{itemize}
-\item $T_\gamma$ tests the null $\theta \in \Theta_\gamma$
-           vs. $\theta \notin \Theta_\gamma$ for each $\gamma$.
+\item $T_γ$ tests the null $θ ∈ Θ_γ$ vs. $θ ∉ Θ_γ$ for each $γ$.
 \end{itemize}
-\item If $T_\gamma$ is a level-$\frac{\alpha}{\# \Gamma}$ test with
-         rejection region $R_\gamma$ (ie it rejects if
-         $(x_1,\dots,x_n) \in R$), then the test with rejection region
-         $\bigcup_{\gamma \in \Gamma} R_\gamma$ is the UI Test and has
-         level $\alpha$
+\item If $T_γ$ is a level-$\frac{α}{\# Γ}$ test with rejection region
+  $R_γ$ (ie it rejects if $(x₁,...,x_n) ∈ R$), then the test with
+  rejection region $⋃_{γ ∈ Γ} R_γ$ is the UI Test and has level $α$
 \end{itemize}
 \item Note that we don't need to use a stepdown procedure here
-\item Could still do better if we used the joint distribution of $T_\gamma$
+\item Could still do better if we used the joint distribution of $T_γ$
 \end{itemize}
 
-\paragraph{Show that testing at $\alpha$ doesn't work}
+\paragraph{Show that testing at $α$ doesn't work}
 
 \paragraph{Proof of validity}
 \begin{itemize}
 \item Follows from the same argument as in multiple comparisons
-\item $\Pr_\theta[(X_1,\dots,X_n) \in \bigcup_{\gamma} R_\gamma] \leq \sum_{\gamma \in \Gamma} \Pr_\theta[(X_1,\dots,X_n) \in R_\gamma]$
-\begin{itemize}
-\item $\leq \sum_\gamma \frac{\alpha}{\#\Gamma}$
-\item $= \alpha$
-\end{itemize}
+  \begin{align*}
+    \Pr_θ[(X₁,...,X_n) ∈ ⋃_{γ} R_γ]
+    &≤ ∑_{γ ∈ Γ} \Pr_θ[(X₁,...,X_n) ∈ R_γ] \\
+    &≤ ∑_γ \frac{α}{\#Γ} \\
+    &= α
+  \end{align*}
 \end{itemize}
 
 \subsection{Multiple hypothesis testing}
 
 \begin{itemize}
-\item Suppose we have a bunch of hypotheses $\theta \in
-       \Theta_\gamma$, but instead of being interested in knowing
-       about compound hypotheses, we're interested in all of them
+\item Suppose we have a bunch of hypotheses $θ ∈ Θ_γ$, but instead of
+  being interested in knowing about compound hypotheses, we're
+  interested in all of them
 \begin{itemize}
 \item have many different parameters
 \item Put up empirical example where we're looking at regressors
 \end{itemize}
 \item Now we want to control the rate of ``familywise error''
 \begin{itemize}
-\item Let $I$ index the true nulls: $I = \{\gamma \in \Gamma : \theta_\gamma \in \Theta_\gamma\}$
-\item FWE is \[\sup_{\theta: \theta_\gamma \in \Theta_\gamma, \gamma \in I} P_\theta[T_\gamma \text{ rejects for at least one } \gamma \in I]\]
-\item want this error probability to be less than $\alpha$
+\item Let $I$ index the true nulls: $I = \{γ ∈ Γ : θ_γ ∈ Θ_γ\}$
+\item FWE is \[\sup_{θ: θ_γ ∈ Θ_γ, γ ∈ I} P_θ[T_γ \text{ rejects for at least one } γ ∈ I]\]
+\item want this error probability to be less than $α$
 \end{itemize}
-\item As with UIT, testing each one at $\alpha$ doesn't work
+\item As with UIT, testing each one at $α$ doesn't work
 \begin{itemize}
 \item show this
 \end{itemize}
