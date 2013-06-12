@@ -4,6 +4,7 @@
 \title{Econometrics Core: Linear Regression}
 
 \begin{document}
+\pagenumbering{roman}
 \maketitle
 
 \bigskip\noindent%
@@ -26,8 +27,10 @@ information about this project is available at its homepage,
 to participate.  This text is typeset in \XeLaTeX\ and there is a link
 to the source of the document at the project's homepage as well.
 
-\addcontentsline{toc}{part}{Table of Contents}%
 \tableofcontents
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
 
 \include{tex/linearregression/introduction}
 \include{tex/linearregression/modeling}
@@ -39,7 +42,6 @@ to the source of the document at the project's homepage as well.
 % \include{LICENSE}  % you are distributing this document on its own.
 
 \part*{References}%
-\addcontentsline{toc}{part}{References}%
 \bibliography{tex/references}
 \end{document}
 
