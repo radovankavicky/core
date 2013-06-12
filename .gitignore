@@ -1,4 +1,6 @@
 VERSION.tex
+CITATION.bib
+*.tmp
 
 pdf/
 auto/

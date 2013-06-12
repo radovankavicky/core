@@ -24,25 +24,37 @@ latexdeps := tex/tufte-handout.cls tex/tufte-common.def \
 
 dateinfo := "\\date{$(shell git show -s --date=short --format=%cd HEAD), \
   version $(shell git describe --tags)}"
+citeinfo := "@Book{eflp-core, \n\
+  author =	{{EFLP}}, \n\
+  title =	{Econometrics Core}, \n\
+  publisher =	{Econometrics Free Library Project, \n\
+		 \url{http://www.econometricslibrary.org}}, \n\
+  year =	$(shell git show -s --date=short --format=%cd | head -c 4), \n\
+  note =	{Version $(shell git describe --tags).}}}"
 
 texts = probability.pdf finitesample.pdf linearregression.pdf asymptotics.pdf
 support = LICENSE_standalone.pdf AUTHORS_standalone.pdf
 
 all: $(texts) $(support)
 
-ver:
+ver:	
 	echo $(dateinfo) > VER.tmp
 	if diff --brief VERSION.tex VER.tmp; then rm VER.tmp; \
-  else mv -f VER.tmp VERSION.tex; fi
+	  else mv -f VER.tmp VERSION.tex; fi
+	echo -e $(citeinfo) > CIT.tmp
+	if diff --brief CITATION.bib CIT.tmp; then rm CIT.tmp; \
+	  else mv -f CIT.tmp CITATION.bib; fi
 VERSION.tex:
 	echo $(dateinfo) > $@
+CITATION.bib:
+	echo -e $(citeinfo) > $@
 
 probability.pdf: $(wildcard tex/probability/*.tex)
 finitesample.pdf: $(wildcard tex/finitesample/*.tex)
 asymptotics.pdf: $(wildcard tex/asymptotics/*.tex)
 linearregression.pdf: $(wildcard tex/linearregression/*.tex)
 
-$(texts): %.pdf: %.tex $(latexdeps) tex/references.bib
+$(texts): %.pdf: %.tex $(latexdeps) tex/references.bib CITATION.bib
 	$(latexmk) $(latexmkFLAGS) $< && $(latexmk) -c $<
 
 $(support): %_standalone.pdf: %_standalone.tex %.tex $(latexdeps)
