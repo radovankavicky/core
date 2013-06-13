@@ -134,10 +134,10 @@
 \item The goal is going to be getting new test statistics
 \item To do that, we're going to work out an estimator for the
        asymptotic variance-covariance matrix, $Q^{-1} Ω Q^{-1}$
-\item Derived by \citet{Whi_1980}
+\item Derived by \citet{Whi80}
 \item We can replace $s²(X'X)^{-1}$ with this new estimator to get
        aysmptotically valid versions of the t-test and the F-test
-\item reading is 4.3 of \citet{KlZ_2008}.
+\item reading is 4.3 of \citet{KZ08}.
 \end{itemize}
 
 \paragraph{split up the sandwich}
@@ -231,7 +231,7 @@ We can rewrite the difference:
 \section{testing for heteroskedasticity}
 
 \begin{itemize}
-\item reading is 8.5 of \citet{Gre_2011} and 4.2 of \citet{KlZ_2008}
+\item reading is 8.5 of \citet{Gre12} and 4.2 of \citet{KZ08}
 \item we're not going to work through the proofs of this section, but
       we will explain the intuition behind them
 \end{itemize}
@@ -295,7 +295,7 @@ We can rewrite the difference:
 
 \subsection{implementation of the test}
 
-     Statistic is quite easy to implement (derived by \citealp{Whi_1980})
+     Statistic is quite easy to implement (derived by \citealp{Whi80})
 
 \begin{enumerate}
 \item Regress $y_i$ on $x_i$ and save the OLS residuals.
@@ -307,7 +307,7 @@ We can rewrite the difference:
 
 \section{Generalized Least Squares}
 
-Reading is \citet[8.3]{Gre_2011}
+Reading is \citet[8.3]{Gre12}
 
 \subsection{motivation}
 
