@@ -11,6 +11,10 @@ Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
 copy of the license is included in the file LICENSE.tex and is also
 available online at <http://www.gnu.org/copyleft/fdl.html>.
 
+### Version 0.2.1
+* Converts LaTeX characters to Unicode where possible.
+* Reduces TOC depth
+
 Version 0.2.0
 -------------
 * Removes most of the lecture-notes cruft from the documents;
