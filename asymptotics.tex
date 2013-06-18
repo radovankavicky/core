@@ -4,7 +4,6 @@
 \title{Econometrics Core: Asymptotic Statistics}
 
 \begin{document}
-\pagenumbering{roman}
 \maketitle
 
 \bigskip\noindent%
@@ -35,9 +34,6 @@ Please cite this document as
 The Bib\!\TeX\ record is provided for your convenience.
 
 \tableofcontents
-\newpage
-\pagenumbering{arabic}
-\setcounter{page}{1}
 
 \include{tex/asymptotics/law_of_large_numbers}
 \include{tex/asymptotics/central_limit_theorem}
@@ -51,6 +47,7 @@ The Bib\!\TeX\ record is provided for your convenience.
 % \include{LICENSE}  % you are distributing this document on its own.
 
 \part*{References}%
+addcontentsline{toc}{part}{References}
 \bibliography{tex/references,CITATION}
 \end{document}
 
