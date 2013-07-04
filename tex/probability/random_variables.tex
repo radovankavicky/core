@@ -12,7 +12,7 @@
 \part*{Random variables, distributions, and densities}%
 \addcontentsline{toc}{part}{Random variables, distributions, and densities}
 
-\section{Random variables as we might wish to teach them to
+\section{Random variables as we might wish to introduce them to
   undergraduates.}
 
 \begin{itemize}
@@ -59,14 +59,20 @@
   \item $∫_{-∞}^∞ f(x) dx = 1$.
   \end{enumerate}
   We can again build a probability function from the density function.
-  For any closed interval $[a, b]$, we can define
+  For any interval $(a, b]$,\sidenote{Remember, $(a,b] = \{x ∈ \RR ∣ a
+    < x ≤ b\}$.  We're using intervals that are open on the left and
+    closed on the right because they form a disjoint partition of the
+    real line.  Unlike open intervals, we have $(a,b] ∪ (b,c] = (a,c]$
+    (note that $(a,b) ∪ (b,c) ≠ (a,c)$) and unlike closed intervals,
+    $(a,b] ∩ (b,c] = ∅$ (whereas $[a,b] ∩ [b,c] = \{b\}$).} we can
+  define
   \begin{equation*}
-    \Pr[ X ∈ [a,b] ] = ∫_a^b f(x) dx,
+    \Pr[ X ∈ (a,b] ] = \lim_{c ↓ a} ∫_c^b f(x) dx,
   \end{equation*}
   and for any set $A$ that can be written as the union of a countable
-  number of disjoint intervals, $A = ⋃_i [a_i, b_i]$, we can define
+  number of disjoint intervals, $A = ⋃_i (a_i, b_i]$, we can define
   \begin{equation*}
-    \Pr[ X ∈ A ] = \sum_i ∫_{a_i}^{b_i} f(x) dx.
+    \Pr[ X ∈ A ] = \sum_i \Pr[ X ∈ (a_i, b_i] ]
   \end{equation*}
 
 \item It's natural to want to go even further, and define for any set
@@ -91,7 +97,7 @@
     well, and we should have $\Pr[X ∉ B] = 1 - \Pr[X ∈ B]$.  Since $X
     ∉ B$ is equivalent to $X ∈ B^c$, $B^c$ must be in \BB\ whenever
     $B$ is.
-  \item If $B₁$, $B₂$, $B₃$,… make up a countable sequence of sets and
+  \item If $B₁$, $B₂$, $B₃$,... make up a countable sequence of sets and
     we can define $\Pr[X ∈ B_i]$ for each of them, we should be able
     to define $\Pr[X ∈ ⋃_i B_i]$ and $\Pr[X ∈ ⋂_i B_i]$.  So \BB\ must
     be closed under countable unions and intersections.
@@ -105,9 +111,9 @@
 
 \item The integral we're interested is a little different than the
   usual Riemann integral that you've seen in introductory calculus
-  classes, but not in any way that's going to matter in practice.  The
-  key difference is that it works by taking different points in the
-  function's height and mapping them back to Borel sets in the
+  classes, but not in any way that's going to matter for our purposes.
+  The key difference is that it works by taking different points in
+  the function's height and mapping them back to Borel sets in the
   function's domain, while the Riemann integral works by taking
   different points in the function's domain and mapping them to the
   height.\sidenote{Remember, to get the Riemann integral of a function
@@ -156,9 +162,8 @@
 \item The key proprerty, then, for this integral to work is that
   $g^{-1}(\BB)$ itself be a σ-algebra that is contained in \BB.  Such
   a function is called \emph{Borel-measurable}.  We're going to
-  restrict our focus to densities $f$ that are Lebesgue measurable,
-  which are Lebesgue-measurable, so we can always write probabilities
-  as
+  restrict our focus to densities $f$ that are Lebesgue measurable, so
+  we can always write probabilities as
   \begin{equation*}
     \Pr[X ∈ B] = ∫_B f(x) dx
   \end{equation*}
@@ -192,6 +197,30 @@
   This lets us write $\Pr[b ∈ B] = ∫_B f_b(x) dx$ for any Borel-set
   $B$, which is what we want.\sidenote{You should work through all of
     the steps necessary to prove this to yourself.}
+
+\item The probabilities for a given random variable $X$ can be
+  summarized by its \emph{cumulative distribution function} (CDF)
+  which is typically written as $F_X$ and is defined as
+  \begin{equation*}
+    F_x(c) ≡ \Pr[X ≤ c] = \Pr[X ∈ (∞, c]]
+  \end{equation*}
+  for any $c ∈ \RR$.  The CDF of a random variable always exists and
+  satisfies
+  \begin{enumerate}
+  \item $\lim_{x → -∞} F_X(x) = 0$
+  \item $\lim_{x → ∞} F_X(x) = 1$
+  \item $F_X$ is non-decreasing in $x$.
+  \item $F_X$ is right-continuous.  For every number $x₀$,
+    $\lim_{x ↓ x₀} F(x) = F(x₀)$.
+  \end{enumerate}
+
+  You should verify the property $\Pr[X ∈ (a, b]] = F_X(b) - F_X(a)$
+  as homework.
+
+\item (Misc. definition that needs to go somewhere) The \emph{support}
+  of a random variable is the set of points where its density is
+  positve: $\{x ∈ \RR ∣ f_X(x) > 0\}$
+
 \end{itemize}
 
 \section{Sigma-algebras as information sets}
@@ -219,6 +248,49 @@
   it satisfies the rules we discussed above.  The elements of $Ω$ are
   usually refered to as \emph{events}.
 
+  Since set theory plays a large role in this material,
+  Table~\ref{tab:1} lists the definitions of common set operations.
+
+\begin{table*}[h]
+\begin{tabular}{lp{4in}}
+  \toprule
+  \multicolumn{2}{c}{Finite Set Operations} \\
+  \midrule
+  Union        & $A₁ ∪ A₂ ≡ \{x ∈ S : x ∈ A₁ \text{ or } x∈ A₂\}$ \\
+  Intersection & $A₁ ∩ A₂ ≡ \{x ∈ S : x ∈ A₁ \text{ and } x ∈ A₂\}$ \\
+  Subset       & $A₁ ⊂ A₂$ if $A₁ ∩ A₂ = A₁$ \\
+  Equality     & $A₁ = A₂$ if $A₁ ⊂ A₂$ and $A₂ ⊂ A₁$ \\
+  Complement   & $A₁^c ≡ \{x ∈ S : x ∉ A₁\}$ \\
+  Difference   & $A₁ ∖ A₂ ≡ \{x ∈ S : x ∈ A₁ \text{ and } x ∉ A₂\}$ \\
+  Symmetric difference & $A₁ Δ A₂ ≡ (A₁ ∖ A₂) ∪ (A₂ ∖ A₁)$ \\
+  \midrule
+  \multicolumn{2}{c}{Infinite Set Operations (can be defined for uncountable index sets as well)} \\
+  \midrule
+  Union        & $⋃_{k=1}^∞ A_k ≡ \{x ∈ S : x ∈ A_k$ for at least one $k ∈ 1,2,...\}$ \\
+  Intersection & $⋂_{k=1}^∞ A_k ≡ \{x ∈ S : x ∈ A_k$ for all $k ∈ 1,2,...\}$ \\
+  Infimum      & $\inf_{k ≥ n} A_k ≡ ⋂_{k=n}∞ A_k$ \\
+  Supremum     & $\sup_{k ≥ n} A_k ≡ ⋃_{k=n}^∞ A_k$ \\
+  lim inf      & $\liminf_{n → ∞} A_n ≡ ⋃_{n=1}^∞ ⋂_{k=n}^∞ A_k$ \\
+  lim sup      & $\limsup_{n → ∞} A_n ≡ ⋂_{n=1}^∞ ⋃_{k=n}^∞ A_k$ \\
+  \midrule
+  \multicolumn{2}{c}{Other definitions} \\
+  \midrule
+  limit 
+  & Suppose that $A$, $A₁$, $A₂$,... is a sequence of subsets of $S$ and that $\limsup_{n → ∞} A_n = \liminf_{n → ∞} A_n = A$.
+  Then $A$ is the limit of $\{A_n\}$. \\
+  Disjoint 
+  & $A₁$ and $A₂$ are disjoint if $A₁ ∩ A₂ = ∅$. \\
+  Pairwise disjoint 
+  & $A₁, A₂, …$ are pairwise disjoint if $A_i ∩ A_j = ∅$ for all $i$ and $j$ such that $i ≠ j$. \\
+  Partition & If $A₁,A₂,…$ are pairwise disjoint and $⋃_{i=1}^∞ A_i = S$ then $\{A_i\}$ forms a partition of $S$. \\
+  Power set & The power set of $S$, denoted $\mathcal{P}(S)$, is the set of all subsets of $S$.
+  $\mathcal{P}(S) ≡ \{x : x ⊂ S\}$ \\
+\bottomrule
+\end{tabular}
+  \caption{Collection of set operations; let $A₁$, $A₂$, $A₃$,... be subsets of another set $S$.}
+  \label{tab:1}
+\end{table*}
+
 \item %
   \begin{defn} A collection $Ω$ of subsets of $S$ is a
     \emph{σ-algebra} if it satisfies the following
@@ -230,14 +302,50 @@
     \end{enumerate}
   \end{defn}
 
-\item Motivate general probability measures now!
+\item A pretty typical first example for σ-algebras involves coin
+  flips.  But we're economists, so let's use a game.
+  \begin{ex}[Matching pennies]
+    For \emph{matching pennies}, there are two players (A and B) and
+    each has a coin.  Each player chooses ``Heads'' or ``Tails''
+    (secretly) and then they simultaneously show each other their
+    coin.  If the coins match, player A wins and if they don't, player
+    B wins.
 
-\item %
+    Now, let's model a single round of the game.  The sample space is
+    the set $S = \{HH, HT, TH, TT\}$.\sidenote{Where, for example,
+      \emph{HT} means that player A plays ``Heads'' and player B plays
+      ``Tails''} There are, of course, several σ-algebras that can be
+    constructed on this sample space.  For example, the σ-algebra that
+    represents whether or not A plays ``Heads'' is
+    \begin{equation*}
+      \{∅, S, \{HH,HT\}, \{TH,TT\}\}
+    \end{equation*}
+    and the σ-algebra representing whether or not A wins is
+    \begin{equation*}
+      \{∅, S, \{HH,TT\}, \{TH,HT\}\}.
+    \end{equation*}
+    We can form the second σ-algebra by starting with the event ``A
+    wins'' (i.e. the set $\{HH, TT\}$), and the sample space $S$, and
+    then adding more sets as necessary so that the σ-algebra is closed
+    under complements and countable unions.\sidenote{You should verify
+      as an exercise that both of these sets are actually σ-algebras.}
+  \end{ex}
+
+\item This example gets at why we can view a σ-algebra as an
+  \emph{information set}.  The σ-algebra, ``A plays Heads,'' contains
+  all of the information we learn if we learn whether or not the event
+  ``A plays Heads'' has happened.\sidenote{I.e., we learn whether or
+    not A played Heads, and whether or not A played Tails.}  We might
+  also view this as the information available to player A after
+  choosing H or T, but before revealing his or her choice to B.
+
+\item Now we can formally define a probability measure that obeys the
+  same rules as before.
   \begin{defn} A function $\Pr$ is a \emph{probability measure} on a
     σ-algebra $Ω$ of subsets of $S$ if
     \begin{enumerate}
-    \item $\Pr: Ω ↦ [0,1]$
-    \item if $A₁$, $A₂$,… are disjoint events in $Ω$ then
+    \item $\Pr: Ω → [0,1]$
+    \item if $A₁$, $A₂$,... are disjoint events in $Ω$ then
       $\Pr(⋃_{i=1}^∞ A_i) = ∑_{i=1}^∞ \Pr(A_i)$
     \item $\Pr(S) = 1$.
     \end{enumerate}
@@ -247,142 +355,95 @@
   probability measure $\Pr$ as a \emph{probability space}, $(S, Ω,
   \Pr)$.
 
+\item Let's go back to the example,
+  \begin{ex}[Matching pennies, continued]
+    We can define strategies through the probability measure on a
+    generating class, then use the properties over countable unions
+    and intersections to extend it to the rest of the σ-algebra.
+
+    We'll suppose that A plays a mixed strategy and chooses ``Heads''
+    with probability 1/3 (and Tails with probability 2/3), and that B
+    plays ``Heads'' with probability 4/5.  We'll also assume that
+    neither player is cheating, so these choices are independent of
+    each other.  This means that we have
+    \begin{align*}
+      \Pr \{HH\} &= (1/3) × (4/5) = 4/15 \\
+      \Pr \{HT\} &= (1/3) × (1/5) = 1/15 \\
+      \Pr \{TH\} &= (2/3) × (4/5) = 8/15 \\
+      \Pr \{TT\} &= (2/3) × (1/5) = 2/15.
+    \end{align*}
+    We can write any other event as the union of these sets, so this
+    lets us calculate the probability of any event in the game.  For
+    example, the event, \emph{A wins} is the set $\{HH,TT\}$, and
+    \begin{equation*}
+      \Pr \{HH, TT\} = \Pr \{HH\} + \Pr \{TT\} = (4/15) + (2/15) = 6/15
+    \end{equation*}
+    (these strategies are obviously not a Nash equilibrium).
+  \end{ex}
 \end{itemize}
 
-\paragraph{Matching pennies example:}
+\section{Conditioning}
 
 \begin{itemize}
-\item Use ``matching pennies'' as an example
-\begin{itemize}
-\item outcomes: HH, HT, TH, TT
-\item sample space is \{HH, HT, TH, TT\}
-\end{itemize}
-\item Define strategies here too:
-\begin{itemize}
-\item Prob A plays H is 1/3
-\item Prob B plays H is 4/5
-\end{itemize}
-\item events: subsets of \{HH, HT, TH, TT\}
-\begin{itemize}
-\item Ie, the event that player B wins is \{HT, TH\}
-\end{itemize}
-\item Want to assign probabilities to events using the strategy above
-\begin{itemize}
-\item Assign to a smaller set of manageable events (generating
-          class) and then use rules to extend to other events.
-\begin{itemize}
-\item Generating class: \{{HH\}, \{HT\}, \{TH\}, \{TT\}}
-\begin{description}
-\item[.] Note this \textbf{isn't} a sigma field
-\end{description}
-\end{itemize}
-\item Just going by what we wrote earlier:
-\begin{description}
-\item[.] P(A plays heads) = 1/3 = P(\{HH, HT\}) = P(\{HH\}) + P(\{HT\})
-\item[.] P(A plays tails) = 2/3 = P(\{TH, TT\}) = P(\{TH\}) + P(\{TT\})
-\item[.] P(B plays heads) = 4/5 = P(\{HH, TH\}) = P(\{HH\}) + P(\{TH\})
-\item[.] P(B plays tails) = 1/5 = P(\{HT, TT\}) = P(\{HT\}) + P(\{TT\})
-\end{description}
-\item Four unknowns, four equations; solve to get probabilities:
-\begin{itemize}
-\item P(\{HH\}) = 4/15
-\item P(\{HT\}) = 1/15
-\item P(\{TH\}) = 8/15
-\item P(\{TT\}) = 2/15
-\end{itemize}
-\end{itemize}
-\item Sigma fields:
-\begin{itemize}
-\item Player A's info set: \{S, $∅$, \{HH, HT\}, \{TH, TT\}\}
-\item Player B's info set: \{S, $∅$, \{HH, TH\}, \{HT, TT\}\}
-\item Sigma field denoting whether or not A wins: \{S, $∅$, \{HH,
-  TT\}, \{HT, TH\}\}
-\item Power set is a sigma field too
-\end{itemize}
-\end{itemize}
 
-\section{Set Theory and Probability Spaces}
-
-\subsection{Key concepts}
-
-\begin{itemize}
-\item Probability space, a mathematical model for a statistical experiment
-\item Random variable, a map that assigns numbers to outcomes in the
-       statisical experiment
-\end{itemize}
-
-\subsection{Table of set theory results}
-
-This stuff is kind of important for working with probability spaces,
-but I don't enjoy lecturing on it.  Here you go!  Learn!
-
-Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
-
-\begin{fullwidth}
-\begin{tabular}{lp{4in}}
-  \toprule
-  \multicolumn{2}{c}{Finite Set Operations} \\
-  \midrule
-  Union        & $A₁ ∪ A₂ ≡ \{x ∈ S : x ∈ A₁ \text{ or } x∈ A₂\}$ \\
-  Intersection & $A₁ ∩ A₂ ≡ \{x ∈ S : x ∈ A₁ \text{ and } x ∈ A₂\}$ \\
-  Subset       & $A₁ ⊂ A₂$ if $A₁ ∩ A₂ = A₁$ \\
-  Equality     & $A₁ = A₂$ if $A₁ ⊂ A₂$ and $A₂ ⊂ A₁$ \\
-  Complement   & $A₁^c ≡ \{x ∈ S : x ∉ A₁\}$ \\
-  Difference   & $A₁ ∖ A₂ ≡ \{x ∈ S : x ∈ A₁ \text{ and } x ∉ A₂\}$ \\
-  Symmetric difference & $A₁ ▵ A₂ ≡ (A₁ ∖ A₂) ∪ (A₂ ∖ A₁)$ \\
-  \midrule
-  \multicolumn{2}{c}{Infinite Set Operations (can be defined for uncountable index sets as well)} \\
-  \midrule
-  Union        & $⋃_{k=1}^∞ A_k ≡ \{x ∈ S : x ∈ A_k$ for at least one $k ∈ 1,2,…\}$ \\
-  Intersection & $⋂_{k=1}^∞ A_k ≡ \{x ∈ S : x ∈ A_k$ for all $k ∈ 1,2,…\}$ \\
-  Infimum      & $\inf_{k ≥ n} A_k ≡ ⋂_{k=n}∞ A_k$ \\
-  Supremum     & $\sup_{k ≥ n} A_k ≡ ⋃_{k=n}^∞ A_k$ \\
-  lim inf      & $\liminf_{n → ∞} A_n ≡ ⋃_{n=1}^∞ ⋂_{k=n}^∞ A_k$ \\
-  lim sup      & $\limsup_{n → ∞} A_n ≡ ⋂_{n=1}^∞ ⋃_{k=n}^∞ A_k$ \\
-  \midrule
-  \multicolumn{2}{c}{Other definitions} \\
-  \midrule
-  limit 
-  & Suppose that $A, A₁, A₂, …$ is a sequence of subsets of $S$ and that $\limsup_{n → ∞} A_n = \liminf_{n → ∞} A_n = A$.
-  Then $A$ is the limit of $\{A_n\}$. \\
-  Disjoint 
-  & $A₁$ and $A₂$ are disjoint if $A₁ ∩ A₂ = ∅$. \\
-  Pairwise disjoint 
-  & $A₁, A₂, …$ are pairwise disjoint if $A_i ∩ A_j = ∅$ for all $i$ and $j$ such that $i ≠ j$. \\
-  Partition & If $A₁,A₂,…$ are pairwise disjoint and $⋃_{i=1}^∞ A_i = S$ then $\{A_i\}$ forms a partition of $S$. \\
-  Power set & The power set of $S$, denoted $\mathcal{P}(S)$, is the set of all subsets of $S$.
-  $\mathcal{P}(S) ≡ \{x : x ⊂ S\}$ \\
-\bottomrule
-\end{tabular}
-\end{fullwidth}
-
-\paragraph{conditioning on an event}
-
-\begin{itemize}
 \item Often, knowing that one event happens tells us something about
-        how likely other events are
-\begin{itemize}
-\item Say we know A plays heads; what's the prob. that A wins?
-\item In this example, it's obviously the probability that B plays
-          heads (4/5), but we can get a formula as well
-\end{itemize}
-\item Definition \citep[Definition 1.3.2]{CB02}: if \emph{A} and
-  \emph{B} are events in \emph{S}, and $P(B) > 0$, then ``the
-  conditional probability of A given B'', written as $P(A ∣ B)$, is
-        \[P(A ∣ B) = \frac{P(A ∩ B)}{P(B)}\]
-\begin{itemize}
-\item note: $A$ and $B$ are mutually exclusive means $P(A ∩
-          B) = 0$, and we have $P(A ∣ B) = 0$ as well.
-\item obviously, $P(B ∣ B) = 1$
-\item verify that it's a probability measure.
-\end{itemize}
-\item Bayes's Rule \citep[Theorem 1.3.5, which is more complicated]{CB02}:
-        Let $A$ and $B$ be any sets in $S$ with positive probability.
-        Then \[P(A ∣ B) = P(B ∣ A) P(A) / P(B)\]
-\item Continue Example from earlier:
-        \[P(A wins | A plays heads) = P({HH, TT} | {HH, HT}) =
-        \frac{P(\{HH, TT\} ∩ \{HH, HT\})}{P(\{HH, HT\})} =
-        \frac{4/15}{1/3} = 4/5\]
+  how likely other events are.  In the Matching Pennies example we've
+  used above, the probability that A wins is $6/15$.  If we know that
+  A has played heads, we know that A wins if B plays heads too, which
+  happens with probability $4/5$.
+
+\item This was an example of conditioning on an event (e.g. the event
+  that A plays heads).  The general formula for working out
+  probabilities conditional on an event is as follows,
+
+  \begin{defn}
+    If $A$ and $B$ are events in some sample space $S$ and $\Pr[B] ≥
+    0$, the \emph{conditional probability of $A$ given $B$} is written
+    as $\Pr(A ∣ B)$ and defined to be
+    \begin{equation*}
+      \Pr(A ∣ B) ≡ \Pr(A ∩ B) / \Pr(B).
+    \end{equation*}
+    If $\Pr(B) = 0$ then we can define $\Pr(A ∣ B)$ arbitrarily to be
+    zero.
+  \end{defn}
+
+  The equivalent formula
+  \begin{equation*}
+    \Pr(A ∩ B) = \Pr(A ∣ B) \Pr(B)
+  \end{equation*}
+  may make the interpretation easier: the probability that events $A$
+  and $B$ happen is equal to the probability that $B$ happens times
+  the probability that $A$ happened, knowing that $B$ already
+  happened.\sidenote{Don't take the word ``already'' literally, since
+    there is not time ordering implied by these formulas.}
+
+\item Add diagram with conditional densities.
+
+\item Observe that if $A$ and $B$ are mutually exclusive, then $\Pr(A
+  ∩ B) = 0$, and so $\Pr(A ∣ B) = 0$.
+
+\item We can use the definitions and the simple observation that
+  \begin{equation*}
+    \Pr(A ∣ B) \Pr(B) = \Pr(B ∣ A) \Pr(A)
+  \end{equation*}
+  to justify \emph{Bayes's Rule}:
+  \begin{thm}[Bayes's Rule]
+    If $A$ and $B$ are sets in $S$ that have positive probability, then
+    \begin{equation*}
+      \Pr(A ∣ B) = \Pr(B ∣ A) \Pr(A) / \Pr(B).
+    \end{equation*}
+  \end{thm}
+
+\item We can generalize the idea of conditioning on a particular event
+  to the idea of conditioning on an entire σ-field (information set).
+  In the Matching Pennies example, we might want to know the
+  probability of A winning given A's move.  This is now going to be a
+  random variable: on the event ``A plays H'' the conditional
+  probability takes on one value and on the event ``A plays T'' it
+  takes on another value.
+
+  The way to write this is $\Pr[A wins ∣ Ω]$ where $Ω$ is a σ-field.
+
 \end{itemize}
 
 \paragraph{independence}
@@ -439,109 +500,6 @@ Let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$
         ∈ \mathbb{B}$
 \end{itemize}
 
-\section{Distribution functions}
-
-\subsection{definition}
-
-     The cumulative distribution function of a random variable $X$,
-     denoted $F_X$, is defined by $F_X(x) = P[X ≤ x]$ for all x.
-
-\subsection{properties}
-
-     The distribution function of a random variable always exists and
-     satisfies
-\begin{enumerate}
-\item $\lim_{x → -∞} F_X(x) = 0$
-\item $\lim_{x → ∞} F_X(x) = 1$
-\item $F_X$ is non-decreasing in $x$.
-\item $F_X$ is right-continuous.  For every number $x₀$, $\lim_{x
-        \downarrow x₀} F(x) = F(x₀)$
-\end{enumerate}
-
-\subsection{additional definitions}
-
-     A random variable is \emph{discrete} if its cdf is a step function and
-     is \emph{continuous} if its cdf is continuous.  (our previous example is
-     neither discrete nor continuous)
-
-\subsection{basic property}
-
-\begin{itemize}
-\item $\Pr[X ∈ (a, b]] = F_X(b) - F_X(a)$
-\end{itemize}
-
-\section{Densities}
-
-\subsection{motivation}
-
-     The cdf is awkward to work with directly.  Often we really want to
-     know something like the probability that a random variable $X$
-     equals a specific value.
-
-\subsection{discrete rv}
-
-     For discrete rv, talking about the probability that the rv takes a
-     specific value is meaningful.
-
-\paragraph{definition of probability mass function}
-
-\begin{itemize}
-\item Definition: the probability mass function of a discrete rv
-        $X$, denoted $f_X(x)$, is defined as $P(X = x)$ for all $x$.
-\item I'm going to call these ``densities'' from now on; you should know
-        this terminology for the future, though.
-\end{itemize}
-
-\paragraph{relationship between pmf and distribution}
-
-      The mass function and the distribution function are related by:
-      \[F_X(x) = ∑_{y ≤ x} f_X(y)\]
-
-\subsection{continuous random variables.}
-
-\begin{itemize}
-\item The probability that a continuous r.v. takes a specific value
-       is zero:
-\begin{itemize}
-\item suppose $\Pr[X = x] > \ep$ for ever $x ∈ [0,1]$.
-\item Then
-  \[\Pr[X=x₁ ∪ X = x₂ ∪ ⋯ ∪ X = x_n] = ∑_{i=1}^n \Pr[X = x_i] = n \ep\]
-  for distinct $x₁,...,x_n$
-\item if $\ep > 0$ then $\Pr[X = x₁ ∪ ... ∪ X = x_n] > 1$ for all
-  $n > 1/\ep$, which is a contradiction
-\end{itemize}
-\item The relationship between the distribution function and the mass
-  function should remind you of \[ F_X(x) = ∫_{ -∞}^{x} f_X(y) dy.\]
-\item We're going to take this relationship as our starting point for
-       the continuous random variables
-\end{itemize}
-
-\paragraph{definition}
-
-      The probability density function (pdf) of a continuous random
-      variable $X$ with distribution $F_X(·)$ is the function $f_X$
-      that satisfies \[ F_X(x) = ∫_{-∞}^{x} f_X(y) dy\]
-
-\paragraph{notes}
-
-\begin{itemize}
-\item if $F$ is differentiable, we can get $f$ by differentiation.
-\item continuous random variables take on any particular value
-        with probability zero
-\item if you're comfortable using Dirac's delta function, this second
-        definition encompasses both the continuous and discrete case
-        (which is why I'll call both cases `pdfs').
-\item The \underline{support} of a random variable is the set of points where
-        its density is positve: $\{x ∈ \RR ∣ f_X(x) > 0\}$
-\end{itemize}
-
-\subsection{properties of densities}
-
-\begin{itemize}
-\item $f_X(x) ≥ 0$ for all $x$
-\item for discrete rv: $∑_x f_X(x) = 1$
-\item for continuous rv: $∫_{-∞}^{∞} f_X(y) dy = 1$
-\end{itemize}
 
 \subsection{transformations}
 
