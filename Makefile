@@ -23,7 +23,7 @@ latexdeps := tex/tufte-handout.cls tex/tufte-common.def \
   tex/common_preamble.tex VERSION.tex
 
 dateinfo := "\\date{$(shell git show -s --date=short --format=%cd HEAD), \
-  version $(shell git describe --tags)}"
+  $(shell git describe --tags)}"
 citeinfo := "@Book{eflp-core, \n\
   author =	{{EFLP}}, \n\
   title =	{Econometrics Core}, \n\
