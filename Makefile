@@ -35,7 +35,7 @@ citeinfo := "@Book{eflp-core, \n\
 texts = probability.pdf finitesample.pdf linearregression.pdf asymptotics.pdf
 support = LICENSE_standalone.pdf AUTHORS_standalone.pdf
 
-all: $(texts) $(support)
+all: $(texts) $(support) | ver
 
 ver:	
 	echo $(dateinfo) > VER.tmp
@@ -54,10 +54,10 @@ finitesample.pdf: $(wildcard tex/finitesample/*.tex)
 asymptotics.pdf: $(wildcard tex/asymptotics/*.tex)
 linearregression.pdf: $(wildcard tex/linearregression/*.tex)
 
-$(texts): %.pdf: %.tex $(latexdeps) tex/references.bib CITATION.bib
+$(texts): %.pdf: %.tex $(latexdeps) tex/references.bib CITATION.bib | ver
 	$(latexmk) $(latexmkFLAGS) $< && $(latexmk) -c $<
 
-$(support): %_standalone.pdf: %_standalone.tex %.tex $(latexdeps)
+$(support): %_standalone.pdf: %_standalone.tex %.tex $(latexdeps) | ver
 	$(latexmk) $(latexmkFLAGS) -bibtex- $< && $(latexmk) -c $<
 
 clean:
