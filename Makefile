@@ -41,13 +41,13 @@ ver:
 	echo $(dateinfo) > VER.tmp
 	if diff --brief VERSION.tex VER.tmp; then rm VER.tmp; \
 	  else mv -f VER.tmp VERSION.tex; fi
-	echo $(citeinfo) > CIT.tmp
+	echo -e $(citeinfo) > CIT.tmp
 	if diff --brief CITATION.bib CIT.tmp; then rm CIT.tmp; \
 	  else mv -f CIT.tmp CITATION.bib; fi
 VERSION.tex:
 	echo $(dateinfo) > $@
 CITATION.bib:
-	echo $(citeinfo) > $@
+	echo -e $(citeinfo) > $@
 
 probability.pdf: $(wildcard tex/probability/*.tex)
 finitesample.pdf: $(wildcard tex/finitesample/*.tex)
