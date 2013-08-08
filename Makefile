@@ -28,7 +28,7 @@ citeinfo := "@Book{eflp-core, \n\
   author =	{{EFLP}}, \n\
   title =	{Econometrics Core}, \n\
   publisher =	{Econometrics Free Library Project, \n\
-		 \url{http://www.econometricslibrary.org}}, \n\
+		 \url{www.econometricslibrary.org}}, \n\
   year =	$(shell git show -s --date=short --format=%cd | head -c 4), \n\
   note =	{Version $(shell git describe --tags).}}}"
 
