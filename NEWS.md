@@ -11,6 +11,11 @@ Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
 copy of the license is included in the file LICENSE.tex and is also
 available online at <http://www.gnu.org/copyleft/fdl.html>.
 
+### Version 0.2.2
+* Generate bibtex entry for the textbook and add to the book's
+  preamble automatically.
+* Remove the ugly 'http://' from the front of URLs.
+
 ### Version 0.2.1
 * Converts LaTeX characters to Unicode where possible.
 * Reduces TOC depth
