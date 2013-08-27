@@ -22,10 +22,20 @@ latexmkFLAGS := -xelatex -silent
 latexdeps := tex/tufte-handout.cls tex/tufte-common.def \
   tex/common_preamble.tex VERSION.tex
 
+# I'm still not sure the best way to do author information; I'm much
+# more concerned in the long run about how different attributation
+# styles would make someone more or less likely to contribute to an
+# existing text or to license an existing draft.  For now, there's
+# only one author, so I'll put myself as the author.  If someone else
+# contributes any edits, etc., I'll change it to {Gray Calhoun and
+# EFLP}.  If anyone wants to contribute a lot of original material and
+# wants named authorship, please email the mailing list so we can
+# discuss merging projects.
+
 dateinfo := "\\date{$(shell git show -s --date=short --format=%cd HEAD), \
   $(shell git describe --tags)}"
 citeinfo := "@Book{eflp-core, \n\
-  author =	{{EFLP}}, \n\
+  author =	{Gray Calhoun}, \n\
   title =	{Econometrics Core}, \n\
   publisher =	{Econometrics Free Library Project, \n\
 		 \url{www.econometricslibrary.org}}, \n\
