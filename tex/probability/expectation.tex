@@ -195,6 +195,88 @@
 \end{itemize}
 \end{itemize}
 
+\section{Multivariate moments}
+\subsection{Expectation for a random vector}
+
+\begin{itemize}
+\item $\E X = (\E X₁,...,\E X_k)$
+\item $\E g(X₁,...,X_k) = ∫ g(x₁,...,x_k) f_X(x₁,...,x_k) dx₁ ⋯ dx_k$
+\item If $X$ and $Y$ are independent with finite expectations,
+  $\E XY = \E X \E Y$ (proof automatic).
+\end{itemize}
+
+\subsection{second moments}
+
+\paragraph{Variance}
+\begin{itemize}
+\item for vectors, $\var(X) = \E(X - \E X) (X - \E X)'$
+\begin{itemize}
+\item this is positive semi definite
+\begin{itemize}
+\item for any vector $α$, $α'\var(X)α ≥ 0$
+\item proof: 
+  \begin{align*}
+    α'\var(X)α &= α' \E((X - \E X)(X - \E X)') α \\
+    &= \E α'(X - \E X)(X - \E X)'α \\
+    &= \E (α - \E(α'X))² \\
+    &= \var(α'X) ≥ 0
+  \end{align*}
+\end{itemize}
+\item Let $X$ be a random $k$-vector with vcv $Σ$ and let $A$ be a
+  deterministic $j × k$ matrix.  Then $A X$ has vcv $A Σ A'$.
+\end{itemize}
+\end{itemize}
+
+\paragraph{Covariance}
+\begin{itemize}
+\item $\cov(X,Y) = \E(X - \E X) (Y - \E Y) = \E XY - \E X \E Y$
+\begin{itemize}
+\item obviously, $\cov(X,X) = \var(X)$
+\end{itemize}
+\item diagonal elements of vcv matrix of $X$ are the variances of individual elements of $X$
+\item we can see that the off-diagonal elements are the covariances
+\item for vectors $X$ and $Y$, $\cov(X,Y) = \E(X - \E X)(Y - \E Y)'$
+\item $\var(X)$ is positive semi definite
+\begin{itemize}
+\item i.e. for any nonzero vector $α$, $α'\var(X)α ≥ 0$
+\item proof:
+  \begin{align*}
+   α'\var(X) α
+   &= α' \E((X - \E X)(X - \E X)') α \\
+   &= \E(α'(X - \E X)(X - \E X)' α) \\
+   &= \E((α'(X - \E X))²) \\
+   &≥ 0
+  \end{align*}
+\end{itemize}
+\end{itemize}
+
+\paragraph{Correlation}
+\begin{itemize}
+\item Definition: $\corr(X, Y) = \cov(X,Y) / \sqrt{\var(X)} \sqrt{\var(Y)}$
+\item this is between -1 and 1, which will be an implication of the Cauchy-Schwarz inequality
+\end{itemize}
+
+\paragraph{Cauchy-schwarz inequality}
+\begin{itemize}
+\item Let $X$ and $Y$ be random variables.  Then $\E (|X Y|) ≤
+  \sqrt{\E X²} \sqrt{\E Y²}$
+\item we're going to show that this is equivalent to something like $0
+  ≤ something²$
+\item proof:
+\begin{itemize}
+\item we want to show $(\E |XY|)² ≤ \E X² \E Y²$
+\item equivalent to $0 ≤ \E X² - (\E |X Y|)² / \E Y²$ (as long
+            as $Y$ is not identically zero)
+  \begin{align*}
+    \E X² - (\E |X Y|)² / \E Y²
+    &= \E X² - 2 (\E |XY|)²/ \E Y² + (\E |XY|)²/ \E Y² \\
+    &= \E X² - 2(\E |XY| / \E Y²) \E |XY| + (\E |XY|/\E Y²)² \E Y² \\
+    &= \E(X² - 2(\E |XY| / \E Y²) |X| |Y| + (\E |XY|/\E Y²)² Y²) \\
+    &= \E(|X| - (\E |XY|/\E Y²) |Y|)²
+  \end{align*}
+\end{itemize}
+\end{itemize}
+
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "../../probability"

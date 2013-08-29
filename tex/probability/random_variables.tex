@@ -26,8 +26,8 @@
   I win or lose) with the relative frequency of that outcome.
 
   The simplest\sidenote{``Simplest'' from a conceptual/intuitive
-    standpoint; we'll see that this is far from the simplest way from
-    a rigorous mathematical standpoint.}  way to do this is through a
+  standpoint; we'll see that this is far from the simplest way from
+  a rigorous mathematical standpoint.}  way to do this is through a
   probability density function and, as in most of probability, the
   easiest way to start is to work with discrete events (in which case
   the ``density'' function us usually called a ``probability mass
@@ -58,9 +58,11 @@
   \item $f(x) ≥ 0$ for all $x ∈ \RR$ and
   \item $∫_{-∞}^∞ f(x) dx = 1$.
   \end{enumerate}
-  We can again build a probability function from the density function.
+  (The set $S ⊂ \RR$ s.t. $f(x) > 0$ for all $x ∈ S$ and $f(x) = 0$
+  for all $x ∉ S$ is called the \emph{support} of the r.v. $X$.)  We
+  can again build a probability function from the density function.
   For any closed interval $[a, b]$,\sidenote{Remember, $[a,b] = \{x ∈
-    \RR ∣ a ≤ x ≤ b\}$.} we can define
+  \RR ∣ a ≤ x ≤ b\}$.} we can define
   \begin{equation*}
     \Pr[ X ∈ [a,b] ] = ∫_a^b f(x) dx,
   \end{equation*}
@@ -93,7 +95,7 @@
     well, and we should have $\Pr[X ∉ B] = 1 - \Pr[X ∈ B]$.  Since $X
     ∉ B$ is equivalent to $X ∈ B^c$, $B^c$ must be in \BB\ whenever
     $B$ is.
-  \item If $B₁$, $B₂$, $B₃$,... make up a countable sequence of sets and
+  \item If $B₁$, $B₂$, $B₃$,… make up a countable sequence of sets and
     we can define $\Pr[X ∈ B_i]$ for each of them, we should be able
     to define $\Pr[X ∈ ⋃_i B_i]$ and $\Pr[X ∈ ⋂_i B_i]$.  So \BB\ must
     be closed under countable unions and intersections.
@@ -113,18 +115,18 @@
   function's domain, while the Riemann integral works by taking
   different points in the function's domain and mapping them to the
   height.\sidenote{Remember, to get the Riemann integral of a function
-    $g: \RR → \RR$ over $[a,b]$, first define an increasingly fine
-    partition of $[a,b]$, $\{x_{i,n}, i = 1,…n, n = 1,2,…\}$ such that
-    $a = x_{1,n}$, $b = x_{n,n}$, $x_{i,n} < x_{i+1,n}$ for all $i$
-    and $\max_{i=1,…,n-1} |x_{i+1,n} - x_{i,n}| → 0$ as $n → ∞$.  If
-    we let $M_i = \max_{x ∈ [x_{i,n}, x_{i+1,n}]} g(x)$ and $m_i =
-    \min_{x ∈ [x_{i,n}, x_{i+1,n}]} g(x)$, then the Riemann integral
-    exists if
-    \begin{multline*}
-      \lim_{n → ∞} ∑_{i=1}^{n-1} M_i (x_{i+1,n} - x_{i,n}) \\
-      = \lim_{n → ∞} ∑_{i=1}^{n-1} m_i (x_{i+1,n} - x_{i,n})
-    \end{multline*}
-    for any partition $\{x_{n,i}\}$.} 
+  $g: \RR → \RR$ over $[a,b]$, first define an increasingly fine
+  partition of $[a,b]$, $\{x_{i,n}, i = 1,…n, n = 1,2,…\}$ such that
+  $a = x_{1,n}$, $b = x_{n,n}$, $x_{i,n} < x_{i+1,n}$ for all $i$
+  and $\max_{i=1,…,n-1} |x_{i+1,n} - x_{i,n}| → 0$ as $n → ∞$.  If
+  we let $M_i = \max_{x ∈ [x_{i,n}, x_{i+1,n}]} g(x)$ and $m_i =
+  \min_{x ∈ [x_{i,n}, x_{i+1,n}]} g(x)$, then the Riemann integral
+  exists if
+  \begin{multline*}
+    \lim_{n → ∞} ∑_{i=1}^{n-1} M_i (x_{i+1,n} - x_{i,n}) \\
+    = \lim_{n → ∞} ∑_{i=1}^{n-1} m_i (x_{i+1,n} - x_{i,n})
+  \end{multline*}
+  for any partition $\{x_{n,i}\}$.} 
   So, if $g$ is any step function that can be written as a step
   function of Borel sets,
   \begin{equation*}
@@ -135,8 +137,8 @@
     ∫ g dμ = ∑_{i=1}^∞ c_i μ(B_i),
   \end{equation*}
   where $μ(B_i)$ is the length of the set $B_i$.\sidenote{I should
-    maybe add a definition or an Appendix on Lebesgue measure, but
-    that will probably happen later.}  The integrals of functions that
+  maybe add a definition or an Appendix on Lebesgue measure, but
+  that will probably happen later.}  The integrals of functions that
   are not step functions can be evaluated as the limit of a sequence
   of integrals of functions that are step functions.  For example, if
   $g_n → f$ as $n → ∞$ where each $g_n = ∑_i c_{i,n} \1\{x ∈ B_{i,n}\}$
@@ -157,10 +159,10 @@
   \end{equation*}
   and, for any $B ∈ \BB$, $g^{-1}(B) = ⋃_{i ∈ I} B_i$ where $I = \{i ∣
   c_i ∈ B\}$.\sidenote{You should prove on your own that this means
-    that $\{g^{-1}(B) ∣ B ∈ \BB\}$ is a σ-algebra and is a subset of
-    \BB.}
+  that $\{g^{-1}(B) ∣ B ∈ \BB\}$ is a σ-algebra and is a subset of
+  \BB.}
 
-\item The key proprerty, then, for this integral to work is that
+\item The key property, then, for this integral to work is that
   $g^{-1}(\BB)$ itself be a σ-algebra that is contained in \BB.  Such
   a function is called \emph{Borel-measurable}.  We're going to
   restrict our focus to densities $f$ that are Lebesgue measurable, so
@@ -172,7 +174,7 @@
   for non-Borel sets, but that's fine; in this case, every function
   that we'd want to work with is Lebesgue-measurable and every set
   that we'd want to work with is a Borel set.\sidenote{Add example of
-    unmeasurable set here....}
+  unmeasurable set here….}
 
   If we're clever, we can define probabilities for discrete random
   variables the same way.  Define the function $δ$, known as Dirac's
@@ -197,7 +199,7 @@
   \end{equation*}
   This lets us write $\Pr[b ∈ B] = ∫_B f_b(x) dx$ for any Borel-set
   $B$, which is what we want.\sidenote{You should work through all of
-    the steps necessary to prove this to yourself.}
+  the steps necessary to prove this to yourself.}
 
 \item Two key points to emphasize and remember: if the usual Riemann
   integral of a function exists, its value is the same as the Lebesgue
@@ -224,9 +226,37 @@
   You should verify the property $\Pr[X ∈ (a, b]] = F_X(b) - F_X(a)$
   as homework.
 
-\item (Misc. definition that needs to go somewhere) The \emph{support}
-  of a random variable is the set of points where its density is
-  positve: $\{x ∈ \RR ∣ f_X(x) > 0\}$
+\item Although we have presented everything so far for random
+  variables, nothing needs to be restricted to a single dimesion.  We
+  can define the \emph{joint density} and \emph{joint distribution} of
+  a random $k$-variable $X$ just as before.  Now $f(x₁,…,x_k)$
+  describes the relative frequency that $X$ will take on particular
+  values in $\RRᵏ$, and we can define the joint CDF as
+  \begin{equation*}
+    F(x₁,…,x_k) = \Pr[X₁ ≤ x₁,…, X_k ≤ x_k].
+  \end{equation*}
+  The density and distribution functions for individual elements of
+  $X$ are called their \emph{marginal densities} and \emph{martinal
+  distributions}.
+
+\item The marginal distribution and density functions can be derived
+  directly from the joint distribution and density.  If we let $F₁$ be
+  the marginal distribution of the first element and $f₁$ the marginal
+  density, then we have
+  \begin{equation*}
+    F₁(x) = F(x, ∞,…,∞)
+  \end{equation*}
+  which is obvious in retrospect, because adding the additional
+  restrictions that $X_j ∈ (-∞, ∞)$ for $j = 2,…,k$ imposes no new
+  constraints on the vector $X$.
+
+  Similarly, we have
+  \begin{equation*}
+    f₁(x) = ∫_{-∞}^∞ ⋯ ∫_{-∞}^∞ f(z₁,…,z_k) dz_k ⋯ dz₂.
+  \end{equation*}
+  This can be motivated directly by working with Dirac's δ-function,
+  but can also seen by starting with the marginal CDF and then
+  differentiating to get the density.
 
 \end{itemize}
 
@@ -253,12 +283,12 @@
   (possibly hypothetical) experiment the \emph{sample space} of the
   experiment, and let $Ω$ be the \emph{σ-algebra} of the experiment if
   it satisfies the rules we discussed above.  The elements of $Ω$ are
-  usually refered to as \emph{events}.
+  usually referred to as \emph{events}.
 
   Since set theory plays a large role in this material,
   Table~\ref{tab:1} lists the definitions of common set operations.
 
-\begin{table*}[h]
+\begin{table*}[t]
 \begin{tabular}{lp{4in}}
   \toprule
   \multicolumn{2}{c}{Finite Set Operations} \\
@@ -273,8 +303,8 @@
   \midrule
   \multicolumn{2}{c}{Infinite Set Operations (can be defined for uncountable index sets as well)} \\
   \midrule
-  Union        & $⋃_{k=1}^∞ A_k ≡ \{x ∈ S : x ∈ A_k$ for at least one $k ∈ 1,2,...\}$ \\
-  Intersection & $⋂_{k=1}^∞ A_k ≡ \{x ∈ S : x ∈ A_k$ for all $k ∈ 1,2,...\}$ \\
+  Union        & $⋃_{k=1}^∞ A_k ≡ \{x ∈ S : x ∈ A_k$ for at least one $k ∈ 1,2,…\}$ \\
+  Intersection & $⋂_{k=1}^∞ A_k ≡ \{x ∈ S : x ∈ A_k$ for all $k ∈ 1,2,…\}$ \\
   Infimum      & $\inf_{k ≥ n} A_k ≡ ⋂_{k=n}∞ A_k$ \\
   Supremum     & $\sup_{k ≥ n} A_k ≡ ⋃_{k=n}^∞ A_k$ \\
   lim inf      & $\liminf_{n → ∞} A_n ≡ ⋃_{n=1}^∞ ⋂_{k=n}^∞ A_k$ \\
@@ -283,7 +313,7 @@
   \multicolumn{2}{c}{Other definitions} \\
   \midrule
   limit 
-  & Suppose that $A$, $A₁$, $A₂$,... is a sequence of subsets of $S$ and that $\limsup_{n → ∞} A_n = \liminf_{n → ∞} A_n = A$.
+  & Suppose that $A$, $A₁$, $A₂$,… is a sequence of subsets of $S$ and that $\limsup_{n → ∞} A_n = \liminf_{n → ∞} A_n = A$.
   Then $A$ is the limit of $\{A_n\}$. \\
   Disjoint 
   & $A₁$ and $A₂$ are disjoint if $A₁ ∩ A₂ = ∅$. \\
@@ -294,7 +324,7 @@
   $\mathcal{P}(S) ≡ \{x : x ⊂ S\}$ \\
 \bottomrule
 \end{tabular}
-  \caption{Collection of set operations; let $A₁$, $A₂$, $A₃$,... be subsets of another set $S$.}
+  \caption{Collection of set operations; let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$.}
   \label{tab:1}
 \end{table*}
 
@@ -310,7 +340,8 @@
   \end{defn}
 
 \item A pretty typical first example for σ-algebras involves coin
-  flips.  But we're economists, so let's use a game.
+  flips.  But we're economists, so let's use a game.  One with the
+  same structure as coin flips.
   \begin{ex}[Matching pennies]
     For \emph{matching pennies}, there are two players (A and B) and
     each has a coin.  Each player chooses ``Heads'' or ``Tails''
@@ -320,8 +351,8 @@
 
     Now, let's model a single round of the game.  The sample space is
     the set $S = \{HH, HT, TH, TT\}$.\sidenote{Where, for example,
-      \emph{HT} means that player A plays ``Heads'' and player B plays
-      ``Tails''} There are, of course, several σ-algebras that can be
+    \emph{HT} means that player A plays ``Heads'' and player B plays
+    ``Tails''} There are, of course, several σ-algebras that can be
     constructed on this sample space.  For example, the σ-algebra that
     represents whether or not A plays ``Heads'' is
     \begin{equation*}
@@ -335,16 +366,19 @@
     wins'' (i.e. the set $\{HH, TT\}$), and the sample space $S$, and
     then adding more sets as necessary so that the σ-algebra is closed
     under complements and countable unions.\sidenote{You should verify
-      as an exercise that both of these sets are actually σ-algebras.}
+    as an exercise that both of these sets are actually σ-algebras.}
   \end{ex}
 
 \item This example gets at why we can view a σ-algebra as an
   \emph{information set}.  The σ-algebra, ``A plays Heads,'' contains
   all of the information we learn if we learn whether or not the event
   ``A plays Heads'' has happened.\sidenote{I.e., we learn whether or
-    not A played Heads, and whether or not A played Tails.}  We might
-  also view this as the information available to player A after
-  choosing H or T, but before revealing his or her choice to B.
+  not A played Heads, and whether or not A played Tails.}  We might
+  also view this as the information available to player A after choosing
+  H or T, but before revealing his or her choice to B.
+
+  Also, if one σ-algebra contains another (the other is a subset) than
+  it embodies more information than the smaller σ-algebra.
 
 \item Now we can formally define a probability measure that obeys the
   same rules as before.
@@ -352,7 +386,7 @@
     σ-algebra $Ω$ of subsets of $S$ if
     \begin{enumerate}
     \item $\Pr: Ω → [0,1]$
-    \item if $A₁$, $A₂$,... are disjoint events in $Ω$ then
+    \item if $A₁$, $A₂$,… are disjoint events in $Ω$ then
       $\Pr(⋃_{i=1}^∞ A_i) = ∑_{i=1}^∞ \Pr(A_i)$
     \item $\Pr(S) = 1$.
     \end{enumerate}
@@ -389,7 +423,162 @@
   \end{ex}
 \end{itemize}
 
-\section{Conditioning}
+\section{Random variables are maps between information sets}
+
+\begin{itemize}
+\item The way to think about random variables, now, is that they
+  summarize a probability space.  They take events that occur in a
+  possibly abstract experiment and turn them into events in an easier
+  to analyze experiment.  Often they map into the Borel σ-field.
+
+  As an example, think back to the matching pennies example, but now
+  imagine that players A and B play $n$ games in a row.  The sample
+  space is now $\{HH, HT, TH, TT\}ⁿ$.  For some purposes, though, it
+  might be sufficient to know how much money A wins from or loses to B
+  (assuming they're gambling).  A random variable can map the
+  different game outcomes to the real line and preserve the
+  probability measure of the original experiment.
+
+\item\begin{defn} Let $\Fs$ be a sigma-field on a sample space $S$.  An
+  $\Fs$-measurable function $X$ from $S$ to $\RR$ is a \emph{random
+  variable}.
+  \end{defn}
+
+\item Remember the definition of \emph{$\Fs$-measurable}: $X$ is an
+  $\Fs$-measurable function from $S$ to $\RR$ if $X^{-1}(B) ∈ \Fs$ for
+  all $B ∈ \BB$.  Intuitively, we want to use the random variable $X$
+  to transfer the probability measure on $S$ to $\RR$.  This is only
+  going to work if we can map events in $\RR$ (i.e., elements of
+  $\BB$) back to the original sigma algebra $\Fs$.
+
+  Formally, this means that $X$ is a function (it's worth repeating),
+  and the random variable takes on values $X(ω)$, where $ω ∈ S$.  It
+  can sometimes be useful to write it out so explicitly in proofs, but
+  usually we will just write $X$ and suppress the argument.
+
+\item This also reinforces the idea of $\Fs$ as an information set:
+  $X$ is $\Fs$-measurable if knowledge of events in $\Fs$ is
+  sufficient to know about $X$.  This concept is most clear in a
+  time-series setting.  Let $\{\Fs_t\}$ be an expanding sequence of
+  information sets, so $\Fs_t ⊂ \Fs_{t+1}$ for all $t$ (this means
+  that $\Fs_t$ is something like ``the information available in period
+  $t$''—in period $t$, we know/remember what happened in period $t-1$,
+  contained in $\Fs_{t-1}$, but do not know what will happen in period
+  $t+1$.  If $\{X_t\}$ is a sequence of random variables s.t. $X_t$ is
+  $\Fs_t$-measurable for every $t$ (which is often written as $X_t ∈
+  \Fs_t$), then $X_t$ is a random variable whose value is determined
+  in period $t$—knowledge of the outcomes in period $t$ is sufficient
+  to know the value of $X_t$, but not necessarily the value of
+  $X_{t+1}$.
+
+\item Measurable mappings from the sample space $S$ to $\RRⁿ$ are
+  called \emph{random vectors}, more generally they're often called
+  \emph{random elements}.
+
+\item From this approach, the original probability space is the
+  fundamental idea, and then we define random variables, distribution
+  functions, and densities by referencing the original probability
+  measure.  I.e., given a probability measure and a random variable
+  $X$, we \emph{define} the CDF of $X$ as the function $F_X$ given by
+  \begin{equation*}
+    F_X(x) = \Pr(\{ω ∣ X(ω) ≤ x\}).
+  \end{equation*}
+  Note that the $ω$'s are elements of a sample space $S$, so the set
+  $\{ω ∣ X(ω) ≤ x\}$ is an element of the sigma field that we've been
+  calling $\Fs$.  We know that the set $\{ω ∣ X(ω) ≤ x\}$ must be in
+  $\Fs$ by measurability: it is equivalent to the set $X^{-1}((-∞,x])$,
+  and $(-∞,x] ∈ \BB$.
+
+  The properties that we listed for CDFs can be derived from this
+  definition by using some fundamental properties of probability
+  measures we've skipped over.  And then, given a distribution
+  function $F_X$, the density of $X$ can be defined as the function
+  $f_X$ such that
+  \begin{equation*}
+    F_X(x) = ∫_{-∞}^{x} f_X(z) dz.
+  \end{equation*}
+
+  As alluded to earlier, this is the more mathematically sound way to
+  proceed, but it can give the wrong impression.  One almost never
+  needs to work at this level of abstraction even in theoretical
+  econometrics research—typically we start with the random variables
+  and leave the deeper probability structure implicit.
+
+\item Notice that, if $g$ is a Borel-measurable function from $\RR$ to
+  $\RR$, then $g(X)$ is a random variable as well.  For any $B ∈ \BB$,
+  we know that $g^{-1}(B) ∈ \BB$ by measurability of $g$, and so
+  $X^{-1}(g^{-1}(B)) ∈ \Fs$ by measurability of $X$.
+
+  This can be useful when $g$ is smooth and when $X$ has a known
+  density function.  If we start with the distribution functions, let
+  $H$ be the CDF of $g(X)$ and $F$ the CDF of $X$.  Then, if $g$ is
+  invertible and monotone increasing,
+  \begin{equation*}
+    H(c) = \Pr[g(X) ≤ c] = \Pr[X ≤ g^{-1} c] = F(g^{-1}(c)).
+  \end{equation*}
+  Now, assuming all of these operations go through, we can write the
+  density of $g(X)$ as
+  \begin{align*}
+    h(z) &= (d/dz) H(z) \\
+    &= (d/dz) F(g^{-1}(z)) \\
+    &= f(g^{-1}(z)) (d/dz) g^{-1}(z).
+  \end{align*}
+
+  If $g$ is monotone decreasing, you can do almost exactly the same
+  operations but need to account for the different sign.  More
+  generally, it might be necessary to partition the domain of $g$ into
+  segments where $g$ is monotone and work with the individual pieces.
+
+  A reasonably formal but concise statement of this result is:
+  \begin{thm}
+    Suppose that $Y = g(X)$, where $X$ is a random variable with density
+    $f_X$ and $g$ is a continuous, monotone function with continuously
+    differentiable inverse.  The density of $Y$, $f_Y$, is given by the
+    equation
+    \begin{equation}
+      f_Y(y) = f_X(g^{-1}(y)) | (d/dy) g^{-1}(y) |
+    \end{equation}
+    for $y$ in the range of $g$ and zero elsewhere.
+  \end{thm}
+
+\item The math also becomes more painful if we are dealing with random
+  vectors.  A general theory is very painful to work with because of
+  dimension changes in particular, but working with one-to-one
+  transformations from $\RRᵏ$ to $\RRᵏ$ is reasonably straightforward.
+  First we need a definition:
+  
+  \begin{defn}
+    Let $g: \RRᵏ → \RRᵏ$ be a differentiable function.  The Jacobian
+    of this function is the matrix of partial derivatives
+    \begin{equation*}
+      J(x) =
+      \begin{pmatrix} ∂g₁(x)/∂x₁ & ∂g₁(x)/∂x₂ & ⋯ & ∂g₁/∂x_k \\
+      ⋮ \\
+      ∂g_k/∂x₁ & ⋯ & ⋯ & ∂g_k/∂x_k
+      \end{pmatrix}.
+    \end{equation*}
+  \end{defn}
+      
+  Then the result is (note that this is the version presented by
+  \citealp[B.7.7]{Gre12})
+  \begin{thm}
+    Suppose that $X$ is a random vector in $\RR^k$ with joint density
+    $f_X$ and that $g: \RRᵏ → \RRᵏ$ is one-to-one from the support of
+    $X$ to its image and let $Y = g(X)$.  Then the joint density of $Y$ is
+    \begin{equation}
+      f_Y(y) = f_X(g^{-1}(y)) \abs(\det( J(y) ))
+    \end{equation}
+    (where $J(y)$ is the Jacobian of $g^{-1}$) in the image of the support
+    of $X$ and is zero elsewhere.
+  \end{thm}
+
+\item For transformations from a higher dimension to a lower
+  dimension, one can sometimes create an artificial transformation
+  that's easy to work out, then integrate out the other dimension.
+
+\end{itemize}
+
+\section{Conditioning and independence}
 
 \begin{itemize}
 
@@ -422,9 +611,7 @@
   and $B$ happen is equal to the probability that $B$ happens times
   the probability that $A$ happened, knowing that $B$ already
   happened.\sidenote{Don't take the word ``already'' literally, since
-    there is not time ordering implied by these formulas.}
-
-\item Add diagram with conditional densities.
+  there is not time ordering implied by these formulas.}
 
 \item Observe that if $A$ and $B$ are mutually exclusive, then $\Pr(A
   ∩ B) = 0$, and so $\Pr(A ∣ B) = 0$.
@@ -441,128 +628,71 @@
     \end{equation*}
   \end{thm}
 
-\item We can generalize the idea of conditioning on a particular event
-  to the idea of conditioning on an entire σ-field (information set).
-  In the Matching Pennies example, we might want to know the
-  probability of A winning given A's move.  This is now going to be a
-  random variable: on the event ``A plays H'' the conditional
-  probability takes on one value and on the event ``A plays T'' it
-  takes on another value.
+\item This idea can be extended analogously to densities and
+  distribution functions.\sidenote{For a more rigorous extension, we
+  will need to wait for expectations.}  For random variables $X$ and
+  $Y$, the density of $X$ given a hypothetical value for $Y$ can be
+  defined as
+  \begin{equation*}
+    f_X(x ∣ Y) = f(x, Y) / f_Y(Y).
+  \end{equation*}
+  For a fixed value of $x$, note that the conditional density is a
+  random variable that varies with $y$.
 
-  The way to write this is $\Pr[A wins ∣ Ω]$ where $Ω$ is a σ-field.
+  This definition can have the same interpretation as for events:
+  $f(x, y) = f_X(x ∣ y) f_Y(y)$.
+
+\item Naturally, we want to be able to discuss cases where two events
+  do not affect each other at all; such events are called
+  \emph{independent}.
+
+  \begin{defn}
+    Events $A$ and $B$ are \emph{independent} if $P(A ∩ B) = P(A)
+    P(B)$.
+  \end{defn}
+
+  An immediate implication is that $\Pr(A ∣ B) = \Pr(A)$ if $A$ and
+  $B$ are independent.
+
+\item A similar definition holds for information sets:
+  \begin{defn}
+    Two sigma-fields $\Fs$ and $\Gs$ are independent if the events $F$
+    and $G$ are \emph{independent} for any $F ∈ \Fs$ and $G ∈ \Gs$.
+    Two random variables $X$ and $Y$ are \emph{independent} if the
+    sigma-fields $X^{-1}(\BB)$ and $Y^{-1}(\BB)$ are independent.
+  \end{defn}
+  The random variable definition is essentially the same as
+  \begin{equation*}
+    \Pr[X ∈ I₁ ∩ Y ∈ I₂] = \Pr[X ∈ I₁] \Pr[Y ∈ I₂]
+  \end{equation*}
+  for any intervals $I₁$ and $I₂$.
+
+\item It is then straightforward to verify that, for independent
+  random variables $X$ and $Y$, the joint distribution has the
+  property $F(x, y) = F_X(x) F_Y(y)$ and the joint density has the
+  property $f(x,y) = f_X(x) f_Y(y)$.  These properties are easy to
+  verify using the definition above, based on the underlying
+  information sets, but are somewhat harder to prove if starting from
+  a less abstract definition of independence.
+
+  We also have, if $X₁$ and $X₂$ are independent, so are $g(X₁)$ and
+  $h(X₂)$ for any (measurable) functions $g$ and $h$.  For a proof,
+  observe
+  \begin{align*}
+    \Pr[g(X₁) ∈ I₁ ∩ h(X₂) ∈ I₂]
+    &= \Pr[X₁ ∈ g^{-1}(X₁) ∩ X₂ ∈ h^{-1}(X₂)] \\
+    &= \Pr[X₁ ∈ g^{-1}(X₁)] \Pr[X₂ ∈ h^{-1}(X₂)] \\
+    &= \Pr[g(X₁) ∈ I₁] \Pr[h(X₂) ∈ I₂]
+  \end{align*}
+  where $g^{-1}(I₁) = \{x : g(x) ∈ I₁\}$, we don't need $g$ to be
+  invertible.
 
 \end{itemize}
 
-\paragraph{independence}
-
-      Two events are independent if knowing whether or not one
-      happened does not help you know the probability of the second
-\begin{description}
-\item[Definition] events $A$ and $B$ are independent if \[P(A ∩
-                      B) = P(A) P(B)\]
-\item[implication] \[P(A ∣ B) = \frac{P(A ∩ B)}{P(B)} =
-                       \frac{P(A) P(B)}{P(B)} = P(A)\]
-\item[example] two coin flips
-\begin{itemize}
-\item A = ``first coin is heads'' = \{HT, HH\}
-\item B = ``second coin is heads'' = \{TH, HH\}
-\item under previous prob measure, A and B are independent: \[P(A
-          ∩ B) = P(\{HH\}) = 1/4 \text{ and } P(A)P(B) = (1/2)² = 1/4\]
-\end{itemize}
-\end{description}
-
-\subsection{random variables}
-
-\begin{itemize}
-\item we can map one event space (sigma-field) to another
-\begin{itemize}
-\item this lets us transfer the probability measure to another
-        measurable space
-\end{itemize}
-\item most of the time, we map an abstract measureable space (ie hands
-      of cards) to $\RR$
-\begin{itemize}
-\item imposes an ordering
-\item imposes distance
-\item lets us simplify things a lot more.
-\end{itemize}
-\item We're going to think about things like $P[X ∈ A]$ where $A
-      \subset \RR$
-\item The point of using random variables is to translate a very
-      abstract ``experiment'' to concrete numbers.  In this situation,
-      the sigma-field is giong to really let us think about the
-      information conveyed by particular choices of rvs.
-\item The ``borel sigma-field'', denoted $\mathcal B$, has the sample
-      space $\RR$ and is the smallest sigma field containing the
-      clo.sed intervals
-\end{itemize}
-
-\paragraph{definition of random variables}
-
-\begin{itemize}
-\item Let $\mathcal{F}$ be a sigma-field on a sample space $S$, and
-        let $X$ be a function from $S$ to $\RR$.  $X$ is a random
-        variable if it is ``measurable.''
-\item $X$ is \underline{measurable} if $X^{-1}(B) ∈ \mathcal{F}$ for all $B
-        ∈ \mathbb{B}$
-\end{itemize}
-
-
-\subsection{transformations}
-
-\paragraph{introduction}
-
-      Suppose we have a continuous random variable $X: S → \RR$.
-
-\begin{itemize}
-\item as we've discussed; this is just a way to define a new and more
-        convenient probability space on the real line;
-\item we know that $X$ has a distribution $F$ and a density $f$.
-\item what happens if we look at $X²$ instead?
-\begin{itemize}
-\item it's an rv (don't worry about measurability
-\item how are its distribution and density related to the distribution
-          and density of the original random variable?
-\end{itemize}
-\end{itemize}
-
-\paragraph{motivating example}
-
-\begin{itemize}
-\item Suppose $X$ has the mass function
-\begin{itemize}
-\item $P[X = 0] = 1/2$
-\item $P[X = 1] = 1/4$
-\item $P[X = 2] = 1/4$
-\end{itemize}
-(draw the distribution)
-\item the mass for $X²$ is easy to guess:
-  \[\Pr[X² = x] = \Pr[X = \sqrt{x}] =
-  \begin{cases}
-    1/2 & x = 0 \\
-    1/4 & x = 1 \\
-    1/4 & x = 4 \\
-  \end{cases}
-  \]
-\end{itemize}
-
-\paragraph{formula for density of a transformed rv}
-
-\begin{itemize}
-\item Available as Theorem B.5 in \citet{Gre12}.
-\item Suppose that Y = g(X), where X is a random variable with density
-        $f_X$ and g is a continuous, monotone function with continuously
-        differentiable inverse.  The
-        density of Y, $f_Y$, is given by the equation
-        \[ f_Y(y) = f_X(g^{-1}(y)) | d/dy g^{-1}(y) | \]
-        for y in the range of g and zero elsewhere
-\item if g is not monotone, you need to split up the domain into parts
-        over which g is monotone: see \citet{CB02} for details if
-        you are interested.
-\item do proof (comes from differentiating distribution function)
-\end{itemize}
-
-%%% Local Variables: 
+%%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../../probability"
-%%% End: 
+%%% End:
+
+%  LocalWords:  Borel CDF Supremum measurability CDFs differentiable
+%  LocalWords:  Bayes's Infimum invertible
