@@ -39,8 +39,8 @@ citeinfo := "@Book{eflp-core, \n\
   title =	{Econometrics Core}, \n\
   publisher =	{Econometrics Free Library Project, \n\
 		 \url{www.econometricslibrary.org}}, \n\
-  year =	{$(shell git show -s --date=short --format=%cd | head -c 4), \n\
-                 $(shell git describe --tags).}}"
+  year =	{$(shell git show -s --date=short --format=%cd | head -c 4)}, \n\
+  month =	{$(shell git describe --tags),}}"
 
 texts = probability.pdf finitesample.pdf linearregression.pdf asymptotics.pdf
 support = LICENSE_standalone.pdf AUTHORS_standalone.pdf
