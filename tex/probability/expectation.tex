@@ -9,88 +9,143 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\part*{Univariate Moments}%
-\addcontentsline{toc}{part}{Univariate moments}
+\part*{Expectation}%
+\addcontentsline{toc}{part}{Expectation}
 
-\section{basic expectation}
-
-\subsection{introduction and motivation}
+\section{Introduction to the expectation}
 
 \begin{itemize}
-\item one view of the steps we've taken
-\begin{itemize}
-\item We've proposed random variables as a way to simplify experiments
-         in a way that doesn't leave out any ``essential'' details.
-\item density functions let us simplify further
-\item continuing this goal, we're going to see how we can simplify even further.
-\end{itemize}
-\item ways to simplify
-\begin{itemize}
-\item what single number is a random draw from the given distribution
-         going to be ``closest'' to ``on average''
-\begin{itemize}
-\item obviously, this depends on what we mean by ``closest''
-\item different meanings will give us different summary values
-\end{itemize}
-\item what is the most likely value that an r.v. will take on
-\end{itemize}
-\end{itemize}
+\item There are a few ways to think about the \emph{expectation} of a
+  random variable.  One of the more natural is to think about many
+  independent repeated draws, $X₁, X₂,…,X_n$, from the same density
+  function $f$—think of them as repeated measurements of some physical
+  quantity, like a weight or a height.  Under some often plausible
+  assumptions (that will be discussed later) these measurements
+  will cluster around a particular point $μ$ in the following sense:
+  as the number of observations grows ($n → ∞$), the average of the
+  observations will settle down and converge to $μ$.  If the
+  measurements are unbiased, then $μ$ will be the true quantity being
+  measured; if they are unbiased, $μ$ will reflect both the true
+  quantity and the systematic measurement error.  In either case, $μ$
+  is the \emph{expected value} of the density $f$.
 
-\subsection{definition}
+  Formally, write the expected value of the density $f$ as $\E X$
+  where $X ∼ f$ is a representative draw from the distribution, and
+  define the expected value as
+  \begin{equation}\label{eq:3}
+    \E X = ∫ x f(x) dx.
+  \end{equation}
+  For a random vector $X = (X₁,…,X_k)$, the expected value is just the
+  vector of each element's expected value:
+  $\E X = (\E X₁,… \E X_k)'$
 
-\begin{itemize}
-\item The mean (or expected value) of a random variable, $X$, denoted
-  $\E X$, is defined for continuous r.v. by
-  \[ \E X = ∫_{-∞}^{∞} x f_X(x) dx \]
-\item for discrete rv, \[ \E X = ∑_x x f_X(x) dx \]
-\item for random vectors, $\E Y = (\E Y₁, ..., \E Y_k)$
-\end{itemize}
+  Now, the expected value does not necessarily exist for a given
+  random variable: if the density's tails are too fat, the integral
+  in~\eqref{eq:3} can be infinite.  Generally, if $\E |X| = ∞$ then
+  the mean of $X$ is said to not exist.
 
-\subsection{interpretation}
+\item Note that the expectation of an indicator function is just the
+  probability of the event represented by that indicator function:
+  \begin{equation*}
+    \E \1\{ X ∈ A \} = \Pr[X ∈ A]
+  \end{equation*}
 
-\begin{itemize}
-\item population analogue to sample average (and limit of sample
-       average usually)
-\item point where the densities would balance
-\item ``closest'' to a random draw on average, in the sense that
-  $\E(X - \E X)² ≤ \E(X - c)²$ for any point c.
-\end{itemize}
+  Also notice a fundamental and important property of the expectation
+  operator, linearity.  For any constants $a$ and $b$, we have
+  \begin{equation*}
+    \E(a X + b) = a \E X + b
+  \end{equation*}
 
-\subsection{other points}
+\item The expected value of a function of $X$, $\E g(X)$, is
+  surprisingly straightforward and does not require the density of
+  $g(X)$ to be calculated:
+  \begin{equation*}
+    \E g(X) = ∫ g(x) f(x) dx.
+  \end{equation*}
+  This can be verified in special cases from the formula for the
+  density of $g(X)$.  For the general case, this result follows from
+  taking the limit of the expectation of step functions (it can be
+  shown that the expectation operator is closed under certain limits,
+  but we won't cover those properties here).
 
-\begin{itemize}
-\item if $\E|X| = ∞$, we say that the mean does not exist.
-\begin{itemize}
-\item happens if the density has ``fat tails''
-\end{itemize}
-\item the mean is sometimes written as $\E X = ∫_{-∞}^{∞} x dF(x)$
-  since $dF/dx = f$
-\item basic linearity: $\E(a X + b) = a \E X + b$ for constants $a$
-       and $b$
-\item The expectation of $Y = g(X)$ is given by
-  \[ \E g(X) = ∫_{-∞}^∞ g(x) f_X(x) dx \] which is a much
-       easier way to go than to calculate the density
-       of the transformed rv.
-\begin{itemize}
-\item holds for random vectors too
-\end{itemize}
-\item as a consequence, we have the result: If $X$ and $Y$ are
-  independent then $\E XY = \E X \E Y$
+\item It is straightforward to see that if $X$ and $Y$ are
+  independent then $\E XY = \E X \E Y$.  For proof:
   \begin{align*}
-    \E XY &= ∫∫ x y f_{X,Y}(x,y) dx dy \\
+    \E XY
+    &= ∫∫ x y f_{X,Y}(x,y) dx dy \\
     &= ∫∫ xy f_X(x) f_Y(y) dx dy \\
     &= ∫ x f_X(x) dx ∫ y f_Y(y) dy \\
-    &= \E X \E Y
+    &= \E X \E Y.
   \end{align*}
-\end{itemize}
 
-\subsection{Jensen's inequality}
+\item An especially useful inequality based on the expectation is
+  \emph{Jensen's inequality}.
+  \begin{thm}
+    For any random variable $X$, $\E g(X) ≥ g(\E X)$ for any convex
+    $g$.
+  \end{thm}
 
-\begin{itemize}
-\item a function $g(x)$ is convex if $g(λx + (1-λ)y) ≤ λg(x) + (1-λ)g(y)$
-  for $λ ∈ [0,1]$
-\item For any random variable $X$, $\E g(X) ≥ g(\E X)$ for any
-       convex $g$.
+  Remember the definition of a convex function:
+  \begin{defn}
+    A function $g(x)$ is convex if 
+    \begin{equation*}
+      g( λ x + (1-λ) y ) ≤ λ g(x) + (1-λ) g(y) 
+    \end{equation*}
+    for all $λ ∈ [0,1]$ and any $x$ and $y$.
+  \end{defn}
+
+  [Add a picture.]
+
+\item We can also (obviously) take the expectation of conditional
+  densities.  If $X$ and $Y$ are two random vectors, the conditional
+  expectation of $Y$ given $X$ is
+  \begin{equation*}
+    \E(Y ∣ x) = ∫ f_Y(y ∣ x) dy
+  \end{equation*}
+  where $f_Y$ is the density of $Y$.\sidenote{There are other, more
+  fundamental ways to derive conditional expectations that we're not
+  going to worry about.}  When we don't want to focus on a specific
+  value of $X$, we just write $\E(Y ∣ X)$ (note that this is now a
+  function of the random variable $X$).
+
+\item The conditional expectation has some important properties:
+  \begin{enumerate}
+  \item If $Y = g(X)$ for some function $g$ then $\E(Y ∣ X) = Y$.
+    This occurs because the conditional density of $Y$ given $X$ is
+    degenerate.
+  \item Similarly, If $X = (X₁, X₂)$ then we have the relationships
+    \begin{equation*}
+      \E(\E(Y ∣ X) ∣ X₁) = \E(Y ∣ X₁) \quad\text{a.s.}
+    \end{equation*}
+    and
+    \begin{equation*}
+      \E(\E(Y ∣ X₁) ∣ X) = \E(Y ∣ X₁) \quad\text{a.s.}
+    \end{equation*}
+    Here it's important to remember the connection between random
+    variables and information sets.  The r.v. $X₁$ contains less
+    information than $X$, so when we first condition on $X₁$ to get
+    $\E(Y ∣ X₁)$, that step removes (integrates out) the information
+    in $X₂$.  A second conditioning step can not restore that
+    information.
+  \item $\E(X₁ Y ∣ X) = X₁ \E(Y ∣ X)$; again, given the information in
+    $X$, we can view $X₁$ as a known constant.  The result then
+    follows from linearity of the expectation.
+  \item The Law of Iterated Expectations
+    \begin{thm}
+      Suppose that $X$ and $Y$ are random variables and $Y$ has finite
+      mean; then $\E \E(Y ∣ X) = \E Y$.
+    \end{thm}
+    The proof (assuming densities, etc) is pretty straightforward
+    \begin{align*}
+      \E Y &= ∫ y f_Y(y) dy \\
+      &= ∫ ∫ y f_{X,Y}(x,y) dx dy \\
+      &= ∫ ∫ y f_Y(y ∣ X = x) f_X(x) dx dy \\
+      &= ∫ ∫ y f_Y(y ∣ X = x) dy f_X(x) dx \\
+      &= ∫ \E(Y ∣ X = x) f_X(x) dx \\
+      &= \E \E(Y ∣ X)
+    \end{align*}
+  \end{enumerate}
+
 \end{itemize}
 
 \section{other measures of location}
@@ -108,7 +163,7 @@
 \item the median is not necessarily unique
 \item if X is continuous, the median satisfies 
   \[ \E | X - c | ≥ \E | X - \median(X) | \]
-       for any other constant $c$; so this is another way of chosing
+       for any other constant $c$; so this is another way of choosing
        ``the closest value to the average draw'' for a different
        interpretation of close.
 \begin{itemize}
@@ -124,7 +179,7 @@
 \item Def: the mode of a distribution is the value $c$ that maximizes
        the density function $f_X$
 \item the mode is not necessarily unique
-\item conditional mode exisits too
+\item conditional mode exists too
 \end{itemize}
      measures of location are unhelpful without measures of uncertainty
 
@@ -277,74 +332,6 @@
 \end{itemize}
 \end{itemize}
 
-\section{conditional expectation}
-
-\begin{itemize}
-\item We talked earlier about getting the conditional density and
-      distribution given hypothetical values of another random variable.
-      We can also derive moments by integrating over these conditional
-      densities.
-\begin{itemize}
-\item Let $X$ and $Y$ be two random vectors
-\begin{itemize}
-\item draw picture with joint density
-\end{itemize}
-\item $\E(Y ∣ X = x) = ∫_y f_Y(y ∣ X = x) dy$
-\item there are other, more fundamental ways to derive conditional
-         expectations that we're not going to worry about.
-\item write $\E(Y ∣ X)$ when we don't want to focus on a specific
-         value.
-\end{itemize}
-\item Also give information set interpretation
-\end{itemize}
-
-\subsection{properties}
-
-     For all of these, suppose that $X$ and $Y$ are two random variables.
-\begin{itemize}
-\item Conditional expectation is a function of $x$.
-\item $\E(Y ∣ X)$ is a function of $X$.
-\item If $Y = g(X)$, then $\E(Y ∣ X) = Y$
-\begin{itemize}
-\item conditional density of $Y$ given $X$ is degenerate:
-  \begin{equation*}
-    \Pr[Y = c ∣ X = x] =
-    \begin{cases}
-      1 & c = g(x) \\
-      0 & \text{otherwise}
-    \end{cases}
-  \end{equation*}
-\item So $\E(Y ∣ X = x) = g(x) × 1$
-\end{itemize}
-\item If $X = (X₁, X₂)$ then we have the relationships
-\begin{itemize}
-\item $\E(\E(Y ∣ X) ∣ X₁) = \E(Y ∣ X₁)$ a.s.
-\item $\E(\E(Y ∣ X₁) ∣ X) = \E(Y ∣ X₁)$ a.s.
-\item interpret these as ``information sets''; $X₁$ contains
-          less information than $X$
-\item $\E(X₁ Y ∣ X) = X₁ \E(Y ∣ X)$
-\end{itemize}
-\item If $Y ≥ 0$ then $\E(Y ∣ X) ≥ 0$ almost surely.
-\begin{itemize}
-\item need to make the a.s. distinction because this is a random variable
-\end{itemize}
-\end{itemize}
-
-\subsection{Law of Iterated Expectations}
-
-     Give some intuition and a picture.
-\begin{description}
-\item[result] $\E \E(Y ∣ X) = \E Y$
-\item[proof]
-  \begin{align*}
-    \E Y &= ∫ y f_Y(y) dy \\
-    &= ∫ ∫ y f_{X,Y}(x,y) dx dy \\
-    &= ∫ ∫ y f_Y(y ∣ X = x) f_X(x) dx dy \\
-    &= ∫ ∫ y f_Y(y ∣ X = x) dy f_X(x) dx \\
-    &= ∫ \E(Y ∣ X = x) f_X(x) dx \\
-    &= \E \E(Y ∣ X)
-  \end{align*}
-\end{description}
 
 \subsection{Analogue to LIE}\sidenote{prove for homework}
 \[\var(X) = \var(\E(X|Y)) + \E(\var(X|Y))\]
@@ -359,3 +346,4 @@
 %%% mode: latex
 %%% TeX-master: "../../probability"
 %%% End: 
+%  LocalWords:  nonnegative kth skewness
