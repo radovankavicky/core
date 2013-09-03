@@ -226,20 +226,86 @@
   You should verify the property $\Pr[X ∈ (a, b]] = F_X(b) - F_X(a)$
   as homework.
 
-\item Although we have presented everything so far for random
-  variables, nothing needs to be restricted to a single dimesion.  We
-  can define the \emph{joint density} and \emph{joint distribution} of
-  a random $k$-variable $X$ just as before.  Now $f(x₁,…,x_k)$
-  describes the relative frequency that $X$ will take on particular
-  values in $\RRᵏ$, and we can define the joint CDF as
+\item Obviously we can have vectors of random variables (often called
+  \emph{random vectors}).  These vectors have density functions too,
+  which we can build up sequentially.  If $X₁ ∼ f₁$, we can imagine
+  that a second r.v., $X₂$ has (potentially) a different density that
+  depends on the value of $X₁$; write it as $f₂(· ∣ x₁)$, where $x₁$
+  is a hypothetical value of $X₁$ (and the function $f₂(· ∣ x₁)$ is
+  defined for all values in the support of $X₁$.  Then the joint
+  density of $X₁$ and $X₂$, which we'll write as $f$, can be evaluated
+  as
+  \begin{equation}\label{eq:2}
+    f(x₁,x₂) = f₂(x₂ ∣ x₁) × f₁(x₁).
+  \end{equation}
+  For discrete random variables, you can interpret this as saying
+  ``the probability that $X₁$ and $X₂$ take the values $x₁$ and $x₂$
+  is equal to the probability that $X₁$ takes the value $x₁$ and then
+  $X₂$ takes the value $x₂$.''  But don't read too much into the word
+  ``then'' too literally since the ordering isn't important.  We can
+  also write
+  \begin{equation}
+    f(x₁,x₂) = f₁(x₁ ∣ x₂) f₂(x₂).
+  \end{equation}
+
+  If the conditional density of $X₁$ does not depend on $X₂$ (or vice
+  versa) the random variables are said to be \emph{independent}.  This
+  means that joint density can be written as
+  \begin{equation*}
+    f(x₁,x₂) = f₁(x₁) × f₂(x₂)
+  \end{equation*}
+  The elements of a $k$-vector of random variables are independent if
+  \begin{equation*}
+    f(x₁,…,x_k) = ∏_{i=1}^k f_i(x_i)
+  \end{equation*}
+  for all $x₁,…,x_k$ in the random variables' support.
+
+\begin{figure}[t]
+  [Empty for now.  Sometime soon, I'll add a figure.]
+  \caption{Illustration of the conditional density math to go here.}
+\end{figure}
+
+  The functions $f₁(· ∣ x2)$ and $f₂(· ∣ x₁)$ are called \emph{the
+  conditional densities of $X₁$ and $X₂$} respectively.  Given the
+  joint and marginal densities, they can be calculated/defined as
+  \begin{equation*}
+    f₁(x₁ ∣ x₂) = f(x₁, x₂) / f₂(x₂)
+  \end{equation*}
+  Conditional probabilities of events and conditional distribution
+  functions can be defined using this conditional density just as
+  before; e.g.
+  \begin{equation*}
+    F₁(x ∣ x₂) = ∫ˣ_{-∞} f₁(z ∣ x₂) dz
+  \end{equation*}
+  defines the \emph{conditional CDF of $X₁$ given $X₂$}, where $x₂$ is
+  a different hypothetical value in $X₂$'s support.
+
+\item Note that we can recover the marginal density of $X₁$ from
+  Equation~\eqref{eq:2} by integrating out the conditional density of
+  $X₂$:
+  \begin{equation*}
+    ∫_{-∞}^{-∞} f₂(x₂ ∣ x₁) f₁(x₁) dx₂ = f₁(x₁)
+  \end{equation*}
+  since $f₂(· ∣ x₁)$ is a density function and so integrates to 1.
+  This gives a slightly less obvious relationship between the
+  \emph{joint} and marginal densities:
+  \begin{equation*}
+    ∫_{-∞}^{-∞} f(x₁, x₂) dx₂ = f₁(x₁).
+  \end{equation*}
+  There is clearly nothing special about the order of the variables.
+
+\item We can define the joint CDF as
   \begin{equation*}
     F(x₁,…,x_k) = \Pr[X₁ ≤ x₁,…, X_k ≤ x_k].
   \end{equation*}
-  The density and distribution functions for individual elements of
-  $X$ are called their \emph{marginal densities} and \emph{martinal
-  distributions}.
+  and can be retrieved from the joint density as before:
+  \begin{equation*}
+    F(x₁,…,x_k) = ∫_{-∞}^{x₁} ⋯ ∫_{-∞}^{x_k} f(z₁,…,z_k) dz₁ ⋯ dz_k.
+  \end{equation*}
+  Writing this equation explicitly makes it clear that the CDF can be
+  factored under independence just as the densities can.
 
-\item The marginal distribution and density functions can be derived
+  The marginal distribution and density functions can be derived
   directly from the joint distribution and density.  If we let $F₁$ be
   the marginal distribution of the first element and $f₁$ the marginal
   density, then we have
@@ -250,12 +316,11 @@
   restrictions that $X_j ∈ (-∞, ∞)$ for $j = 2,…,k$ imposes no new
   constraints on the vector $X$.
 
-  Similarly, we have
+  Similarly, the relationship
   \begin{equation*}
     f₁(x) = ∫_{-∞}^∞ ⋯ ∫_{-∞}^∞ f(z₁,…,z_k) dz_k ⋯ dz₂.
   \end{equation*}
-  This can be motivated directly by working with Dirac's δ-function,
-  but can also seen by starting with the marginal CDF and then
+  can also seen by starting with the marginal CDF and then
   differentiating to get the density.
 
 \end{itemize}
@@ -421,6 +486,65 @@
     \end{equation*}
     (these strategies are obviously not a Nash equilibrium).
   \end{ex}
+
+\item Often, knowing that one event happens tells us something about
+  how likely other events are.  In the Matching Pennies example we've
+  used above, the probability that A wins is $6/15$.  If we know that
+  A has played heads, we know that A wins if B plays heads too, which
+  happens with probability $4/5$.
+
+\item This was an example of conditioning on an event (e.g. the event
+  that A plays heads).  The general formula for working out
+  probabilities conditional on an event is as follows,
+
+  \begin{defn}
+    If $A$ and $B$ are events in some sample space $S$ and $\Pr[B]>0$,
+    the \emph{conditional probability of $A$ given $B$} is written as
+    $\Pr(A ∣ B)$ and defined to be
+    \begin{equation*}
+      \Pr(A ∣ B) ≡ \Pr(A ∩ B) / \Pr(B).
+    \end{equation*}
+    If $\Pr(B) = 0$ then we can define $\Pr(A ∣ B)$ arbitrarily to be
+    zero.
+  \end{defn}
+
+  The equivalent formula
+  \begin{equation*}
+    \Pr(A ∩ B) = \Pr(A ∣ B) \Pr(B)
+  \end{equation*}
+  may make the interpretation easier: the probability that events $A$
+  and $B$ happen is equal to the probability that $B$ happens times
+  the probability that $A$ happened, knowing that $B$ already
+  happened.\sidenote{Don't take the word ``already'' literally, since
+  there is not time ordering implied by these formulas.}
+
+\item Observe that if $A$ and $B$ are mutually exclusive, then $\Pr(A
+  ∩ B) = 0$, and so $\Pr(A ∣ B) = 0$.
+
+\item We can use the definitions and the simple observation that
+  \begin{equation*}
+    \Pr(A ∣ B) \Pr(B) = \Pr(B ∣ A) \Pr(A)
+  \end{equation*}
+  to justify \emph{Bayes's Rule}:
+  \begin{thm}[Bayes's Rule]
+    If $A$ and $B$ are sets in $S$ that have positive probability, then
+    \begin{equation*}
+      \Pr(A ∣ B) = \Pr(B ∣ A) \Pr(A) / \Pr(B).
+    \end{equation*}
+  \end{thm}
+
+\item Naturally, we want to be able to discuss cases where two events
+  do not affect each other at all; such events are called
+  \emph{independent}.
+
+  \begin{defn}
+    Events $A$ and $B$ are \emph{independent} if $P(A ∩ B) = P(A)
+    P(B)$.
+  \end{defn}
+
+  An immediate implication is that $\Pr(A ∣ B) = \Pr(A)$ if $A$ and
+  $B$ are independent.
+
 \end{itemize}
 
 \section{Random variables are maps between information sets}
@@ -504,6 +628,42 @@
   econometrics research—typically we start with the random variables
   and leave the deeper probability structure implicit.
 
+\item A similar definition of independence holds for information sets
+  and random variables as we defined for events (this is to some
+  degree a restatement of what we discussed in the first section, but
+  with a more justifiable mathematical underpinning).
+  \begin{defn}
+    Two sigma-fields $\Fs$ and $\Gs$ are independent if the events $F$
+    and $G$ are \emph{independent} for any $F ∈ \Fs$ and $G ∈ \Gs$.
+    Two random variables $X$ and $Y$ are \emph{independent} if the
+    sigma-fields $X^{-1}(\BB)$ and $Y^{-1}(\BB)$ are independent.
+  \end{defn}
+  The random variable definition is essentially the same as
+  \begin{equation*}
+    \Pr[X ∈ I₁ ∩ Y ∈ I₂] = \Pr[X ∈ I₁] \Pr[Y ∈ I₂]
+  \end{equation*}
+  for any intervals $I₁$ and $I₂$.
+
+\item It is then straightforward to verify that, for independent
+  random variables $X$ and $Y$, the joint distribution has the
+  property $F(x, y) = F_X(x) F_Y(y)$ and the joint density has the
+  property $f(x,y) = f_X(x) f_Y(y)$.  These properties are easy to
+  verify using the definition above, based on the underlying
+  information sets, but are somewhat harder to prove if starting from
+  a less abstract definition of independence.
+
+  We also have, if $X₁$ and $X₂$ are independent, so are $g(X₁)$ and
+  $h(X₂)$ for any (measurable) functions $g$ and $h$.  For a proof,
+  observe
+  \begin{align*}
+    \Pr[g(X₁) ∈ I₁ ∩ h(X₂) ∈ I₂]
+    &= \Pr[X₁ ∈ g^{-1}(X₁) ∩ X₂ ∈ h^{-1}(X₂)] \\
+    &= \Pr[X₁ ∈ g^{-1}(X₁)] \Pr[X₂ ∈ h^{-1}(X₂)] \\
+    &= \Pr[g(X₁) ∈ I₁] \Pr[h(X₂) ∈ I₂]
+  \end{align*}
+  where $g^{-1}(I₁) = \{x : g(x) ∈ I₁\}$, we don't need $g$ to be
+  invertible.
+
 \item Notice that, if $g$ is a Borel-measurable function from $\RR$ to
   $\RR$, then $g(X)$ is a random variable as well.  For any $B ∈ \BB$,
   we know that $g^{-1}(B) ∈ \BB$ by measurability of $g$, and so
@@ -575,117 +735,6 @@
 \item For transformations from a higher dimension to a lower
   dimension, one can sometimes create an artificial transformation
   that's easy to work out, then integrate out the other dimension.
-
-\end{itemize}
-
-\section{Conditioning and independence}
-
-\begin{itemize}
-
-\item Often, knowing that one event happens tells us something about
-  how likely other events are.  In the Matching Pennies example we've
-  used above, the probability that A wins is $6/15$.  If we know that
-  A has played heads, we know that A wins if B plays heads too, which
-  happens with probability $4/5$.
-
-\item This was an example of conditioning on an event (e.g. the event
-  that A plays heads).  The general formula for working out
-  probabilities conditional on an event is as follows,
-
-  \begin{defn}
-    If $A$ and $B$ are events in some sample space $S$ and $\Pr[B] ≥
-    0$, the \emph{conditional probability of $A$ given $B$} is written
-    as $\Pr(A ∣ B)$ and defined to be
-    \begin{equation*}
-      \Pr(A ∣ B) ≡ \Pr(A ∩ B) / \Pr(B).
-    \end{equation*}
-    If $\Pr(B) = 0$ then we can define $\Pr(A ∣ B)$ arbitrarily to be
-    zero.
-  \end{defn}
-
-  The equivalent formula
-  \begin{equation*}
-    \Pr(A ∩ B) = \Pr(A ∣ B) \Pr(B)
-  \end{equation*}
-  may make the interpretation easier: the probability that events $A$
-  and $B$ happen is equal to the probability that $B$ happens times
-  the probability that $A$ happened, knowing that $B$ already
-  happened.\sidenote{Don't take the word ``already'' literally, since
-  there is not time ordering implied by these formulas.}
-
-\item Observe that if $A$ and $B$ are mutually exclusive, then $\Pr(A
-  ∩ B) = 0$, and so $\Pr(A ∣ B) = 0$.
-
-\item We can use the definitions and the simple observation that
-  \begin{equation*}
-    \Pr(A ∣ B) \Pr(B) = \Pr(B ∣ A) \Pr(A)
-  \end{equation*}
-  to justify \emph{Bayes's Rule}:
-  \begin{thm}[Bayes's Rule]
-    If $A$ and $B$ are sets in $S$ that have positive probability, then
-    \begin{equation*}
-      \Pr(A ∣ B) = \Pr(B ∣ A) \Pr(A) / \Pr(B).
-    \end{equation*}
-  \end{thm}
-
-\item This idea can be extended analogously to densities and
-  distribution functions.\sidenote{For a more rigorous extension, we
-  will need to wait for expectations.}  For random variables $X$ and
-  $Y$, the density of $X$ given a hypothetical value for $Y$ can be
-  defined as
-  \begin{equation*}
-    f_X(x ∣ Y) = f(x, Y) / f_Y(Y).
-  \end{equation*}
-  For a fixed value of $x$, note that the conditional density is a
-  random variable that varies with $y$.
-
-  This definition can have the same interpretation as for events:
-  $f(x, y) = f_X(x ∣ y) f_Y(y)$.
-
-\item Naturally, we want to be able to discuss cases where two events
-  do not affect each other at all; such events are called
-  \emph{independent}.
-
-  \begin{defn}
-    Events $A$ and $B$ are \emph{independent} if $P(A ∩ B) = P(A)
-    P(B)$.
-  \end{defn}
-
-  An immediate implication is that $\Pr(A ∣ B) = \Pr(A)$ if $A$ and
-  $B$ are independent.
-
-\item A similar definition holds for information sets:
-  \begin{defn}
-    Two sigma-fields $\Fs$ and $\Gs$ are independent if the events $F$
-    and $G$ are \emph{independent} for any $F ∈ \Fs$ and $G ∈ \Gs$.
-    Two random variables $X$ and $Y$ are \emph{independent} if the
-    sigma-fields $X^{-1}(\BB)$ and $Y^{-1}(\BB)$ are independent.
-  \end{defn}
-  The random variable definition is essentially the same as
-  \begin{equation*}
-    \Pr[X ∈ I₁ ∩ Y ∈ I₂] = \Pr[X ∈ I₁] \Pr[Y ∈ I₂]
-  \end{equation*}
-  for any intervals $I₁$ and $I₂$.
-
-\item It is then straightforward to verify that, for independent
-  random variables $X$ and $Y$, the joint distribution has the
-  property $F(x, y) = F_X(x) F_Y(y)$ and the joint density has the
-  property $f(x,y) = f_X(x) f_Y(y)$.  These properties are easy to
-  verify using the definition above, based on the underlying
-  information sets, but are somewhat harder to prove if starting from
-  a less abstract definition of independence.
-
-  We also have, if $X₁$ and $X₂$ are independent, so are $g(X₁)$ and
-  $h(X₂)$ for any (measurable) functions $g$ and $h$.  For a proof,
-  observe
-  \begin{align*}
-    \Pr[g(X₁) ∈ I₁ ∩ h(X₂) ∈ I₂]
-    &= \Pr[X₁ ∈ g^{-1}(X₁) ∩ X₂ ∈ h^{-1}(X₂)] \\
-    &= \Pr[X₁ ∈ g^{-1}(X₁)] \Pr[X₂ ∈ h^{-1}(X₂)] \\
-    &= \Pr[g(X₁) ∈ I₁] \Pr[h(X₂) ∈ I₂]
-  \end{align*}
-  where $g^{-1}(I₁) = \{x : g(x) ∈ I₁\}$, we don't need $g$ to be
-  invertible.
 
 \end{itemize}
 

@@ -277,6 +277,84 @@
 \end{itemize}
 \end{itemize}
 
+\section{conditional expectation}
+
+\begin{itemize}
+\item We talked earlier about getting the conditional density and
+      distribution given hypothetical values of another random variable.
+      We can also derive moments by integrating over these conditional
+      densities.
+\begin{itemize}
+\item Let $X$ and $Y$ be two random vectors
+\begin{itemize}
+\item draw picture with joint density
+\end{itemize}
+\item $\E(Y ∣ X = x) = ∫_y f_Y(y ∣ X = x) dy$
+\item there are other, more fundamental ways to derive conditional
+         expectations that we're not going to worry about.
+\item write $\E(Y ∣ X)$ when we don't want to focus on a specific
+         value.
+\end{itemize}
+\item Also give information set interpretation
+\end{itemize}
+
+\subsection{properties}
+
+     For all of these, suppose that $X$ and $Y$ are two random variables.
+\begin{itemize}
+\item Conditional expectation is a function of $x$.
+\item $\E(Y ∣ X)$ is a function of $X$.
+\item If $Y = g(X)$, then $\E(Y ∣ X) = Y$
+\begin{itemize}
+\item conditional density of $Y$ given $X$ is degenerate:
+  \begin{equation*}
+    \Pr[Y = c ∣ X = x] =
+    \begin{cases}
+      1 & c = g(x) \\
+      0 & \text{otherwise}
+    \end{cases}
+  \end{equation*}
+\item So $\E(Y ∣ X = x) = g(x) × 1$
+\end{itemize}
+\item If $X = (X₁, X₂)$ then we have the relationships
+\begin{itemize}
+\item $\E(\E(Y ∣ X) ∣ X₁) = \E(Y ∣ X₁)$ a.s.
+\item $\E(\E(Y ∣ X₁) ∣ X) = \E(Y ∣ X₁)$ a.s.
+\item interpret these as ``information sets''; $X₁$ contains
+          less information than $X$
+\item $\E(X₁ Y ∣ X) = X₁ \E(Y ∣ X)$
+\end{itemize}
+\item If $Y ≥ 0$ then $\E(Y ∣ X) ≥ 0$ almost surely.
+\begin{itemize}
+\item need to make the a.s. distinction because this is a random variable
+\end{itemize}
+\end{itemize}
+
+\subsection{Law of Iterated Expectations}
+
+     Give some intuition and a picture.
+\begin{description}
+\item[result] $\E \E(Y ∣ X) = \E Y$
+\item[proof]
+  \begin{align*}
+    \E Y &= ∫ y f_Y(y) dy \\
+    &= ∫ ∫ y f_{X,Y}(x,y) dx dy \\
+    &= ∫ ∫ y f_Y(y ∣ X = x) f_X(x) dx dy \\
+    &= ∫ ∫ y f_Y(y ∣ X = x) dy f_X(x) dx \\
+    &= ∫ \E(Y ∣ X = x) f_X(x) dx \\
+    &= \E \E(Y ∣ X)
+  \end{align*}
+\end{description}
+
+\subsection{Analogue to LIE}\sidenote{prove for homework}
+\[\var(X) = \var(\E(X|Y)) + \E(\var(X|Y))\]
+\begin{itemize}
+\item students should prove on their own
+\item conditional expectation has lower variance than original rv
+\item conditional dist has lower variance on average than original
+         dist
+\end{itemize}
+
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "../../probability"
