@@ -275,7 +275,7 @@
   functions can be defined using this conditional density just as
   before; e.g.
   \begin{equation*}
-    F₁(x ∣ x₂) = ∫ˣ_{-∞} f₁(z ∣ x₂) dz
+    F₁(x ∣ x₂) = ∫_{-∞}^x f₁(z ∣ x₂) dz
   \end{equation*}
   defines the \emph{conditional CDF of $X₁$ given $X₂$}, where $x₂$ is
   a different hypothetical value in $X₂$'s support.
@@ -370,7 +370,7 @@
   \midrule
   Union        & $⋃_{k=1}^∞ A_k ≡ \{x ∈ S : x ∈ A_k$ for at least one $k ∈ 1,2,…\}$ \\
   Intersection & $⋂_{k=1}^∞ A_k ≡ \{x ∈ S : x ∈ A_k$ for all $k ∈ 1,2,…\}$ \\
-  Infimum      & $\inf_{k ≥ n} A_k ≡ ⋂_{k=n}∞ A_k$ \\
+  Infimum      & $\inf_{k ≥ n} A_k ≡ ⋂_{k=n}^∞ A_k$ \\
   Supremum     & $\sup_{k ≥ n} A_k ≡ ⋃_{k=n}^∞ A_k$ \\
   lim inf      & $\liminf_{n → ∞} A_n ≡ ⋃_{n=1}^∞ ⋂_{k=n}^∞ A_k$ \\
   lim sup      & $\limsup_{n → ∞} A_n ≡ ⋂_{n=1}^∞ ⋃_{k=n}^∞ A_k$ \\
@@ -450,7 +450,7 @@
   \begin{defn} A function $\Pr$ is a \emph{probability measure} on a
     σ-algebra $Ω$ of subsets of $S$ if
     \begin{enumerate}
-    \item $\Pr: Ω → [0,1]$
+    \item $\Pr: Ω ↦ [0,1]$
     \item if $A₁$, $A₂$,… are disjoint events in $Ω$ then
       $\Pr(⋃_{i=1}^∞ A_i) = ∑_{i=1}^∞ \Pr(A_i)$
     \item $\Pr(S) = 1$.
@@ -661,8 +661,8 @@
     &= \Pr[X₁ ∈ g^{-1}(X₁)] \Pr[X₂ ∈ h^{-1}(X₂)] \\
     &= \Pr[g(X₁) ∈ I₁] \Pr[h(X₂) ∈ I₂]
   \end{align*}
-  where $g^{-1}(I₁) = \{x : g(x) ∈ I₁\}$, we don't need $g$ to be
-  invertible.
+  where $g^{-1}(I₁) = \{x : g(x) ∈ I₁\}$, we don't need $g$ or $h$ to
+  be invertible.
 
 \end{itemize}
 
