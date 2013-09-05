@@ -11,6 +11,15 @@ Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
 copy of the license is included in the file LICENSE.tex and is also
 available online at <http://www.gnu.org/copyleft/fdl.html>.
 
+### Version 0.2.5, hotfix release
+* Fixes a bug in the 'addcontentsline' command before the bibliography.
+
+### Version 0.2.4
+* Changes the author to 'Gray Calhoun.'  I'm not thrilled with this
+  change, but I am the only author at the moment and I think having
+  'EFLP' as the sole author is confusing.  See inline comments for
+  more details.
+
 ### Version 0.2.3
 * Hotfix release to remove redundant 'version' from bibtex entry
 
