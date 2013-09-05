@@ -9,10 +9,10 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\part*{Expectation}%
-\addcontentsline{toc}{part}{Expectation}
+\part*{Properties of random variables}%
+\addcontentsline{toc}{part}{Properties of random variables}
 
-\section{Introduction to the expectation}
+\section{Expectation}
 
 \begin{itemize}
 \item There are a few ways to think about the \emph{expectation} of a
@@ -44,6 +44,18 @@
   in~\eqref{eq:3} can be infinite.  Generally, if $\E |X| = ∞$ then
   the mean of $X$ is said to not exist.
 
+\item The expected value of a function of $X$, $\E g(X)$, is
+  surprisingly straightforward and does not require the density of
+  $g(X)$ to be calculated:
+  \begin{equation*}
+    \E g(X) = ∫ g(x) f(x) dx.
+  \end{equation*}
+  This can be verified in special cases from the formula for the
+  density of $g(X)$.  For the general case, this result follows from
+  taking the limit of the expectation of step functions (it can be
+  shown that the expectation operator is closed under certain limits,
+  but we won't cover those properties here).
+
 \item Note that the expectation of an indicator function is just the
   probability of the event represented by that indicator function:
   \begin{equation*}
@@ -56,17 +68,11 @@
     \E(a X + b) = a \E X + b
   \end{equation*}
 
-\item The expected value of a function of $X$, $\E g(X)$, is
-  surprisingly straightforward and does not require the density of
-  $g(X)$ to be calculated:
+\item For a random vector, we define the expecation as the vector of
+  expectations of the individual elements:
   \begin{equation*}
-    \E g(X) = ∫ g(x) f(x) dx.
+    \E X = (\E X₁,...,\E X_k)
   \end{equation*}
-  This can be verified in special cases from the formula for the
-  density of $g(X)$.  For the general case, this result follows from
-  taking the limit of the expectation of step functions (it can be
-  shown that the expectation operator is closed under certain limits,
-  but we won't cover those properties here).
 
 \item It is straightforward to see that if $X$ and $Y$ are
   independent then $\E XY = \E X \E Y$.  For proof:
@@ -96,11 +102,17 @@
 
   [Add a picture.]
 
+\end{itemize}
+
+\section{Conditional expectation}
+
+\begin{itemize}
+
 \item We can also (obviously) take the expectation of conditional
   densities.  If $X$ and $Y$ are two random vectors, the conditional
   expectation of $Y$ given $X$ is
   \begin{equation*}
-    \E(Y ∣ x) = ∫ f_Y(y ∣ x) dy
+    \E(Y ∣ x) = ∫ y f_Y(y ∣ x) dy
   \end{equation*}
   where $f_Y$ is the density of $Y$.\sidenote{There are other, more
   fundamental ways to derive conditional expectations that we're not
@@ -108,7 +120,9 @@
   value of $X$, we just write $\E(Y ∣ X)$ (note that this is now a
   function of the random variable $X$).
 
-\item The conditional expectation has some important properties:
+\item The conditional expectation has some important properties (these
+  properties actually make a lot more sense if you view the
+  conditional expectation as a projection):
   \begin{enumerate}
   \item If $Y = g(X)$ for some function $g$ then $\E(Y ∣ X) = Y$.
     This occurs because the conditional density of $Y$ given $X$ is
@@ -148,180 +162,74 @@
 
 \end{itemize}
 
-\section{other measures of location}
+\section{General measures of the center of a density}
 
 \begin{itemize}
-\item the mean is (by far) the most common way to summarize a random variable.
-\item there are others
+
+\item The mean has lots of advantages; it is mathematically convenient
+  to work with and shows up often because of the Law of Large Numbers.
+  But it has disadvantages too; it is extremely sensitive to events in
+  the tails of the distribution.  So sometimes other measures of
+  location are useful
+
+\item %
+  \begin{defn}
+    The \emph{median} of a distribution $F$ is the value $c$ such that
+    $\Pr[X ≤ c] ≥ 1/2$ and $\Pr[X ≥ c] ≥ 1/2$.
+  \end{defn}
+  Note that this definition means that the median may not be unique if
+  $X$ is discrete.
+
+\item %
+  \begin{defn}
+    The \emph{mode} of a distribution is the value that maximizes
+    the density function $f_X$.
+  \end{defn}
+  The mode is not necessarily unique either.
+
 \end{itemize}
 
-\subsection{median}
+\section{Measures of dispersion and other moments}
 
 \begin{itemize}
-\item Def: the median of a distribution F is the value c such that
-  $\Pr(X ≤ c) ≥ 1/2$ and $\Pr(X ≥ c) ≥ 1/2$.
-\item the median is not necessarily unique
-\item if X is continuous, the median satisfies 
-  \[ \E | X - c | ≥ \E | X - \median(X) | \]
-       for any other constant $c$; so this is another way of choosing
-       ``the closest value to the average draw'' for a different
-       interpretation of close.
-\begin{itemize}
-\item the mean weights values further from the center more than
-         the median
-\end{itemize}
-\item you can define the conditional median same as conditional expectation
-\end{itemize}
 
-\subsection{mode}
+\item The variance measures a random variable's dispersion about its
+  mean, and is defined as
+  \begin{equation*}
+    \var(X) = \E(X - \E X)².
+  \end{equation*}
+  An equivalent formula is $\var(X) = \E(X²) - (\E X)²$, which can be
+  easier to use at times.  Obviously the variance is nonnegative (it
+  will be zero if $X$ is a constant).
 
-\begin{itemize}
-\item Def: the mode of a distribution is the value $c$ that maximizes
-       the density function $f_X$
-\item the mode is not necessarily unique
-\item conditional mode exists too
-\end{itemize}
-     measures of location are unhelpful without measures of uncertainty
+  The standard deviation is the square root of the variance, which has
+  the advantage that it's in the same units as $X$.
 
-\section{second moments (variance)}
+\item We can generalize the variance to measure the linear
+  relationship between two variables.  Define the \emph{covariance} as
+  \begin{equation*}
+    \cov(X,Y) = \E(X - \E X) (Y - \E Y) = \E XY - \E X \E Y
+  \end{equation*}
+  and the \emph{correlation} as
+  \begin{equation*}
+    \corr(X, Y) = \cov(X,Y) / \sqrt{\var(X)} \sqrt{\var(Y)}.
+  \end{equation*}
 
-\begin{itemize}
-\item measures ``how far'' an random draw is from its expected value
-\item definition: $\var(X) = \E(X - \E X)²$
-\begin{itemize}
-\item equivalently, $\var(X) = \E(X²) - (\E X)²$
-\item obviously this is nonnegative
-\end{itemize}
-\item standard deviation is the square root of the variance
-\begin{itemize}
-\item this is in the same units as $X$
-\end{itemize}
-\end{itemize}
-
-\section{location scale transformations}
-
-\begin{itemize}
-\item Useful special case of the transformation formula:
-\item Let $X$ be a random variable with density $f_X$ and let $f$ be
-  the density of $σ X + μ$ for some constant $μ$ and positive constant
-  $σ$.  Then \[f(x) = \frac{1}{σ} f_X\left(\frac{x - μ}{σ}\right)\]
-  for all $x$.
-\begin{itemize}
-\item This family of pdfs is called the ``location-scale family with
-  standard pdf $f(x)$.''
-\item $μ$ is the \emph{location parameter}
-\item $σ$ is the \emph{scale parameter}
-\end{itemize}
-\item The family $\{f_X(x - μ) : μ ∈ \RR\}$ is a ``location family''
-  (i.e. only $μ$ varies)
-\item The family $\{(1/σ) f_X(x/σ) : σ > 0\}$ is a ``scale family''
-  (i.e. only $σ$ varies)
-\item $1/σ f_X(\frac{x - μ}{σ})$ is a pdf for any density $f_X$ and
-  constants $μ$ and $σ > 0$.
-\end{itemize}
-
-\section{other moments}
-
-\begin{itemize}
-\item If $X$ is a random variable, we say that the kth moment of $X$
-  exists if $\E|X|^k$ is finite
-\item skewness: (draw picture)
-\begin{description}
-\item[Greene's definition] $\E(X - \E X)³$
-\item[more common] $\E(X - \E X)³ / σ³$
-\end{description}
-\item kurtosis: (draw picture; move mass from center to tails)
-\begin{description}
-\item[Greene's definition] $\E(X - \E X)⁴$
-\item[more common] $\E(X - \E X)⁴ / σ⁴$
-\item[excess] $\E(X - \E X)⁴ / σ⁴ - 3$
-\end{description}
-\item in general, we might look at powers like these
-\begin{itemize}
-\item kth moment: $\E X^k$
-\item kth central moment: $\E(X - EX)^k$
-\end{itemize}
-\item Consequence of Jensen's inequality: if the \$p\$th moment is
-      finite, so are all moments between 0 and $p$.
-\begin{itemize}
-\item Proof: let $q ∈ (0, p)$.
-  \[\E |X|^p = \E[( |X|^q)^{p/q}] ≤ [\E(|X|^q)]^{p/q}\]
-  since $p/q > 1$.  Since the last quantity is finite, so is the first.
-\end{itemize}
-\end{itemize}
-
-\section{Multivariate moments}
-\subsection{Expectation for a random vector}
-
-\begin{itemize}
-\item $\E X = (\E X₁,...,\E X_k)$
-\item $\E g(X₁,...,X_k) = ∫ g(x₁,...,x_k) f_X(x₁,...,x_k) dx₁ ⋯ dx_k$
-\item If $X$ and $Y$ are independent with finite expectations,
-  $\E XY = \E X \E Y$ (proof automatic).
-\end{itemize}
-
-\subsection{second moments}
-
-\paragraph{Variance}
-\begin{itemize}
-\item for vectors, $\var(X) = \E(X - \E X) (X - \E X)'$
-\begin{itemize}
-\item this is positive semi definite
-\begin{itemize}
-\item for any vector $α$, $α'\var(X)α ≥ 0$
-\item proof: 
-  \begin{align*}
-    α'\var(X)α &= α' \E((X - \E X)(X - \E X)') α \\
-    &= \E α'(X - \E X)(X - \E X)'α \\
-    &= \E (α - \E(α'X))² \\
-    &= \var(α'X) ≥ 0
-  \end{align*}
-\end{itemize}
-\item Let $X$ be a random $k$-vector with vcv $Σ$ and let $A$ be a
-  deterministic $j × k$ matrix.  Then $A X$ has vcv $A Σ A'$.
-\end{itemize}
-\end{itemize}
-
-\paragraph{Covariance}
-\begin{itemize}
-\item $\cov(X,Y) = \E(X - \E X) (Y - \E Y) = \E XY - \E X \E Y$
-\begin{itemize}
-\item obviously, $\cov(X,X) = \var(X)$
-\end{itemize}
-\item diagonal elements of vcv matrix of $X$ are the variances of individual elements of $X$
-\item we can see that the off-diagonal elements are the covariances
-\item for vectors $X$ and $Y$, $\cov(X,Y) = \E(X - \E X)(Y - \E Y)'$
-\item $\var(X)$ is positive semi definite
-\begin{itemize}
-\item i.e. for any nonzero vector $α$, $α'\var(X)α ≥ 0$
-\item proof:
-  \begin{align*}
-   α'\var(X) α
-   &= α' \E((X - \E X)(X - \E X)') α \\
-   &= \E(α'(X - \E X)(X - \E X)' α) \\
-   &= \E((α'(X - \E X))²) \\
-   &≥ 0
-  \end{align*}
-\end{itemize}
-\end{itemize}
-
-\paragraph{Correlation}
-\begin{itemize}
-\item Definition: $\corr(X, Y) = \cov(X,Y) / \sqrt{\var(X)} \sqrt{\var(Y)}$
-\item this is between -1 and 1, which will be an implication of the Cauchy-Schwarz inequality
-\end{itemize}
-
-\paragraph{Cauchy-schwarz inequality}
-\begin{itemize}
-\item Let $X$ and $Y$ be random variables.  Then $\E (|X Y|) ≤
-  \sqrt{\E X²} \sqrt{\E Y²}$
-\item we're going to show that this is equivalent to something like $0
-  ≤ something²$
-\item proof:
-\begin{itemize}
-\item we want to show $(\E |XY|)² ≤ \E X² \E Y²$
-\item equivalent to $0 ≤ \E X² - (\E |X Y|)² / \E Y²$ (as long
-            as $Y$ is not identically zero)
+  The Cauchy-Schwarz inequality ensures that the correlation is
+  between $-1$ and 1.
+  \begin{thm}[Cauchy-Schwarz inequality]
+    Let $X$ and $Y$ be random variables.  Then 
+    \begin{equation}\label{eq:5}
+      \E (|X Y|) ≤ \sqrt{\E X²} \sqrt{\E Y²}
+    \end{equation}
+  \end{thm}
+  To prove this result, we're going to show that it is equivalent to
+  something like $0 ≤ something²$;~\eqref{eq:5} is equivalent to
+  \begin{equation*}
+    0 ≤ \E X² - (\E |X Y|)² / \E Y²
+  \end{equation*}
+  as long as $Y$ is not identically zero (if $Y$ is identically zero
+  then the result holds trivially).  Then
   \begin{align*}
     \E X² - (\E |X Y|)² / \E Y²
     &= \E X² - 2 (\E |XY|)²/ \E Y² + (\E |XY|)²/ \E Y² \\
@@ -329,47 +237,106 @@
     &= \E(X² - 2(\E |XY| / \E Y²) |X| |Y| + (\E |XY|/\E Y²)² Y²) \\
     &= \E(|X| - (\E |XY|/\E Y²) |Y|)²
   \end{align*}
-\end{itemize}
+  and this last quantity is clearly nonnegative.
+
+\item The variance obeys a relationship similar to the Law of the
+  Iterated Expectation:
+  \begin{equation*}
+    \var(X) = \var(\E(X|Y)) + \E(\var(X|Y)).
+  \end{equation*}
+  There are two implications of this formula: first, that a
+  conditional expectation has lower variance than its original random
+  variable; and second, that conditioning decreases the variance on
+  average, but not almost surely.
+
+\item We can define the variance for vectors as well: $\var(X) = \E(X
+  - \E X) (X - \E X)'$.  For vectors, $\var(X)$ is called the
+  \emph{variance-covariance matrix}.  Observe that if $X$ has
+  variance-covariance matrix $Σ$ and is $A$ a deterministic $j × k$
+  matrix then $A X$ has variance-covariance matrix $A Σ A'$.
+
+\item We can verify that the variance-covariance matrix is always
+  positive semi-definite, i.e. that $α'\var(X)α ≥ 0$ for any nonzero
+  $α$:
+  \begin{align*}
+    α'\var(X)α &= α' \E((X - \E X)(X - \E X)') α \\
+    &= \E α'(X - \E X)(X - \E X)'α \\
+    &= \E (α - \E(α'X))² \\
+    &= \var(α'X) ≥ 0
+  \end{align*}
+
+\item In general, we can refer to the $k$th moment or central moment.
+  The $k$th moment of a random variable $X$ is just $\E X^k$ and it is
+  said to exist if $\E |X|^k$ is finite.  The $k$th central moment is
+  defined as $\E |X - \E X|^k$.
+
+\item As a consequence of Jensen's inequality, we have the following
+  result: if the $p$th moment of a random variable is finite, so are
+  all moments between 0 and $p$.
+
+  For a proof, let $q$ be between 0 and $p$ and observe that $g(x) ≡
+  x^{p/q}$ is convex.  So, for any $Y$, Jensen's inequality implies
+  that $\E g(Y) ≥ g(\E Y)$.  Now, let $Y = |X|^q$, so
+  \begin{equation}\label{eq:4}
+    \E g(|X|^q) ≥ g(\E |X|^q).
+  \end{equation}
+  But $\E g(|X|^q) = \E |X|^p$ and $g(\E |X|^q) = (\E |X|^q)^{p/q}$.
+  Raising both sides of Equation~\eqref{eq:4} to the $q/p$ power
+  completes the proof.
+
+\item The first four moments can be interpreted to some degree; we
+  have already discussed the first two.  The random variable $X$'s
+  \emph{skewness} is its normalized third moment, $\E(X - \E X)³ /
+  σ³$, but you will sometimes see slightly different definitions.
+  Skewness measures the asymmetry of the density function: if the
+  density is perfectly symmetric, it is zero; if there is a long right
+  tail, the skewness is positive, etc.
+
+  $X$'s \emph{kurtosis} is its normalized fourth moment, $\E(X - \E
+  X)⁴ / σ⁴$, which measures to some extent the thickness of the tails
+  (higher kurtosis implies thicker tails).  It is sometimes useful to
+  discuss the \emph{excess kurtosis}, which is $\E(X - \E X)⁴ / σ⁴ -
+  3$; ``3'' is the kurtosis of the normal distribution.
+
 \end{itemize}
 
+\section{Properties of specific transformations of random variables}
 
-\subsection{Analogue to LIE}\sidenote{prove for homework}
-\[\var(X) = \var(\E(X|Y)) + \E(\var(X|Y))\]
 \begin{itemize}
-\item students should prove on their own
-\item conditional expectation has lower variance than original rv
-\item conditional dist has lower variance on average than original
-         dist
-\end{itemize}
 
-\section{Properties of specific distributions}
+\item Quadratic forms will come up a lot when we study linear
+  regression.  If $X$ be a random $k$-vector and let $A$ be a $k × k$
+  deterministic matrix then $X'A X$ is a (random) quadratic form.
+  These are (relatively) easy to study because they can be written as
+  summations:
+  \begin{equation*}
+    X'AX = ∑_{i,j} X_i X_j A_{ij}.
+  \end{equation*}
 
-\paragraph{results on quadratic forms}
-\begin{itemize}
-\item Let $X$ be a random $k$-vector and let $A$ be a $k × k$
-        deterministic matrix.  $X'A X$ is a (random) quadratic form.
-\begin{itemize}
-\item normally we view each element of $X$ as coming from the same (or
-          similar) distributions
-\end{itemize}
-\item $X'AX = ∑_{i,j} X_i X_j A_{ij}$
-\begin{itemize}
-\item write this out using element-by-element representation of $X$ and $A$
-\end{itemize}
-\item usually we only think about symmetric matrices:
-        \[ X' A X = X'(A/2 + A'/2)X \quad a.s.\]
-        which is always symmetric
-\end{itemize}
+\item Usually, when we discuss quadratic forms, we assume (at least
+  implicitly) that $A$ is symmetric.  This assumption is usually
+  without loss of generality because
+  \begin{equation*}
+    X' A X = X'(A/2 + A'/2)X
+  \end{equation*}
+  almost surely, and $X'(A/2 + A'/2)X$ is symmetric by construction.
 
-\paragraph{mean \citep[Formula in][]{SL03}}
-\begin{description}
-\item[result] Let $X$ be an $n × 1$ vector of random variables, and
-  let $A$ be an $n × n$ symmetric matrix.  If $\E X = μ$ and $\var(X) =
-  Σ$, then \[ \E X'AX = \tr(A Σ) + μ'Aμ \]
-\item[proof] we're going to use three things: a scalar equals its own
-                 trace, linearity of the expectation, and a property of
-                 the trace: $\tr(XY) = \tr(YX)$ as long as both are
-                 conformable.
+\item Here's a representative result for quadratic forms that
+  illustrates a useful trick.
+  \begin{thm}
+    Let $X$ be an $n × 1$ vector of random variables, and
+    let $A$ be an $n × n$ symmetric matrix.  If $\E X = μ$ and $\var(X) =
+    Σ$, then
+    \begin{equation}
+      \E X'AX = \tr(A Σ) + μ'Aμ.
+    \end{equation}
+  \end{thm}
+
+  The proof uses three concepts that show up often: a scalar equals
+  its own trace, linearity of the expectation, and a property of the
+  trace: $\tr(XY) = \tr(YX)$ as long as both are conformable (the last
+  property is difficult to see, so write out the matrix operations to
+  convince yourself it is true).
   \begin{align*}
     \E(X'AX) &= \tr(\E(X'AX)) \\
     &= \E(\tr(X'AX)) \\
@@ -378,35 +345,144 @@
     &= \tr(A \E(XX')) \\
     &= \tr(A (\var(X) + μμ')) \\
     &= \tr(AΣ) + \tr(A μμ') \\
-    &= \tr(AΣ) + μ'Aμ 
+    &= \tr(AΣ) + μ'Aμ.
   \end{align*}
-\end{description}
 
-\paragraph{variance \citep[also in][]{SL03}}
-\begin{description}
-\item[result] let $X₁,...,X_n$ be independent r.v. with means
-  $θ₁,...,θ_n$, and the same 2nd, 3rd and 4th central moments $μ₂$,
-  $μ₃$, $μ₄$.  If $A$ is an $n × n$ symmetric matrix and $a$ is a
-  column vector of the diagonal elements of $A$, then
-  \[ \var(X'AX) = (μ₄ - 3 μ₂²)a'a + 2 μ₂² \tr(A²) + 4 μ₂ θ'A² θ + 4 μ₃
-  θ' A a \]
-\item[proof] Take $X'A X = ∑_{ij} ((X_i - θ_i) + θ_i) ((X_j - θ_j) +
-  θ_j) A_{ij}$, multiply out and take the variance.
-\end{description}
+\item Similar results obviously exist for other moments, but the
+  algebra isn't quite as nice (and doesn't illuminate any key
+  technique other than raw tenacity).  Here's an example for the
+  variance under a few simplifying assumptions (this particular
+  statement comes from \citealp{SL03})
+  \begin{thm}
+    let $X₁,...,X_n$ be independent random variables with means
+    $θ₁,...,θ_n$, and the same 2nd, 3rd and 4th central moments $μ₂$,
+    $μ₃$, $μ₄$.  If $A$ is an $n × n$ symmetric matrix and $a$ is a
+    column vector of the diagonal elements of $A$, then
+    \begin{equation*}
+      \var(X'AX) = 
+      (μ₄ - 3 μ₂²)a'a + 2 μ₂² \tr(A²) + 4 μ₂ θ'A² θ + 4 μ₃ θ' A a.
+    \end{equation*}
+  \end{thm}
+  To prove the result, take
+  \begin{equation*}
+    X'A X = ∑_{ij} ((X_i - θ_i) + θ_i) ((X_j - θ_j) + θ_j) A_{ij},
+  \end{equation*}
+  multiply out and take the variance.
 
-\subsection{Results for Normal random variables}
-\begin{itemize}
-\item Density, etc. are in \citet{CB02} appendix
-\item multivariate: mean $μ$ and variance $Σ$:
-  \[ f(x) = \frac{1}{\sqrt{2ⁿ πⁿ \det(Σ)}} exp(-1/2(x - μ)'Σ^{-1}(x- μ)) \]
-\item written $N(μ, Σ)$
-\item assumes $Σ$ is p.d.; can be extended to allow for positive
-      semi-definite as well.
-\item you should draw the shape of the density and some elliptical
-      contour plots
+\item \emph{Location-scale families} are a useful special case of the
+  transformation formula.  If $X$ is a random variable with density
+  $f_X$ and $f_Y$ is the density of $Y = σ X + μ$ for some constant
+  $μ$ and positive constant $σ$, then
+  \begin{equation*}
+    f_Y(x) = \tfrac{1}{σ} f_X\big( \tfrac{x - μ}{σ} \big)
+  \end{equation*}
+  for all $x$.\footnote{Verify on your own that this follows from the
+  general transformation theorem.}
+
+  This family of pdfs is called the ``location-scale family with
+  standard pdf $f_X(x)$.''
+  \begin{itemize}
+  \item $μ$ is the \emph{location parameter}
+  \item $σ$ is the \emph{scale parameter}.
+  \end{itemize}
+  If only $μ$ or $σ$ varies then we have either a \emph{location
+  family} or a \emph{scale family}.
+
 \end{itemize}
 
-\paragraph{important properties: \textbf{:hw:}}
+\section{General transformations of random variables}
+
+\begin{itemize}
+
+\item Notice that, if $g$ is a Borel-measurable function from $\RR$ to
+  $\RR$, then $g(X)$ is a random variable as well.  For any $B ∈ \BB$,
+  we know that $g^{-1}(B) ∈ \BB$ by measurability of $g$, and so
+  $X^{-1}(g^{-1}(B)) ∈ \Fs$ by measurability of $X$.
+
+  This can be useful when $g$ is smooth and when $X$ has a known
+  density function.  If we start with the distribution functions, let
+  $H$ be the CDF of $g(X)$ and $F$ the CDF of $X$.  Then, if $g$ is
+  invertible and monotone increasing,
+  \begin{equation*}
+    H(c) = \Pr[g(X) ≤ c] = \Pr[X ≤ g^{-1} c] = F(g^{-1}(c)).
+  \end{equation*}
+  Now, assuming all of these operations go through, we can write the
+  density of $g(X)$ as
+  \begin{align*}
+    h(z) &= (d/dz) H(z) \\
+    &= (d/dz) F(g^{-1}(z)) \\
+    &= f(g^{-1}(z)) (d/dz) g^{-1}(z).
+  \end{align*}
+
+  If $g$ is monotone decreasing, you can do almost exactly the same
+  operations but need to account for the different sign.  More
+  generally, it might be necessary to partition the domain of $g$ into
+  segments where $g$ is monotone and work with the individual pieces.
+
+  A reasonably formal but concise statement of this result is:
+  \begin{thm}
+    Suppose that $Y = g(X)$, where $X$ is a random variable with density
+    $f_X$ and $g$ is a continuous, monotone function with continuously
+    differentiable inverse.  The density of $Y$, $f_Y$, is given by the
+    equation
+    \begin{equation}
+      f_Y(y) = f_X(g^{-1}(y)) | (d/dy) g^{-1}(y) |
+    \end{equation}
+    for $y$ in the range of $g$ and zero elsewhere.
+  \end{thm}
+
+\item The math also becomes more painful if we are dealing with random
+  vectors.  A general theory is very painful to work with because of
+  dimension changes in particular, but working with one-to-one
+  transformations from $\RRᵏ$ to $\RRᵏ$ is reasonably straightforward.
+  First we need a definition:
+  
+  \begin{defn}
+    Let $g: \RRᵏ → \RRᵏ$ be a differentiable function.  The Jacobian
+    of this function is the matrix of partial derivatives
+    \begin{equation*}
+      J(x) =
+      \begin{pmatrix} ∂g₁(x)/∂x₁ & ∂g₁(x)/∂x₂ & ⋯ & ∂g₁/∂x_k \\
+      ⋮ \\
+      ∂g_k/∂x₁ & ⋯ & ⋯ & ∂g_k/∂x_k
+      \end{pmatrix}.
+    \end{equation*}
+  \end{defn}
+      
+  Then the result is (note that this is the version presented by
+  \citealp[B.7.7]{Gre12})
+  \begin{thm}
+    Suppose that $X$ is a random vector in $\RR^k$ with joint density
+    $f_X$ and that $g: \RRᵏ → \RRᵏ$ is one-to-one from the support of
+    $X$ to its image and let $Y = g(X)$.  Then the joint density of $Y$ is
+    \begin{equation}
+      f_Y(y) = f_X(g^{-1}(y)) \abs(\det( J(y) ))
+    \end{equation}
+    (where $J(y)$ is the Jacobian of $g^{-1}$) in the image of the support
+    of $X$ and is zero elsewhere.
+  \end{thm}
+
+\item For transformations from a higher dimension to a lower
+  dimension, one can sometimes create an artificial transformation
+  that's easy to work out, then integrate out the other dimension.
+
+\end{itemize}
+
+\section{Gaussian random variables}
+
+\begin{itemize}
+
+\item If $X$ is an $N(μ, Σ)$ random vector, its density is
+  \begin{equation*}
+    f(x) = \frac{1}{\sqrt{2ⁿ πⁿ \det(Σ)}} exp(-1/2(x - μ)'Σ^{-1}(x- μ)).
+  \end{equation*}
+  The parameters $μ$ and $Σ$ can be shown to be the mean and variance
+  of the r.v. and completely determine its distribution.
+
+  [you should draw the shape of the density and some elliptical
+  contour plots]
+
+\item Some important properties:
 \begin{itemize}
 \item If $X$ is a $k$-dimensional multivariate normal with mean $μ$
   and variance $Σ$, $A X + b$ is also multivariate normal for any
@@ -460,35 +536,48 @@
 \end{enumerate}
 \end{itemize}
 
-\paragraph{derived distributions}
+\item Some derived distributions are important
 
-\paragraph{chi-squared distribution}
+\item %
+  \begin{defn}
+    Let $X₁,...,X_k$ be independent standard normal.  The
+    chi-squared distribution with $k$ degrees of freedom is the
+    distribution of $∑_{i=1}^k X²_i$.
+  \end{defn}
 
-\paragraph{definition}
-       Let $X₁,...,X_k$ be independent standard normal.  The
-       chi-squared distribution with $k$ degrees of freedom is the
-       distribution of $∑_{i=1}^k X²_i$.
+  \begin{thm}
+    Let $X ∼ N(0, I_n)$ and let $P$ be a symmetric $n × n$ matrix.
+    Then $X'PX$ is chi-squared with $k$ degrees of freedom iff $P$ is
+    idempotent with rank $k$.
+  \end{thm}
 
-\paragraph{theorem}
-       Let $X ∼ N(0, I_n)$ and let $P$ be a symmetric $n × n$
-       matrix.  Then $X'PX$ is chi-squared with $k$ degrees of freedom
-       iff $P$ is idempotent with rank $k$.
+  \begin{thm}
+    if $X$ and $Y$ are independent chi-squared with $df_X$ and $df_Y$
+    degrees of freedom, then $X + Y$ is chi-square with $df_X + df_Y$
+    degrees of freedom.
+  \end{thm}
 
-\paragraph{other results}
-if $X$ and $Y$ are independent chi-squared with $df_X$ and
-         $df_Y$ degrees of freedom, then $X + Y$ is chi-square with
-         $df_X + df_Y$ degrees of freedom.
+\item %
+  \begin{defn}
+    If $X$ is a standard normal and $Y$ is a chi-squared with $n$ dof
+    and $X$ and $Y$ are independent, then $X / \sqrt{Y/n}$ is a $t(n)$
+    random variable.
+  \end{defn}
+  From the quadratic form results, this is going to come up when $Z$
+  is multivariate standard normal and $X = B'Z$, $Y = Z'PZ$, and $B'P
+  = 0$.
 
-\paragraph{t-distribution}
-      If $X$ is a standard normal and $Y$ is a chi-squared with $n$ dof
-      and $X$ and $Y$ are independent, then $X/\sqrt{Y/n}$ is a $t(n)$
-      random variable.
+\item %
+  \begin{defn}
+    If $X$ and $Y$ are independent chi-squared with $df_X$ and $df_Y$
+    degrees of freedom, then $\frac{X/df_X}{Y/df_Y}$ is an $F(df_X,
+    df_Y)$ random variable.
+  \end{defn}
 
-\paragraph{F-distribution}
-       if $X$ and $Y$ are independent chi-squared with $df_X$ and $df_Y$
-       degrees of freedom, then $\frac{X/df_X}{Y/df_Y}$ is an $F(df_X,
-       df_Y)$ random variable.
+  Expect this to come up when $Z$ is multivariate standard normal and
+  $X = Z'QZ$, $Y = Z'PZ$ and $Q$ and $P$ are idempotent and orthogonal.
 
+\end{itemize}
 
 %%% Local Variables: 
 %%% mode: latex
