@@ -42,7 +42,8 @@ citeinfo := "@Book{eflp-core, \n\
   year =	{$(shell git show -s --date=short --format=%cd | head -c 4), \
   		$(shell git describe --tags)}}"
 
-texts = probability.pdf finitesample.pdf linearregression.pdf asymptotics.pdf
+texts = probability.pdf estimation.pdf inference.pdf \
+  linearregression.pdf asymptotics.pdf
 support = LICENSE_standalone.pdf AUTHORS_standalone.pdf
 
 all: $(texts) $(support) | ver
@@ -60,7 +61,8 @@ CITATION.bib:
 	echo -e $(citeinfo) > $@
 
 probability.pdf: $(wildcard tex/probability/*.tex)
-finitesample.pdf: $(wildcard tex/finitesample/*.tex)
+estimation.pdf: $(wildcard tex/estimation/*.tex)
+inference.pdf: $(wildcard tex/inference/*.tex)
 asymptotics.pdf: $(wildcard tex/asymptotics/*.tex)
 linearregression.pdf: $(wildcard tex/linearregression/*.tex)
 

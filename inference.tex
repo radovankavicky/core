@@ -1,7 +1,7 @@
 \documentclass{tex/tufte-handout}
 \input{tex/common_preamble}
 
-\title{Econometrics Core: Finite Sample Statistics}
+\title{Econometrics Core: Inference in Finite Samples}
 
 \begin{document}
 \maketitle
@@ -35,19 +35,11 @@ The Bib\!\TeX\ record is provided for your convenience.
 
 \tableofcontents
 
-\include{tex/finitesample/introduction}
-
-\include{tex/finitesample/point_estimator_derivation}
-\include{tex/finitesample/point_estimator_optimality}
-\include{tex/finitesample/linear_regression_estimation}
-\include{tex/finitesample/point_estimator_problems}
-
-\include{tex/finitesample/hypothesis_testing}
-\include{tex/finitesample/linear_regression_inference}
-\include{tex/finitesample/likelihood_ratio_test}
-\include{tex/finitesample/inference_problems}
-
-\include{tex/finitesample/bayesian_stats}
+\include{tex/inference/hypothesis_testing}
+\include{tex/inference/linear_regression}
+\include{tex/inference/likelihood_ratio_test}
+\include{tex/inference/bayesian_stats}
+\include{tex/inference/problems}
 
 % \include{AUTHORS}  % Uncomment to include the license and author list if
 % \include{LICENSE}  % you are distributing this document on its own.
@@ -59,5 +51,5 @@ The Bib\!\TeX\ record is provided for your convenience.
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "finitesample"
+%%% TeX-master: "inference"
 %%% End:
