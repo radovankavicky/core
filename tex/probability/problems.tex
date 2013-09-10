@@ -9,12 +9,11 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\part*{Problem Set}%
-\addcontentsline{toc}{part}{Problem Set}
-
-This is a collection of problems for self-study.
+\part*{Problems}%
+\addcontentsline{toc}{part}{Problems}
 
 \begin{enumerate}
+
 \item When $X$ has a continuous distribution $F$ and $U ∼$
   uniform(0,1), $F(X) =^d U$ and, consequently, $X =^d F^{-1}(U)$ (see
   \citealt[Theorem 2.1.10]{CB02} for a proof).  Use this result to
@@ -26,52 +25,7 @@ This is a collection of problems for self-study.
     F(x) = 0.5 + \tan^{-1}(x)/π.
   \end{equation}
   The arguments of the function should include $n$, $μ$, and $σ$.
-\item Let $X$ and $Y$ be two random variables. Prove that $\var(X) =
-  \E \var(X ∣ Y) + \var(\E(X ∣ Y))$
-\item Let $X$ and $Y$ be two random variables with the joint density
-  function
-  \begin{equation}\label{eq:prob_1}
-    f(x, y) = \begin{cases}
-      \min(6 y, 6 - 6y, 6 x, 6 - 6 x) & \text{if } (x, y) ∈ [0,1]² \\
-      0 & \text{otherwise.}
-    \end{cases}
-  \end{equation}
-  (this looks like a pyramid centered at (1/2, 1/2)).
-  \begin{enumerate}
-  \item Derive the joint distribution of $X$ and $Y$.
-  \item Derive the marginal distribution and density of $X$
-  \item Derive the conditional distribution and density of $Y$ given
-    $X$.
-  \item We're going to write two different R functions to generate
-    draws from this density function. The first is going to use the
-    analytic work you've done in the previous few questions, and the
-    second uses a trick. For both, please write a function that takes
-    the number of observations to generate as its only argument and
-    generate a contour plot of 10000 draws from the function (see the
-    \texttt{contour} function in R).
-  \end{enumerate}
-\item Invert the distribution function of $X$ and the conditional
-  distribution function of $Y$ given $X$. You can then generate two
-  independent uniform random variables $U$ and $V$ and and pass them
-  to the inverted distribution functions. Probably the best way to do
-  this is to create a function \texttt{rX} that generates $X$ and
-  another function \texttt{rY} that takes $X$ as an argument and
-  generates a draw from the conditional distribution of $Y$.
-\item You can also generate random variables indirectly using the
-  accept-reject algorithm \citep[Section 5.6.2]{CB02}. Let $c =
-  \max_{x,y} f(x,y)$ and do the following
-  \begin{enumerate}
-  \item Draw $U$, $V$ and $W$ as independent uniform(0,1).
-  \item If $U ≤ f(V,W) / c$, set $X=V$ and $Y=W$.  Otherwise draw $U$,
-    $V$, and $W$ again.
-  \item Repeat until you accept candidate values of $X$ and $Y$. That
-    is a single draw from the target density.
-  \end{enumerate}
-  The first approach will execute faster, but can be impractical (or
-  even impossible) when the density is complicated. The second
-  approach is sometimes slow but can usually be applied (and when it
-  can't, there are other similar algorithms that can be applied more
-  generally).
+
 \item You can also generate random variables indirectly.  If $f_X$ has
   support $(0,1)$ and $c = \max_x f_X(x)$, then the following
   algorithm will draw $X$ from the density $f_X$ \citep[see][Section
@@ -93,25 +47,81 @@ This is a collection of problems for self-study.
     conditional distribution ($μ$, $Σ$ and $r$ should all be arguments
     of the function).
   \end{enumerate}
+
+\item Let $X$ and $Y$ be two random variables with the joint density
+  function
+  \begin{equation}\label{eq:prob_1}
+    f(x, y) = \begin{cases}
+      \min(6 y, 6 - 6y, 6 x, 6 - 6 x) & \text{if } (x, y) ∈ [0,1]² \\
+      0 & \text{otherwise.}
+    \end{cases}
+  \end{equation}
+  (this looks like a pyramid centered at (1/2, 1/2)).
+  \begin{enumerate}
+  \item Derive the joint distribution of $X$ and $Y$.
+  \item Derive the marginal distribution and density of $X$
+  \item Derive the conditional distribution and density of $Y$ given
+    $X$.
+  \item We're going to write two different R functions to generate
+    draws from this density function. The first is going to use the
+    analytic work you've done in the previous few questions, and the
+    second uses a trick. For both, please write a function that takes
+    the number of observations to generate as its only argument and
+    generate a contour plot of 10000 draws from the function.
+    \begin{enumerate}
+    \item Invert the distribution function of $X$ and the conditional
+      distribution function of $Y$ given $X$. You can then generate
+      two independent uniform random variables $U$ and $V$ and and
+      pass them to the inverted distribution functions. Probably the
+      best way to do this is to create a function \texttt{rX} that
+      generates $X$ and another function \texttt{rY} that takes $X$ as
+      an argument and generates a draw from the conditional
+      distribution of $Y$.
+    \item You can also generate random variables indirectly using the
+      accept-reject algorithm \citep[Section 5.6.2]{CB02}. Let $c =
+      \max_{x,y} f(x,y)$ and do the following
+      \begin{enumerate}
+      \item Draw $U$, $V$ and $W$ as independent uniform(0,1).
+      \item If $U ≤ f(V,W) / c$, set $X=V$ and $Y=W$.  Otherwise draw
+        $U$, $V$, and $W$ again.
+      \item Repeat until you accept candidate values of $X$ and
+        $Y$. That is a single draw from the target density.
+      \end{enumerate}
+    \end{enumerate}
+
+    The first approach will execute faster, but can be impractical (or
+    even impossible) when the density is complicated. The second
+    approach is sometimes slow but can usually be applied (and when it
+    can't, there are other similar algorithms that can be applied more
+    generally).
+  \end{enumerate}
+
 \item Suppose that $X$ and $Y$ are random variables with finite second
   moments such that $\E(Y ∣ X) = α + β X$.  Prove that
   \begin{align}
     α &= \E Y - β \E X &\text{and}&& β &= \frac{\cov(X, Y)}{\var(X)}.
   \end{align}
+
 \item Suppose that $X₁,…,X_n$ are an i.i.d. sample from the continuous
-  distribution $F$.  What is the distribution of $\max_i X_i$?
+  distribution $F$.  What is the distribution of $\max_i X_i$?  Derive
+  the joint distribution of $\min_i X_i$ and $\max_i X_i$.
+
 \item Let $X$ and $Y$ be random variables.  Prove that 
   \begin{equation}
     \var(Y) = \var(\E(Y ∣ X)) + \E \var(Y ∣ X)
   \end{equation}
+
 \item Suppose that $X₁$ and $X₂$ are independent univariate Normal
   random variables.  Prove that $X₁ + X₂$ is Normal and find its mean
   and variance.
+
 \item Let $X ∼ N(0,I_n)$ and let $P$ be a symmetric $n × n$ matrix.
   Prove that $X'PX$ is chi-square with $k$ degrees of freedom if and
   only if $P$ is idempotent with rank $k$ \citep{SL03}.
+
 \item Suppose that $X₁ ∼$ beta$(α, β)$ and $X₂ ∼$ beta$(γ, δ)$ and
   they are independent.  Derive the density of $X₁ · X₂$.
+
 \end{enumerate}
 
 %%% Local Variables: 
