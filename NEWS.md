@@ -11,6 +11,13 @@ Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
 copy of the license is included in the file LICENSE.tex and is also
 available online at <http://www.gnu.org/copyleft/fdl.html>.
 
+Version 0.3.0
+-------------
+This release is a major rewrite of the probability section, which
+changes it from a loose outline to sentences and paragraphs.  The
+release also reorganizes some material later in the book, but the
+emphasis is on the probability material.
+
 ### Version 0.2.5, hotfix release
 * Fixes a bug in the 'addcontentsline' command before the bibliography.
 
