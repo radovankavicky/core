@@ -12,10 +12,145 @@
 \part*{Deriving point estimators}%
 \addcontentsline{toc}{part}{Overview of point estimation}
 
-I'd like to add a form of loss-function minimization after the Method
-of Moments section.
+\section{Summarizing data sets}
+
+\begin{itemize}
+
+\item We'll start with a few very basic definitions.
+  \begin{defn}
+    The random variables $X₁,...,X_n$ are a \emph{random sample} if
+    they form an i.i.d. draw from some distribution $F$.
+  \end{defn}
+
+  \begin{defn}
+    If $T$ is a function from the sample space of $(X₁,...,X_n)$ to
+    $\RR^k$ then the random variable $T(X₁,...,X_n)$ is a
+    \emph{statistic}.
+  \end{defn}
+
+  Note that statistics are random variables and have distributions.  A
+  statistic is anything that can be calculated from the data.  It can
+  not depend on unknown parameters of the distribution.
+
+\item It's worth spending a little while thinking about ``reasonable''
+  ways to summarize datasets.  For now, we're only going to worry
+  about mathematical characterizations of ``summarizing'' a dataset,
+  we're not going to get into statistical graphics, etc.  One natural
+  way to think about a data summary is through the idea of
+  ``sufficient'' statistics.
+
+  \begin{defn}
+    If $X₁,...,X_n ∼ f(·; θ)$ is a draw from a known family of
+    distributions with unknown parameter $θ$, a statistic $T(X)$ is a
+    \emph{sufficient statistic for $θ$} if the conditional
+    density/distribution $f(· ∣ T(X))$ does not depend on $θ$.
+  \end{defn}
+
+  The order statistics are always going to be a sufficient statistic
+  for i.i.d. random variables, but there are often better (as in
+  smaller) options, and we'll present a result soon that can help in
+  constructing sufficient statistics.
+
+  \begin{defn}
+    $T(X)$ is a \emph{minimal sufficient statistic} if it is a
+    function of any other sufficient statistic.
+  \end{defn}
+
+  First, though, there's the related concept of ancillarity.
+
+  \begin{defn}
+    If $X₁,...,X_n ∼ f(·; θ)$ is a draw from a known family of
+    distributions with unknown parameter $θ$, a statistic $T(X)$ is an
+    \emph{ancillary statistic for $θ$} if the sampling distribution of
+    $T(X)$ does not depend on $θ$.
+  \end{defn}
+
+\item The ``factorization theorem'' is useful in determining whether
+  or not a given statistic is sufficient for a parameter.
+  \begin{thm}
+    If $f(x; θ)$ is the joint pdf of $(X₁,...,X_n)$, $T(X)$ is a
+    sufficient statistic for $θ$ if and only if
+    \begin{equation*}
+      f(x; θ) = g(T(x); θ) h(x)
+    \end{equation*}
+    for some functions $g$ and $h$.
+  \end{thm}
+  The important thing to note is that $T(x)$ and $θ$ are both in $g$
+  and $θ$ is not in $h$.  The other thing to note is the ``if and only
+  if'' part of the proof.
+
+  It is straightforward to prove that sufficiency implies the
+  factorization holds: let $h(x)$ be the joint density of $x$ given
+  $T(X)$.  It is less straightforward, but more important in practice,
+  to prove that existence of the factorization implies sufficiency.
+  The result still follows from the conditional densities (as it seems
+  that it must).
+  \begin{align*}
+    f_X(x ∣ T(X) = T(x); θ)
+    &= f(x, T(x); θ) / f_T(T(x); θ) \\
+    &= f_X(x; θ) / f_T(T(x); θ) \\
+    &= g(T(x); θ) h(x) / f_T(T(x); θ)
+  \end{align*}
+  where the second equality holds because $T(x)$ is redundant when we
+  know $x$, and the third equality holds because we're assuming that
+  this factorization exists.
+
+  Now we can write the denominator as
+  \begin{align*}
+    f_T(T(x); θ)
+    &= ∫_A f(T(y) ∣ X = y; θ) f_X(y) dy \\
+    &= ∫_A f_X(y; θ) dy \\
+    &= ∫_A g(T(x); θ) h(y) dy \\
+    &= g(T(x); θ) ∫_A h(y) dy
+  \end{align*}
+  where $A$ is the set of points s.t. $T(y) = T(x)$ for all $y ∈ A$
+  and the equalities hold for the same reasons as before.
+
+  Now just merge the two equations to get
+  \begin{equation*}
+    f_X(x ∣ T(X) = T(x); θ)
+    = \frac{g(T(x); θ) h(x)}{g(T(x); θ) ∫_A h(y) dy}
+    = \frac{h(x)}{∫_A h(y) dy}.
+  \end{equation*}
+  This last quantity does not depend on $θ$, so we're done.
+
+  We can use the factorization thoerem to prove that $\min_i X_i$ and
+  $\max_i X_i$ are sufficient statistics for the uniform$(a,b)$.
+  \begin{ex}
+    The joint pdf of $X₁,...,X_n$ is
+    \begin{align*}
+      f(x₁,...,x_n; a, b)
+      &= ∏_{i=1}^n \tfrac{1}{b-a} \1\{x_i ∈ [a,b]\} \\
+      &= \Big(\tfrac{1}{b-a}\Big)^n \1\{a ≤ \min_i x_i \& \max_i x_i ≤ b\},
+    \end{align*}
+    so we can define $h(x) = 1$ and
+    \begin{equation*}
+      g(T(x); a, b) = \Big(\tfrac{1}{b-a}\Big)^n \1\{a ≤ \min_i x_i \& \max_i x_i ≤ b\}.
+    \end{equation*}
+  \end{ex}
+
+\item We can also think of the density function itself as giving a
+  summary of the dataset.\sidenote{Note that we're implicitly assuming
+    that we know the density function, but that's not really true.}
+  Earlier, though, we viewed the densities as functions of the
+  possible values of the random variables, $x$, given particular
+  parameter values.  Now we're going to treat the random variables as
+  known/observed and view the densities as functions of the possible
+  parametrizations.  When we do that, we call them \emph{likelihoods}
+  and will typically write them as $L(θ; x)$.
+
+  [PLOT PICTURE OF UNIFORM LIKELIHOOD.]
+
+  Regions where the likelihood is high are to some degree more
+  plausible than regions where it is low.  If we look at the uniform
+  dist; when the likelihood is higher, its corresponding density is
+  more concentrated around the observed data.
+
+\end{itemize}
 
 \section{Method of Moments}
+I'd like to add a form of loss-function minimization after the Method
+of Moments section.
 \begin{itemize}
 \item Suppose we have $X₁,…,X_n ∼ f(x; θ)$
 \begin{itemize}
@@ -56,7 +191,7 @@ of Moments section.
     \Big( \ov{n} ∑_{i=1} X_i,…,\ov{n} ∑_{i=1} X_i^p \Big).
   \end{equation*}
   And then \[\θh = g^{-1} (n^{-1} ∑_{i=1}^n X_i,…,n^{-1} ∑ X_i^p).\]
-  Obviously, $g$ needs to be invertible for this to work.
+  Obviously, $g$ needs to be inevitable for this to work.
 \item Sometimes $\θh$ is easy to write out analytically as a function
   of the sample averages
   \begin{itemize}
@@ -133,7 +268,7 @@ of Moments section.
           β₁
         \end{pmatrix}$
       \end{itemize}
-    \item Assuming invertibility, $\begin{pmatrix}β₀\\β₁\end{pmatrix}
+    \item Assuming inevitability, $\begin{pmatrix}β₀\\β₁\end{pmatrix}
       = \begin{pmatrix}1& \E X_i \\ \E X_i & \E X_i²\end{pmatrix}^{-1}
       \begin{pmatrix} \E Y_i \\ \E X_iY_i\end{pmatrix}$
     \item This makes our estimator,
@@ -240,7 +375,7 @@ Add!
   \item in a sense, $b = 0.5$ is the most plausible
     \begin{itemize}
     \item smaller values are impossible
-    \item as $b$ increases from $0.5$, the plausiblity decreases.
+    \item as $b$ increases from $0.5$, the plausibility decreases.
     \end{itemize}
   \item we can get $b = 0.5$ directly by maximizing $f(0.5; b)$ as a
     function of $b$
@@ -339,3 +474,5 @@ Add!
 %%% mode: latex
 %%% TeX-master: "../../estimation"
 %%% End: 
+
+%  LocalWords:  datasets dataset
