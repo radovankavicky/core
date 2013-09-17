@@ -33,7 +33,7 @@
   where $X ∼ f$ is a representative draw from the distribution, and
   define the expected value as
   \begin{equation}\label{eq:3}
-    \E X = ∫ x f(x) dx.
+    \E X = ∫ x f(x) \dx.
   \end{equation}
   For a random vector $X = (X₁,…,X_k)$, the expected value is just the
   vector of each element's expected value:
@@ -48,7 +48,7 @@
   surprisingly straightforward and does not require the density of
   $g(X)$ to be calculated:
   \begin{equation*}
-    \E g(X) = ∫ g(x) f(x) dx.
+    \E g(X) = ∫ g(x) f(x) \d x.
   \end{equation*}
   This can be verified in special cases from the formula for the
   density of $g(X)$.  For the general case, this result follows from
@@ -78,9 +78,9 @@
   independent then $\E XY = \E X \E Y$.  For proof:
   \begin{align*}
     \E XY
-    &= ∫∫ x y f_{X,Y}(x,y) dx dy \\
-    &= ∫∫ xy f_X(x) f_Y(y) dx dy \\
-    &= ∫ x f_X(x) dx ∫ y f_Y(y) dy \\
+    &= ∫∫ x y f_{X,Y}(x,y) \dx \dy \\
+    &= ∫∫ xy f_X(x) f_Y(y) \dx \dy \\
+    &= ∫ x f_X(x) \dx ∫ y f_Y(y) \dy \\
     &= \E X \E Y.
   \end{align*}
 
@@ -112,7 +112,7 @@
   densities.  If $X$ and $Y$ are two random vectors, the conditional
   expectation of $Y$ given $X$ is
   \begin{equation*}
-    \E(Y ∣ x) = ∫ y f_Y(y ∣ x) dy
+    \E(Y ∣ x) = ∫ y f_Y(y ∣ x) \dy
   \end{equation*}
   where $f_Y$ is the density of $Y$.\sidenote{There are other, more
   fundamental ways to derive conditional expectations that we're not
@@ -151,11 +151,11 @@
     \end{thm}
     The proof (assuming densities, etc) is pretty straightforward
     \begin{align*}
-      \E Y &= ∫ y f_Y(y) dy \\
-      &= ∫ ∫ y f_{X,Y}(x,y) dx dy \\
-      &= ∫ ∫ y f_Y(y ∣ X = x) f_X(x) dx dy \\
-      &= ∫ ∫ y f_Y(y ∣ X = x) dy f_X(x) dx \\
-      &= ∫ \E(Y ∣ X = x) f_X(x) dx \\
+      \E Y &= ∫ y f_Y(y) \dy \\
+      &= ∫ ∫ y f_{X,Y}(x,y) \dx \dy \\
+      &= ∫ ∫ y f_Y(y ∣ X = x) f_X(x) \dx \dy \\
+      &= ∫ ∫ y f_Y(y ∣ X = x) \dy f_X(x) \dx \\
+      &= ∫ \E(Y ∣ X = x) f_X(x) \dx \\
       &= \E \E(Y ∣ X)
     \end{align*}
   \end{enumerate}

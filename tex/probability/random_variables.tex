@@ -56,7 +56,7 @@
   \RR → \RR$ such that
   \begin{enumerate}
   \item $f(x) ≥ 0$ for all $x ∈ \RR$ and
-  \item $∫_{-∞}^∞ f(x) dx = 1$.
+  \item $∫_{-∞}^∞ f(x) \dx = 1$.
   \end{enumerate}
   (The set $S ⊂ \RR$ s.t. $f(x) > 0$ for all $x ∈ S$ and $f(x) = 0$
   for all $x ∉ S$ is called the \emph{support} of the r.v. $X$.)  We
@@ -64,32 +64,32 @@
   For any closed interval $[a, b]$,\sidenote{Remember, $[a,b] = \{x ∈
   \RR ∣ a ≤ x ≤ b\}$.} we can define
   \begin{equation*}
-    \Pr[ X ∈ [a,b] ] = ∫_a^b f(x) dx,
+    \Pr[ X ∈ [a,b] ] = ∫_a^b f(x) \dx,
   \end{equation*}
   and for any set $A$ that can be written as the union of a countable
   number of disjoint intervals, $A = ⋃_i [a_i, b_i]$, where $⋂_i [a_i,
   b_i] = ∅$, we can define
   \begin{equation*}
-    \Pr[ X ∈ A ] = ∑_i \Pr[ X ∈ [a_i, b_i] ] = ∑_i ∫_{a_i}^{b_i} f(x) dx
+    \Pr[ X ∈ A ] = ∑_i \Pr[ X ∈ [a_i, b_i] ] = ∑_i ∫_{a_i}^{b_i} f(x) \dx
   \end{equation*}
 
 \item It's natural to want to go even further, and define for any set
   $A ⊂ \RR$
   \begin{equation*}
-    \Pr[ X ∈ A ] = ∫_A f(x) dx ≡ ∫_{-∞}^∞ \1\{x ∈ A\} f(x) dx,
+    \Pr[ X ∈ A ] = ∫_A f(x) \dx ≡ ∫_{-∞}^∞ \1\{x ∈ A\} f(x) \dx,
   \end{equation*}
   but it turns out that this integral is not well-defined for every $A
   ⊂ \RR$ (and, consequently, it's possible to construct functions $f$
   that can't be used as densities, a fact that we glossed over
   earlier).  However, it should be obvious that we can construct a
   self-contained set of subsets of \RR, call it \BB, so that we can
-  define $\Pr[X ∈ B] = ∫_B f(x) dx$ for all $B ∈ \BB$.
+  define $\Pr[X ∈ B] = ∫_B f(x) \dx$ for all $B ∈ \BB$.
 
   We can motivate some of properties that \BB\ needs from properties
   that seem necessary for the probability function $\Pr$.
 
   \begin{enumerate}
-  \item We need $\Pr[X ∈ \RR] = ∫_{-∞}^∞ f(x) dx = 1$, so \RR\ must be
+  \item We need $\Pr[X ∈ \RR] = ∫_{-∞}^∞ f(x) \dx = 1$, so \RR\ must be
     in \BB.
   \item If $\Pr[X ∈ B]$ is well defined then $\Pr[X ∉ B]$ should be as
     well, and we should have $\Pr[X ∉ B] = 1 - \Pr[X ∈ B]$.  Since $X
@@ -143,7 +143,7 @@
   of integrals of functions that are step functions.  For example, if
   $g_n → f$ as $n → ∞$ where each $g_n = ∑_i c_{i,n} \1\{x ∈ B_{i,n}\}$
   then we often can show that
-  $∫ f dμ = \lim_{n → ∞} ∑_i c_{i,n} μ(B_{i,n})$ (I say ``often''
+  $∫ f \dμ = \lim_{n → ∞} ∑_i c_{i,n} μ(B_{i,n})$ (I say ``often''
   because there are some conditions on the sequence $\{g_n\}$ that we
   haven't mentioned that need to be satisfied for this to hold)
 
@@ -197,7 +197,7 @@
   \begin{equation*}
     f_b(x) = \tfrac{1}{2} δ(x) + \tfrac{1}{2} δ(x - 1).
   \end{equation*}
-  This lets us write $\Pr[b ∈ B] = ∫_B f_b(x) dx$ for any Borel-set
+  This lets us write $\Pr[b ∈ B] = ∫_B f_b(x) \dx$ for any Borel-set
   $B$, which is what we want.\sidenote{You should work through all of
   the steps necessary to prove this to yourself.}
 
@@ -284,13 +284,13 @@
   Equation~\eqref{eq:2} by integrating out the conditional density of
   $X₂$:
   \begin{equation*}
-    ∫_{-∞}^{-∞} f₂(x₂ ∣ x₁) f₁(x₁) dx₂ = f₁(x₁)
+    ∫_{-∞}^{-∞} f₂(x₂ ∣ x₁) f₁(x₁) \dx_2 = f₁(x₁)
   \end{equation*}
   since $f₂(· ∣ x₁)$ is a density function and so integrates to 1.
   This gives a slightly less obvious relationship between the
   \emph{joint} and marginal densities:
   \begin{equation*}
-    ∫_{-∞}^{-∞} f(x₁, x₂) dx₂ = f₁(x₁).
+    ∫_{-∞}^{-∞} f(x₁, x₂) \dx_2 = f₁(x₁).
   \end{equation*}
   There is clearly nothing special about the order of the variables.
 
@@ -300,7 +300,7 @@
   \end{equation*}
   and can be retrieved from the joint density as before:
   \begin{equation*}
-    F(x₁,…,x_k) = ∫_{-∞}^{x₁} ⋯ ∫_{-∞}^{x_k} f(z₁,…,z_k) dz₁ ⋯ dz_k.
+    F(x₁,…,x_k) = ∫_{-∞}^{x₁} ⋯ ∫_{-∞}^{x_k} f(z₁,…,z_k) \dz_1 ⋯ \dz_k.
   \end{equation*}
   Writing this equation explicitly makes it clear that the CDF can be
   factored under independence just as the densities can.
@@ -318,7 +318,7 @@
 
   Similarly, the relationship
   \begin{equation*}
-    f₁(x) = ∫_{-∞}^∞ ⋯ ∫_{-∞}^∞ f(z₁,…,z_k) dz_k ⋯ dz₂.
+    f₁(x) = ∫_{-∞}^∞ ⋯ ∫_{-∞}^∞ f(z₁,…,z_k) \dz_k ⋯ \dz_2.
   \end{equation*}
   can also seen by starting with the marginal CDF and then
   differentiating to get the density.
@@ -619,7 +619,7 @@
   function $F_X$, the density of $X$ can be defined as the function
   $f_X$ such that
   \begin{equation*}
-    F_X(x) = ∫_{-∞}^{x} f_X(z) dz.
+    F_X(x) = ∫_{-∞}^{x} f_X(z) \dz.
   \end{equation*}
 
   As alluded to earlier, this is the more mathematically sound way to
