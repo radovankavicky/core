@@ -341,119 +341,93 @@
 
 \end{itemize}
 
-\section{Introduction to Maximum Likelihood Estimation}
+\section{Maximum Likelihood Estimators}
 
 \begin{itemize}
-\item look at the $\uniform(0,b)$ example suppose $n = 1$
-  \begin{itemize}
-  \item draw these densities for $b$ = 1, 2, 4
-    \begin{itemize}
-    \item density is $1/b$ in $[0,b]$.
-    \item pick a point $x$ on the density
-    \end{itemize}
-  \item have (as a function of $b$) $1/b$ as long as $b ≥ x$
-  \item if we observe $X = 0.5$ (for example), we know that $b ≥ 0.5$
-  \item In addition, values like $b = 500$ are implausible
-    \begin{itemize}
-    \item as $b$ gets larger, there are more possible values that $X$ is
-      likely to take on.
-    \end{itemize}
-  \item in a sense, $b = 0.5$ is the most plausible
-    \begin{itemize}
-    \item smaller values are impossible
-    \item as $b$ increases from $0.5$, the plausibility decreases.
-    \end{itemize}
-  \item we can get $b = 0.5$ directly by maximizing $f(0.5; b)$ as a
-    function of $b$
-    \begin{itemize}
-    \item called the likelihood and written $L(b; x)$
-    \end{itemize}
-  \end{itemize}
-\end{itemize}
 
-\section{Definition}
+\item We discussed the likelihood function earlier as a method of
+  summarizing a data set.  Notice that parameter values corresponding
+  to higher values of the likelihood function also correspond to
+  densities that are more tightly concentrated around the observed
+  data.  This suggests that a good estimate might be the parameter
+  value associated with the tightest density, i.e. the largest value
+  of the likelihood function.
 
-\begin{itemize}
-\item for the MLE estimator, we start with the density, but view it as
-  a function of $θ$
-  \begin{itemize}
-  \item the value of $θ$ that maximizes the likelihood is (in a sense)
-    the most plausible/defensible value.
-  \end{itemize}
-\item the MLE of $θ$ is $\argmax_θ L(θ; x₁,…,x_n)$
-\end{itemize}
+  \begin{ex} Suppose that $X₁,...,X_n ∼ \uniform(0, b)$.  Then the
+    likelihood function (as before) is
+    \begin{equation*}
+      L(b; x₁,...,x_n) = ∏_i (1/b) \1\{0 ≤ x_i ≤ b\}
+    \end{equation*}
+    [Draw the likelihood and several densities]
 
-\section{Examples}
+    The maximum is clearly $b = \max x_i$.
+  \end{ex}
 
-\subsection{iid draws from $\uniform(a,b)$}
-\begin{itemize}
-\item $L(a,b; x₁,…,x_n) = ∏_i 1\{x_i ∈ [a,b]\} (b-a)^{-1}$
-\item $= ({1 \over b-a})^{n}$ if all $x_i ∈ [a,b]$ and zero otherwise.
-\item we can find the maximum easily
-  \begin{itemize}
-  \item likelihood decreases as $b$ increases or $a$ decreases
-  \item likelihood becomes zero if $b < \max x_i$ or if $a > \min x_i$
-  \item so $\hat b = \max x_i$ and $\hat a = \min x_i$
-  \end{itemize}
-\end{itemize}
+\item The definition is unsurprising:
+  \begin{defn}
+    Suppose that $X₁,...,X_n ∼ f(x₁,...,x_n; θ)$.  The \emph{Maximum
+      Likelihood Estimator} (MLE) of $θ$ is
+    \begin{equation*}
+      \θh = \argmax_θ L(θ; x₁,...,x_n).
+    \end{equation*}
+  \end{defn}
 
-\subsection{linear regression.}
-\begin{itemize}
-\item $(Y_i,X_i) ∼ iid$
-  \begin{itemize}
-  \item $X_i ∼ f$ which is unspecified, $X_i$ is a $k × 1$ vector.
-  \item $Y_i ∣ X_i ∼ N(X_i'β, σ²)$
-  \end{itemize}
-\item want to estimate $β$ and $σ²$
-\item Draw fitted values, densities
-\item $L(μ,σ²; y, x) = ∏_i {1 \over \sqrt{2 π σ²}}
-  e^{- {(y_i - x_i'β)² \over 2 σ²}} f(x_i)$
-\item step 1: take logs:
-  \begin{itemize}
-  \item $\log L(μ,σ²; x₁,…,x_n) = const - n\log (\sqrt{σ²}) -
-    ∑_i {(x_i - μ)² \over 2 σ²} + ∑_i f(x_i)$
-  \end{itemize}
-\item First order conditions:
-  \begin{itemize}
-  \item for mean:
-    \begin{itemize}
-    \item $\frac{\partial}{\partial β} \log L(μ, σ²; x, y) = ∑_{i=1}^n x_i (y_i - x_i'β) = 0$
-    \item so $\βh=(∑_i x_i x_i')^{-1} ∑_i x_i y_i$
-    \end{itemize}
-  \item for variance:
-    \begin{itemize}
-    \item $\frac{\partial}{\partial σ²} \log L(μ, σ²; x, y) = -\frac{n}{2σ²} + \frac{1}{2 σ^4}∑_i (y_i - x_i'β)² = 0$
-    \item so $\hat σ² = \frac{1}{n} ∑_{i=1}^n (y_i - x_i'β)²$
-    \end{itemize}
-  \end{itemize}
-\item students should verify that this is a maximum on their own.
-\end{itemize}
+\item We can see that the usual OLS estimator is the MLE.
+  \begin{ex} Suppose that $(Y_i,X_i)$ are \iid\ where $X_i$ is a $k ×
+    1$ random vector with unspecified density $f$ and
+    \begin{equation*}
+      Y_i ∣ X_i ∼ N(X_i'β, σ²),
+    \end{equation*}
+    $β$ and $σ²$ are the parameters of interest.  The maximization
+    problem will be easier of we take logs (remember, log is
+    monotonic, so the maximizer of the log likelihood will be the same
+    as that of the likelihood.  The log likelihood is
+    \begin{equation*}
+      \log L(β,σ²; x, y) = const - n\log (\sqrt{σ²}) -
+      (1/2σ²) ∑_i (y_i - x_i'β)² + ∑_i f(x_i).
+    \end{equation*}
+    
+    The first order conditions for $β$ are
+    \begin{equation*}
+      0 = (∂/∂β) \log L(β, σ²; x, y) = (1/σ²) ∑_i x_i (y_i - x_i'β)
+    \end{equation*}
+    which gives
+    \begin{equation*}
+      \βh = \big(∑_i x_i x_i'\big)^{-1} ∑_i x_i y_i.
+    \end{equation*}
+    The first order conditions for $σ²$ are
+    \begin{equation*}
+      0 = (∂/∂σ²) \log L(β, σ²; x, y) = -(n/2σ²) + (1/2σ⁴) ∑_i (y_i - x_i'β)²
+    \end{equation*}
+    which gives
+    \begin{equation*}
+      \σh² = (1/n) ∑_i (y_i - x_i'\βh)².
+    \end{equation*}
 
-\section{More remarks on mle}
+    You should verify that this is a maximum using the second order
+    conditions.
+  \end{ex}
 
-\begin{itemize}
-\item unlike method of moments, where we connect our parameters to the
+\item The derivative of the log likelihood shows up often and is
+  called the \emph{score}.
+
+\item Unlike method of moments, where we connect our parameters to the
   mean, variance, etc. regardless of the distribution; here we look at
   the features of the data that the distribution tells us are the most
-  relevant.
-  \begin{itemize}
-  \item for normal, this \emph{is} the mean and variance, so MLE and
-    MoM give us the same statistics
-  \item for uniform, and others, this is \emph{not} the mean and
-    variance.  - the derivative of the log likelihood is called the
-    \emph{score}.  
-    $S(θ; x) = {\partial \over \partial θ} \log L(θ; x)$
-  \end{itemize}
-\item has a nice invariance property: say you're not interested in the
-  parameters per se, but care about a transformation of the parameters
-  $T(θ)$.  If $\θh$ is the maximum likelihood estimator of $θ$,
-  then $T(\θh)$ is the MLE of $T(θ)$.
-\item we'll see later that you can use MLE to get an estimator, even
-  if you don't believe that the distribution is true
-  \begin{itemize}
-  \item called quasi-maximum likelihood
-  \item obviously, you then need to check that the estimator works well.
-  \end{itemize}
+  relevant.  For the normal, these features \emph{are} the mean and
+  variance, so MLE and MoM give us the same statistics.  For the
+  uniform, and others, this is \emph{not} the mean and variance.
+
+\item The MLE has a nice invariance property: say you're not
+  interested in the parameters per se, but care about a transformation
+  of the parameters $T(θ)$.  If $\θh$ is the maximum likelihood
+  estimator of $θ$, then $T(\θh)$ is the MLE of $T(θ)$.
+\item We'll see later that you can use MLE to get an estimator, even
+  if you don't believe that the distribution is true.  This estimator
+  is called the \emph{quasi-maximum likelihood} estimator and will be
+  (asymptotically) valid as long as the quasi MLE first order
+  conditions are true for the correct distribution.
+
 \end{itemize}
 
 %%% Local Variables: 
