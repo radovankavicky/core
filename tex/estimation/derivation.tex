@@ -1,0 +1,442 @@
+% Copyright © 2013, authors of the "Econometrics Core" textbook; a
+% complete list of authors is available in the file AUTHORS.tex.
+
+% Permission is granted to copy, distribute and/or modify this
+% document under the terms of the GNU Free Documentation License,
+% Version 1.3 or any later version published by the Free Software
+% Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+% Back-Cover Texts.  A copy of the license is included in the file
+% LICENSE.tex and is also available online at
+% <http://www.gnu.org/copyleft/fdl.html>.
+
+\part*{Deriving point estimators}%
+\addcontentsline{toc}{part}{Overview of point estimation}
+
+\section{Summarizing data sets}
+
+\begin{itemize}
+
+\item We'll start with a few very basic definitions.
+  \begin{defn}
+    The random variables $X₁,...,X_n$ are a \emph{random sample} if
+    they form an i.i.d. draw from some distribution $F$.
+  \end{defn}
+
+  \begin{defn}
+    If $T$ is a function from the sample space of $(X₁,...,X_n)$ to
+    $\RR^k$ then the random variable $T(X₁,...,X_n)$ is a
+    \emph{statistic}.
+  \end{defn}
+
+  Note that statistics are random variables and have distributions.  A
+  statistic is anything that can be calculated from the data.  It can
+  not depend on unknown parameters of the distribution.
+
+\item It's worth spending a little while thinking about ``reasonable''
+  ways to summarize datasets.  For now, we're only going to worry
+  about mathematical characterizations of ``summarizing'' a dataset,
+  we're not going to get into statistical graphics, etc.  One natural
+  way to think about a data summary is through the idea of
+  ``sufficient'' statistics.
+
+  \begin{defn}
+    If $X₁,...,X_n ∼ f(·; θ)$ is a draw from a known family of
+    distributions with unknown parameter $θ$, a statistic $T(X)$ is a
+    \emph{sufficient statistic for $θ$} if the conditional
+    density/distribution $f(· ∣ T(X))$ does not depend on $θ$.
+  \end{defn}
+
+  The order statistics are always going to be a sufficient statistic
+  for i.i.d. random variables, but there are often better (as in
+  smaller) options, and we'll present a result soon that can help in
+  constructing sufficient statistics.
+
+  \begin{defn}
+    $T(X)$ is a \emph{minimal sufficient statistic} if it is a
+    function of any other sufficient statistic.
+  \end{defn}
+
+  First, though, there's the related concept of ancillarity.
+
+  \begin{defn}
+    If $X₁,...,X_n ∼ f(·; θ)$ is a draw from a known family of
+    distributions with unknown parameter $θ$, a statistic $T(X)$ is an
+    \emph{ancillary statistic for $θ$} if the sampling distribution of
+    $T(X)$ does not depend on $θ$.
+  \end{defn}
+
+  Ancillary statistics can be informative about the precision of an
+  estimate: for example, if $X₁,\ldots,X_n ∼ \uniform(θ,θ+1)$, we can
+  see that $\range(X_i) = \max_i X_i - \min_i X_i$ is ancillary:
+  \begin{align*}
+    \max_i X_i - \min_i X_i
+    &= \max_i (X_i - θ) - \min_i (X_i - θ) \\
+    &=^d \max_i U_i - \min_i U_i
+  \end{align*}
+  where $U_i ∼ \uniform(0, 1)$.  But, if
+  \begin{equation*}
+    \θh = (1/2) \min_i X_i + (1/2) \max_i (X_i - 1)
+  \end{equation*}
+  this estimator will clearly be more precise if the range is close to
+  one than if it is close to zero.  So samples with a large range are
+  more informative about $θ$ than those with a small range.  This
+  observation can sometimes make inference \emph{conditional on
+  ancillary statistics} attractive, but we won't cover that topic in
+  this document.  See \citet[Chapter 10]{LR:05} for further discussion.
+
+\item The ``factorization theorem'' is useful in determining whether
+  or not a given statistic is sufficient for a parameter.
+  \begin{thm}
+    If $f(x; θ)$ is the joint pdf of $(X₁,...,X_n)$, $T(X)$ is a
+    sufficient statistic for $θ$ if and only if
+    \begin{equation*}
+      f(x; θ) = g(T(x); θ) h(x)
+    \end{equation*}
+    for some functions $g$ and $h$.
+  \end{thm}
+  The important thing to note is that $T(x)$ and $θ$ are both in $g$
+  and $θ$ is not in $h$.  The other thing to note is the ``if and only
+  if'' part of the proof.
+
+  It is straightforward to prove that sufficiency implies the
+  factorization holds: let $h(x)$ be the joint density of $x$ given
+  $T(X)$.  It is less straightforward, but more important in practice,
+  to prove that existence of the factorization implies sufficiency.
+  The result still follows from the conditional densities (as it seems
+  that it must).
+  \begin{align*}
+    f_X(x ∣ T(X) = T(x); θ)
+    &= f(x, T(x); θ) / f_T(T(x); θ) \\
+    &= f_X(x; θ) / f_T(T(x); θ) \\
+    &= g(T(x); θ) h(x) / f_T(T(x); θ)
+  \end{align*}
+  where the second equality holds because $T(x)$ is redundant when we
+  know $x$, and the third equality holds because we're assuming that
+  this factorization exists.
+
+  Now we can write the denominator as
+  \begin{align*}
+    f_T(T(x); θ)
+    &= ∫_A f(T(y) ∣ X = y; θ) f_X(y) \d y \\
+    &= ∫_A f_X(y; θ) \d y \\
+    &= ∫_A g(T(x); θ) h(y) \d y \\
+    &= g(T(x); θ) ∫_A h(y) \d y
+  \end{align*}
+  where $A$ is the set of points s.t. $T(y) = T(x)$ for all $y ∈ A$
+  and the equalities hold for the same reasons as before.
+
+  Now just merge the two equations to get
+  \begin{equation*}
+    f_X(x ∣ T(X) = T(x); θ)
+    = \frac{g(T(x); θ) h(x)}{g(T(x); θ) ∫_A h(y) \d y}
+    = \frac{h(x)}{∫_A h(y) \d y}.
+  \end{equation*}
+  This last quantity does not depend on $θ$, so we're done.
+
+  We can use the factorization theorem to prove that $\min_i X_i$ and
+  $\max_i X_i$ are sufficient statistics for the $\uniform(a,b)$.
+  \begin{ex}
+    The joint pdf of $X₁,...,X_n$ is
+    \begin{align*}
+      f(x₁,...,x_n; a, b)
+      &= ∏_{i=1}^n \tfrac{1}{b-a} \1\{x_i ∈ [a,b]\} \\
+      &= \Big(\tfrac{1}{b-a}\Big)^n \1\{a ≤ \min_i x_i \text{ and } \max_i x_i ≤ b\},
+    \end{align*}
+    so we can define $h(x) = 1$ and
+    \begin{equation*}
+      g(T(x); a, b) = \Big(\tfrac{1}{b-a}\Big)^n \1\{a ≤ \min_i x_i \text{ and } \max_i x_i ≤ b\}.
+    \end{equation*}
+  \end{ex}
+
+\item We can also think of the density function itself as giving a
+  summary of the dataset.\sidenote{Note that we're implicitly assuming
+    that we know the density function, but that's not really true.}
+  Earlier, though, we viewed the densities as functions of the
+  possible values of the random variables, $x$, given particular
+  parameter values.  Now we're going to treat the random variables as
+  known/observed and view the densities as functions of the possible
+  parameterizations.  When we do that, we call them \emph{likelihoods}
+  and will typically write them as $L(θ; x)$.
+
+  [PLOT PICTURE OF UNIFORM LIKELIHOOD.]
+
+  Regions where the likelihood is high are to some degree more
+  plausible than regions where it is low.  If we look at the uniform
+  dist; when the likelihood is higher, its corresponding density is
+  more concentrated around the observed data.
+
+\end{itemize}
+
+\section{The method of moments}
+
+\begin{itemize}
+\item Suppose we have $X₁,...,X_n ∼ \iid\ f(x; θ)$ where $f$ is known
+  and $θ$ is an unknown $p$-vector that we want to estimate.  The
+  \emph{method of moments} estimator is based on a straightforward
+  idea often called the ``analogy principle''—replace population
+  expectations with averages to derive an estimator.  A good estimator
+  of $\Pr[X_i ≤ c]$ is often $(1/n) ∑_i \1\{X_i ≤ c\}$, a good
+  estimator of $\E X_i$ is often $(1/n) ∑_i X_i$, etc.
+
+  To estimate $θ$, we first relate it to the first $p$ moments of
+  $X_i$:
+  \begin{equation}\label{eq:1}
+    (μ₁,...,μ_p)' = (g₁(θ),...,g_p(θ))'
+  \end{equation}
+  where $μ_ℓ = \E X_i^ℓ$ and $g$ depends on the density $f$.  Then the
+  estimator of $θ$ is the population vector that solves~\eqref{eq:1},
+  so
+  \begin{equation}\label{eq:2}
+    \big((1/n) ∑_i X_i,...,(1/n) ∑_i X_i^p\big)
+    = (g₁(\θh),...,g_p(\θh))'
+  \end{equation}
+  or
+  \begin{equation*}
+    \θh = g^{-1}\big((1/n) ∑_i X_i,...,(1/n) ∑_i X_i^p\big).
+  \end{equation*}
+  Obviously $g$ has to be inevitable for this to be a feasible
+  estimator.  For this to be a reasonable estimator, we want each
+  $μ_ℓ$ to be close (in some as of yet unspecified way) to $μ_ℓ$ and
+  $g^{-1}$ to be continuous so that $\θh$ is correspondingly close to
+  $θ$.
+
+\item If it is difficult or impossible to get a closed form solution
+  for $\θh$ you can solve~\eqref{eq:2} numerically.
+
+\item We will see later that averages are easy to analyze with
+  asymptotics (as the number of observations gets arbitrarily large)
+  and, if $g^{-1}$ is smooth, $\θh$ will also be easy to analyze.
+
+\item It might help to do a few examples.
+
+\item %
+  \begin{ex}
+    Suppose that $X_i ∼ \iid\ \N(μ, σ²)$ where both $μ$ and $σ²$ are
+    unknown.  The first two moments are
+    \begin{equation*}
+      (\E X_i, \E X_i²) = (μ, μ² + σ²)
+    \end{equation*}
+    and so the method of moments estimator of $(μ, σ²)$ is given by
+    \begin{align*}
+      (\μh, \σh^2)
+      &= (\μh_1, \μh_2 - \μh_1^2) \\
+      &= \big( (1/n) ∑_i X_i, (1/n) ∑_i (X_i - \Xb)² \big)
+    \end{align*}
+  \end{ex}
+
+\item %
+  \begin{ex}
+    Suppose that $X_i ∼ \iid\ \uniform(a,b)$ where the parameters $a$
+    and $b$ are both unknown.  We can again calculate the first two
+    moments of $X_i$,
+    \begin{align*}
+      \E X_i
+      &= \ov{b-a} ∫_a^b x \dx \\
+      &= (b+a) / 2
+    \intertext{and}
+      \E X_i^2
+      &= \ov{b-a} ∫_a^b x² \dx \\
+      &= \frac{b^3 - a^3}{3(b - a)} \\
+      &= (1/3) × (b² + ab + a²).
+    \end{align*}
+    These can be solved for $\ah$ and $\bh$:
+    \begin{equation*}
+      \ah = \bh - 2 \μh_1
+    \end{equation*}
+    and
+    \begin{equation*}
+      \bh^2 + (\bh - 2 \μh_1) \bh + (\bh - 2 \μh_1)² - 3 \μh_2 = 0
+    \end{equation*}
+    so
+    \begin{equation*}
+      (\ah, \bh) = (\μh_1 - \sh \sqrt{3}, \μh_1 + \sh \sqrt{3})
+    \end{equation*}
+    where $\sh = \sqrt{(1/n) ∑_i (X_i - \Xb)²}$.
+  \end{ex}
+
+  This is probably not a good estimator of $a$ and $b$.
+
+\item %
+  Suppose now that $(Y_i, X_i) ∼ \iid$ where the distribution of $X_i$
+  is unspecified and $Y_i ∣ X_i ∼ N(β₀ + β₁ X_i, σ²)$.  We want to estimate
+  $β₀$ and $β₁$ and will treat $σ²$ as a known constant for now.
+
+  The method of moments estimator is based on $\E Y_i$ and $\E X_i
+  Y_i$:
+  \begin{equation*}
+    \begin{pmatrix} \E Y_i \\ \E X_i Y_i  \end{pmatrix}
+    =
+    \begin{pmatrix}
+      β₀ + β₁ \E X_i \\ β₀ \E X₁ + β₁ \E X₁²
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      1 & \E X_i \\ \E X_i & \E X_i²
+    \end{pmatrix}
+    \begin{pmatrix} β₀ \\ β₁ \end{pmatrix}
+  \end{equation*}
+  So
+  \begin{equation*}
+    \begin{pmatrix} β₀ \\ β₁ \end{pmatrix}
+    =
+    \begin{pmatrix} 1 & \E X_i \\ \E X_i & \E X_i² \end{pmatrix}^{-1}
+    \begin{pmatrix} \E Y_i \\ \E X_i Y_i  \end{pmatrix}
+  \end{equation*}
+  Assuming invertability of the matrix.  The estimator is (again,
+  assuming invertability)
+  \begin{equation*}
+    \begin{pmatrix} \βh_0 \\ \βh_1 \end{pmatrix}
+    = \begin{pmatrix} 1 & (1/n) ∑_i X_i \\ 
+      (1/n) ∑_i X_i & (1/n) ∑_i X_i² \end{pmatrix}^{-1}
+    \begin{pmatrix} (1/n) ∑_i Y_i \\ (1/n) ∑_i X_i Y_i  \end{pmatrix}
+  \end{equation*}
+
+\item The method of moments estimator has some advantages: it is
+  usually a viable way to get an estimator and the estimator is
+  usually easy to analyze, at least asymptotically.
+
+\item The estimator has some disadvantages too.  It is usually going
+  to be inefficient.  It should be clear that the estimator is
+  reliable only when the first few moments have a lot of information
+  about the distribution.  This is true for the Normal distribution
+  (in the univariate case as well as the linear regression case), but
+  not for the uniform.
+
+  The estimators are not even guaranteed to satisfy distributional
+  constraints: we could easily estimate values of $\ah$ and $\bh$ that
+  are smaller than the smallest and largest observed values.
+
+\item There is a variation of method of moments, \emph{Generalized
+    Method of Moments} (usually abbreviated to GMM) \citep[derived
+  by][as part of his Ph.D. dissertation]{Han:82}.  Many models in
+  economics give implication that the period $t$ conditional
+  expectation satisfies 
+  \begin{equation*}
+    \E_t g(X_t, θ) = 0
+  \end{equation*}
+  where $g(x_t, θ)$ comes from agent rationality—essentially,
+  $g(X_t,θ)$ measures the agent's surprise, and if agents choose
+  rationally in period $t$, then the difference between their
+  prediction and the actual outcome must be unforecastable (if it
+  weren't, they would have already acted).
+
+  The LIE tells us that
+  \begin{equation*}
+    \E g(X_t, θ) = 0
+  \end{equation*}
+  unconditionally as well, so $θ$ can be estimated by solving
+  \begin{equation*}
+    (1/n) ∑_t g(X_t, θ) = 0
+  \end{equation*}
+  for $θ$.  If there are more equations than parameters, $θ$ can be
+  estimated using a weighting scheme, and the additional equations can
+  be used to test the adequacy model.  The key difference between GMM
+  and the method of moments is that the equations here are generally
+  derived from economic theory and not from distributional assumptions
+  on the random variables.  Of course, the setup is very general, so
+  it turns out that many estimators are special cases of GMM and can
+  be analyzed using the same theory.\sidenote{\citet{Hay:00} gives a
+    treatment of much of the material we cover, using GMM as the
+    underlying analysis.}
+
+\end{itemize}
+
+\section{Maximum Likelihood Estimators}
+
+\begin{itemize}
+
+\item We discussed the likelihood function earlier as a method of
+  summarizing a data set.  Notice that parameter values corresponding
+  to higher values of the likelihood function also correspond to
+  densities that are more tightly concentrated around the observed
+  data.  This suggests that a good estimate might be the parameter
+  value associated with the tightest density, i.e. the largest value
+  of the likelihood function.
+
+  \begin{ex} Suppose that $X₁,...,X_n ∼ \uniform(0, b)$.  Then the
+    likelihood function (as before) is
+    \begin{equation*}
+      L(b; x₁,...,x_n) = ∏_i (1/b) \1\{0 ≤ x_i ≤ b\}
+    \end{equation*}
+    [Draw the likelihood and several densities]
+
+    The maximum is clearly $b = \max x_i$.
+  \end{ex}
+
+\item The definition is unsurprising:
+  \begin{defn}
+    Suppose that $X₁,...,X_n ∼ f(x₁,...,x_n; θ)$.  The \emph{Maximum
+      Likelihood Estimator} (MLE) of $θ$ is
+    \begin{equation*}
+      \θh = \argmax_θ L(θ; x₁,...,x_n).
+    \end{equation*}
+  \end{defn}
+
+\item We can see that the usual OLS estimator is the MLE.
+  \begin{ex} Suppose that $(Y_i,X_i)$ are \iid\ where $X_i$ is a $k ×
+    1$ random vector with unspecified density $f$ and
+    \begin{equation*}
+      Y_i ∣ X_i ∼ N(X_i'β, σ²),
+    \end{equation*}
+    $β$ and $σ²$ are the parameters of interest.  The maximization
+    problem will be easier of we take logs (remember, log is
+    monotonic, so the maximizer of the log likelihood will be the same
+    as that of the likelihood.  The log likelihood is
+    \begin{equation*}
+      \log L(β,σ²; x, y) = const - n\log (\sqrt{σ²}) -
+      (1/2σ²) ∑_i (y_i - x_i'β)² + ∑_i f(x_i).
+    \end{equation*}
+    
+    The first order conditions for $β$ are
+    \begin{equation*}
+      0 = (∂/∂β) \log L(β, σ²; x, y) = (1/σ²) ∑_i x_i (y_i - x_i'β)
+    \end{equation*}
+    which gives
+    \begin{equation*}
+      \βh = \big(∑_i x_i x_i'\big)^{-1} ∑_i x_i y_i.
+    \end{equation*}
+    The first order conditions for $σ²$ are
+    \begin{equation*}
+      0 = (∂/∂σ²) \log L(β, σ²; x, y) = -(n/2σ²) + (1/2σ⁴) ∑_i (y_i - x_i'β)²
+    \end{equation*}
+    which gives
+    \begin{equation*}
+      \σh² = (1/n) ∑_i (y_i - x_i'\βh)².
+    \end{equation*}
+
+    You should verify that this is a maximum using the second order
+    conditions.
+  \end{ex}
+
+\item The derivative of the log likelihood shows up often and is
+  called the \emph{score}.
+
+\item Unlike method of moments, where we connect our parameters to the
+  mean, variance, etc. regardless of the distribution; here we look at
+  the features of the data that the distribution tells us are the most
+  relevant.  For the normal, these features \emph{are} the mean and
+  variance, so MLE and MoM give us the same statistics.  For the
+  uniform, and others, this is \emph{not} the mean and variance.
+
+\item The MLE has a nice invariance property: say you're not
+  interested in the parameters per se, but care about a transformation
+  of the parameters $T(θ)$.  If $\θh$ is the maximum likelihood
+  estimator of $θ$, then $T(\θh)$ is the MLE of $T(θ)$.
+\item We'll see later that you can use MLE to get an estimator, even
+  if you don't believe that the distribution is true.  This estimator
+  is called the \emph{quasi-maximum likelihood} estimator and will be
+  (asymptotically) valid as long as the quasi MLE first order
+  conditions are true for the correct distribution.
+
+\end{itemize}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../../estimation"
+%%% End: 
+
+%  LocalWords:  datasets dataset ancillarity parameterizations GMM
+
+
+
+

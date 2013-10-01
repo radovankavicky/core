@@ -87,65 +87,6 @@
          we should use it.
 \item The inequality may be strict (bound might not be obtained by any estimator or by the best estimator)
 \end{itemize}
-\item Example (skip in the future)
-\begin{itemize}
-\item usual setup
-\begin{itemize}
-\item $(X_i,Y_i) ∼ i.i.d.$
-\item $Y_i ∣ X_i ∼ N(β₀ + β₁ X_i, σ²)$
-\item $X_i ∼ f$
-\item $\βh = (X'X)^{-1} X'Y$ with
-\begin{itemize}
-\item $X = \begin{pmatrix} 1 & X₁ \\ ⋮ \\ 1 & X_n \end{pmatrix}$
-\item $Y = (Y₁, ..., Y_n)$
-\end{itemize}
-\end{itemize}
-\item $\βh$ is unbiased:
-\begin{itemize}
-\item even stronger, $\E(\βh ∣ X) = β$ (which implies unbiasedness)
-  \begin{align*}
-    \E(\βh ∣ X) &= \E((X'X)^{-1} X'Y ∣ X) \\
-    &= (X'X)^{-1}X' \E(Y ∣ X) \\
-    &= (X'X)^{-1}X'Xβ \\
-    &= β
-  \end{align*}
-\end{itemize}
-\item We can calculate conditional and unconditional variance of $\βh$:
-  \begin{align*}
-    \var(\βh ∣ X) &= \E((\βh - β)(\βh - β)' ∣ X) \\
-    &= \E((X'X)^{-1}X'\ep\ep'X(X'X)^{-1} ∣ X) \\
-    &= (X'X)^{-1}X' \E(\ep\ep' ∣ X) X(X'X)^{-1} \\
-    &= σ² (X'X)^{-1}
-  \end{align*}
-\item $\var(\βh) = \E \var(\βh ∣ X) + \var(\E(\βh ∣ X)) = σ² \E(X'X)^{-1}$
-\end{itemize}
-\item Is this the best unbiased estimator?
-\begin{itemize}
-\item unconditional exercise:
-\begin{itemize}
-\item we know that any unbiased estimator has variance greater than or equal to
-  \begin{equation*}
-    \begin{split}
-      \Big[\E \Big[\tfrac{d}{dθ} \log & L(θ; X)) (\tfrac{d}{dθ} \log L(θ; X))'\Big]\Big]^{-1} \\
-      &= \Big[σ^{-4} ∑_i \E (y_i - β₀ - β₁ x_i ∣ x_i)² \begin{pmatrix} 1 & x_i \\ x_i & x²_i \end{pmatrix}\Big]^{-1} \\
-      &= σ² (\E X'X)^{-1}
-    \end{split}
-  \end{equation*}
-\item so we don't know.
-\item But, this equals the variance if $X$ is deterministic
-\item Suggests that we co this conditional on $X$
-\end{itemize}
-\item conditional exercise\{
-\begin{itemize}
-\item we know that any estimator $b$ s.t. $\E(b ∣ X) = β$ has conditional variance greater than or equal to
-\begin{equation*}
-  \Big[\E\Big(\tfrac{d}{dθ} \log L(θ; X)) (\tfrac{d}{dθ} \log L(θ; X))' ∣ X\Big)\Big]^{-1}
-  = σ² (X'X)^{-1}
-\end{equation*}
-\item so $\βh$ achieves lower bound conditional on $X$
-\item holds unconditonally as well, too.
-\end{itemize}
-\end{itemize}
 \end{itemize}
 
 \section{loss function based optimality:}
@@ -206,5 +147,5 @@
 
 %%% Local Variables: 
 %%% mode: latex
-%%% TeX-master: "../../finitesample"
+%%% TeX-master: "../../estimation"
 %%% End: 

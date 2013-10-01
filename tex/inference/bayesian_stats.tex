@@ -27,7 +27,10 @@
 \item The density before we observe any data is called our
   \emph{prior} density.  The goal of the statistical exercise now is
   to update that density based on the observed data, giving us a
-  \emph{posterior} density.
+  \emph{posterior} density.  In the problems that we study in this
+  book, both Bayesian and Frequentist estimators will be relatively
+  well-behaved, and the prior will not have much of an effect when the
+  samples are large.  That's not always the case, though.
 
 \end{itemize}
 
@@ -136,40 +139,49 @@
 \subsection{Conjugate prior}
 
 \begin{itemize}
+
 \item A conjugate prior is one that is chosen so that the prior and
-       the posterior are in the same family
-\begin{itemize}
-\item computationally convenient
-\end{itemize}
-\item Definition: \citep[From][7.2.3]{CB02} Let $\Fs$ denote the
-  class of pdfs $f_X(x ∣ θ)$.  A class $Π$ of prior distributions is a
-  \emph{conjugate family} for $\Fs$ if the posterior is in the class
-  $Π$ for all $f$ in $\Fs$, all priors in $Π$, and all $x$.
-\item Uniform is a special case of beta distribution with
-       parameters (1,1)
-\item consider beta prior with parameters $α$ and $β$ and
-  $X ∼ binomial(n,p)$ DGP
-\begin{itemize}
-\item $p_θ(t) = \frac{Γ(α + β) t^{α-1} (1-t)^{β-1}}{Γ(α) Γ(β)}$
-\item $p_{X}(S ∣ θ) = \binom{n}{S} θ^S (1-θ)^{n-S}
-  = \frac{Γ(n + 1)}{Γ(S + Γ(n - S + 1)} θ^S (1-θ)^{n-s}$
-\item To get posterior, combine the distributions as before
-\begin{itemize}
-\item $p_θ(t ∣ data) 
-           = K × \frac{Γ(n + 1)}{Γ(S + 1) Γ(n - S + 1)} t^S (1-t)^{n-S} × \frac{Γ(α + β) t^{α-1} (1-t)^{β-1}}{Γ(α) Γ(β)}$
-\begin{itemize}
-\item $= K × \frac{Γ(n + 1) Γ(α + β)}{Γ(S + 1) Γ(n - S + 1) Γ(α) Γ(β)} t^{α + S - 1} (1 - t)^{β + n - S - 1}$
-\end{itemize}
-\item we can recognize that this is the beta($α + S, β + n - S$) density again; so we must have 
-  \[ K = (\frac{Γ(n + 1) Γ(α + β)}{Γ(S + 1) Γ(n - S + 1)Γ(α)Γ(β)})^{-1} \frac{Γ(α + β + n)}{Γ(α + S)Γ(β + n)} \]
-\end{itemize}
-\item This is the beta distribution again:
-\begin{itemize}
-\item mean is $(S + α) / (n + α + β)$
-\end{itemize}
-\end{itemize}
-\item for any bernoulli, if the prior is $beta(α,β)$ the posterior is
-  $beta(S + α, N - S + β)$
+  the posterior are in the same family.  This can be computationally
+  and analytically convenient, since it means that the posterior has a
+  closed-form solution.
+
+\item Definition: \citep[From][7.2.3]{CaB_2001} Let $\mathcal{F}$
+  denote the class of pdfs $f_X(x ∣ θ)$.  A class $Π$ of prior
+  distributions is a \emph{conjugate family} for $\mathcal F$ if the
+  posterior is in the class $Π$ for all $f$ in $\mathcal F$, all
+  priors in $Π$, and all $x$.
+
+\item The uniform distribution (which we looked at earlier) is a
+  special case of beta distribution with parameters (1,1).  We'll show
+  here that the beta distribution is a conjugate prior for our earlier
+  example.  Consider beta prior with parameters $α$ and $β$ and $X ∼
+  \binomial(n,p)$ as the DGP, so
+  \begin{align*}
+    p_θ(t)      &= \frac{Γ(α + β) t^{α-1} (1-t)^{β-1}}{Γ(α) Γ(β)}&
+    p_{X}(S ∣ θ) &= \binom{n}{S} θ^S (1-θ)^{n-S} \\ 
+    &&          &= \frac{Γ(n + 1)}{Γ(S + Γ(n - S + 1)} θ^S (1-θ)^{n-s}
+  \end{align*}
+  
+  To get the posterior, combine the distributions as before:
+  \begin{align*}
+    p_θ(t ∣ data)
+    &= K × \frac{Γ(n + 1)}{Γ(S + 1) Γ(n - S + 1)}
+       t^S (1-t)^{n-S} × \frac{Γ(α + β) t^{α-1} (1-t)^{β-1}}{Γ(α) Γ(β)} \\
+    &= K × \frac{Γ(n + 1) Γ(α + β)}{Γ(S + 1) Γ(n - S + 1) Γ(α) Γ(β)}
+       t^{α + S - 1} (1 - t)^{β + n - S - 1}
+  \end{align*}
+
+  We can recognize that this is the kernel of a beta$(α+S, β+n-S)$
+  density again; so for it to be a density, we have to have the
+  normalizing factor,
+  \begin{equation*}
+    K = \Big(\frac{Γ(n + 1) Γ(α + β)}{Γ(S + 1) Γ(n - S +1)Γ(α)Γ(β)}\Big)^{-1}
+        \frac{Γ(α + β + n)}{Γ(α + S)Γ(β + n)}
+  \end{equation*}
+  And the posterior mean is $(S + α) / (n + α + β)$.
+
+  In general, for any bernoulli, if the prior is $beta(α,β)$ the
+  posterior is beta$(S + α, N - S + β)$
 \end{itemize}
 
 \paragraph{advantages}
@@ -530,54 +542,56 @@ support
 \paragraph{posterior distribution}
 \begin{itemize}
 \item Use Bayes' rule to get posterior:
-  \[ p(β ∣ X, Y, σ²) = \frac{p(Y ∣ X, β, σ²) p(β ∣ X, σ²)}{p(Y ∣ X, σ²)}\]
-\item $Y$ given $X$, $β$, and $σ²$ is (obviously) normal
+  \[ p(β ∣ X, Y, σ^{2}) = \frac{p(Y ∣ X, β, σ^{2}) p(β ∣ X,
+    σ^{2})}{p(Y ∣ X, σ^{2})}\]
+\item $Y$ given $X$, $β$, and $σ^{2}$ is (obviously) normal
 \begin{itemize}
 \item mean $Xβ$
 \item variance $σ² I$
 \end{itemize}
 \item posterior is
-  \[p(β ∣ X, Y, σ²) ∝ (\frac{1}{\sqrt{2πσ²}})ⁿ 
-  \exp(-\frac{1}{2σ²}(Y - Xβ)'(Y - Xβ)) × (\frac{1}{\sqrt{2^k π^k \det(σ² Σ₀)}})
-  \exp(- \frac{1}{2} (β - β₀)'(σ²Σ₀)^{-1} (β - β₀))\]
+  \begin{multline}
+    p(β ∣ X, Y, σ²) ∝ \big(\ov{\sqrt{2 π σ²}}\big)^n
+    \exp\big(-\ov[(Y - Xβ)'(Y - Xβ)]{2σ²}\big) \\
+    × \ov{\sqrt{2^k π^k \det(σ² Σ₀)}}
+    \exp\big(- \ov{2} (β - β₀)'(σ² Σ₀)^{-1} (β - β₀)\big)
+  \end{multline}
 \begin{itemize}
 \item terms inside the exponentials can be written as ($\σh²$ and
   $\βh$ are the MLE estimators)
-  \[\exp(- \frac{1}{2 σ²} \{(\eph - X(β - \βh))' (\eph - X(β - \βh))\]
-\begin{itemize}
-\item \[(β - β₀)'Σ₀^{-1}(β - β₀)\})\]
-\end{itemize}
-which can be rewritten as 
-\[\exp(- \frac{n \σh²}{2 σ²}) \exp(-\frac{1}{2σ²}
-  \{(β - \βh)'X'X(β - \βh) + (β - β₀)Σ₀^{-1}(β - β₀)\})\]
-\item To get this into something more useful, we want to rewrite
-  \[(β - \βh)'X'X(β - \βh) + (β - β₀)Σ₀^{-1}(β - β₀)
-  = (β - a β₀ - b \βh)'V(β - a β₀ - b \βh)\]
-\begin{itemize}
-\item expand both sides and match to find $a$, $b$, and $V$, giving
-\begin{itemize}
-\item $β'Vβ = β'X'Xβ + β Σ₀^{-1} β$
-\begin{description}
-\item[.] $V = X'X + Σ₀^{-1}$
-\end{description}
-\item $β'V a β₀ = β'Σ₀^{-1}β₀$
-\begin{description}
-\item[.] $V a = Σ₀^{-1}$
-\item[.] $a = V^{-1} Σ₀^{-1} = (X'X + Σ₀^{-1})^{-1} Σ₀^{-1}$
-\end{description}
-\item $β'V b \βh = β'X'X \βh$
-\begin{description}
-\item[.] $V b = X'X$
-\item[.] $b = V^{-1} X'X = (X'X + Σ₀^{-1})^{-1} X'X = I - a$
-\end{description}
-\end{itemize}
-\item so we have 
-  \[β'X'Xβ + β Σ₀^{-1} β
-  = (β - aβ₀ - (I-a) \βh)'(X'X + Σ₀^{-1}) (β - aβ₀ - (I-a) \βh)\]
-  with $a = (X'X + Σ₀^{-1})^{-1}Σ₀^{-1}$
-\item the posterior of $β$ is
-  $N(a β₀ + (I - a)\βh, σ² (X'X + Σ₀^{-1})^{-1})$
-\end{itemize}
+  \[\exp\big(- \ov{2 σ²} (\eh - X(β - \βh))' (\eh - X(β - \βh))\big)\]
+  and $(β - β₀)'Σ₀^{-1}(β - β₀)$,
+  which can be rewritten as
+  \begin{equation*}
+    \exp\big(- \ov[n \σh²]{2 σ²}\big)
+    \exp\big(- \ov{2σ²} (β - \βh)'X'X(β - \βh) + (β - β₀)Σ₀^{-1}(β - β₀)\big)
+  \end{equation*}
+\item To get this into something more useful, we want to rewrite it as
+  \[(β - \βh)'X'X(β - \βh) + (β - β₀)Σ₀^{-1}(β - β₀) = (β - a β₀ - b \βh)'V(β - a β₀ - b \βh),\]
+  then solve for $a$, $b$, and $V$.  For $V$ we have
+  \begin{align*}
+    β'Vβ &= β'X'Xβ + β Σ₀^{-1} β & ⇔ \\
+    V    &= X'X + Σ₀^{-1},
+  \end{align*}
+  for $a$,
+  \begin{align*}
+    β'V a β₀ &= β'Σ₀^{-1}β₀ & ⇔ \\
+    V a      &= Σ₀^{-1}     & ⇔ \\
+    a        &= V^{-1} Σ₀^{-1} \\
+             &= (X'X + Σ₀^{-1})^{-1} Σ₀^{-1},
+  \end{align*}
+  and for $b$,
+  \begin{align*}
+    β'V b \βh &= β'X'X \βh & ⇔ \\
+    V b       &= X'X & ⇔ \\
+    b         &= V^{-1} X'X \\
+              &= (X'X + Σ₀^{-1})^{-1} X'X \\
+              &= I - a.
+  \end{align*}
+  So we have 
+  \[β'X'Xβ + β Σ₀^{-1} β  = (β - a β₀ - (I - a) \βh)'(X'X + Σ₀^{-1}) (β - a β₀ - (I - a) \βh)\] 
+  with $a = (X'X + Σ₀^{-1})^{-1}Σ₀^{-1}$.
+\item The posterior of $β$ is $N(a β₀ + (I - a)\βh, σ² (X'X + Σ₀^{-1})^{-1})$
 \end{itemize}
 \end{itemize}
 
@@ -631,32 +645,40 @@ which can be rewritten as
 \subsection{densities for sigma-squared}
 
 \begin{itemize}
-\item Conjugate prior for $1/σ²$ is the gamma distribution,
-  so $σ²$ has an inverse-gamma distribution:
-  \[p_{σ²}(σ² ∣ α, δ) = \frac{δ^α}{Γ(α)} (\frac1{σ²})^{α+1} e^{-\frac{β}{σ²}},
-  \quad α,δ > 0\]
+\item Conjugate prior for $1/σ²$ is the gamma distribution, so $σ²$
+  has an inverse-gamma distribution:
+  \[p_{σ²}(σ² ∣ α, δ) = \ov[δ^α]{Γ(α)} (\ov{σ²})^{α+1} \exp\big(-\ov[β]{σ²}\big)\]
+  with $α,δ > 0$.
 \begin{itemize}
 \item mean is $δ / (α - 1)$ for $α > 1$
 \item variance is $β² / (α-1)²(α-2)$ for $α > 2$
 \end{itemize}
-\item Joint prior for $β$ and $1/σ²$ is called the
-       Normal-Gamma prior:
-       \[p_{β,σ²}(β, σ² ∣ Σ₀, α, δ) = 
-       (\frac{1}{\sqrt{2^k π^k \det(σ² Σ₀)}})
-         \exp(- \frac{1}{2} (β - β₀)'(σ² Σ₀)^{-1} (β - β₀))
-       \frac{δ^α}{Γ(α)}(\frac1{σ²})^{α+1} e^{-\frac{δ}{σ²}}\]
+\item Joint prior for $β$ and $1/σ²$ is called the Normal-Gamma prior:
+  \begin{multline*}
+    p_{β,σ²}(β, σ² ∣ Σ₀, α, δ) = \Big(\ov{\sqrt{2^k π^k \det(σ² Σ₀)}}\Big)
+    \exp\big(- \ov{2} (β - β₀)'(σ² Σ₀)^{-1} (β - β₀)\big)
+    \\ × \ov[δ^α]{Γ(α)} (\ov{σ²})^{α+1} \exp(-\ov[δ]{σ²})
+  \end{multline*}
 \item We can work out the posterior as before:
-  \[p(β, σ² ∣ X, Y) ∝ (\frac{1}{\sqrt{2 π σ²}})ⁿ \exp(-\frac{1}{2σ²}(Y - Xβ)'(Y - Xβ))
-  × (\frac{1}{\sqrt{2^k π^k \det(σ² Σ₀)}}) \exp(-\frac{1}{2} (β - β₀)'(σ² Σ₀)^{-1} (β - β₀))
-  × \frac{δ^α}{Γ(α)} (\frac1{σ²})^{α+1} \exp(-\frac{δ}{σ²}) = (\frac{1}{\sqrt{2 π σ²}})ⁿ
-    (\frac{1}{\sqrt{2^k π^k \det(σ² Σ₀)}}) \exp(- \frac{n \σh²}{2 σ²})
-  × \exp(- \frac{1}{2σ²} \{(β - \βh)'X'X(β - \βh) + (β - β₀)Σ₀^{-1}(β - β₀)\})
-  × \frac{δ^α}{Γ(α)} (\frac1{σ²})^{α+1} \exp(-\frac{δ}{σ²}) \]
-  which is proportional to
-  \[ (\frac{1}{2 π σ²})^{k/2} \det(X'X + Σ₀^{-1})
-  \exp( -\frac{1}{2σ²} (β - aβ₀ - (I-a)\βh)' (X'X + Σ₀^{-1})(β - a β₀ - (I - a)\βh))
-  (\frac{1}{2 π σ²})^{\frac{n}{2}} \exp(- \frac{n\σh²}{2σ²})
-  \frac{δ^α}{Γ(α)} (\frac1{σ²})^{α+1} \exp(-\frac{δ}{σ²})\]
+  \begin{align*}
+    p(β, σ² ∣ X, Y) 
+    &∝ \big(\ov{\sqrt{2 π σ²}}\big)^n
+       \exp(-\ov{2σ²} (Y - Xβ)'(Y - Xβ)) \\
+    &\quad × \big(\ov{\sqrt{2^k π^k \det(σ² Σ₀)}}\big) \exp(-\ov{2} (β - β₀)'(σ² Σ₀)^{-1} (β - β₀)) \\
+    &\quad × \ov[δ^α]{Γ(α)} \big(\ov{σ²}\big)^{α+1} \exp(-\ov[δ]{σ²}) \\
+    &= \big(\ov{\sqrt{2 π σ²}}\big)^n \big(\ov{\sqrt{2^k π^k \det(σ² Σ₀)}}\big)
+       \exp(- \ov[n \σh²]{2 σ²})
+       \ov[δ^α]{Γ(α)} \big(\ov{σ²}\big)^{α+1} \exp\big(- \ov[δ]{σ²}\big) \\
+    &\quad × \exp\big(- \ov{2σ²} (β - \βh)'X'X(β - \βh) + (β - β₀)Σ₀^{-1}(β - β₀)\big)
+  \end{align*}
+  which is proportional to 
+  \begin{multline*}
+    \Big\{\Big(\ov{2πσ²}\Big)^{k/2} \det(X'X + Σ₀^{-1}) \\
+          \exp\Big( -\ov{2σ²} (β - aβ₀ - (I-a)\βh)' (X'X + Σ₀^{-1})(β - aβ₀ - (I-a)\βh)) \Big\} \\
+    \Big\{\Big(\ov{2πσ²}\Big)^{n/2} 
+           \exp\Big(- \ov[n\σh²]{2σ²}\Big) 
+           \ov[δ^α]{Γ(α)} \Big(\ov{σ²}\Big)^{α+1} \exp\Big(-\ov[δ]{σ²}\Big) \Big\}
+  \end{multline*}
 \begin{itemize}
 \item The first part is the posterior of $β$ conditional on $σ²$.
 \item We can rewrite the second part to be more interpretable:
@@ -697,12 +719,14 @@ which can be rewritten as
 
 After the analysis above, we can write the posterior density of $β$
 and $σ²$ explicitly as
-\[ (\frac{1}{2 π σ²})^{k/2} \det(X'X + Σ₀^{-1}) \exp( -\frac{1}{2σ²}
-(β - a β₀ - (I - a)\βh)' × (X'X + Σ₀^{-1})(β - a β₀ - (I - a)\βh)) ×
-\frac{(\σh² n/2 + δ)^{α + n/2}}{Γ(n/2 + α)} (\frac{1}{σ²})^{n/2 + α +
-  1} \exp(-\frac{\σh² n/2 + δ}{σ²}) \]
+\begin{multline*}
+  \Big(\ov{2πσ²}\Big)^{k/2} \det(X'X + Σ₀^{-1})
+  \exp\Big(-\ov{2σ²} (β-aβ₀-(I-a)\βh)'(X'X+Σ₀^{-1})(β-aβ₀-(I-a)\βh)\Big) \\
+  × \frac{(\σh² n/2 + δ)^{α + n/2}}{Γ(n/2 + α)}
+    \Big(\ov{σ²}\Big)^{n/2+α+1}\exp\Big(-\ov{\σh² n/2 + δ}{σ²}\Big)
+\end{multline*}
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../../finitesample"
+%%% TeX-master: "../../inference"
 %%% End:
