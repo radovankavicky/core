@@ -14,90 +14,133 @@
 
 \section{Introduction to interval estimation}
 
-\begin{itemize}
-\item We can take the ``hypothesis testing mentality'' and apply it to
-      point estimation
-\begin{itemize}
-\item apply the philosophy of hypothesis testing
-\item apply the mathematics of hypothesis testing
-\end{itemize}
-\item point estimation
-\begin{itemize}
-\item want to get a value
-\begin{itemize}
-\item have an unknown parameter $θ$
-\item use that data to construct a best guess for $θ$
-\item we're going to use that value as though it were true
-\end{itemize}
-\end{itemize}
-\item confidence intervals
-\begin{itemize}
-\item want to get a range of values that are \emph{possible}
-\item we're going to consider those that are inside the interval
-        indistinguishable from eachother and those outside
-        indistinguishable from eachother too.
-\end{itemize}
+\begin{itemize}  
+
+\item Note that our discussion of the sampling distribution lets us
+  think rigorously about the precision associated with a particular
+  estimator of an unknown parameter $θ$.  But it hasn't helped us
+  model uncertainty about the parameter value itself.  We'll see in
+  this section that confidence intervals are one way to think
+  rigorously about uncertainty of the parameter value, and we'll see
+  how to generate confidence intervals from point estimators.
+
+\item Let's introduce some definitions
+  \begin{defn}
+    An \emph{interval estimator} of a parameter $θ$ is any pair of
+    functions $L(X)$ and $U(X)$ s.t. $L(x) ≤ U(x)$ for all $x$ and,
+    when we observe $x$ we make the inference $θ ∈ [L(x), U(x)]$.
+  \end{defn}
+
+  \begin{defn}
+    The \emph{coverage probability} of an interval estimator
+    $[L(X), U(X)]$ is the probability $\Pr_θ[θ ∈ [L(X), U(X)]]$
+  \end{defn}
+
+  \begin{defn}
+    The \emph{confidence coefficient} is $\inf_θ P_θ[θ ∈ [L(X), U(X)]]$
+  \end{defn}
+
+  Generally, the idea behind an interval estimator is that we want to
+  estimate $θ$ in a way that accounts for uncertainty.  So the
+  researcher ``agrees'' not to distinguish between values in the
+  interval.  These intervals can be one-sided or two-sided.
+
+\item The idea of a confidence interval can be extended to
+  \emph{confidence regions} or \emph{confidence sets} when the
+  parameter has more than one element.  The extension is obvious.
+
+\item If we have a statistic with known sampling distribution, we can
+  often use that distribution to generate a confidence interval.  This
+  is the idea: suppose you have a statistic $\θh$ and know that its
+  distribution function, $F(t; θ)$, is a monotone function of $θ$.  We
+  can define a $1-α$ confidence interval of the form $[θ_L(\θh),
+  θ_U(\θh)]$ by solving the following equations for $θ_L, θ_U$:
+
+  \begin{itemize}
+  \item If $F(t; θ)$ is decreasing in $θ$:
+    \begin{align*}
+      F(\θh; θ_U) &= α/2 & F(\θh; θ_L) &= 1 - α/2
+    \end{align*}
+  \item If $F(t; θ)$ is increasing in $θ$:
+    \begin{align*}
+      F(\θh; θ_L) &= α/2 & F(\θh; θ_U) &= 1 - α/2
+    \end{align*}
+  \item Note that the $L$ and the $U$ are switched in the two formula.
+  \end{itemize}
+
+  \begin{ex} Let $X₁,...,X_n$ be iid $N(θ, 1)$ and we want to
+    construct a two-sided 95\% interval for $θ$.  Let be $\Xb$, which
+    is $N(θ, 1/n)$.  Then
+    \begin{equation*}
+      \Pr_θ[\Xb ≤ t] = Φ(\sqrt{n} (t - θ)) = F(t; θ)
+    \end{equation*}
+    which is decreasing in $θ$.
+
+    To construct an interval, we need to solve
+    \begin{align*}
+      Φ(\sqrt{n} (\Xb - θ_U)) &= 0.025 \\
+      Φ(\sqrt{n} (\Xb - θ_L)) &= 0.975
+    \end{align*}
+    which becomes
+    \begin{align*}
+      \Xb - θ_U &= Φ^{-1}(0.025) / \sqrt{n}
+      \Xb - θ_L &= Φ^{-1}(0.975) / \sqrt{n}
+    \end{align*}
+    which then becomes
+    \begin{align*}
+      \Xb - Φ^{-1}(0.025) / \sqrt{n} &= θ_U \\
+      \Xb - Φ^{-1}(0.975) / \sqrt{n} &= θ_L.
+    \end{align*}
+    Since $Φ^{-1}(0.025) = -1.96$ and $Φ^{-1}(0.975) = 1.96$, this
+    finally becomes
+    \begin{align*}
+      θ_U &= \Xb + 1.96 / \sqrt{n} \\
+      θ_L &= \Xb - 1.96 / \sqrt{n}
+    \end{align*}
+  \end{ex}
+
 \end{itemize}
 
-\section{Definitions}
+\section{Interval optimality}
 
 \begin{itemize}
-\item An \emph{interval estimator} of a parameter $θ$ is any pair of
-      functions $L(X)$ and $U(X)$ s.t. $L(x) ≤ U(x)$ for all $x$
-      and, when we observe $x$ we make the inference $θ ∈
-      [L(x), U(x)]$
-\item The \emph{coverage probability} of an interval estimator
-      $[L(X),U(X)]$ is the probability $P_θ[θ ∈ [L(X), U(X)]]$
-\item The \emph{confidence coefficient} is $\inf_θ P_θ[θ ∈ [L(X), U(X)]]$
-\end{itemize}
 
-\section{Pivoting the CDF}
+\item Generally, as you might assume from above, if you have several
+  estimators to use, you should choose the estimator with the tighter
+  sampling distribution—the more efficient estimator.
 
-\begin{itemize}
-\item works for one parameter, continuous rv.
-\item suppose you have a statistic $\θh$ and know that its distribution
-      function, $F(t; θ)$, is a monotone function of $θ$
-\begin{itemize}
-\item e.g. if $\θh$ is normal with mean $θ$ and variance one, then
-  $F(t; θ) = Φ(t - θ)$ which is decreasing in $θ$.
-\end{itemize}
-\item we can define a $1-α$ confidence interval of the form
-  $[θ_L(\θh), θ_U(\θh)]$ by solving the following equations for $θ_L, θ_U$
-\begin{description}
-\item[decreasing in $θ$] \[F(\θh; θ_U) = α/2\] and \[F(\θh; θ_L) = 1 - α/2\]
-\item[increasing in $θ$] \[F(\θh; θ_L) = α/2\] and \[F(\θh; θ_U) = 1 - α/2\]
-\end{description}
-note that the L and U are switched in the two formulae.
-\item You can also do this with asymptotic distributions (and that's the
-     usual approach in economics for presenting asymptotic CI
-\item example: Let $X₁,...,X_n$ be iid $N(θ, 1)$ and we want to
-     construct a two-sided 95\% interval for $θ$.
-\begin{itemize}
-\item know that $\sqrt{n} (\Xb - θ) → N(0,1)$ in distribution.
-\item define $\θh = \sqrt{n} \Xb$
-\begin{itemize}
-\item $F(t; θ) = Φ(t - θ \sqrt{n})$
-\item obviously, decreasing in $θ$, so solve
-\begin{itemize}
-\item $Φ(\sqrt{n} \Xb - θ_U \sqrt{n}) = 0.025$
-\item $Φ(\sqrt{n} \Xb - θ_L \sqrt{n}) = 0.975$
-\end{itemize}
-\item this becomes:
-\begin{itemize}
-\item $\sqrt{n} \Xb - θ_U \sqrt{n} = Φ^{-1}(0.025)$
-\item $\sqrt{n} \Xb - θ_L \sqrt{n} = Φ^{-1}(0.975)$
-\end{itemize}
-\item which in turn becomes:
-\begin{itemize}
-\item $θ_U = \Xb - Φ^{-1}(0.025) / \sqrt{n} = \Xb + 1.96/\sqrt{n}$
-\item $θ_L = \Xb - Φ^{-1}(0.975) / \sqrt{n} = \Xb - 1.96/\sqrt{n}$
-\end{itemize}
-\item which is the standard confidence interval.
-\end{itemize}
-\end{itemize}
+\item This is going to lead to a principle better for asymptotic
+  intervals.
+
+\item A second question, for a two sided interval, is how to spit the
+  mass between the tails.  The following theorem can help (this
+  version is taken from \citealp{CB02}):
+
+  \begin{thm}
+    Let $f(x)$ be a unimodal pdf with mode $x^*$.  If $[a,b]$
+    satisfies
+    \begin{enumerate}
+    \item $∫_a^b f(x) dx = 1 - α$,
+    \item $f(a) = f(b) > 0$, and
+    \item $a ≤ x^* ≤ b$
+    \end{enumerate}
+    then $[a,b]$ is the shortest interval with coverage $1-α$.
+  \end{thm}
+
+  The proof works by showing that any shorter interval has coverage
+  strictly less than $1-α$.  It's pretty easy to see from pictures,
+  which I need to draw.
+
+  \begin{itemize}
+  \item Suppose $b'-a' < b-a$ and $a', b' ≤ a$
+  \item Suppose $b'-a' < b-a$ and $a' ≤ a < b'$ (so then $b' < b$).
+  \item Suppose $b'-a' < b-a$ and $a < a'$ and $b' < b$.
+  \item Suppose $b'-a' < b-a$ and $a < a'$ and $b ≤ b'$.
+  \end{itemize}
+
 \end{itemize}
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "../../finitesample"
+%%% TeX-master: "../../estimation"
 %%% End:
