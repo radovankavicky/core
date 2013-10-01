@@ -175,8 +175,6 @@ The expected value of $Y_i$ is linear in $β$:
 \item $\εh = Y - \Yh$ -- OLS Residuals
 \end{itemize}
 
-\end{itemize}
-
 \section{statistical properties}
 \subsection{small sample properties of the estimator}
 
@@ -192,9 +190,15 @@ The expected value of $Y_i$ is linear in $β$:
 
 \paragraph{proof}
 \begin{itemize}
-\item we're going to use the law of iterated expectations: $\E(\βh ∣
-  X) = \E((X'X)^{-1} X'Y ∣ X) = (X'X)^{-1} X'\E(Y ∣ X) = (X'X)^{-1}
-  X'\E(Xβ + \ep ∣ X) = (X'X)^{-1} X'X β = β$
+\item we're going to use the law of iterated expectations:
+  \begin{align*}
+\E(\βh ∣ X) 
+&= \E((X'X)^{-1} X'Y ∣ X) \\
+&= (X'X)^{-1} X'\E(Y ∣ X) \\
+&= (X'X)^{-1} X'\E(Xβ + e ∣ X) \\
+&= (X'X)^{-1} X'X β \\
+&= β
+  \end{align*}
 \item note that this is a slightly stronger result: the expected value
          of the OLS coefficient estimator is $β$ \emph{regardless} of the
          value of $X$
@@ -262,31 +266,32 @@ note that $\βh - β = (X'X)^{-1}X'\ep$, so
 \begin{itemize}
 \item here's how the proof will work:
 \begin{itemize}
-\item we can write down immediately that $V'Y = (X'X)^{-1}X'Y +
-            [V'Y - (X'X)^{-1} X'Y]$
+\item we can write down immediately that $V'Y = (X'X)^{-1}X'Y + [V'Y -
+  (X'X)^{-1} X'Y]$
 \item We're going to show that these two parts are uncorrelated.
-\item That way, $\var(V'Y ∣ X) = \var(\βh ∣ X) +
-            \var(V'Y - (X'X)^{-1}X'Y ∣ Y)$ and so we get the result
-            automatically.
+\item That way, $\var(V'Y ∣ X) = \var(\βh ∣ X) + \var(V'Y - (X'X)^{-1}X'Y
+  ∣ Y)$ and so we get the result automatically.
 \end{itemize}
 \item basic setup
-\begin{itemize}
-\item We know that $V'Y = V'Xβ + V'\ep$
-\item Then $β = \E(V'Y ∣ X) = \E(V'Xβ + V'\ep ∣ X) = V'X β + V'\E(\ep ∣ X) = V'Xβ$
-\item This holds for any choice of $β$, so $V'X = I$
-\item as a result, $V'Y - β = V'\ep$
+  \begin{itemize}
+  \item We know that $V'Y = V'Xβ + V'e$
+  \item Then $β = \E(V'Y ∣ X) = \E(V'Xβ + V'e ∣ X) = V'X β + V'\E(e ∣ X)
+    = V'Xβ$
+  \item This holds for any choice of $β$, so $V'X = I$
+  \item as a result, $V'Y - β = V'e$
+  \end{itemize}
+\item For the main step, we just calculate the covariance between
+  $(X'X)^{-1}X'Y$ and $(V - (X'X)^{-1}X')Y$,
+  \begin{align*}
+    \cov((X'X)^{-1}X'Y, (V - (X'X)^{-1}X')Y ∣ X)
+    &= \E((X'X)^{-1}X'e e'(V - X(X'X)^{-1}) ∣ X) \\
+    &= σ² (X'X)^{-1}X'(V - X(X'X)^{-1}) \\
+    &= σ² [(X'X)^{-1}X'V - (X'X)^{-1} X'X (X'X)^{-1}].
+  \end{align*}
+  Both equal $(X'X)^{-1}$, so the whole term is zero and we've shown
+  that the covariance is zero.
 \end{itemize}
-\item main step
-\begin{itemize}
-\item so now we just calculate the covariance between
-            $(X'X)^{-1}X'Y$ and $(V - (X'X)^{-1}X')Y$
-\item equals $\E((X'X)^{-1}X'\ep \ep'(V - X(X'X)^{-1}) ∣ X)$
-\item $= σ² (X'X)^{-1}X'(V - X(X'X)^{-1})$
-\item $= σ² [(X'X)^{-1}X'V - (X'X)^{-1} X'X (X'X)^{-1}]$
-\item both equal $(X'X)^{-1}$, so the whole term is zero and we've
-            shown that the covariance is zero.
-\end{itemize}
-\end{itemize}
+
 
 \paragraph{discussion}
 \begin{itemize}
