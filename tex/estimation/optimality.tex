@@ -12,140 +12,209 @@
 \part*{Optimality properties of point estimation}%
 \addcontentsline{toc}{part}{Optimality properties of point estimation}
 
-\begin{itemize}
-\item given that we have a ``goal'' for our estimator, how do we judge
-     whether it measures the parameter it is supposed to well or not?
-\item So, we derive the theoretical properties of the estimator.
-\begin{itemize}
-\item remember, an estimator is a function of data, $g(x₁,...,x_n)$
-\item we look at the distribution of the \emph{random variable} $g(X₁,...,X_n)$
-\item this distribution is called the \emph{sample distribution}
-\item we usually care about the properties of $\θh -
-       θ₀$ where $θ₀$ is the population parameter that
-       we're trying to measure.
-\end{itemize}
-\item generally want
-\begin{itemize}
-\item correct location (more or less)
-\item low dispersion (ie variance)
-\end{itemize}
-\end{itemize}
-
-\section{Unbiasedness}
+\section{Optimality focusing on mean and variance}
 
 \begin{itemize}
-\item definition: If $\θh$ is an estimator of $θ₀$,
-       the bias of $\θh$ equals $E \θh - θ₀$.
-       An estimator is \emph{unbiased} if its bias equals zero for any
-       value of $θ₀$
-\item motivates definition of efficient: If $\θh₁$ and $\hat
-       θ₂$ are two unbiased estimators of a parameter $θ$,
-       $\θh₁$ is more efficient than $\θh₂$ if the
-       variance of $\θh₁$ is less than that of $\θh₂$.
-\begin{itemize}
-\item for multivariate $\θh$, we need $\var(\θh₂) -
-         \var(\θh₁)$ to be positive definite.
-\end{itemize}
-\item An estimator $\θh$ of $θ$ is the best unbiased
-       estimator if it is unbiased and has smaller variance than any
-       other unbiased estimator
-\item an interesting question is, what is the smallest variance that
-       an unbiased estimator could have?
-\begin{itemize}
-\item if we have an unbiased estimator that has that variance, we
-         know that it is ``the best'' estimator possible in a certain sense.
-\end{itemize}
+
+\item In this section, we're going to view estimators as algorithms
+  and evaluate them based on how well they typically perform.  This
+  means that we're going to evaluate estimators on the basis of their
+  distributions, called their \emph{sampling distribution}.  
+
+\item Typically, the class of possible point estimators is too large
+  to make general statements about optimality.  But we can make
+  statements about a restricted class of estimators.  A natural
+  restriction to impose is that the estimator must be correct ``on
+  average,'' i.e. that it should not make systemic and predictable
+  errors.  Such an estimator is called a ``unbiased'' estimator.
+
+  \begin{defn}
+    If $\θh$ is an estimator of $θ₀$, the \emph{bias} of $\θh$ is the
+    quantity $\E \θh - θ₀$.  An estimator is \emph{unbiased} if its
+    bias equals zero for every value of $θ₀$
+  \end{defn}
+
+  It can make sense to compare unbiased estimators through their
+  dispersion: a more disperse estimator is probably worse than one
+  that's more tightly concentrated around the true parameter value
+  $θ₀$.
+
+  \begin{defn}
+    If $\θh₁$ and $\θh₂$ are two unbiased estimators of a parameter
+    $θ$, $\θh₁$ is \emph{more efficient} than $\θh₂$ if the variance
+    of $\θh₁$ is less than that of $\θh₂$.
+  \end{defn}
+
+  An estimator $\θh$ of $θ$ is said to be the \emph{best unbiased
+  estimator of $θ$} if it is unbiased and has smaller variance than
+  any other unbiased estimator
+
+\item For parameter vectors, we need the variance of $γ'\θh₁$ to be
+  smaller than that of $γ'\θh₂$ for all nonzero $γ$.  This is the same
+  as requiring that $\var(\θh₂) - \var(\θh₁)$ is positive definite
+  (you should verify this on your own).
+
+\item A particular result comes up in many different contexts
+  \begin{thm}
+    Suppose $\E \θh₁ = θ$; $\θh₁$ is the best unbiased estimator of
+    $θ$ iff $\θh₁$ and $\θh₁ - \θh₂$ are uncorrelated for any other
+    unbiased estimator $\θh₂$ of $θ$.
+  \end{thm}
+  This also holds when restricted to other classes.
+
+  The first part of the proof is easy.  Assume that $\θh₁$ and $\θh₁ -
+  \θh₂$ are uncorrelated.  Then
+  \begin{align*}
+    \var(\θh₂) &= \var(\θh₂ - \θh₁ + \θh₁) \\
+    &= \var(\θh₂ - \θh₁) + \var(\θh₁) \\
+    &≥ \var(\θh₁)
+  \end{align*}
+  as required.
+
+  For the second part of the proof, assume $\θh₁$ is the best unbiased
+  estimator and consider the variance of the unbiased estimator $a
+  \θh₁ + (1 - a) \θh₂$.  Then
+  \begin{align*}
+    \var(a \θh₁ + (1 - a) \θh₂)
+    &= \var(\θh₁ + (1 - a) (\θh₂ - \θh₁)) \\
+    &= \var(\θh₁) + (1 - a)² \var(\θh₂ - \θh₁)
+    + 2 (1 - a) \cov(\θh₁, \θh₂ - \θh₁).
+  \end{align*}
+
+  We can choose $a$ to minimize this variance and find that it is
+  smallest for
+  \begin{equation*}
+    a = 1 + \frac{\cov(\θh₁, \θh₂ - \θh₁)}{\var(\θh₂ - \θh₁)}.
+  \end{equation*}
+  Plugging in above gives
+  \begin{equation*}
+    \var(a \θh₁ + (1 - a) \θh₂)
+    = \var(\θh₁) - \frac{(\cov(\θh₁, \θh₂ - \θh₁))²}{\var(\θh₂ - \θh₁)}.
+  \end{equation*}
+  This last quantity is less than $\var(\θh₁)$ (a contradiction)
+  unless $\cov(\θh₁, \θh₂ - \θh₁) = 0$, completing the proof.
+
+\item It can also be useful to know the smallest possible variance
+  that an unbiased estimator (or estimator in general) could have in a
+  particular problem.  Then, if we have an unbiased estimator that has
+  that variance, we know that it is ``the best'' estimator possible in
+  a certain sense and can stop looking for better estimators.
+
+  The Cramer-Rao lower bound gives us such a bound.
+  \begin{thm}
+    Suppose $X₁,...,X_n$ have a joint density with likelihood $L(θ;
+    X)$ and let $\θh$ be an estimator of $θ$ with finite variance and
+    \begin{equation*}
+      (d/dθ) ∫_\Xc \θh(x) L(θ; x) \dx = ∫_\Xc \θh(x) (d/dθ) L(θ; x) \dx
+    \end{equation*}
+    where $\Xc$ is the support of $X₁,...,X_n$.
+    Then 
+    \begin{equation*}
+      \var(\θh) ≥  \frac{((d/dθ) \E \θh(X))²}{\E ((d/dθ) \log L(θ; X))²}.
+    \end{equation*}
+  \end{thm}
+  If the data are \iid\ then this result can be simplified.
+
+  The proof is relatively straightforward and follows from the
+  Cauchy-Schwarz inequality.  For any random variables $Y$ and $Z$,
+  the CS inequality implies that
+  \begin{equation*}
+    \cov(Y, Z)² ≤ \var(Y) \var(Z).
+  \end{equation*}
+  If we let $Y = \θh$ and $Z = (d/dθ) \log L(θ; X)$, we get
+  \begin{equation*}
+    \var(\θh) ≥
+    \frac{\cov(\θh, (d/dθ) \log L(θ; X))²}
+         {\var((d/dθ) \log L(θ; X))}
+  \end{equation*}
+  (as long as $\var((d/dθ) \log L(θ; X)) > 0$), and the result holds
+  after we show that
+  \begin{equation*}
+    \cov(\θh, (d/dθ) \log L(θ; X)) = (d/dθ) \E \θh
+  \end{equation*}
+  and
+  \begin{equation*}
+    \E (d/dθ) \log L(θ; X)) = 0,
+  \end{equation*}
+  which I need to fill in in the future.
+
+  \begin{ex}
+    Suppose that $X₁,...,X_n ∼ \iid N(μ, σ²)$ with $σ$² known.  We can
+    use the CR lower bound to find the best-case variance of an
+    unbiased estimator.  Since
+    \begin{equation*}
+      d/dμ \log L(μ, σ²; X) = ∑_i (x_i - μ)/σ²,
+    \end{equation*}
+    we have
+    \begin{equation*}
+      \E(d/dμ \log L(μ, σ²; X))² = n/σ²,
+    \end{equation*}
+    and the CR lower bound for any unbiased estimator of $μ$ is
+    $σ²/n$.  The sample mean is unbiased and has this variance, so
+    it's the best unbiased estimator.
+  \end{ex}
+
+\item It is possible that no estimator, even the best one, achieves
+  the CR lower bound.
+
 \end{itemize}
 
-\section{Cramer-Rao Lower bound}
+\section{Loss-function based optimality}
 
 \begin{itemize}
-\item Statement of result:
-\begin{itemize}
-\item Suppose $X₁,...,X_n$ have a joint density with likelihood
-         $L(θ; X)$ and let $\θh$ be an estimator of
-         $θ$ with finite variance and \[\tfrac{d}{dθ} ∫_\mathcal{X} \θh(x) L(θ; x) dx = ∫_\mathcal{X} \θh(x) \tfrac{d}{dθ} L(θ; x) dx\]
-         where $\mathcal{X}$ is the support of $X₁,...,X_n$.
-\item Then \[\var(\θh) ≥ \frac{(\tfrac{d}{dθ} \E \θh(X))²}{\E (\tfrac{d}{dθ} \log L(θ; X))²}\]
-\item If $X_i ∼ i.i.d. f$, then this becomes
-         \[\var(\θh) ≥ \frac{(\tfrac{d}{dθ} \E \θh(X))²}{n \E (\tfrac{d}{dθ} \log f(x; θ))²}\]
-\end{itemize}
-\item $X₁,...,X_n ∼$ i.i.d. $N(μ, σ²)$
-\begin{itemize}
-\item MLE is sample mean; mean $μ$ variance $σ²/n$
-\item $d/dμ \log L(μ, σ²; X) = ∑_i (x_i - μ)/σ²$
-\item So CR lower-bound is $\dfrac{1}{n \E (x_i-μ)²/σ^4} = σ²/n$
-\item And sample mean achieves the CR lower bound, so it's the best
-         unbiased estimator.
-\end{itemize}
-\item Proof: students should read the Casella-Berger proofs on their own.
-\item Multivariate version (for unbiased estimators):
-       \[\var(\θh) ≥ \Big[\E (\tfrac{d}{dθ} \log L(θ; X)) (\tfrac{d}{dθ} \log L(θ; X))'\Big]^{-1}\]
-\item Discussion
-\begin{itemize}
-\item If any unbiased estimator attains this variance, it is MVUE and
-         we should use it.
-\item The inequality may be strict (bound might not be obtained by any estimator or by the best estimator)
-\end{itemize}
-\end{itemize}
 
-\section{loss function based optimality:}
+\item We can also consider other measures of optimality.  One is to
+  consider the average loss associated with an estimator.  A
+  \emph{loss function} $L$ is a convex function s.t. $L(0) = 0$ that
+  measures the cost associated with misestimating $\theta$: the cost
+  associated with the error $\θh - θ$ is $L(\θh - θ)$.  An estimator
+  $\θh₁$ has lower risk than $\θh₂$ if
+  \begin{equation*}
+    \E L(\θh₁ - θ) ≤ \E L(\θh₂ - θ)
+  \end{equation*}
+  
+  A standard loss criterion is MSE, where $L(x) = x²$.  Notice that
+  MSE weights (squared) bias and variance equally:
+  \begin{align*}
+    \E (\θh - θ)² &= \E((\θh - \E \θh) + (\E \θh - θ))² \\
+    &= \E(\θh - \E \θh)² + 2 \E (\θh - \E \θh) (\E \θh - θ) + (\E \θh - θ)² \\
+    &= \var(\θh) + \bias(\θh)²
+  \end{align*}
+  since the middle term in the second to last equation is zero.  Loss
+  functions can also be derived directly from economic criteria like
+  utility functions.
 
-\begin{itemize}
-\item Suppose that we have some measure of dis-utility: if our
-       estimator is far from the true value, it causes us some
-       (hypothetical) pain.
-\item how should we think about this?
-\begin{itemize}
-\item take a convex function $L$.
-\item The pain we feel from mis-estimating $θ₀$ is $L(\θh - θ₀)$
-\item we can compare the \emph{risk} of two estimators, and choose the
-         estimator with the smallest risk
-\begin{itemize}
-\item risk is defined as expected loss
-\item if $\E L(\θh₁ - θ₀)$ is smaller than $\E L(\θh₂ - θ₀)$, we're
-  going to be better off on average by using estimator 1
-\item can be motivated by utility theory and expected utility;
-           then the best estimator is linked to certainty equivalence.
-           (see \emph{The Handbook of Economic Forecasting} (2006) chapter
-           by Machina and Granger
-\end{itemize}
-\end{itemize}
-\item one loss function that is very popular: $L(x) = x²$
-\begin{itemize}
-\item gives MSE criterion.
-\end{itemize}
-\item another: L(x) = abs(x)
-\item usually loss functions are used to compare estimators only when
-       you have a specific situation where you know that certain types
-       of errors are more costly than others.
-\end{itemize}
+\item Loss-function based criteria are rarely decisive, in the sense
+  that the best estimator can depend on the parameter values, as shown
+  in the next example.
+  \begin{ex}
+    Suppose that $X₁,...,X_n ∼ \binomial(p)$ and consider two
+    estimators of $p$, $\Xb$ and $1/2$.  Then
+    \begin{equation*}
+      \mse(\Xb) = \bias(\Xb)² + \var(\Xb) = p(1-p)/n
+    \end{equation*}
+    and
+    \begin{equation*}
+      \mse(1/2) = \bias(1/2)² + \var(1/2) = (1/2 - p)².
+    \end{equation*}
+    When $p$ is near $1/2$, the second estimator has lower MSE.  When
+    $p$ is not near $1/2$, the first estimator will typically have
+    lower MSE.
+  \end{ex}
 
-\subsection{another problem:}
+  For loss-function based optimality to be useful, the researcher
+  needs to weight the parameter space by importance; if $W(θ)$ is a
+  weighting function for the parameter space, we can choose the
+  estimator $\θh$ associated with the lowest average risk:
+  \begin{equation*}
+    ∫ \E L(\θh - θ) W(θ) \dθ.
+  \end{equation*}
 
-\begin{itemize}
-\item when  you're explicitly worried about the loss, imposing
-        unbiasedness doesn't make sense
-\item the same problem we ran into when we didn't impose it and just
-        looked at variance shows up
-\begin{itemize}
-\item $p₁ = \Xb$
-\item $p₂ = 1/2$
-\item $mse(p₁) = bias(p₁)² + variance(p₁) = p(1-p)/n$
-\item $mse(p₂) = (1/2 - p)²$
-\end{itemize}
-\item sometimes $p₁$ will have smaller mse; sometimes $p₂$ will.
-\item so, not really a good general way to construct estimators, but
-        you'll often see estimators that are otherwise ``reasonable''
-        compared by MSE too
-\item if you have a good idea about what $p$ is going to be, MSE can
-        be more useful
-\begin{itemize}
-\item seen in Bayesian statistics.
-\end{itemize}
 \end{itemize}
 
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "../../estimation"
 %%% End: 
+
+%  LocalWords:  iff MSE
