@@ -11,6 +11,12 @@ Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
 copy of the license is included in the file LICENSE.tex and is also
 available online at <http://www.gnu.org/copyleft/fdl.html>.
 
+Version 0.3.1
+-------------
+This release marks a major rewrite of the "estimation" section,
+changing it from a loose outline to something of a coherent document.
+It also edits the Bayesian inference somewhat.
+
 Version 0.3.0
 -------------
 This release is a major rewrite of the probability section, which
