@@ -12,257 +12,173 @@
 \part*{Introduction to hypothesis testing}%
 \addcontentsline{toc}{part}{Introduction to hypothesis testing}
 
-\begin{itemize}
-\item Motivation
-\begin{itemize}
-\item there are many settings where we care what the unknown
-       coefficients are.
-\begin{itemize}
-\item forecasting
-\item setting policy
-\end{itemize}
-\item there are plenty of other settings where we don't really care what
-       the coefficients are, but just want to know whether the
-       coefficient is above some threshold
-\end{itemize}
-\item Example: have a basic relationship: $wage_t = β₀ + β₁
-     × education_t + \ep_t$
-\begin{itemize}
-\item may want to know whether $β₁$ is positive
-\item may want to know whether $β₁$ is above some threshold that
-       makes funding a program worthwhile
-\item probably don't care about whether or not $β₁$ is exactly
-       2.95 vs 2.97 -- they probably mean exactly the same thing as far
-       as your decision is concerned.  But $-0.01$ vs 0.01 probably don't
-       mean exactly the same thing as far as decisions are concerned
-\item For (most) estimation, though, we would treat mismeasuring the
-       true parameter by 0.02 the same, whether the true value was 2.95
-       or $-0.01$
-\end{itemize}
-\end{itemize}
-
 \section{Basic setup for testing}
 
-\subsection{Definition of test statistic}
+\begin{itemize}
 
-\begin{itemize}
-\item Suppose that you have two different hypotheses about the
-       unknown parameters of the DGP
-\begin{description}
-\item[null] $θ ∈ Θ₀$
-\begin{itemize}
-\item the null hypothesis is what we would believe about $θ$ if we
-           had no data about the problem
-\end{itemize}
-\item[alternative] $θ ∈ Θ_a$
-\begin{itemize}
-\item the alternaive hypothesis is a candidate belief that might be true.
-\item but we need \textbf{strong} evidence before we believe it
-\end{itemize}
-\end{description}
-\item A \emph{test statistc} is a statistic that specifies the following:
-\begin{enumerate}
-\item For which samples do we make the decision to accept $θ_a$
-          (our alternative) as true
-\item For which samples do we \textbf{not} make that decision, and instead
-          act as though $θ₀$ were true.
-\end{enumerate}
-\end{itemize}
+\item Often we don't care about the exact value of a particular
+  unknown parameter, but only care about whether or not it falls in a
+  particular range.  For example, we may only care whether a
+  particular program is cost effective or not.  This is similar
+  conceptually to confidence intervals, and we will see that it is a
+  nearly identical problem mathematically, but the emphasis is
+  somewhat different.  When constructing confidence intervals, the
+  idea is to avoid unnecessarily precise (and wrong) estimates, and
+  the end points are determined by the data.  Here, in hypothesis
+  testing, we know the points we care about in advance, and then look
+  at the data to see whether it is consistent with those parameter
+  values.
 
-\subsection{Example of a test statistic}
+\item So the setup is that we have a parameter $θ$ and are interested
+  in knowing which of two scenarios is true: if $θ ∈ Θ₀$ or if $θ ∈
+  Θ_a$.  The first is the \emph{null hypothesis}, which is what we
+  would believe (and act on) in the absence of any data, and the
+  second is the \emph{alternative hypothesis}, which is a candidate
+  belief that might be true.  A \emph{hypothesis test} is a statistic
+  with two possible outcomes: (1) reject the null hypothesis or (2)
+  fail to reject/accept the null hypothesis.  It makes the math much
+  easier if we let the test statistic take on the values 0 or 1, where
+  1 indicates rejection.
 
-\begin{itemize}
-\item Suppose $X₁,...,X_n ∼ iid N(μ,1)$ and we have the hypotheses:
-\begin{description}
-\item[null] $μ = 0$
-\item[alt] $μ = 1$
-\end{description}
-\item we can use the standard one-sided test statistic:
-\begin{description}
-\item[reject 0] if $\sqrt{n} (\Xb - μ₀) / σ = \sqrt{n}
-                     \Xb ≥ 1.64$
-\item[accept 0] if $\sqrt{n} \Xb < 1.64$
-\end{description}
-\item tells us that we reject null for any sample that gives us a mean
-       greater than $1.64 / \sqrt{n}$ and do not reject for other
-       samples
-\end{itemize}
+  There are four possible things that can happen when we conduct a
+  hypothesis test
+  \begin{enumerate}
+  \item We reject the null hypothesis, but it is really true.  This is
+    an error.
+  \item We fail to reject the null hypothesis, but it is false.  This
+    is another error.
+  \item We correctly reject the null hypothesis; it really is false.
+  \item We correctly fail to reject the null hypothesis; it really is true.
+  \end{enumerate}
+  The convention is that the first error, rejecting a true hypothesis,
+  is the worst possible outcome and that failing to reject a false
+  hypothesis is a much less serious mistake.  When I say that this is
+  the convention, it means that you need to set up your problem to
+  conform with this prioritization.  If the consequences of both types
+  of mistake are roughly equal, a hypothesis test may not be
+  appropriate.
 
-\subsection{Error types and probabilities}
+  These are called (unhelpfully) \emph{Type I error} and \emph{Type II
+  error}.  One way to remember the difference is to let the Roman
+  numeral ``I'' in Type I error stand for ``I'm screwed,'' because it
+  is the worse one.
 
-\begin{itemize}
-\item Test statistics can't be foolproof.
-\begin{itemize}
-\item Even if $μ = 0$, we'll see some samples that have a sample
-         mean greater than $1.64 / \sqrt{n}$
-\item If $μ = 1$, we'll also see samples with a small mean
-\item The key aspect of statistical testing is that we can calculate
-         the probabilities of making different sorts of errors, and
-         design procedures that make errors that we're comfortable with.
-\end{itemize}
-\item Possible outcomes:
-\begin{itemize}
-\item null is true, test statistic does not reject
-\begin{itemize}
-\item great!
-\end{itemize}
-\item null is true, test statistic does reject
-\begin{itemize}
-\item problem
-\end{itemize}
-\item null is false, test statistic does not reject
-\begin{itemize}
-\item problem
-\end{itemize}
-\item null is false, test statistic rejects
-\begin{itemize}
-\item great!
-\end{itemize}
-\end{itemize}
-\item key philosophy behind testing:
-\begin{itemize}
-\item we set up the problems so that the null is what we'd do
-         without data.
-\item consequently, if the null is false, but the test statistic
-         does not reject, it's not so bad
-\item \textbf{but} if the null is true and we reject it, that is bad.
-\begin{itemize}
-\item we should need more evidence to change our behaviour than we
-           would need to keep doing the same thing we were.
-\end{itemize}
-\item advantages of this approach:
-\begin{itemize}
-\item simplifies the mathematics considerably
-\item intuitively appealing.
-\item matches up with actual practice in ``academic'' scientific experiments
-\end{itemize}
-\end{itemize}
-\item terminology
-\begin{itemize}
-\item type one error: reject when you shouldn't
-\item type two error: don't reject when you should
-\item power: probability that the test rejects (usually will depend
-         on the value of the true parameter).
-\begin{itemize}
-\item formally, let $β(θ) = \Pr_θ[reject]$.  $β(θ)$ is the power function.
-\end{itemize}
-\item size: probability that the test rejects if the null hypothesis is true;
-\begin{itemize}
-\item i.e. probability of type I error
-\item a test is \emph{size} $α$ if $\sup_{θ ∈ Θ₀} β(θ) = α$
-\item a test is \emph{level} $α$ if $\sup_{θ ∈ Θ₀} β(θ) ≤ α$
-\item \textbf{size} is what we care most about.  We want to set the size
-\end{itemize}
-\item valid: a test that has correct size -- ie rejects if the null
-         is true at the percentages we want
-\item unbiased: a test is unbiased if $\inf_{θ ∈ Θ_A} β(θ) ≥ α$
-\end{itemize}
-\end{itemize}
+\item Some more terminology:
+  \begin{defn}
+    A test's \emph{power function} is the probability that the test
+    will reject for each possible value of the true parameter, $θ$,
+    i.e., if $δ$ is a test statistic, then its power function $β$
+    satisfies
+    \begin{equation*}
+      β(θ) = \Pr_θ[δ = 1].
+    \end{equation*}
+    
+    The test has \emph{size $α$} if
+    \begin{equation*}
+      \sup_{θ ∈ Θ₀} β(θ) = α
+    \end{equation*}
+    and \emph{level $α$} if
+    \begin{equation*}
+      \sup_{θ ∈ Θ₀} β(θ) ≤ α.
+    \end{equation*}
 
-\subsection{Motivating example}
+    A test is \emph{unbiased} if $\inf_{θ ∈ Θ_a} β(θ) ≥ α$
+  \end{defn}
 
-\begin{itemize}
-\item sometimes we can monkey with a statistic to get a test
-\item think back to normal distribution with $H₀: μ = 0$ vs
-       $H_a: μ = 1$ and we want to test at 5\%
-\begin{itemize}
-\item statistic was $\sqrt{n} \Xb$.
-\item if $μ = 0$, then we know that $\sqrt{n} \Xb$ is standard normal.
-\item $\Xb > 0$ is evidence against the null, so let's try to
-         find a threshold that preserves size
-\begin{itemize}
-\item find $c$ such that $\Pr[\sqrt{n} \Xb ≥ c] = 0.05$
-  \begin{align*}
-    \Pr[\sqrt{n} \Xb ≥ c] &= 1 - \Pr[\sqrt{n} \Xb < c] \\
-    &= 1 - \Pr[\sqrt{n} \Xb ≤ c] \text{ (continuity)} \\
-    &= 1 - Φ(c)
-  \end{align*}
-  so, $Φ(c) = 0.95$ and $c = Φ^{-1}(0.95) \approx 1.64$
-\end{itemize}
-\item So the probability that $\sqrt{n} \Xb ≥ 1.64 = 0.05$
-\item so, the probability of rejecting if the null hypothesis is
-         true is 0.05.
-\begin{itemize}
-\item the size of the test is 0.05
-\item if we want to change the size of the test, all we have to
-           do is change 1.64 to a different number.
-\end{itemize}
-\end{itemize}
-\item power
-\begin{itemize}
-\item knowing the distribution under the null gives us size
-\item to find out the power, we want to know the distribution under
-         the alternative
-\begin{itemize}
-\item if $μ = 1$ then $\sqrt{n}(\Xb - 1)$ is standard normal.
-\item $β(1) = P[\sqrt{n} \Xb ≥ 1.64] = P[\sqrt{n}(\bar
-           X - 1) ≥ 1.64 - \sqrt{n}] = 1 - Φ(1.64 - \sqrt{n}) → 1$
-\end{itemize}
-\end{itemize}
-\end{itemize}
+  Note that $α$ should be set in advance of the experiment.  By
+  convention, hypothesis tests that reject with size or level 0.05 are
+  considered \emph{significant} rejections.  A test is \emph{valid} if
+  it actually has the correct size.
 
-\subsection{p-values}
+\item An example may be helpful.
+  \begin{ex}
+    Suppose $X₁,...,X_n ∼ \iid N(θ,1)$ and we want to test the
+    hypothesis $θ = 0$ against $θ = 1$, so $Θ₀ = \{0\}$ and $Θ_a =
+    \{1\}$.  We can use the  standard one-sided test statistic that
+    you've seen in undergrad:
+    \begin{equation*}
+      δ(X) = \1\{\sqrt{n} \Xb > c\}
+    \end{equation*}
+    where $c$ is a critical value chosen to ensure that $δ$ has size
+    $α$ (which we haven't set yet).
 
-\begin{itemize}
-\item Say you're working, do a test at 5\% and want to show your advisor
-\item maybe your advisor is more or less tolerant of type 1 error
-\item so you test at 10\%, 9.9\%, 9.8\%, etc and record rejections and
-  acceptances
-\item but, you could summarize that by looking at the smallest
-  critical value for which you would reject
-\item this critical value is the p-value
-\end{itemize}
+    We can find $c$ for a given value of $α$, say $α = 0.05$.  Then
+    $c$ must satisfy
+    \begin{equation*}
+      \Pr_θ[\sqrt{n} \Xb > c] = α
+    \end{equation*}
+    Since $\Pr_θ[\sqrt{n} \Xb > c] = 1 - Φ(c)$, this becomes
+    \begin{equation*}
+      c = Φ^{-1}(1 - α) ≈ 1.64
+    \end{equation*}
+    and so $δ(X) = \1\{\sqrt{n} \Xb > 1.64\}$ which is probably
+    something you've seen before.
 
-\section{Relationship between hypothesis testing and confidence
-  intervals}
+    We can now find the power function, $β(θ)$.  For any $θ ∈ \RR$,
+    \begin{align*}
+      β(θ) &= \Pr_θ[\sqrt{n} \Xb > 1.64] \\
+      &= \Pr_θ[\sqrt{n} (\Xb - θ) > 1.64 - \sqrt{n} θ] \\
+      &= 1 - Φ(1.64 - \sqrt{n} θ).
+    \end{align*}
+    Note that as $θ$ grows towards $∞$, $Φ(1.64 - \sqrt{n} θ)$
+    converges to 0 and the power converges to 1; as $θ$ goes towards
+    $-∞$, $Φ(1.64 - \sqrt{n} θ)$ converges to 1 and the power
+    converges to 0.  Monotonicity implies that this test is unbiased
+    (the probability that it rejects if $θ = 1$ is greater than $α$.
+  \end{ex}
 
-\begin{itemize}
+\item A brief aside on \pvalue s.  These are useful when you want to
+  present results to an audience which may have people who have
+  different ideas about the correct size of the test.  A \pvalue\
+  tells you the largest size for which the test would reject.
 
 \item There is a fundamental relationship between testing hypotheses
-  and constrcting confidence intervals.  Given any hypothesis test, we
+  and constructing confidence intervals.  Given any hypothesis test, we
   can construct a corresponding confidence interval as
-  follows \citep[As described in][Section 9.2]{CaB_2001}:
+  follows \citep[As described in][Section 9.2]{CB02}:
 
   For each $θ₀$, let $A(θ₀)$ be the acceptance region of a level $α$
   test of $H₀: θ = θ₀$.  For each sample $x$, define a set $C(x)$ in
-  the parameter space by \[C(x) = \{θ₀: x ∈ A(θ₀)\}\].  Then the
+  the parameter space by \[C(x) = \{θ₀: x ∈ A(θ₀)\}.\]  Then the
   random set $C(X)$ is a $1-α$ confidence set.\sidenote{You should
     prove this on your own for homework.  The proof follows
     immediately from the definition of each set, but it can take some
     thought and work to realize it.  Start by writing out the
     definition of a $1-α$ confidence set and then verify by set
-    relationships that $C(X)$ satistifies the definition.}
+    relationships that $C(X)$ satisfies the definition.}
 
-\item Here's an example using this result:
+  \begin{ex}
+    Suppose that $X₁,…,X_n ∼ N(μ,σ²)$ and we want to construct a
+    two-sided $1-α$ confidence interval for $μ$; $σ²$ is known.  We
+    can start with the family of tests for the null hypothesis
+    \begin{equation*}
+      H₀:\ μ = μ₀ \text{\quad vs \quad} μ ≠ μ₀
+    \end{equation*}
+    for which we want to use the statistic
+    \begin{equation*}
+      δ(X) = \1\{\sqrt{n} |\Xb - μ₀| / σ > c_α\}
+    \end{equation*}
+    where $c_α$ is a critical value chosen so that the test has
+    correct size (see the previous example).
+
+    Then
+    \begin{equation*}
+      A(μ₀) = \{X : \sqrt{n} |\Xb - μ₀| / σ ≤ c_α\}
+    \end{equation*}
+    and
+    \begin{equation*}
+      C(X) = \{μ₀ : \sqrt{n} |\Xb - μ₀| / σ ≤ c_α\}.
+    \end{equation*}
+  \end{ex}
+
+  Notice that
   \begin{itemize}
-  \item suppose $X₁,…,X_n ∼ N(μ,σ²)$ and we want to construct a
-    two-sided $1-α$ confidence interval for $μ$.
-    \begin{itemize}
-    \item $σ²$ is known
-    \end{itemize}
-  \item start by getting the family of tests:
-    \begin{itemize}
-    \item test of $H₀: μ = μ₀$ vs $μ ≠ μ₀$ is given by:
-      \begin{description}
-      \item[reject] if $μ₀ > \Xb + z_{α/2} σ / \sqrt{n}$ or $μ₀ < \Xb
-        - z_{α/2} σ / \sqrt{n}$.
-      \item[accept] otherwise
-      \end{description}
-    \item gives $A(μ₀) = \{x :\Xb - z_{α/2} σ / \sqrt{n} ≤ μ₀ ≤ \Xb +
-      z_{α/2} σ / \sqrt{n}\}$
-    \item then $C(x) = \{μ :\Xb - z_{α/2} σ / \sqrt{n} ≤ μ ≤ \Xb +
-      z_{α/2} σ / \sqrt{n}\}$
-      \begin{itemize}
-      \item we're changing two things
-        \begin{description}
-        \item[.] the set $A(μ₀)$ has samples as its elements
-        \item[.] the set $C(x)$ has parameter values as its elements
-        \item[.] $A(μ₀)$ is different for different parameter values
-        \item[.] $C(x)$ is different for different samples
-        \end{description}
-      \end{itemize}
-    \end{itemize}
+  \item $A(μ₀)$ has samples as its elements and is different for
+    different parameter values.
+  \item $C(x)$ has parameter values as its elements and is different
+    for different samples.
   \end{itemize}
+
 \end{itemize}
 
 %%% Local Variables:
