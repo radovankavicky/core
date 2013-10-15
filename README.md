@@ -8,16 +8,52 @@ a PhD core course and make it available through the
 
 The project is just getting started. Use at your own risk!
 
+Downloads
+---------
+
+* pdfs can be downloaded from GitHub here:
+  <https://github.com/EconometricsLibrary/CoreEconometricsText/releases>
+* The source code can be downloaded from GitHub here:
+  <https://github.com/EconometricsLibrary/CoreEconometricsText>
+* The project homepage is here:
+  <http://www.econometricslibrary.org/>
+
 Material covered
 ----------------
 
 * Probability (see probability.tex for a list of sections)
-* Finite-sample statistics (finitesample.tex)
-  * Point estimation
-  * Hypothesis testing
-  * Bayesian inference
+* Point estimation and confidence regions (estimation.tex)
+* Hypothesis testing and Bayesian inference (inference.tex)
 * Asymptotics (asymptotics.tex)
 * Linear regression (linearregression.tex)
+
+Development Notes
+-----------------
+
+* To generate pdfs, run the command `make` in the top-level directory
+  of this project (you'll need to have `make` installed, obviously).
+  Running `make -j` will build the pdfs in parallel.
+
+* Type `make ver` to update the date and version information included
+  in each pdf file.
+
+* If you do not have `make` and `latexmk` installed, you can run
+  `xelatex` manually from the command line:
+
+    xelatex probability.tex
+    bibtex probability.aux
+    xelatex probability.tex
+    xelatex probability.tex
+
+  and again for each of the five files listed above.  You will get
+  errors about missing files (in particular, `VERSION.tex` and
+  `CITATION.bib` are missing since the are generated automatically by
+  `make`), and those missing files contain information about the exact
+  version of the textbook that you've built, but the content should be
+  fine.
+
+* Please email the mailing list (see below) if you run into problems
+  or have any other questions.
 
 License
 -------
@@ -44,18 +80,6 @@ applies to the files:
 * `tex/tufte-book.cls`
 * `tex/tufte-common.def`
 * `tex/tufte-handout.cls`
-
-Development Notes
------------------
-
-* To generate pdfs, run the command `make` in the top-level directory
-  of this project (you'll need to have `make` installed, obviously).
-
-* Type `make ver` to update the date and version information included
-  in each pdf file.
-
-* Please email the mailing list (see below) if you run into problems
-  or have any other questions.
 
 More information
 ----------------
