@@ -9,42 +9,41 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\part*{Law of large numbers}%
-\addcontentsline{toc}{part}{Law of large numbers}
+\part*{Convergence of random variables}%
+\addcontentsline{toc}{part}{Convergence of random variables}
 
-\section{Convergence of point estimator}
 
 \subsection{Introduction to asymptotics}
 
 \begin{itemize}
-\item We've talked about point estimation
-\begin{itemize}
-\item For unbiased estimators, low variance is better
-\item Can calculate the distribution via transformation theorem
-\end{itemize}
-\item Everything relies on knowing the finite sample distributions
-\begin{itemize}
-\item Not realistic
-\end{itemize}
-\item Moreover, there is a common structure in a lot of the estimators
-       we've derived
-\begin{itemize}
-\item Method of moments estimator:
-  $\θh = g^{-1}(\frac{1}{n}∑_i X_i,..., \frac{1}{n} ∑_i X_i^k)$
-\begin{itemize}
-\item estimator is a function of averages
-\end{itemize}
-\item MLE: often FOC are $\frac{1}{n} ∑_i \frac{d}{dθ} f(x_i; θ) = 0$
-\begin{itemize}
-\item estimator may inherit properties of averages
-\end{itemize}
-\end{itemize}
-\item Suggests that we maybe should try to study behavior of averages
-\begin{itemize}
-\item If there is a systematic behavior exhibited by averages, then
-         we don't necessarily need to know the finite sample
-         distribution to have an idea about the behavior of these estimators.
-\end{itemize}
+\item Averages have interesting properties as the number of
+  observations increases.  For many DGPs, the sample average collapses
+  to a point, the population mean, and the difference between the
+  statistic and its limit has an approximately known distribution when
+  it is rescaled to offset the degeneracy---the normal distribution.
+  These results are known as the \emph{Law of Large Numbers} (LLN) and
+  the \emph{Central Limit Theorem} (CLT) respectively but that
+  terminology is a little misleading since ``the LLN'' refers to any
+  one of a family of theorems that show the sample average converges
+  to the population mean and same for ``the CLT.''
+
+  For either of these results to make sense, we need to define what it
+  means for a sequence of random variables $\{\Xb_n\}_{n=1}^∞$
+  to converge (where $\Xb_n = (1/n) ∑_{i=1}^n X_i$ and
+  $\{X_i\}_{i=1}^∞$ is another sequence of random variables).
+
+\item The simplest version of convergence is to say that $\Xb_n$
+  converges to some quantity $μ$ if $\E \Xb_n$ converges to $μ$ and
+  $\var(\Xb_n)$ converges to zero as $n → ∞$.  These conditions are
+  equivalent to $\E(\Xb_n - μ)²$ converging to zero as $n → ∞$, which
+  is called ``convergence in mean square'' or ``convergence in $L₂$''
+  for reasons that will become immediately clear.
+
+\item Notice that $(\E(X - Y)ᵖ)^{1/p} ≡ \lVert X - Y \rVert_p$ can be
+  viewed as a distance between the random varriables $X$ and $Y$.  The
+  operation $\lVert · \rVert_p$ denotes the \emph{$L_p$-norm} of its
+  argument for $p ≥ 1$.\footnote{Remember that a \emph{norm} is an
+    abstraction of the idea of length.}
 \end{itemize}
 
 \paragraph{Outline of results}
