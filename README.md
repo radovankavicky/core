@@ -50,6 +50,25 @@ Development Notes
 
   gives the version number.
 
+* After VERSION.tex and CITATION.bib are updated with the correct date
+  and version information, `git status` will list them as modified
+  files.  Use
+
+      git update-index --assume-unchanged VERSION.tex CITATION.bib
+
+  to tell git to ignore changes in those files.  This command can be
+  reversed with
+
+      git update-index --no-assume-unchanged VERSION.tex CITATION.bib
+
+  Before checking out commit that predates version 0.3.2 (when
+  placeholders for those files were first added to the repo), you will
+  need to first run the command
+
+      git checkout -- VERSION.tex CITATION.bib
+
+  to reset the files.
+
 * If you do not have `make` and `latexmk` installed, you can run
   `xelatex` manually from the command line:
 
