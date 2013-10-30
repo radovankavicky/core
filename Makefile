@@ -20,7 +20,8 @@ latexmkFLAGS := -xelatex -silent
 # disseminate these documents on their own, make sure to include the
 # FDL as an appendix.
 latexdeps := tex/tufte-handout.cls tex/tufte-common.def \
-  tex/common_preamble.tex VERSION.tex
+  tex/preamble.tex VERSION.tex
+docdeps := tex/postamble.tex tex/references.bib CITATION.bib
 
 # I'm still not sure the best way to do author information; I'm much
 # more concerned in the long run about how different attributation
