@@ -43,7 +43,7 @@ citeinfo := "@Book{eflp-core, \n\
   		$(shell git describe --tags)}}"
 
 texts = probability.pdf estimation.pdf inference.pdf \
-  linearregression.pdf asymptotics.pdf
+  regression.pdf asymptotics.pdf
 support = LICENSE_standalone.pdf AUTHORS_standalone.pdf
 
 all: $(texts) $(support) | ver
@@ -64,7 +64,7 @@ probability.pdf: $(wildcard tex/probability/*.tex)
 estimation.pdf: $(wildcard tex/estimation/*.tex)
 inference.pdf: $(wildcard tex/inference/*.tex)
 asymptotics.pdf: $(wildcard tex/asymptotics/*.tex)
-linearregression.pdf: $(wildcard tex/linearregression/*.tex)
+regression.pdf: $(wildcard tex/regression/*.tex)
 
 $(texts): %.pdf: %.tex $(latexdeps) tex/references.bib CITATION.bib | ver
 	$(latexmk) $(latexmkFLAGS) $< && $(latexmk) -c $<

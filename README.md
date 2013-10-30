@@ -25,7 +25,7 @@ Material covered
 * Point estimation and confidence regions (estimation.tex)
 * Hypothesis testing and Bayesian inference (inference.tex)
 * Asymptotics (asymptotics.tex)
-* Linear regression (linearregression.tex)
+* Linear regression (regression.tex)
 
 Development Notes
 -----------------
