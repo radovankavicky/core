@@ -35,22 +35,30 @@ Development Notes
   Running `make -j` will build the pdfs in parallel.
 
 * Type `make ver` to update the date and version information included
-  in each pdf file.
+  in each pdf file; the files VERSION.tex and CITATION.bib are
+  placeholders that exist so that the files can be compiled without
+  error, and `make ver` will replace them with the correct information.
+
+  Alternatively, you can edit the date macro in VERSION.tex and bibtex
+  entry in CITATION.bib manually:
+
+      git show -s --date=short --format=%cd | head -c 4
+
+  gives the date of the latest commit (and other log information) and 
+
+      git describe --tags
+
+  gives the version number.
 
 * If you do not have `make` and `latexmk` installed, you can run
   `xelatex` manually from the command line:
 
-    xelatex probability.tex
-    bibtex probability.aux
-    xelatex probability.tex
-    xelatex probability.tex
+      xelatex probability.tex
+      bibtex probability.aux
+      xelatex probability.tex
+      xelatex probability.tex
 
-  and again for each of the five files listed above.  You will get
-  errors about missing files (in particular, `VERSION.tex` and
-  `CITATION.bib` are missing since the are generated automatically by
-  `make`), and those missing files contain information about the exact
-  version of the textbook that you've built, but the content should be
-  fine.
+  and again for each of the five files listed above.
 
 * Please email the mailing list (see below) if you run into problems
   or have any other questions.
