@@ -20,8 +20,8 @@ latexmkFLAGS := -xelatex -silent
 # disseminate these documents on their own, make sure to include the
 # FDL as an appendix.
 latexdeps := tex/tufte-handout.cls tex/tufte-common.def \
-  tex/preamble.tex VERSION.tex
-docdeps := tex/postamble.tex tex/references.bib CITATION.bib
+  tex/preamble.tex
+docdeps := tex/postamble.tex tex/references.bib
 
 # I'm still not sure the best way to do author information; I'm much
 # more concerned in the long run about how different attributation
@@ -47,7 +47,7 @@ texts = probability.pdf estimation.pdf inference.pdf \
   regression.pdf asymptotics.pdf
 support = LICENSE_standalone.pdf AUTHORS_standalone.pdf
 
-all: $(texts) $(support) | ver
+all: $(texts) $(support)
 
 ver:	
 	echo $(dateinfo) > VER.tmp
