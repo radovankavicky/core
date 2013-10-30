@@ -11,8 +11,19 @@ Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
 copy of the license is included in the file LICENSE.tex and is also
 available online at <http://www.gnu.org/copyleft/fdl.html>.
 
-Version 0.3.1
--------------
+### Version 0.3.2
+A housekeeping release, mostly:
+* Adds the 'http://' prefix back to URLs so that they work in more pdf
+  readers
+* Updates the README file with more useful directions on compiling
+  pdfs
+* Adds placeholder files for version and citation information to
+  prevent compilation errors
+* Changes to include the author list and license in each pdf by
+  default
+* Renames the linear regression file
+
+### Version 0.3.1
 This release marks a major rewrite of the "estimation" section,
 changing it from a loose outline to something of a coherent document.
 It also edits the Bayesian inference somewhat.
