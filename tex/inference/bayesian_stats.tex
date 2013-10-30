@@ -74,7 +74,7 @@
 \item these conditions can be generalized
 \end{itemize}
 \item estimator is the value $\θh$ that minimizes
-  \[ \E(L(θ - \θh ∣ X₁,...,X_n) \]
+  \[ \E(L(θ - \θh) ∣ X₁,...,X_n) \]
 \begin{itemize}
 \item expectation is over $θ$
 \end{itemize}
@@ -108,7 +108,7 @@
 \end{itemize}
 \end{itemize}
 
-\subsection{Uninformative prior}
+\subsection{Uninformative/objective prior}
 
 \begin{itemize}
 \item One chosen to (in a way) minimize the knowledge embodied in
@@ -133,6 +133,7 @@
   distance between prior ($f_θ(·)$) and posterior ($f_θ(· ∣ X)$)
   distributions
 \item often gives same result as Jeffreys Prior
+\item \citet{Ber:05} gives a useful review of these priors.
 \end{itemize}
 \end{itemize}
 
@@ -145,7 +146,7 @@
   and analytically convenient, since it means that the posterior has a
   closed-form solution.
 
-\item Definition: \citep[From][7.2.3]{CaB_2001} Let $\mathcal{F}$
+\item Definition: \citep[From][7.2.3]{CB02} Let $\mathcal{F}$
   denote the class of pdfs $f_X(x ∣ θ)$.  A class $Π$ of prior
   distributions is a \emph{conjugate family} for $\mathcal F$ if the
   posterior is in the class $Π$ for all $f$ in $\mathcal F$, all
@@ -181,7 +182,12 @@
   And the posterior mean is $(S + α) / (n + α + β)$.
 
   In general, for any bernoulli, if the prior is $beta(α,β)$ the
-  posterior is beta$(S + α, N - S + β)$
+  posterior is beta$(S + α, N - S + β)$ Note that this analysis
+  suggests that the uniform is not a good way to model ``no
+  information'' in this problem; it is equivalent to having observed a
+  single success and a single failure in addition to the real data
+  set.  The beta(0,0) would be equivalent to having observed no
+  additional data beyond the sample.
 \end{itemize}
 
 \paragraph{advantages}
