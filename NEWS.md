@@ -11,6 +11,13 @@ Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
 copy of the license is included in the file LICENSE.tex and is also
 available online at <http://www.gnu.org/copyleft/fdl.html>.
 
+### Version 0.3.3
+
+A patch: the previous commit broke compilation of the pdfs by
+including the same source into several documents. This commit undoes
+that problem by changing 'include' to 'input'.  (This was a problem
+when running parallel make).
+
 ### Version 0.3.2
 A housekeeping release, mostly:
 * Adds the 'http://' prefix back to URLs so that they work in more pdf

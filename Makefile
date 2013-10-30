@@ -21,6 +21,7 @@ latexmkFLAGS := -xelatex -silent
 # FDL as an appendix.
 latexdeps := tex/tufte-handout.cls tex/tufte-common.def \
   tex/common_preamble.tex VERSION.tex
+docdeps := tex/postamble.tex tex/references.bib CITATION.bib
 
 # I'm still not sure the best way to do author information; I'm much
 # more concerned in the long run about how different attributation
@@ -66,7 +67,7 @@ inference.pdf: $(wildcard tex/inference/*.tex)
 asymptotics.pdf: $(wildcard tex/asymptotics/*.tex)
 regression.pdf: $(wildcard tex/regression/*.tex)
 
-$(texts): %.pdf: %.tex $(latexdeps) tex/references.bib CITATION.bib | ver
+$(texts): %.pdf: %.tex $(latexdeps) $(docdeps) | ver
 	$(latexmk) $(latexmkFLAGS) $< && $(latexmk) -c $<
 
 $(support): %_standalone.pdf: %_standalone.tex %.tex $(latexdeps) | ver
