@@ -67,7 +67,7 @@ inference.pdf: $(wildcard tex/inference/*.tex)
 asymptotics.pdf: $(wildcard tex/asymptotics/*.tex)
 regression.pdf: $(wildcard tex/regression/*.tex)
 
-$(texts): %.pdf: %.tex $(latexdeps) tex/references.bib CITATION.bib | ver
+$(texts): %.pdf: %.tex $(latexdeps) $(docdeps) | ver
 	$(latexmk) $(latexmkFLAGS) $< && $(latexmk) -c $<
 
 $(support): %_standalone.pdf: %_standalone.tex %.tex $(latexdeps) | ver
