@@ -1,4 +1,4 @@
-# Copyright © 2013, authors of the "Econometrics Core" textbook; a
+# Copyright © 2013, authors of the "Core Econometrics Textbook;" a
 # complete list of authors is available in the file AUTHORS.tex.
 
 # Permission is granted to copy, distribute and/or modify this
@@ -37,7 +37,7 @@ dateinfo := "\\date{$(shell git show -s --date=short --format=%cd HEAD), \
   $(shell git describe --tags)}"
 citeinfo := "@Book{eflp-core, \n\
   author =	{Gray Calhoun}, \n\
-  title =	{Econometrics Core}, \n\
+  title =	{Core Econometrics Textbook}, \n\
   publisher =	{Econometrics Free Library Project, \n\
 		 \url{http://www.econometricslibrary.org}}, \n\
   year =	{$(shell git show -s --date=short --format=%cd | head -c 4), \
