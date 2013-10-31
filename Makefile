@@ -61,11 +61,11 @@ VERSION.tex:
 CITATION.bib:
 	echo -e $(citeinfo) > $@
 
-probability.pdf: $(wildcard tex/probability/*.tex)
-estimation.pdf: $(wildcard tex/estimation/*.tex)
-inference.pdf: $(wildcard tex/inference/*.tex)
-asymptotics.pdf: $(wildcard tex/asymptotics/*.tex)
-regression.pdf: $(wildcard tex/regression/*.tex)
+probability.pdf: $(wildcard probability/*.tex)
+estimation.pdf: $(wildcard estimation/*.tex)
+inference.pdf: $(wildcard inference/*.tex)
+asymptotics.pdf: $(wildcard asymptotics/*.tex)
+regression.pdf: $(wildcard regression/*.tex)
 
 $(texts): %.pdf: %.tex $(latexdeps) $(docdeps) | ver
 	$(latexmk) $(latexmkFLAGS) $< && $(latexmk) -c $<
