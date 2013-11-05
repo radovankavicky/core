@@ -14,109 +14,106 @@
 
 \section{Estimation of linear regression under restrictions}
 
-\subsection{introduction}
+\begin{itemize}
 
-We've been looking at the model $Y = Xβ + \ep$ or (equation by
-equation) \[ y_i = x_{i,1} β₁ + ⋯ + x_{i,2} β₂ + \ep_i \]
-\begin{itemize}
-\item what if you thought that (say) $β₁ = β₂$
-\item an example \citep[p. 81]{Gre12}; have a model of investment
-  \[ \log I_t = β₁ + β₂ i_t + β₃ Δp_t + β₄ \log Y_t + β_5 t + \ep_t \]
-\begin{itemize}
-\item $I_t$ is investment in period $t$
-\item $i_t$ is the nominal interest rate
-\item $Δp_t$ is the rate of inflation
-\item $Y_t$ is real output
-\item time trend
-\end{itemize}
-\item so suppose you think that inflation and the nominal interest rate
-      don't matter on their own, but combined they do matter as the
-      \emph{real} interest rate
-\begin{itemize}
-\item model becomes
-  \[ \log I_t = β₁ + β₂ (i_t - Δp_t) + β₄ \log Y_t + β_5 t + \ep_t \]
-\item ie you want to estimate the first model under the restriction
-  that $β₂ = - β₃$.
-\item we will rewrite the restriction as $β₂ + β₃ = 0$.
-\end{itemize}
-\item So, how would you estimate the first equation under this
-      restriction?
-\end{itemize}
+\item Let's start with a simple example (one that uses economic
+  variables instead of letters; coincedentally, this is the same
+  example used in \citealp[p. 81]{Gre12}).  Suppose we have a simple
+  model of investment,
+  \begin{equation}\label{eq:1}
+    \log I_t = β₁ + β₂ i_t + β₃ Δp_t + β₄ \log Y_t + β_5 t + \ep_t
+  \end{equation}
+  where
+  \begin{itemize}
+  \item $I_t$ is investment in period $t$
+  \item $i_t$ is the nominal interest rate
+  \item $Δp_t$ is the rate of inflation
+  \item $Y_t$ is real output
+  \item $t$ is a time trend.
+  \end{itemize}
+  We might think that the inflation rate and the nominal interest rate
+  don't matter individually, but that the real interest rate is a key
+  driver of investment decisions.  That would imply that the
+  investment equation should be (to a rough approximation),
+  \begin{equation}\label{eq:2}
+    \log I_t = β₁ + β₂ (i_t - Δp_t) + β₄ \log Y_t + β_5 t + \ep_t.
+  \end{equation}
+  
+  We can estimate this new model by using $i_t - Δp_t$ as a regressor
+  instead of $i_t$ and $Δp_t$, but we can also estimate the model by
+  estimating~\eqref{eq:1} under the constraint $β₂ = - β₃$.
 
-\subsection{LM restrictions for a simple example}
+\item In general, this amounts to solving an optimization problem
+  under a constraint.  We'll focus on linear constraints here for
+  simplicity, so the estimator becomes
+  \begin{equation}\label{eq:4}
+    \βh = \argmin_β ∑_{i=1}^n (y_i - x_i'β)² = \argmin_β (Y - Xβ)(Y-Xβ)
+  \end{equation}
+  subject to the constraint
+  \begin{equation}\label{eq:5}
+    R β = q
+  \end{equation}
+  where $R$ and $q$ are an arbitrary $j × k$ matrix ($j ≤ k$) and $j ×
+  1$ vector respectively that are known and set by the researcher and
+  $R$ is assumed to have rank $j$.
 
-\begin{itemize}
-\item to derive the OLS estimators, we minimized $∑_i (y_i - x_i'β)²$
-\begin{itemize}
-\item this is equivalent to MLE under normality
-\end{itemize}
-\item If we want to estimate the restricted model, we can just minimize
-  $∑_i (y_i - x_i'β)²$ subject to the constraint that (in the previous
-  example) $β₂ + β₃ = 0$.
-\begin{itemize}
-\item set up lagrangian: $∑_i (y_i - x_i'β)² + (β₂ + β₃)λ$
-\item gives foc:
-\begin{itemize}
-\item $(0, 1, 1, 0) · β = 0$
-\begin{itemize}
-\item rewrite this as $Rβ = 0$
-\end{itemize}
-\item $0 = - 2 ∑_i x_i (y_i - x_i'β) + (0, 1, 1, 0)' λ$
-\begin{itemize}
-\item can be written $0 = 2 X'Xβ - 2 X'Y + R' λ$
-\end{itemize}
-\end{itemize}
-\item we can start to solve:
-\begin{itemize}
-\item $\βh_R = \βh - 1/2 (X'X)^{-1} R' \λh_R$
-\item $R \βh_R = 0$ (scalar)
-\begin{itemize}
-\item $= R \βh - 1/2 R (X'X)^{-1} R' \λh_R$
-\end{itemize}
-\end{itemize}
-\item so $- \λh_R/2 = (R (X'X)^{-1} R')^{-1} R\βh$
-\item $\βh_R = \βh - (X'X)^{-1} R' [R(X'X)^{-1}R']^{-1} R\βh$
-\item For intuition, look at the fitted values
-\end{itemize}
-\end{itemize}
+  Most economics graduate students will have solved dozens of
+  constrained optimization problems by the time they read this
+  passage, so we'll just do a sketch of the
+  solution.\footnote{\citet{SB94} is a reasonably comprehensive
+    resource for results like these and it is typically required
+    reading by graduate economics programs.}  Set up the Lagrangian
+  \begin{equation}\label{eq:6}
+    (Y - Xβ)'(Y - Xβ) + (Rβ - q)' λ
+  \end{equation}
+  and take derivatives with respect to $β$ to get the first order
+  conditions
+  \begin{equation}\label{eq:3}
+    0 = 2X'X β^* - 2 X'Y + R'λ^*
+  \end{equation}
+  and the original constraint~\eqref{eq:5}, where the star indicates
+  that the variable solves the constrained optimization problem.
+  
+  We can rewrite Equation~\eqref{eq:3} as
+  \begin{equation}\label{eq:8}
+    β^* = \βh - (1/2) (X'X)^{-1} R'λ^*,
+  \end{equation}
+  where $\βh$ is the usual OLS estimator, and premultiplying by $R$
+  gives
+  \begin{equation}\label{eq:7}
+    Rβ^* = R \βh - (1/2) R (X'X)^{-1} R'λ^*.
+  \end{equation}
+  Since $Rβ^* = q$,~\eqref{eq:7} determines $λ^*$:
+  \begin{equation}\label{eq:9}
+    (1/2) λ^* = (R (X'X)^{-1} R')^{-1} (R \βh - q)
+  \end{equation}
+  and substituting~\eqref{eq:9} into~\eqref{eq:8} gives the solution,
+  \begin{equation}\label{eq:10}
+    β^* = \βh - (X'X)^{-1} R' (R (X'X)^{-1} R')^{-1} (R \βh - q)
+  \end{equation}
 
-\paragraph{diagram that should give intuition:}
+\item Notice that $Xβ^*$ can be interpreted as a projection onto a
+  subspace of the columns of $X$.  If we define $Z = X (X'X)^{-1} R'$
+  then
+  \begin{equation*}
+    X β^* = (X(X'X)^{-1}X' - Z(Z'Z)Z') Y ≡ (P_X - P_Z) Y,
+  \end{equation*}
+  and notice that $P_X P_Z = P_Z$.  On reflection this should not be
+  suprising.  If the restriction amounts to imposing that some of the
+  coefficients are zero, it's obvious.  Otherwise, there's a rotation
+  of the design matrix $X$ such that the restriction is equivalent to
+  imposing zero on some of the coefficients in the rotated design
+  matrix.
 
-\subsection{LM restrictions on a general example}
+\item The restricted estimator of $σ²$ under this restriction is going
+  to be $(1/(n - k + \rank(R))) ∑_i (y_i - x_i'β^*)²$
 
-\begin{itemize}
-\item suppose now that we have the restriction $Rβ = q$
-\item take first order conditions for the lagrangian
-  \[ (Y - Xβ)'(Y - Xβ) + (Rβ - q)'λ \] (now $λ$ is a vector)
-\begin{itemize}
-\item $Rβ = q$
-\item $0 = 2 X'X - 2 X'Y + R' λ$
-\end{itemize}
-\item mimic the same steps as before
-\begin{itemize}
-\item $\βh_R = \βh - \frac12 (X'X)^{-1} R'\λh_R$
-\item $-\frac12 \λh_R = (R(X'X)^{-1}R')^{-1}(q - R\βh)$
-\item $\βh_R = \βh + (X'X)^{-1} R'(R(X'X)^{-1}R')^{-1} (q - R\βh)$
-\end{itemize}
-\end{itemize}
-
-\subsection{remarks}
-
-\begin{itemize}
-\item this is also the \textbf{restricted MLE} under normality
-\item estimator of $σ²$ under this restriction is going to be
-  $\ov{n - k - 1 + rank(R)} ∑_i (y_i - x_i'\βh_R)²$
-\end{itemize}
-
-\section{Hypothesis testing in finite samples}
-
-\begin{itemize}
-\item Reading for this material: \citet{Gre12} 4.7, 5.1-5.3
 \end{itemize}
 
-\subsection{introduction}
+\section{Finite-sample hypothesis testing in linear regression}
 
 \begin{itemize}
+
 \item Suppose that we want to test an arbitrary linear hypothesis about
   $β$; ie \[R β = q\] against the alternative \[R β ≠ q\]
 \begin{itemize}
@@ -126,8 +123,6 @@ equation) \[ y_i = x_{i,1} β₁ + ⋯ + x_{i,2} β₂ + \ep_i \]
 \end{itemize}
 \item for now, assume we have normal errors
 \end{itemize}
-
-\subsection{a convenient test}
 
 \paragraph{change in SSR under the null}
       we can look at the change in the SSR when we impose the null
@@ -179,7 +174,7 @@ equation) \[ y_i = x_{i,1} β₁ + ⋯ + x_{i,2} β₂ + \ep_i \]
 \begin{itemize}
 \item just like earlier, we know that $SSR = (n-k-1) s²$ and $s²$
          and $\βh$ are independent given $X$.
-\item denominator is $σ²$ times a chi-square with $n-k-1$
+\item denominator is $σ²$ times a chi-square with $n-k$
          degrees of freedom and indpendent of the numerator.
 \end{itemize}
 
