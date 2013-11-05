@@ -34,14 +34,14 @@ docdeps := tex/postamble.tex tex/references.bib
 # discuss merging projects.
 
 dateinfo := "\\date{$(shell git show -s --date=short --format=%cd HEAD), \
-  $(shell git describe --tags)}"
+  version $(shell git describe --tags)}"
 citeinfo := "@Book{eflp-core, \n\
   author =	{Gray Calhoun}, \n\
   title =	{Core Econometrics Textbook}, \n\
   publisher =	{Econometrics Free Library Project, \n\
 		 \url{http://www.econometricslibrary.org}}, \n\
-  year =	{$(shell git show -s --date=short --format=%cd | head -c 4), \
-  		$(shell git describe --tags)}}"
+  year =	{$(shell git show -s --date=short --format=%cd | head -c 4)}, \n\
+  note =	{Version $(shell git describe --tags)}}"
 
 texts = probability.pdf estimation.pdf inference.pdf \
   regression.pdf asymptotics.pdf
