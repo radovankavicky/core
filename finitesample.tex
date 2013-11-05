@@ -2,8 +2,8 @@
 % The hyperref is loaded in the preamble with additional arguments to
 % avoid some xelatex warnings.
 
-\title[Point estimation in finite samples]%
-{Point Estimation in Finite Samples \\
+\title[Finite Sample Inference]%
+{Finite Sample Inference \\
   Core Econometrics Notes, part 2}
 \input{common/preamble}
 
@@ -47,17 +47,23 @@ number listed above as well.  Thanks!
 \addcontentsline{toc}{part}{Table of Contents}
 \tableofcontents
 
-\include{estimation/introduction}
-\include{estimation/derivation}
-\include{estimation/optimality}
-\include{estimation/intervals}
-\include{estimation/regression}
-\include{estimation/problems}
+\include{finitesample/introduction}
+
+\include{finitesample/derivation}
+\include{finitesample/optimality}
+\include{finitesample/intervals}
+\include{finitesample/ols_estimation}
+
+\include{finitesample/hypothesis_testing}
+\include{finitesample/likelihood_ratio_test}
+\include{finitesample/ols_inference}
+\include{finitesample/bayesian_stats}
+\include{finitesample/problems}
 
 \input{common/postamble}
 \end{document}
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "estimation"
+%%% TeX-master: "finitesample"
 %%% End:

@@ -22,8 +22,7 @@ Material covered
 ----------------
 
 * Probability (see probability.tex for a list of sections)
-* Point estimation and confidence regions (estimation.tex)
-* Hypothesis testing and Bayesian inference (inference.tex)
+* Finite sample inference (finitesample.tex)
 * Asymptotics (asymptotics.tex)
 * Linear regression (regression.tex)
 
