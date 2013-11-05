@@ -12,6 +12,70 @@
 \part*{Point estimators}%
 \addcontentsline{toc}{part}{Point estimators}
 
+\section{Consistency}
+     Consistency is an asymptotic version of unbiasedness
+
+\paragraph{Definition}
+an estimator $\θh$ is a consistent estimator of the parameter $θ$ if
+$\θh →^d{p} θ$ for any value of $θ$.
+
+\paragraph{Basic result for consistency \textbf{:hw:}}
+\begin{itemize}
+\item Statement of the result
+\begin{itemize}
+\item Let $\θh_n$ be a sequence of estimators of $θ$ such
+          that, for every $θ$,
+\begin{enumerate}
+\item $\var_θ(\θh_n) → 0$
+\item $\E_θ (\θh_n) → 0$
+\end{enumerate}
+\item then $W_n$ is consistent for $θ$
+\end{itemize}
+\item Proof:
+\begin{itemize}
+\item Follows immediately from Cauchy-Schwarz
+\item Want to show $\Pr[|\θh_n - θ| > ε] → 0$ for all $ε > 0$
+  \begin{align*}
+    \Pr[|\θh_n - θ| > ε] 
+    &≤ \dfrac{\E(\θh_n - θ)²}{ε²} \\
+    &= \dfrac{\E((\θh_n - E\θh_n)+ (\E\θh_n - θ))²}{ε²} \\
+    &= \dfrac{\E(\θh_n - E\θh_n)²}{ε²}
+      + 2 \dfrac{\E((\θh_n - E\θh_n)(E\θh_n - θ))}{ε²} + \dfrac{(E\θh_n - θ)²}{ε²} \\
+    &= o(1) + 0 + o(1)
+  \end{align*}
+\end{itemize}
+\end{itemize}
+
+\paragraph{Consistency of MLE (\citealp[Theorem 10.1.6]{CB02} and
+  \citealp[Section 14.4]{Gre12})}
+\begin{itemize}
+\item We're just going to mention the result
+\begin{itemize}
+\item you'll see it in more detail next semester
+\item we won't mention the assumptions
+\item But, this is a big justification for using MLE as a general method
+\end{itemize}
+\item Suppose that $X₁,...,X_n ∼ i.i.d.\ f(x; θ)$ where
+        $f$ satisfies some technical regularity conditions and suppose
+        $\θh_n$ is the MLE of $θ$.  Then $\θh_n →^p θ$ as $n → ∞$.
+\begin{itemize}
+\item Note, doesn't always hold, but usually holds.
+\item A good homework exercise---look up the regularity conditions
+          in \citet{CB02} or \citet{Gre12} and see if common families (gamma,
+          exponential, uniform, etc) satisfy them; then try to prove consistency
+          directly.
+\item There are weaker conditions than listed in \citet{CB02} (in particular,
+          we can relax i.i.d)
+\end{itemize}
+\end{itemize}
+
+\paragraph{Consistency of method of moments estimators}
+
+Suppose that $X₁,...,X_n ∼ f(·; θ)$ where $θ$ is a $k$-vector, $(\E
+X_i,...,\E X_i^k) = g(θ₁,...,θ_k)$, $g^{-1}$ is continuous, and that
+$\frac{1}{n} ∑_i X_i^k$ obeys a weak LLN.  Then the Method of Moments
+estimator of $θ$ is consistent.
+
 \section{Asymptotic Efficiency}
 
 \begin{itemize}

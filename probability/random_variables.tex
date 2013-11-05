@@ -666,6 +666,45 @@
 
 \end{itemize}
 
+\section{Almost sure convergence of sequences of random variables}
+
+\begin{itemize}
+
+\item Remember our mathematical definition of random variables: a
+  random variable is a (measurable) function from a sample space $S$
+  to the real line.  So, for any $ω ∈ S$, the sequence $X₁(ω),
+  X₂(ω),...$ is just a sequence of numbers.  For a given $ω$, the
+  sequence might converge and for a different $ω$, the sequence might
+  not.  Informally, the sequence of random variables $X₁,X₂,...$
+  converges \emph{almost surely} if there is probability 1 of drawing
+  an $ω$ such that $X_n(ω)$ converges.
+  \begin{defn}
+    The sequence of random variables $X_n$ converges \emph{almost
+    surely} to the random variable $X$ if, for every $ε > 0$,
+    \begin{equation}\label{eq:1}
+      \Pr[\lim_{n → ∞} | X_n - X | < ε] = 1.
+    \end{equation}
+  \end{defn}
+  This will typically be written as $X_n → X$ a.s. or $X_n →^{a.s.}
+  X$.
+
+  We can write equation~\eqref{eq:1} more explicitly as
+  \begin{equation*}
+    \Pr(\{ ω : \lim_{n → ∞} | X_n(ω) - X(ω) | < ε \}) = 1.
+  \end{equation*}
+
+  You should prove that almost sure convergence implies convergence in
+  probability, but not vice versa.
+
+\item The \emph{Strong LLN} deals with almost sure convergence.  One
+  example is \emph{Kolmogorov's SLLN}: if $\{X_n\}$ is a sequence of
+  i.i.d. random variables with mean $μ$ then $\Xb → μ$ almost surely.
+
+\item For statistical purposes, we pretty much only need convergence
+  in probability, not almost sure convergence.
+
+\end{itemize}
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../probability"
