@@ -40,9 +40,11 @@
 \newcommand{\email}[1]{\href{mailto:#1}{\nolinkurl{<#1>}}}
 \newcommand{\homepage}{\url{http://www.econometricslibrary.org}}
 
-% Workaround for bug in the tufte-latex class
+% Workaround for bugs in the tufte-latex class
 \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace = 8}\scshape#1}}
 \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace = 15}#1}}
+% Getting waringings from latexmk with default tufte-latex hyperref
+\usepackage[unicode,pdfencoding=auto,hyperfootnotes=false,hidelinks]{hyperref}
 
 \newcommand{\BibTeX}{Bib\!\TeX}
 \newcommand{\pvalue}{\ensuremath{p}-value}
