@@ -79,8 +79,8 @@ Development notes
 
       git update-index --no-assume-unchanged VERSION.tex CITATION.bib
 
-  Before checking out commit that predates version 0.3.2 (when
-  placeholders for those files were first added to the repo), you will
+  Before checking out any commit that predates version 0.3.2 (when
+  placeholders for those files were first added to the repo), you may
   need to first run the command
 
       git checkout -- VERSION.tex CITATION.bib
@@ -128,7 +128,7 @@ applies to the files:
 
 In general, files in the `external` folder may be subject to a
 different license than the rest of the project.  Files outside that
-folder are native to the project.
+folder are native to the project and are licensed under the GNU FDL.
 
 More information
 ----------------
