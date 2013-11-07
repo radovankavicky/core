@@ -48,7 +48,7 @@ texts = probability.pdf estimation.pdf inference.pdf \
   regression.pdf asymptotics.pdf
 support = LICENSE_standalone.pdf AUTHORS_standalone.pdf
 
-all: $(texts) $(support)
+all: $(texts) $(support) bibliography_standalone.pdf
 
 ver:
 	echo $(dateinfo) > VER.tmp
@@ -73,6 +73,9 @@ $(texts): %.pdf: %.tex $(latexdeps) $(docdeps) | ver
 
 $(support): %_standalone.pdf: %_standalone.tex %.tex $(latexdeps) | ver
 	$(latexmk) $(latexmkFLAGS) -bibtex- $< && $(latexmk) -c $<
+
+bibliography_standalone.pdf: %.pdf: %.tex $(latexdeps) common/references.bib
+	$(latexmk) $(latexmkFLAGS) $< && $(latexmk) -c $<
 
 clean:
 	rm -f $(foreach ext,$(crud),*.$(ext)) *~
