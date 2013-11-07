@@ -103,10 +103,14 @@ project under the Apache 2.0 license, available at
 held by Kevin Godby, Bil Kleb, and Bill Wood.  The Apache 2.0 license
 applies to the files:
 
-* `tex/tufte.bst`
-* `tex/tufte-book.cls`
-* `tex/tufte-common.def`
-* `tex/tufte-handout.cls`
+* `external/tufte.bst`
+* `external/tufte-book.cls`
+* `external/tufte-common.def`
+* `external/tufte-handout.cls`
+
+In general, files in the `external` folder may be subject to a
+different license than the rest of the project.  Files outside that
+folder are native to the project.
 
 More information
 ----------------

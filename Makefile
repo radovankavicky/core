@@ -19,9 +19,9 @@ latexmkFLAGS := -xelatex -silent
 # Note that there is not a dependence on LICENSE.tex; if you plan to
 # disseminate these documents on their own, make sure to include the
 # FDL as an appendix.
-latexdeps := tex/tufte-handout.cls tex/tufte-common.def \
-  tex/preamble.tex
-docdeps := tex/postamble.tex tex/references.bib
+latexdeps := external/tufte-handout.cls external/tufte-common.def \
+  common/preamble.tex
+docdeps := common/postamble.tex common/references.bib
 
 # I'm still not sure the best way to do author information; I'm much
 # more concerned in the long run about how different attributation
@@ -49,7 +49,7 @@ support = LICENSE_standalone.pdf AUTHORS_standalone.pdf
 
 all: $(texts) $(support)
 
-ver:	
+ver:
 	echo $(dateinfo) > VER.tmp
 	if diff --brief VERSION.tex VER.tmp; then rm VER.tmp; \
 	  else mv -f VER.tmp VERSION.tex; fi
