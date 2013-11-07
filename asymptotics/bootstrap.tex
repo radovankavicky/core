@@ -12,6 +12,52 @@
 \part*{Bootstrap}%
 \addcontentsline{toc}{part}{Bootstrap}
 
+\section{Text from regression material}
+
+\begin{itemize}
+\item we could plug in any distribution for $ε$ and then use
+       transformation formulas to get the density of $\βh$ given $X$.
+\item each distribution for the errors would give us a different
+       distribution for $\βh$.
+\item \textbf{open up R}
+\begin{itemize}
+\item make a function 
+         getbeta = function(errdist, nerrs, nbetas = 800) \{
+         errs = matrix(errdist(nerrs * nbetas, nerrs, nbetas))
+         apply(errs, 2, mean)
+         \}
+\item plot hist for different densities with nerrs = 50
+\begin{itemize}
+\item rt (errdist = function(n) rt(n, df = 10))
+\item rexp
+\item runif
+\end{itemize}
+\end{itemize}
+\item notice that these are pretty close to each other
+\item so we could do one of two things in practice
+\begin{itemize}
+\item try to guess what the distribution of the errors is and
+         calculate the distribution of beta-hat from that
+\item try to choose a distribution for beta-hat that's going to be
+         close to \textbf{most} of the different dists you'll get for
+         different error dist
+\end{itemize}
+\item big insight
+\begin{itemize}
+\item these procedures are the same
+\item it turns out that the distribution of beta-hat \textbf{usually}
+         behaves pretty similar to the one you get assuming normal
+         errors, even if the errors are not normal
+\end{itemize}
+\item a side point, you'll never get approximate distributions
+       that are good for all error dists.
+\begin{itemize}
+\item do example with rcauchy
+\end{itemize}
+\end{itemize}
+
+\section{new bootstrap material}
+
 \begin{itemize}
 \item Basic premise: (and use the computer for this, obviously)
 \begin{itemize}
@@ -40,7 +86,7 @@
 \item choose an arbitrary distribution that is convenient to work
          with, and calculate the \underline{exact} distribution of $\Xb$ if
          that were the correct distribution
-\begin{itemize}
+
 \item assuming the X's are normal would probably be the easiest here
 \item could assume any distribution and use the computer to
            calculate the distribution of $\Xb$ numerically
@@ -48,11 +94,11 @@
 \item[.] plot(ecdf(replicate(20, mean(rexp(n)))))
 \item[.] plot(ecdf(replicate(2000, mean(rexp(n)))))
 \end{description}
-\end{itemize}
+
 \item choose an abitrary distribution that has some optimality
          properties. (ie is likely to be closest to the true unknown
          distribution).
-\begin{itemize}
+
 \item so, we observe X and don't know it's distribution.  What
            distribution is likely to be closest to the unknown F?
 \item Imagine that we're estimating F.
@@ -69,7 +115,7 @@
              then we'll use different $\Fh$-s
 \item[.] talk more about this later
 \end{description}
-\end{itemize}
+
 \end{itemize}
 \end{itemize}
 \end{itemize}
@@ -187,9 +233,11 @@
 \begin{itemize}
 \item don't sample from $X₁,...,X_n$
 \item sample from $X₁ - \Xb, X₂ - \Xb,..., X_n - \Xb$
-\begin{itemize}
-\item plot(ecdf(X - mean(X)))
-\end{itemize}
+\begin{verbatim}
+plot(ecdf(X - mean(X)))
+\end{verbatim}
+
+
 \item guaranteed to have mean zero, regardless of the true mean
            of the random variables.
 \end{itemize}

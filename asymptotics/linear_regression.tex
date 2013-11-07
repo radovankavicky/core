@@ -12,420 +12,298 @@
 \part*{Linear regression}%
 \addcontentsline{toc}{part}{Linear regression}
 
-\begin{itemize}
-\item we've gone back and forth on assuming normality
-\item some of the properties of the OLS estimator require normality
-\item others don't
-\end{itemize}
-
-\subsection{OLS properties without normality}
+\section{Asymptotic properties of OLS}
 
 \begin{itemize}
-\item algebraic properties from chapter 3
-\item unbiasedness of the estimators
-\item formula for variance of the estimators
-\item gauss-markov theorem
-\item unbiasedness of $s²$
-\item zero correlation between errors and beta-hat
-\end{itemize}
+\item Notice that the OLS estimator can be written as a function of
+  averages:
+  \begin{equation*}
+    \βh = β + \big( (1/n) ∑_{i=1}^n x_i x_i' \big)^{-1}
+    (1/n) ∑_{i=1}^n x_i \ep_i.
+  \end{equation*}
+  So it is easy to analyze the asymptotic behavior of $\βh$ whenever
+  $(1/n) ∑_{i=1}^n x_i x_i'$ obeys an LLN and $(1/n) ∑_{i=1}^n x_i \ep_i$
+  obeys an LLN or CLT.
 
-\subsection{Properties of OLS that use normality}
+  If we maintain the assumption that the observations are independent
+  but not necessarily identically distributed, which is a common
+  working assumption in cross-sectional economics, we can ensure
+  convenient asymptotic properties with the following technical
+  conditions:
+  \begin{asmp}\label{xmoments}
+    The regressors $\{X_i\}$ are independent with uniformly bounded
+    fourth moments and the $\E x_i x_i'$ are uniformly positive
+    definite.
+  \end{asmp}
+  Under Assumption~\ref{xmoments},
+  \begin{equation*}
+    (1/n) ∑_{i=1}^n x_i x_i' →^p Q
+  \end{equation*}
+  where $Q = \lim_{n→∞} (1/n) ∑_{i=1}^n \E x_i x_i'$.
 
-\begin{itemize}
-\item distribution
-\item independence of errors and beta-hat
-\item hypothesis testing and confidence intervals
-\item does this mean we can't do hypothesis testing if we don't have
-       normality?
-\begin{itemize}
-\item of course not
-\end{itemize}
-\end{itemize}
+  \begin{asmp}~\label{epmoments}
+    The r.v.s $\{x_i \ep_i\}$ are independent and mean zero with
+    uniformly bounded $2 + δ$ moments and uniformly positive definite
+    variances.
+  \end{asmp}
+  Under Assumption~\ref{epmoments},
+  \begin{equation*}
+    (1/\sqrt{n}) ∑_{i=1}^n x_i \ep_i →^d N(0, V)
+  \end{equation*}
+  where $V = \lim_{n→∞} (1/n) ∑_{i=1}^n \E x_i x_i' \ep_i²$
 
-\subsection{asymptotics}
+\item Now, under Assumptions~\ref{xmoments} and~\ref{epmoments}, it is
+  straightforward to show that the OLS estimator is consistent and
+  asymptotically normal.
+  \begin{defn}
+    An estimator $\θh_n$ of the parameter $θ$ is \emph{consistent} if
+    $\θh_n → θ$ in probability as $n → ∞$.
+  \end{defn}
+  Consistency can be viewed as the minimal property that an estimator
+  should have: if you have arbitrarily many observations, the
+  estimator should be arbitrarily close to the true
+  parameter.\footnote{Note that econometricians will sometimes use
+    nonstandard asymptotic theory to work with approximations that
+    break consistency: see, e.g., the weak instruments literature.}
 
-\begin{itemize}
-\item we could plug in any distribution for $ε$ and then use
-       transformation formulas to get the density of $\βh$ given $X$.
-\item each distribution for the errors would give us a different
-       distribution for $\βh$.
-\item \textbf{open up R}
-\begin{itemize}
-\item make a function 
-         getbeta = function(errdist, nerrs, nbetas = 800) \{
-         errs = matrix(errdist(nerrs * nbetas, nerrs, nbetas))
-         apply(errs, 2, mean)
-         \}
-\item plot hist for different densities with nerrs = 50
-\begin{itemize}
-\item rt (errdist = function(n) rt(n, df = 10))
-\item rexp
-\item runif
-\end{itemize}
-\end{itemize}
-\item notice that these are pretty close to each other
-\item so we could do one of two things in practice
-\begin{itemize}
-\item try to guess what the distribution of the errors is and
-         calculate the distribution of beta-hat from that
-\item try to choose a distribution for beta-hat that's going to be
-         close to \textbf{most} of the different dists you'll get for
-         different error dist
-\end{itemize}
-\item big insight
-\begin{itemize}
-\item these procedures are the same
-\item it turns out that the distribution of beta-hat \textbf{usually}
-         behaves pretty similar to the one you get assuming normal
-         errors, even if the errors are not normal
-\end{itemize}
-\item a side point, you'll never get approximate distributions
-       that are good for all error dists.
-\begin{itemize}
-\item do example with rcauchy
-\end{itemize}
-\end{itemize}
+\item So, assume that Assumptions~\ref{xmoments} and~\ref{epmoments}
+  hold.  Then
+  \begin{equation*}
+    \βh 
+    = β + \big( (1/n) ∑_{i=1}^n x_i x_i' \big)^{-1}
+       (1/n) ∑_{i=1}^n x_i \ep_i
+    = β + \big( (1/n) ∑_{i=1}^n x_i x_i' \big)^{-1} o_p.
+  \end{equation*}
+  and, since $(1/n) ∑_{i=1}^n x_i x_i' →^p Q$ and $Q$ is invertible by
+  assumption, we have $\βh = β + o_p$.
 
-\section{asymptotic behavior of beta-hat}
+\item For asymptotic normality, we have
+  \begin{equation*}
+    \sqrt{n} (\βh - β)
+    = \big( (1/n) ∑_{i=1}^n x_i x_i' \big)^{-1}
+      (1/\sqrt{n}) ∑_{i=1}^n x_i \ep_i →^d Q^{-1} Z
+  \end{equation*}
+  where $Z ∼ N(0, V)$, so $\sqrt{n} (\βh - β) ∼^a N(0, Q^{-1} V
+  Q^{-1})$, where ``$∼^a$'' designates asymptotic distribution.
 
-\begin{itemize}
-\item assumptions
-\begin{itemize}
-\item $Y = Xβ + ε$
-\item $ε$ is iid $(0, σ²)$ given $X$ and has finite $2+δ$ moments for
-  some positive number $δ$
-\item $x_i$ is independent across $i$
-\item for each i, $x_i x_i'$ has uniformly finite variance
-\item $\E x_i x_i' = Q_i$ which is uniformly finite and positive definite.
-\end{itemize}
-\item conclusion
-\begin{itemize}
-\item $\βh → β$ in probability
-\item $s² → σ²$ in probability
-\item $\sqrt{n}(\βh - β) → N(0, σ² Q^{-1})$ in distribution.
-\end{itemize}
-\end{itemize}
-
-\subsection{discussion of assumption on X'X}
-
-\begin{itemize}
-\item Greene makes the assumption that $n^{-1} X'X → Q$ in
-       probability where $Q$ is a positive definite matrix.
-\item this condition is implied by the one we're using
-\begin{itemize}
-\item $n^{-1} X'X = n^{-1} ∑_i x_i x_i'$, so define $Q = \lim_{n → ∞}
-  n^{-1} ∑_i Q_i$ and we get $n^{-1} ∑_i x_i x_i' - Q → 0$ in
-  probability as a consequence of Chebychev's weak law of large
-  numbers
-\end{itemize}
-\end{itemize}
-
-\subsection{proof of consistency}
-
-     We want to prove that $\βh → β$ in probablilty.  We
-     can do that by plugging through the algebra
-\begin{itemize}
-\item going to show that $\βh - β → 0$ in probability
+\item This asymptotic distribution is different than the finite sample
+  distribution.  Specifically, the variance is different.  In our
+  finite sample results, we assumed conditional homoskedasticity;
+  namely that $\var(\ep_i ∣ X) = σ²$ for all $i$.  Making that
+  assumption here changes $V$:
   \begin{align*}
-    \βh - β &= (∑_i x_i x_i')^{-1} ∑_i x_i \ep_i \\
-    &= (n^{-1} ∑_i x_i x_i')^{-1} n^{-1} ∑_i x_i ε_i \\
-    &= \left[(n^{-1} ∑_i x_i x_i')^{-1} n^{-1}
-       - Q^{-1}\right] ∑_i x_i ε_i + Q^{-1} n^{-1} ∑_i x_i ε_i \\
-    &= O_p(1) n^{-1} ∑_i x_i ε_i
+    V
+    &= \lim_{n → ∞} (1/n) ∑_{i=1}^n \E x_i x_i' \ep_i² \\
+    &= \lim_{n → ∞} (1/n) ∑_{i=1}^n \E \big( x_i x_i' \E(\ep_i² ∣ X) \big) \\
+    &= \lim_{n → ∞} (1/n) ∑_{i=1}^n \E( x_i x_i' ) σ² \\
+    &= σ² Q.
   \end{align*}
-\item remember what $n^{-1} ∑_i x_i x_i' = O_p(1)$ means -- it
-           means that for each element of the matrix (we'll call the ij
-           element $(n^{-1} X'X)_{ij}$) for every positive $δ$,
-           there exists a finite constant $C_δ$ and a number
-           $N_δ$ such that
-           \[ \Pr[|(n^{-1} X'X)_{ij} | > C_δ] < δ \] for all $n > N_δ$
-\item we know from chebychev's inequality that
+  Then we have $\sqrt{n} (\βh - β) ∼^a N(0, σ² Q^{-1})$, which is the
+  limit of the finite sample distribution under homoskedasticity.  The
+  proof that $(1/n) X'X → Q$ in probability has been done, so it
+  remains to show that $s² → σ²$ in probability:
   \begin{align*}
-    \Pr[|(n^{-1} X'X)_{ij} | > C]
-    &< \E |(n^{-1} X'X)_{ij} |² / C² \\
-    &≤ n^{-1} ∑_t \E |(x_{it} x_{jt}| / C²
+    s² &= (1/(n-k)) ∑_i (y_i - x_i'\βh)² \\
+    &= (1/(n-k)) ∑_i (\ep_i - x_i'(\βh - β))² \\
+    &= (1/(n-k)) ∑_i (\ep_i² - 2 \ep_i x_i'(\βh-β) + (x_i'(\βh-β))²) \\
+    &= (1/(n-k)) ∑_i \ep_i²
+       - 2 (\βh - β)' (1/(n-k)) ∑_i  x_i \ep_i
+       + (\βh - β)' (1/(n-k)) ∑_i x_i x_i' (\βh - β) \\
+    &= (1/n) ∑_i \ep_i² + o_p(1) o_p(1) + o_p(1)'O_p(1)o_p(1) \\
+    &= (1/n) ∑_i \ep_i² + o_p(1).
   \end{align*}
-\item this is finite because we are assuming finite means and variances.
-\item so, for any $δ$, we just choose $N$ and $C$ big enough
-           to ensure that the inequality holds for all $n > N$.
-\item now, $\E(x_i ε_i) = \E \E(ε_i ∣ x_i) = 0$
-\item also,
+  And $(1/n) ∑_i \ep_i² → σ²$ through the LLN.
+
+\end{itemize}
+
+\section{Hypothesis testing}
+
+\begin{itemize}
+
+\item To be able to use this asymptotic approximation, we need to
+  estimate the parameters $Q$ and $V$.  We already know an estimator
+  for $Q$, simply $(1/n) ∑_{i=1}^n x_i x_i'$ which is consistent under
+  Assumption~\ref{xmoments}.  But we don't observe $\ep_i$, so the
+  obviously correct average $(1/n) ∑_{i=1}^n \ep_i² x_i x_i'$ is not
+  an option.
+
+  Of course, since we know $(1/n) ∑_{i=1}^n \ep_i² x_i x_i' →ᵖ V$
+  under Assumption~\ref{epmoments}\footnote{Add the argument later.}
+  it suffices to find a quantity that converges to $(1/n) ∑_{i=1}^n
+  \ep_i² x_i x_i'$ in probability.  One option to replace $\ep_i$ with
+  the OLS residual $\eph_i$.  This gives the estimator
+  \begin{equation*}
+    \Vh = (1/n) ∑_{i=1}^n \eph_i² x_i x_i',
+  \end{equation*}
+  which was first proposed in the econometrics literature by
+  \citet{Whi80}.
+
+\item Let's define $W_n = (1/n) ∑_{i=1}^n x_i x_i' \ep_i²$.  We can
+  rewrite the difference between $W_n$ and $\Vh$ as
   \begin{align*}
-    \var(x_i ε_i) &= \E(x_i x_i' ε_i²) \\
-    &= \E \E(x_i x_i' ε_i² ∣ x_i) \\
-    &= σ² \E(x_i x_i') \\
-    &= σ² Q_i 
+    \Vh - W_n
+    &= (1/n) ∑_{i=1}^n x_i x_i' (\eph²_i - \ep_i²) \\
+    &= (1/n) ∑_{i=1}^n x_i x_i' (x_i'(\βh - β))²
+    - (2/n) ∑_{i=1}^n  x_i x_i' \ep_i x_i'(\βh - β))
   \end{align*}
-\item so $n^{-1} ∑_i x_i ε_i$ satisfies Chebychev's LLN
-         and converges to its mean, zero.
-\item $\βh - β = O_p(1) o_p(1) = o_p(1)$ and converges to
-       zero in probability.
-\end{itemize}
 
-\subsection{consistency of $s²$}
+  Now, if we look at the $(j,k)$ element of the first matrix, we see
+  \begin{equation*}
+    (1/n) ∑_{i=1}^n x_{ij} x_{ik}(x_i'(\βh - β))² =
+    (\βh - β)' \big((1/n) ∑_{i=1}^n x_i x_{ij} x_{ik} x_{i}'\big) (\βh- β).
+  \end{equation*}
+  Under usual conditions, the term inside the sum is going to converge
+  to its average and each $\βh - β$ is going to converge to zero in
+  probability.  So this term is $o_p$.
 
-     we want to show that $s² → σ²$ in probability
-\begin{itemize}
-\item
-  \begin{align*}
-    s² &= \ov{n-k-1} ∑_i (y_i - x_i'\βh)² \\
-    &= \ov{n-k-1} ∑_i (ε_i - x_i'(\βh-β))² \\
-    &= \ov{n-k-1} ∑_i (ε_i² - 2 ε_i x_i'(\βh-β) + (x_i'(\βh-β))²) \\
-    &= \ov{n-k-1} ∑_i ε_i²
-       - 2 (\βh - β)' \ov{n-k-1} ∑_i  x_i ε_i
-       + (\βh - β)' \ov{n-k-1} ∑_i x_i x_i' (\βh - β) \\
-    &= \ov{n-k-1} n^{-1} ∑_i ε_i²
-       + o_p(1) o_p(1) + o_p(1)'O_p(1)o_p(1) \\
-    &= n^{-1} ∑_i ε_i² + o_p(1)
-  \end{align*}
-\item finally, $n^{-1} ∑_i ε_i²$ converges in probability to $σ²$ by
-  Markov's lln.
-\end{itemize}
+  If we look at the $(j,k)$ element of the second matrix, we see
+  \begin{equation*}
+    (1/n) ∑_{i=1}^n x_{ij} x_{ik}(\ep_i x_i'(\βh - β)) =
+    \big((1/n) ∑_{i=1}^n \ep_i x_{ij} x_{ik} x_{i}'\big) (\βh- β).
+  \end{equation*}
+  Again, the term inside the sum converges to its average (zero, in
+  this case) and $\βh - β$ converges in probability to zero.
 
-\subsection{asymptotic normality of $\βh$}
+  Consequently, $\Vh = W_n + o_p = V + o_p$.
 
-     We'll do a similar argument for asymptotic normality
-\begin{itemize}
-\item
-  \begin{align*}
-    \sqrt{n}(\βh - β)
-    &= (n^{-1} ∑_i x_i x_i')^{-1} n^{-1/2} ∑_i x_i ε_i \\
-    &= ((n^{-1} ∑_i x_i x_i')^{-1} - Q^{-1}) n^{-1/2} ∑_i
-       x_i ε_i + Q^{-1} n^{-1/2} ∑_i x_i ε_i
-  \end{align*}
-\item so, we're going to show two things
-\begin{itemize}
-\item $n^{-1/2} ∑_i x_i ε_i$ is asymptotically normal
-\item $((n^{-1} ∑_i x_i x_i')^{-1} - Q^{-1}) → 0$ in
-         probability (which we discussed earlier)
-\end{itemize}
-\item for normality
-\begin{itemize}
-\item we already showed that each $x_i ε_i$ has mean zero and variance
-  $σ² Q_i$
-\item we can appy the lindberg-feller CLT to show $n^{-1/2} ∑_i x_i
-  ε_i$ converges in distribution to $N(0, Q)$
-\end{itemize}
-\item consequently, $\sqrt{n}(\βh - β) = o_p(1) + Q^{-1} ∑_i x_i ε_i$
-  and converges in distribution to a normal with mean zero and
-  variance $σ² Q^{-1}$ which is just what we wanted to show.
-\end{itemize}
+\item We can test linear restrictions on a single coefficient with a
+  modification of the \ttest.  Instead of normalizing with the $(j,j)$
+  element of $n · s² (X'X)^{-1}$, however, we need to normalize with
+  the $(j,j)$ element of $\Qh^{-1} \Vh \Qh^{-1}$ (define $\Ωh =
+  \Qh^{-1} \Vh \Qh^{-1}$) .  So, under the null hypothesis $β_j = b₀$,
+  we have
+  \begin{equation*}
+    \sqrt{n} (\βh_j - b₀) / \Ωh_{jj}^{1/2} =
+    \sqrt{n} (\βh_j - b₀) / Ω_{jj}^{1/2} × (Ω_{jj} / \Ωh_{jj})^{1/2}.
+  \end{equation*}
+  Since $\sqrt{n} (\βh_j - b₀) / Ω_{jj}^{1/2} → N(0, 1)$ in
+  distribution and $(Ω_{jj} / \Ωh_{jj})^{1/2} → 1$ in probability,
+  \begin{equation*}
+    \sqrt{n} (\βh_j - b₀) / \Ωh_{jj}^{1/2} →^d N(0,1)
+  \end{equation*}
 
+\item Under conditional homoskedasticity, we obviously can use $n · s²
+  (X'X)^{-1}$ instead of $\Qh^{-1} \Vh \Qh^{-1}$.
 
-\section{Hypothesis testing in the limit}
+\item Also, notice that the $t_{n-k}$ distribution converges to a
+  standard normal as well.
+  \begin{equation*}
+    t_{n-k} =^d \frac{Z₀}{\sqrt{(1/(n-k)) ∑_{i=1}^{n-k} Z_i²}}
+  \end{equation*}
+  where the $Z_i$ are independent standard normal random variables.
+  Since the denominator obeys an LLN and converges in probability to
+  1, we have $t_{n-k} → N(0,1)$ in distribution.
 
-\subsection{Testing linear hypotheses}
+  This means that we can compare the test statistic $\sqrt{n} (\βh_j -
+  b₀) / \Ωh_{jj}^{1/2}$ to standard normal critical values or to
+  critical values from the $t_{n-k}$ distribution.  These approaches
+  will almost always give you the same answer, but the $t_{n-k}$
+  critical values will always be slightly larger.
 
-\paragraph{t-test}
+  If the two critical values don't give you the same answer, it is
+  probably best to be conservative and use the larger critical values
+  (which will lead you to not reject the null hypothesis).  The
+  discrepency is telling you that you don't have enough observations
+  to get reliable asymptotic approximations, so you should probably
+  play it safe and not reject.
 
-\paragraph{justifying the t-test}
-\begin{itemize}
-\item what does the previous asymptotic result tell us about the
-  t-statistic?
-\item suppose we want to test the null hypothesis
-  \[ β_j ≤ 1 \] so we construct the t-statistic
-\item can we use it?
-\item we know that, if the null is true,
-  \[ \frac{β_j - 1}{\sqrt{s² q_i}} → N(0,1) \] in distribution
-  (where $q_i$ is the $(i,i)$ element of $(X'X)^{-1}$)
-\item we also know that $t_{n-k-1} → N(0,1)$ as $n → ∞$
-\begin{itemize}
-\item
-  \[t_{n-k-1} = \frac{Z₀}{\sqrt{(n-k-1)^{-1} ∑_{i=1}^{n-k-1} Z_i²}}\]
-  in distribution, where each of the $Z_i$ is an independent
-  standard normal.
-\item The sum in the denominator obeys a law of large numbers, so it
-  converges to its mean, 1, in probability
-\end{itemize}
-\end{itemize}
+\item We can extend the \ftest\ in the same way to test several linear
+  restrictions.  But an easier way to motivate the statistic is to
+  observe that, if the null hypothesis $R β = q$ holds, where $R$ and
+  $q$ are both known to the researcher,\footnote{Assume that $q$ has
+  $p$ elements and that $R$ has full rank.} then
+  \begin{equation*}
+    \sqrt{n} (R \βh - q) →^d N(0, R Q^{-1} V Q^{-1} R').
+  \end{equation*}
+  Using the previous arguments, we have
+  \begin{equation*}
+    \sqrt{n} (R \Ωh R')^{-1/2} (R \βh - q) →^d N(0, I)
+  \end{equation*}
+  and so
+  \begin{equation*}
+    n (R \βh - q)' (R \Ωh R')^{-1} (R \βh - q) →^d χ²_p.
+  \end{equation*}
+  This is called the Wald test.
 
-\paragraph{interpretation/conclusion}
-\begin{itemize}
-\item We have two approaches for testing the hypothesis that $\βh_i =
-  β_i^*$ (or has an inequality) based on asymptotic approximations
-\begin{enumerate}
-\item calculate $\frac{\βh_i - β_i}{\sqrt{s² q_i}}$ and compare to
-  critical values from the normal distribution.
-\item calculate and compare to critical values from the
-  $t$-distribution.
-\end{enumerate}
-\item These will almost always give you the same answer.
-  \begin{itemize}
-  \item the critical values for the t-distribution will always be a
-    little bit bigger
-  \item this happens because we replace the scaled chi-squared
-    distribution in the denominator with the constant 1
-  \end{itemize}
-\item If they don't give you the same answer, watch out.
-  \begin{itemize}
-  \item you should probably go with the $t$-distribution (since it's
-    more conservative)
-  \item this discrepency is telling you that you don't have enough
-    observations to get reliable asymptotic approximations
-  \item doesn't mean that you should believe the errors are normal,
-    but it means that you should probably play it safe and not reject.
-  \item If you run into this situation, you'll want to think about
-    what you're doing a little more carefully.
-  \end{itemize}
-\end{itemize}
+  If we are willing to assume conditional homoskedasticity, then $\Ωh$
+  becomes $n · s² (X'X)^{-1}$ and the Wald test statistic becomes a
+  scaled \ftest.
 
-\paragraph{F test/Wald test}
+\item Notice that we can make the same argumet as above: since the
+  $F_{p,n-k}$ converges to a $χ²_p$ distribution as $n-k → ∞$, we can
+  use either $χ²$ or $F$ critical values for our test statistic.  Just
+  like with the \ttest, the $F$ critical values will be somewhat more
+  conservative (here it can actually make a noticable difference), so
+  you should use them.
 
-\paragraph{introduction}
-\begin{itemize}
-\item Suppose we want to test the general restriction $Rβ = q$
-\item If the errors are normal, we know that the F-test is valid
-\item What is the asymptotic distribution of the F-test if the errors
-  aren't normal?
-\end{itemize}
+\item So far, we've discussed testing linear restrictions on the
+  coefficients.  But we can also test nonlinear restrictions of the
+  form $c(β) = q$, where $c$ is a function from $\RR^{k+1}$ to
+  $\RR^p$.
 
-\paragraph{asymptotic distribution}
-We can rewrite the F-statistic as
-\[ J^{-1} (R\βh - q)'[s² R(X'X)^{-1}R']^{-1}(R\βh - q) \]
-\begin{itemize}
-\item under the null, we know that $q = Rβ$, so we also know that
-  $R(\βh - β) = R\βh - q$
-\item we know from earlier that $\sqrt{n} R(\βh - β)$ converges in
-  distribution to $N(0, σ² R Q^{-1} R')$
-\item so, we know that \[\sqrt{n} (R\βh - q)' (σ² R Q^{-1} R')^{-1}
-  \sqrt{n} (R\βh - q) \] converges in distribution to a chi-square
-  with $J$ degrees of freedom
-\begin{itemize}
-\item $\sqrt{n}(R\βh - q)$ is a $J$-vector and is asymptotically
-  normal.
-\item $\sqrt{n}(σ² R Q^{-1} R')^{-1/2} (R\βh - q)$ is an
-  asymptotically standard normal $J$ vector.
-\end{itemize}
-\item we want to show that \[ (R\βh - q)'[s² R(X'X)^{-1}R']^{-1}(R\βh
-  - q) = J^{-1} (R\βh - q)'[σ² RQ^{-1}R']^{-1}(R\βh - q) + o_p(1)\]
-  \begin{itemize}
-  \item this will show that $J F$ is asymptotically chi-square with
-    $J$ degrees of freedom.
-  \item multiply $(R\βh - q)$ by $\sqrt{n}$ and bring $n^{-1}$ next to
-    $X'X$.
-  \item we know that $s² → σ²$ and $n^{-1} X'X → Q$ in probability
-  \item so, we get the convergence we need.
-  \end{itemize}
-\item So, we know that the F statistic is equal in distribution to a
-  $J^{-1} χ_J²$ random variable as $n → ∞$.
-\end{itemize}
+  If we are willing to specify a distribution for the errors, we could
+  crank through the algebra and derive the distribution of $c(\βh)$.
 
-\paragraph{conclusion/interpretation}
+  But we can also use the delta method if $c$ is differentiable with
+  nonzero continuous derivative at $β$.  Let $C(β) = (∂/∂β) c(β)$ and
+  assume that $C(β)$ has full rank.  Then
+  \begin{equation*}
+    \sqrt{n} (c(\βh) - q) →^d N(0, C(β)' Ω C(β))
+  \end{equation*}
+  and, since $C(\βh) →^p C(β)$ as $n → ∞$ by continuity, we have
+  \begin{equation*}
+    \sqrt{n} (C(\βh)' \Ωh C(\βh))^{-1/2} (c(\βh) - q) →^d N(0, I)
+  \end{equation*}
+  and
+  \begin{equation*}
+    n (c(\βh) - q)' (C(\βh)' \Ωh C(\βh))^{-1} (c(\βh) - q) →^d χ²_p.
+  \end{equation*}
 
-\paragraph{behavior of F distribution}
+  Again, $\Ωh$ can be estimated under homoskedasticity if the
+  researcher believes that assumption is justified.
 
-\begin{itemize}
-\item have the same issue we saw with the t-distribution
-\item the $F_{J, n-k-1}$ distribution is defined to be the same as the
-  distribution of
-  \[{J^{-1} ∑_{i=1}^J Z_i² \over (n-k-1)^{-1} ∑_j W_j²}\] where each
-  $Z$ and $W$ is an independent standard normal.
-\item as $n → ∞$, the denominator converges to 1 in probability
-\item the numerator is unaffected and is a $χ²_J / J$ random variable.
-\item so the F-distribution becomes more and more like the chi square
-  as well.
-\end{itemize}
+  If $C(β)$ does not have full rank, the same approach can work but it
+  will be more awkward.
 
-\paragraph{conclusion}
-\begin{itemize}
-\item You can use either the $F_{J, n-k-1}$ or the Chi-square $J$ to
-  construct a hypothesis test.
-  \begin{itemize}
-  \item calculate the F test statistic
-  \item get the critical values from a table or the computer
-  \item reject if test stat is greater than critical values
-  \end{itemize}
-\item Just like with t-test, using the finite sample test (F) is more
-  conservative than the asymptotic test
-  \begin{itemize}
-  \item critical values are a little bigger
-  \item this is a bigger deal when you're testing lots of restrictions
-    simultaneously, so you are more likely to get disagreement than
-    you did with the t-test
-  \item use the F critical values!
-  \end{itemize}
-\end{itemize}
+\item We can also test for heteroskedasticity.  Note that $\βh$ is
+  consistent even under heteroskedasticity, so $\eph_i → \ep_i$ for
+  each $i$.  If $σ²_i$ is different for different individuals, it
+  implies that $\ep²_i$ should be correlated with $x_i$, so we might
+  regress $\ep²_i$ on $x_i$ and do an F-test for the significance of
+  the overall regression?
 
-\subsection{Testing nonlinear hypotheses}
-\paragraph{motivation}
-What if we want to test the hypothesis that $c(β) = q$ where $c$ is a
-function from $\RR^{k+1}$ to $\RR^J$?
-\begin{itemize}
-\item Do we know anything about the finite-sample distribution of
-  $c(\βh)$ that we could use to construct a test statistic?
-  \begin{itemize}
-  \item as usual, if we specify a distribution for the errors, we
-    could crank through the algebra and derive the distribution of
-    $c(\βh)$
-  \item won't give us a general procedure
-  \item won't necessarily be easy to impose the null hypothesis.
-  \end{itemize}
-\item Maybe we can get a procedure that uses the asymptotic
-  distribution of $c(\βh)$ under the null
-\end{itemize}
+  More formally, the null hypothesis of homoskedasticity can be
+  expressed as
+  \begin{equation*}
+    H₀: \quad σ²_i = σ² \qquad i = 1,...,n.
+  \end{equation*}
+  If the null hypothesis is true, then $n s² (X'X)^{-1} → Ω$
+  in probability as $n → ∞$,
+  so
+  \begin{equation*}
+    (1/n) ∑_{i=1}^n (\eph²_i - s²) x_i x_i' →^p 0.
+  \end{equation*}
+  If the null is false, this convergence fails.  Since this looks like
+  an average, we can apply the CLT to get critical values.
 
-\paragraph{initial asymptotics}
-\begin{itemize}
-\item suppose that $c$ is differentiable
-\item we can use the delta-method to show that $\sqrt{n}(c(\βh) -
-  c(β))$ is asymptotically normal
-\item a first-order taylor expansion gives us
-  \[ \sqrt{n} c(\βh) = \sqrt{n} c(β) + {\partial c(β) \over \partial
-    β'} \sqrt{n} (\βh - β) + o_p(1) \] where $\partial c(β)
-  \over \partial β'$ is a $J × k+1$ matrix of partial derivatives.
-\item We know that \[{\partial c(β) \over \partial β'} \sqrt{n} (\βh -
-  β)\] converges in distribution to a normal r.v. with mean zero and
-  variance \[ \left({\partial c(β) \over \partial β'}\right) σ² Q^{-1}
-  \left({\partial c(β) \over \partial β'}\right)'\]
-\item Then $\sqrt{n} (c(\βh) - c(β))$ also converges to \[ N\left(0,
-    \left({\partial c(β) \over \partial β'}\right) σ² Q^{-1}
-    \left({\partial c(β) \over \partial β'}\right) \right)\]
-\end{itemize}
+  Let $ψ_i$ denote the vector of unique elements of $x_ix_i'$, along
+  with a constant term (if not in $x_i$), and let $p$ denote the
+  length of $ψ_i$.  One can show under some assumptions that
+  \begin{equation*}
+    \sqrt{n} \big( ∑_{i=1}^n (\eph²_i - s²) ψ_i \big) →^d N(0, W)
+  \end{equation*}
+  where $W$ can be estimated.  But an easier way to test for
+  heteroskedasticity is through an equivalent but simpler procedure
+  (derived by \citealp{Whi80}):
+  
+  \begin{enumerate}
+  \item Regress $y_i$ on $x_i$ and save the OLS residuals.
+  \item Regress $\eph_i$ on $ψ_i$ and calculate the $R²$
+    from this regression.
+  \item $n R²$ is asymptotically $χ²_{p-1}$ under the null
+    hypothesis.
+  \end{enumerate}
 
-\paragraph{hypothesis testing}
-\begin{itemize}
-\item Under the null hypothesis, we know that $c(β) = q$, so
-  $\sqrt{n}(c(\βh) - q)$ has the same asymptotic distribution as
-  $\sqrt{n}(c(\βh) - c(β))$
-\item so we can do the same trick as before to get a chi-square test
-  statistic
-  \begin{itemize}
-  \item we estimate the variance with \[ \left({\partial c(\βh)
-        \over \partial \βh'}\right)s² (n^{-1}X'X)^{-1} \left({\partial
-        c(\βh) \over \partial \βh'}\right)\]
-    \begin{itemize}
-    \item know $\βh → β$ so $\left({\partial c(\βh) \over \partial
-          \βh'}\right) → \left({\partial c(β) \over \partial
-          β'}\right)$ in probability
-    \item know that $s² (n^{-1} X'X)^{-1} → σ²Q^{-1}$ in probability
-    \end{itemize}
-    \[{c(\βh) \over \partial \βh'}\Big)s² (n^{-1}X'X)^{-1}
-    \left({\partial c(\βh) \over \partial \βh'}\right)\] - know $\βh →
-    β$ so $\left({\partial c(\βh) \over \partial \βh'}\right) →
-    \left({\partial c(β) \over \partial β'}\right)$ in probability -
-    know that $s² (n^{-1} X'X)^{-1} → σ²Q^{-1}$ in probability
-  \end{itemize}
-  \[{c(\βh) \over \partial \βh'}\Big)s² (n^{-1}X'X)^{-1}
-  \left({\partial c(\βh) \over \partial \βh'}\right)\] - know $\βh →
-  β$ so $\left({\partial c(\βh) \over \partial \βh'}\right) →
-  \left({\partial c(β) \over \partial β'}\right)$ in probability -
-  know that $s² (n^{-1} X'X)^{-1} → σ²Q^{-1}$ in probability
-\item Our test statistic is
-  \[ (c(\βh) - q)' \left[\left({\partial c(\βh) \over \partial
-        \βh'}\right)s² (n^{-1}X'X)^{-1} \left({\partial c(\βh)
-        \over \partial \βh'}\right) \right]^{-1} (c(\βh) - q) \]
-\item asymptotically chi-square with $J$ degrees of freedom
-\item one additional point
-\begin{itemize}
-\item we need to verify that the population variance matrix is
-  invertible
-\item ie we need \[\left({\partial c(β) \over \partial β'}\right)\] to
-  have full rank
-\item in ``standard'' applications this is true, but it \textbf{may}
-  not be true
-\item can use a similar procedure but higher order expansion and
-  usually won't wind up with a chi-square statistic.
-\end{itemize}
 \end{itemize}
 
 %%% Local Variables: 
