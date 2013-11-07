@@ -12,6 +12,7 @@
 .PHONY: all clean burn ver
 .DELETE_ON_ERROR:
 
+SHELL=/bin/bash
 latexmk := latexmk
 crud := .aux .log .out .toc .fdb_latexmk .fls
 latexmkFLAGS := -xelatex -silent
