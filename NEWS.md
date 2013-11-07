@@ -11,8 +11,13 @@ Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
 copy of the license is included in the file LICENSE.tex and is also
 available online at <http://www.gnu.org/copyleft/fdl.html>.
 
-### Version 0.3.3
+### Version 0.3.4
+This commit edits several parts of the inference material and makes
+many internal changes that should make organizing and compiling the
+files easier.  It also renames the book to be *Core Econometrics
+Textbook*.
 
+### Version 0.3.3
 A patch: the previous commit broke compilation of the pdfs by
 including the same source into several documents. This commit undoes
 that problem by changing 'include' to 'input'.  (This was a problem
