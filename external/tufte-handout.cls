@@ -1,15 +1,15 @@
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
 
-\ProvidesClass{tufte-handout}[2010/03/28 v3.5.1 Tufte-handout class]
+\ProvidesClass{external/tufte-handout}[2010/03/28 v3.5.1 Tufte-handout class]
 
 %%
 % Declare we're tufte-handout
 \newcommand{\@tufte@class}{article}% the base LaTeX class (defaults to the article/handout style)
-\newcommand{\@tufte@pkgname}{tufte-handout}% the name of the package (defaults to tufte-handout)
+\newcommand{\@tufte@pkgname}{external/tufte-handout}% the name of the package (defaults to external/tufte-handout)
 
 %%
 % Load the common style elements
-\input{tufte-common.def}
+\input{external/tufte-common.def}
 
 
 %%
