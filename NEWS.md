@@ -1,7 +1,7 @@
 Project News
 ============
 
-Copyright © 2013, authors of the "Econometrics Core" textbook; a
+Copyright © 2013, authors of "Econometrics Core Notes"; a
 complete list of authors is available in the file AUTHORS.tex.
 
 Permission is granted to copy, distribute and/or modify this document
