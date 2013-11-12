@@ -1,7 +1,7 @@
 Project News
 ============
 
-Copyright © 2013, authors of "Econometrics Core Notes"; a
+Copyright © 2013, authors of "Core Econometrics Notes"; a
 complete list of authors is available in the file AUTHORS.tex.
 
 Permission is granted to copy, distribute and/or modify this document
@@ -10,6 +10,12 @@ any later version published by the Free Software Foundation; with no
 Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
 copy of the license is included in the file LICENSE.tex and is also
 available online at <http://www.gnu.org/copyleft/fdl.html>.
+
+Version 0.4.0
+-------------
+* Renames the project to "Core Econometrics Notes"
+* Starts to merge the two finite sample documents into a single doc
+* Removes unnecessary local copy of the tufte-latex files
 
 ### Version 0.3.4
 This commit edits several parts of the inference material and makes
