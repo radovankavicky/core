@@ -17,11 +17,7 @@ latexmk := latexmk
 crud := .aux .log .out .toc .fdb_latexmk .fls
 latexmkFLAGS := -xelatex -silent
 
-# Note that there is not a dependence on LICENSE.tex; if you plan to
-# disseminate these documents on their own, make sure to include the
-# FDL as an appendix.
-latexdeps := external/tufte-handout.cls external/tufte-common.def \
-  common/preamble.tex
+latexdeps := common/preamble.tex AUTHORS.tex LICENSE.tex
 docdeps := common/postamble.tex common/references.bib
 
 # I'm still not sure the best way to do author information; I'm much
@@ -72,7 +68,8 @@ $(texts): %.pdf: %.tex $(latexdeps) $(docdeps) | ver
 $(support): %_standalone.pdf: %_standalone.tex %.tex $(latexdeps) | ver
 	$(latexmk) $(latexmkFLAGS) -bibtex- $< && $(latexmk) -c $<
 
-bibliography_standalone.pdf: %.pdf: %.tex $(latexdeps) common/references.bib
+bibliography_standalone.pdf: %.pdf: %.tex \
+  common/preamble.tex common/references.bib
 	$(latexmk) $(latexmkFLAGS) $< && $(latexmk) -c $<
 
 clean:
