@@ -17,8 +17,9 @@ latexmk := latexmk
 crud := .aux .log .out .toc .fdb_latexmk .fls
 latexmkFLAGS := -xelatex -silent
 
-latexdeps := common/preamble.tex AUTHORS.tex LICENSE.tex
-docdeps := common/postamble.tex common/references.bib
+latexdeps := common/preamble.tex
+docdeps := common/references.bib AUTHORS.tex LICENSE.tex \
+  common/backmatter.tex common/frontmatter.tex
 
 # I'm still not sure the best way to do author information; I'm much
 # more concerned in the long run about how different attributation
@@ -68,8 +69,8 @@ $(texts): %.pdf: %.tex $(latexdeps) $(docdeps) | ver
 $(support): %_standalone.pdf: %_standalone.tex %.tex $(latexdeps) | ver
 	$(latexmk) $(latexmkFLAGS) -bibtex- $< && $(latexmk) -c $<
 
-bibliography_standalone.pdf: %.pdf: %.tex \
-  common/preamble.tex common/references.bib
+bibliography_standalone.pdf: %.pdf: %.tex common/references.bib \
+  $(latexdeps) | ver
 	$(latexmk) $(latexmkFLAGS) $< && $(latexmk) -c $<
 
 clean:
