@@ -1,0 +1,224 @@
+% Copyright © 2013, authors of "Core Econometrics Notes;" a
+% complete list of authors is available in the file AUTHORS.tex.
+
+% Permission is granted to copy, distribute and/or modify this
+% document under the terms of the GNU Free Documentation License,
+% Version 1.3 or any later version published by the Free Software
+% Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+% Back-Cover Texts.  A copy of the license is included in the file
+% LICENSE.tex and is also available online at
+% <http://www.gnu.org/copyleft/fdl.html>.
+
+\part*{Bootstrap}%
+\addcontentsline{toc}{part}{Bootstrap}
+\SweaveOpts{prefix.string=tmp/asymptotics/bootstrap}
+\SweaveOpts{stylepath=TRUE}
+\SweaveOpts{keep.source=TRUE}
+<<echo=FALSE>>=
+options(width=60, continue = " ", warn = 1)
+@
+\DefineVerbatimEnvironment{Sinput}{Verbatim}{fontfamily=TeXGyrePagella}
+\DefineVerbatimEnvironment{Soutput}{Verbatim}{fontfamily=TeXGyrePagella}
+\DefineVerbatimEnvironment{Scode}{Verbatim}{fontfamily=TeXGyrePagella}
+
+\section{Introduction to bootstrap material}
+
+\begin{itemize}
+
+\item There are two approaches one could take, just based on what
+  we've done so far.  One is to use the asymptotic distribution (i.e.,
+  assume that the OLS estimator is normal).  The second approach is to
+  assume a particular finite-sample distribution for the errors, and
+  then work out the finite-sample distribution of the OLS estimator
+  under that error structure.  If $n$ is large, this will be more or
+  less the same as the asymptotic distribution, but there may be
+  differences.  This is the approach we advocated when we suggested
+  using $t$ or $F$ critical values instead of normal or chi-squared.
+
+  Assuming the errors are normal makes it easy to get explicit numbers
+  for the critical values, but it's not necessary.  We could assume
+  that the errors are $\uniform(-1,1)$ and generate critical values by
+  simulation.
+
+  Here are some examples.
+
+First, define a simple function that will generate \texttt{nsims}
+averages, each of \texttt{nobs} draws from the distribution specified
+in \texttt{rerror}, as follows
+<<>>=
+rstats <- function(rerror, nobs, stat = mean,
+                   nsims = 150000) {
+  replicate(nsims, stat(rerror(nobs)))
+}
+@
+and a simple function to plot the histogram along with the
+best-fitting Gaussian curve
+<<>>=
+nicehist <- function(rerror, nobs,...) {
+  stats <- rstats(rerror, nobs,...)
+  statMean <- mean(stats)
+  statSD <- sd(stats)
+  
+  xlim <- c(min(min(stats), qnorm(0.001, statMean, statSD)),
+            max(max(stats), qnorm(0.999, statMean, statSD)))
+
+  hist(stats, 50, col = "alice blue", freq = FALSE, xlab = "",
+       main = paste(nobs, "observations"), xlim = xlim)
+  curve(dnorm(x, mean = statMean, sd = statSD),
+        from = xlim[1], to = xlim[2], lwd = 2, add = TRUE)
+}
+@
+We'll generate averages from the uniform distribution:
+\begin{marginfigure}[-5in]
+<<fig=TRUE,width=2,height=7,echo=false>>=
+par(mfrow = c(3,1))
+nicehist(runif, 2)
+nicehist(runif, 5)
+nicehist(runif, 50)
+@
+\caption{Finite-sample distribution of the mean of uniform r.v.s.}
+\end{marginfigure}
+Observe that the normal approximation for the uniform mean is
+reasonable even when $n$ is as small as 5.
+
+Same plots for the exponential distribution:
+\begin{marginfigure}
+<<fig=TRUE,width=2,height=7,echo=false>>=
+par(mfrow = c(3,1))
+nicehist(rexp, 2)
+nicehist(rexp, 15)
+nicehist(rexp, 50)
+@
+\caption{Finite-sample distribution of the mean of exponential random
+  variables.}
+\end{marginfigure}
+and we can see that the asymmetry has an effect even when $n$ is 50.
+
+  Note that the histograms can be made arbitrarily close to the true
+  \emph{finite sample} densities just by increasing the number of
+  simulations.
+
+\item Notice that, by and large, it does not matter if we know the
+  exact distribution of the errors—using that information would not
+  affect our critical values for the statistic.
+
+\item Of course, another approach would be to use the \emph{best}
+  finite sample distribution—one with potential optimality properties.
+  If we knew the true distribution of the errors, then we would have a
+  slightly more accurate distribution for the OLS estimators.  Since
+  we don't know the true distribution, we can try estimating it.  This
+  is the basic idea behind the bootstrap.
+
+  Suppose we observe the data $y₁,...,y_n$ (univariate for now), and
+  let $Y^*$ be a random variable s.t.
+  \begin{equation*}
+    Y^* =
+    \begin{cases}
+      y₁ & \text{with probability } 1/n \\
+      y₂ & \text{with probability } 1/n \\
+      ⋮ \\
+      y_n & \text{with probability } 1/n.
+    \end{cases}
+  \end{equation*}
+  The corresponding distribution function is called the empirical cdf,
+  \begin{equation*}
+    \Fh(y) = (1/n) ∑_{i=1}^n \1\{ Y_i ≤ y \}.
+  \end{equation*}
+  Now we can estimate the sampling distribution of $\Yb$ by
+  calculating it's finite sample distribution under the (incorrect)
+  assumption that each $Y_i ∼ \iid\ \Fh$.  We'll do that through
+  simulation.
+
+<<>>=
+Y <- rexp(40)
+boots <- rstats(function(n) sample(Y, size = n, replace = TRUE), 40)
+trues <- rstats(rexp, 40)
+@ 
+
+We can mimic a testing scenario.  The endpoints for 5\%
+one-sided intervals based on the bootstrap distribution would be
+<<>>=
+quantile(boots, c(0.05, 0.95))
+@
+and would have true coverage of
+<<>>=
+mean(trues >= quantile(boots, 0.05))
+mean(trues <= quantile(boots, 0.95))
+@ 
+
+\end{itemize}
+
+\section{Estimating the variance}
+
+\begin{itemize}
+
+\item One potential use of the bootstrap is to estimate the variance
+  of an estimator.  To do this, calculate the empirical distribution
+  function, $\Fh$, of the observed data, then repeat the following $B$
+  times:
+  \begin{itemize}
+  \item Draw a random sample of size $n$ from $\Fh$ with replacement
+    and estimate the statistic on that sample; call it $\θh^*_b$.
+  \end{itemize}
+  This gives $\θh^*_1,...,\θh^*_B$ replications of the estimator.
+  Calculate their variance, and this is an estimator of the variance
+  of $\θh$.
+
+  We can illustrate this for the median
+<<>>=
+boots <- replicate(1000, median(sample(Y, replace = TRUE)))
+var(boots)
+@
+
+\item When the variance is easy to calculate, this isn't a big
+  advantage.  But if we (say) want to calculate the variance of the
+  median raised to the 1.2 power, our code becomes
+<<>>=
+boots <- replicate(1000, median(sample(Y, replace = TRUE))^(1.2))
+var(boots)
+@
+which is a trivial code change.  Now, the bootstrap doesn't always
+work (you need conditions like you need for delta method to work).
+
+\item Another advantage is that the bootstrap approximation is usually
+  more accurate than other approximations (see \citealp{Hal91}, for
+  details).
+
+\end{itemize}
+
+\section{Inference}
+
+\begin{itemize}
+
+\item A complication shows up when you want to use the bootstrap for
+  testing: resampling the data will typically not impose the null
+  hypothesis, so you need to manually impose it.  Suppose you want to
+  test the null hypotheses that $\E Y = 0$ so you use the bootstrap to
+  generate a critical value for the median.  To do this, you need to
+  resample from $Y₁ - m(Y),...,Y_n - m(Y)$.
+
+<<>>=
+m <- median(Y)
+boots <- replicate(1000, median(sample(Y - m, replace = TRUE)))
+@
+
+Here the median is \Sexpr{m} and the critical value for a 95\%
+two-sided test is
+<<>>=
+quantile(abs(boots), 0.95)
+@
+so we would reject the null.
+
+\item This works better if you use studentized statistics.
+  
+\item The main thing to keep in mind is the analogy: population is to
+  sample as sample is to bootstrap.  The bootstrap builds a
+  ``bootstrap world'' that we can analyze exactly.  This ``bootstrap
+  world'' is an approximation to the real world.
+
+\end{itemize}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../asymptotics"
+%%% End:
