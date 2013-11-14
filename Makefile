@@ -20,8 +20,9 @@ latexmkFLAGS := -xelatex -silent
 sweave := R CMD Sweave
 sweaveFLAGS := --encoding=utf8
 
-latexdeps := common/preamble.tex AUTHORS.tex LICENSE.tex
-docdeps := common/postamble.tex common/references.bib
+latexdeps := common/preamble.tex
+docdeps := common/references.bib AUTHORS.tex LICENSE.tex \
+  common/backmatter.tex common/frontmatter.tex
 
 # I'm still not sure the best way to do author information; I'm much
 # more concerned in the long run about how different attributation
@@ -34,14 +35,14 @@ docdeps := common/postamble.tex common/references.bib
 # discuss merging projects.
 
 dateinfo := "\\date{$(shell git show -s --date=short --format=%cd HEAD), \
-  version $(shell git describe --tags)}"
+  $(shell git describe --tags)}"
 citeinfo := "@Book{eflp-core, \n\
   author =	{Gray Calhoun}, \n\
   title =	{Core Econometrics Notes}, \n\
   publisher =	{Econometrics Free Library Project, \n\
 		 \url{http://www.econometricslibrary.org}}, \n\
   year =	{$(shell git show -s --date=short --format=%cd | head -c 4)}, \n\
-  note =	{Version $(shell git describe --tags)}}"
+  note =	{$(shell git describe --tags)}}"
 
 texts = probability.pdf finitesample.pdf regression.pdf asymptotics.pdf
 support = LICENSE_standalone.pdf AUTHORS_standalone.pdf
@@ -74,8 +75,8 @@ $(texts): %.pdf: %.tex $(latexdeps) $(docdeps) | ver
 $(support): %_standalone.pdf: %_standalone.tex %.tex $(latexdeps) | ver
 	$(latexmk) $(latexmkFLAGS) -bibtex- $< && $(latexmk) -c $<
 
-bibliography_standalone.pdf: %.pdf: %.tex \
-  common/preamble.tex common/references.bib
+bibliography_standalone.pdf: %.pdf: %.tex common/references.bib \
+  $(latexdeps) | ver
 	$(latexmk) $(latexmkFLAGS) $< && $(latexmk) -c $<
 
 $(addprefix tmp/,$(asymptoticsSweave:.Rnw=.tex)): tmp/%.tex: %.Rnw
