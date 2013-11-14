@@ -203,7 +203,7 @@
   If the two critical values don't give you the same answer, it is
   probably best to be conservative and use the larger critical values
   (which will lead you to not reject the null hypothesis).  The
-  discrepency is telling you that you don't have enough observations
+  discrepancy is telling you that you don't have enough observations
   to get reliable asymptotic approximations, so you should probably
   play it safe and not reject.
 
@@ -229,11 +229,11 @@
   becomes $n · s² (X'X)^{-1}$ and the Wald test statistic becomes a
   scaled \ftest.
 
-\item Notice that we can make the same argumet as above: since the
+\item Notice that we can make the same argument as above: since the
   $F_{p,n-k}$ converges to a $χ²_p$ distribution as $n-k → ∞$, we can
   use either $χ²$ or $F$ critical values for our test statistic.  Just
   like with the \ttest, the $F$ critical values will be somewhat more
-  conservative (here it can actually make a noticable difference), so
+  conservative (here it can actually make a noticeable difference), so
   you should use them.
 
 \item So far, we've discussed testing linear restrictions on the
@@ -286,7 +286,7 @@
   \item Regress $Y$ on $X$ with OLS to get $\eph$
   \item Regress $\eph$ on $Z$ to estimate $α$
   \item Regress $Y_i/w_i$ on $X_i/w_i$ to estimate $\βh_{FGLS}$ where
-    $w_i = sqrt{z_i'\αh}$
+    $w_i = \sqrt{z_i'\αh}$
   \end{enumerate}
 
   If we let $\Σh$ be the estimate of $Σ$ that uses $\αh$, consistency
