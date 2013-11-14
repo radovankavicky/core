@@ -11,6 +11,12 @@ Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
 copy of the license is included in the file LICENSE.tex and is also
 available online at <http://www.gnu.org/copyleft/fdl.html>.
 
+Version 0.5.0
+-------------
+Revises the asymptotics document to use sentences, paragraphs,
+etc. (the usual) instead of a lecture-note stream of consciousness
+format
+
 Version 0.4.0
 -------------
 * Renames the project to "Core Econometrics Notes"
