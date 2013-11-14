@@ -1,0 +1,98 @@
+% Copyright © 2013, authors of "Core Econometrics Notes;" a
+% complete list of authors is available in the file AUTHORS.tex.
+
+% Permission is granted to copy, distribute and/or modify this
+% document under the terms of the GNU Free Documentation License,
+% Version 1.3 or any later version published by the Free Software
+% Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+% Back-Cover Texts.  A copy of the license is included in the file
+% LICENSE.tex and is also available online at
+% <http://www.gnu.org/copyleft/fdl.html>.
+
+\part*{Asymptotic properties of estimators in general}%
+\addcontentsline{toc}{part}{Asymptotic properties of estimators in general}
+
+\section{Consistency of point estimators}
+
+\begin{itemize}
+
+\item Consistency is an asymptotic version of unbiasedness
+  \begin{defn}
+    An estimator $\θh$ is a \emph{consistent} estimator of the
+    parameter $θ$ if $\θh →^p θ$ for any value of $θ$.
+  \end{defn}
+
+  Obviously, if $\E \θh → θ$ and $\var(θh) → 0$ then $\θh$ is
+  consistent.
+
+\item It is straightforward to show that Method of Moments estimators
+  are consistent as well.  Suppose that
+  \begin{enumerate}
+  \item $X₁,...,X_n$ are independent $p$ vectors
+  \item $(\E X_i,...,\E X_i^k) = g(θ₁,...,θ_k)$ and $g^{-1}$ is
+    continuous
+  \item $(1/n) ∑_{i=1}^n X_i^p$ obeys an LLN for $p = 1,...,k$,
+  \end{enumerate}
+  then
+  \begin{equation*}
+    g^{-1}\Big( (1/n) ∑_{i=1}^n X_i,..., (1/n) ∑_{i=1}^n X_i^k \Big)
+    →^p (θ₁,...,θ_k),
+  \end{equation*}
+  so the Method of Moments estimator is consistent.
+
+\item It is less straightforward to show this, but MLEs are typically
+  consistent as well under technical regularity conditions on the
+  distributions of the underlying random variables.  This is one
+  justification for using MLE.
+
+\end{itemize}
+
+\section{Hypothesis testing and interval estimation in general}
+
+\begin{itemize}
+
+\item Let $\{T_n\}$ be a sequence of test statistics for $θ ∈ θ_0$
+  against $θ ∈ θ_A$.  The sequence of tests has asymptotic size $α$ if
+  \begin{equation*}
+    \lim_{n → ∞} \sup_{θ ∈ θ_0} \Pr_θ[T_n \text{ rejects}] = α
+  \end{equation*}
+  It would be great to discuss local alternatives here.
+
+\item Let $\{[L_n, U_n\}$ be a sequence of interval estimators for a
+  parameter $θ$.  The asymptotic confidence level for this sequence of
+  statistics is
+  \begin{equation*}
+    \lim_{n → ∞} \inf_θ \Pr_{θ}[θ ∈ [L_n, U_n]].
+  \end{equation*}
+  It would be great to discuss uniformity here.
+
+\end{itemize}
+
+\section{Specific methods of producing test statistics}
+
+\begin{itemize}
+
+\item There are a few key principles that can be used to produce test
+  statistics in very general conditions.
+
+\item The Wald tests is built on the CLT explicitly.  Suppose we want
+  to test the null $θ = θ_0$ and we have an asymptotically normal
+  estimator $\θh_n$, so $\sqrt{n} (\θh_n - θ) →^d N(0,Σ)$ for all $θ$
+  and that $\Σh$ is a consistent estimator of $Σ$.  Then if the null
+  hypothesis is $θ = θ₀$, we know that
+  \begin{equation*}
+    n (\θh_n - θ₀)' \Σh^{-1} (\θh_n - θ₀) →^d χ²_p
+  \end{equation*}
+  where $p$ is the dimension of $θ₀$.
+
+\item Under appropriate regularity conditions, the Likelihood Ratio
+  Test is asymptotically chi-square as well.  So is a test based on
+  the first order conditions, which is called the \emph{score} or
+  \emph{LM} test.
+
+\end{itemize}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../asymptotics"
+%%% End: 
