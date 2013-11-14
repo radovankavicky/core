@@ -22,7 +22,7 @@
 % wants named authorship, please email the mailing list so we can
 % discuss merging projects.
 
-\usepackage{amssymb,amsmath,verbatim}
+\usepackage{amssymb,amsmath,amsthm,verbatim}
 \usepackage{fontspec,unicode-math,xltxtra,xunicode,booktabs}
 \setromanfont[Ligatures=TeX]{TeX Gyre Pagella}
 \setsansfont[Ligatures=TeX,Scale=MatchLowercase]{TeX Gyre Heros}
@@ -51,6 +51,8 @@
 
 \newcommand{\BibTeX}{Bib\!\TeX}
 \newcommand{\pvalue}{\ensuremath{p}-value}
+\newcommand{\ftest}{\ensuremath{F}-test}
+\newcommand{\ttest}{\ensuremath{t}-test}
 
 % Math shortcuts
 \renewcommand{\Pr}{\operatorname{Pr}}
@@ -75,6 +77,7 @@
 \DeclareMathOperator*{\plim}{plim}
 
 \DeclareMathOperator{\binomial}{binomial}
+\DeclareMathOperator{\bernoulli}{bernoulli}
 \DeclareMathOperator{\invWishart}{inverse\ Wishart}
 \DeclareMathOperator{\N}{N}
 \DeclareMathOperator{\uniform}{uniform}
@@ -115,9 +118,11 @@
 \newcommand{\μb}{\bar{μ}}
 \newcommand{\μh}{\hat{μ}}
 \newcommand{\Ωh}{\hat{Ω}}
+\newcommand{\Qh}{\hat{Q}}
 \newcommand{\Σh}{\hat{Σ}}
 \newcommand{\sh}{\hat{s}}
 \newcommand{\σh}{\hat{σ}}
+\newcommand{\σb}{\bar{σ}}
 \newcommand{\θh}{\hat{θ}}
 \newcommand{\Vh}{\hat{V}}
 \newcommand{\Xb}{\bar{X}}
@@ -138,3 +143,4 @@
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{defn}{Definition}[section]
 \newtheorem{ex}{Example}[section]
+\newtheorem{asmp}{Assumption}[section]

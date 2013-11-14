@@ -17,6 +17,9 @@ latexmk := latexmk
 crud := .aux .log .out .toc .fdb_latexmk .fls
 latexmkFLAGS := -xelatex -silent
 
+sweave := R CMD Sweave
+sweaveFLAGS := --encoding=utf8
+
 latexdeps := common/preamble.tex AUTHORS.tex LICENSE.tex
 docdeps := common/postamble.tex common/references.bib
 
@@ -57,9 +60,12 @@ VERSION.tex:
 CITATION.bib:
 	echo -e $(citeinfo) > $@
 
+asymptoticsSweave := $(wildcard asymptotics/*.Rnw)
+
 probability.pdf: $(wildcard probability/*.tex)
 finitesample.pdf: $(wildcard finitesample/*.tex)
-asymptotics.pdf: $(wildcard asymptotics/*.tex)
+asymptotics.pdf: $(wildcard asymptotics/*.tex) \
+  $(addprefix tmp/,$(asymptoticsSweave:.Rnw=.tex))
 regression.pdf: $(wildcard regression/*.tex)
 
 $(texts): %.pdf: %.tex $(latexdeps) $(docdeps) | ver
@@ -71,6 +77,9 @@ $(support): %_standalone.pdf: %_standalone.tex %.tex $(latexdeps) | ver
 bibliography_standalone.pdf: %.pdf: %.tex \
   common/preamble.tex common/references.bib
 	$(latexmk) $(latexmkFLAGS) $< && $(latexmk) -c $<
+
+$(addprefix tmp/,$(asymptoticsSweave:.Rnw=.tex)): tmp/%.tex: %.Rnw
+	$(sweave) $(sweaveFLAGS) $< && mv $(@F) $(@D)/
 
 clean:
 	rm -f $(foreach ext,$(crud),*.$(ext)) *~
