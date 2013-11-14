@@ -426,6 +426,30 @@
   for all values of $X$, then $\E \var(\βh ∣ X) ≤ \E \var(V'Y ∣ X)$ as
   well.
 
+\item This argument can be generalized.  Suppose that instead of
+  having $\E(\ep \ep' ∣ X) = σ² I$ we knew that $\E(\ep \ep' ∣ X) = σ²
+  Ω$ for some other known matrix $Ω$.  We could still do MLE to
+  estimate $β$ and $σ$, and this would generally give a different
+  estimate than OLS.  But observe that $Ω^{-1/2} \ep ∼ (0, σ² I)$ given
+  $X$, so if we transform the regression relationship to be
+  \begin{equation*}
+    Ω^{-1/2} Y = Ω^{-1/2} X β + Ω^{-1/2} \ep,
+  \end{equation*}
+  this new relationship meets the conditions of the Gauss-Markov
+  theorem.
+
+  This implies that the efficient estimator is the OLS regression of
+  $Ω^{-1/2} Y$ on $Ω^{-1/2} X$, or
+  \begin{equation*}
+    \βh_{GLS} = (X'Ω^{-1}X)^{-1}X'Ω^{-1}Y.
+  \end{equation*}
+  So $\βh_{GLS}$ is BLUE and has variance equal to $σ² (X' Ω^{-1}
+  X)^{-1}$.
+
+  Now, it is unlikely that we will know $Ω$ in practice.  We'll
+  discuss how to estimate $Ω$ when we discuss asymptotic properties of
+  these estimators in part 3.
+
 \item The sampling distributions also matter.  Finite sample
   distributions are going to depend on the distribution of the error
   term, $\ep$.  $\βh$ is relatively easy to work with, since it equals

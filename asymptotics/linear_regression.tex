@@ -265,6 +265,37 @@
   If $C(β)$ does not have full rank, the same approach can work but it
   will be more awkward.
 
+\item We could also take another route.  Instead of correcting the
+  asymptotic distribution of the OLS estimator, we could account for
+  heteroskedasticity in estimating $β$.  This would give us a feasible
+  version of the GLS estimator discussed earlier.
+
+  So, suppose that $Y = X β + \ep$ and $\ep ∼ (0, Σ)$ given $X$ (where
+  $Σ$ is diagonal for now for convenience).
+  Further assume that $Σ$ has only a few unknown parameters,
+  so
+  \begin{equation*}
+    \E(\ep²_i ∣ X) = z_i'α
+  \end{equation*}
+  where $z_i$ is some function of the regressors.  Since $\eph_i$ is
+  consistent for $\ep_i$, we can regress $\eph²_i$ on $z_i$ to
+  estimate $α$.
+
+  The two-step process is
+  \begin{enumerate}
+  \item Regress $Y$ on $X$ with OLS to get $\eph$
+  \item Regress $\eph$ on $Z$ to estimate $α$
+  \item Regress $Y_i/w_i$ on $X_i/w_i$ to estimate $\βh_{FGLS}$ where
+    $w_i = sqrt{z_i'\αh}$
+  \end{enumerate}
+
+  If we let $\Σh$ be the estimate of $Σ$ that uses $\αh$, consistency
+  of $\αh$ ensures that $\Σh$ behaves asymptotically like $Σ$.  All of
+  the asymptotic results from the GLS estimator then automatically
+  apply to the Feasible GLS estimator.  Note that the finite sample
+  properties of the GLS estimator (efficiency via Gauss-Markov, for
+  example) do not necessarily hold.
+
 \item We can also test for heteroskedasticity.  Note that $\βh$ is
   consistent even under heteroskedasticity, so $\eph_i → \ep_i$ for
   each $i$.  If $σ²_i$ is different for different individuals, it
