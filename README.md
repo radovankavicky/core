@@ -12,11 +12,11 @@ Downloads
 ---------
 
 * pdfs can be downloaded from GitHub here:
-  <https://github.com/EconometricsLibrary/CoreEconometricsText/releases>
+  <https://github.com/EconometricsLibrary/core/releases>
 * The source code can be downloaded from GitHub here:
-  <https://github.com/EconometricsLibrary/CoreEconometricsText>
+  <https://github.com/EconometricsLibrary/core>
 * The project homepage is here:
-  <http://www.econometricslibrary.org/>
+  <http://www.econometricslibrary.org/core>
 
 Material covered
 ----------------
@@ -102,7 +102,7 @@ Development notes
 License
 -------
 
-Copyright © 2013, authors of the "Core Econometrics Textbook"; a
+Copyright © 2013, authors of the "Core Econometrics* text; a
 complete list of authors is available in the file AUTHORS.tex.
 
 Permission is granted to copy, distribute and/or modify this document
@@ -124,7 +124,7 @@ more information about sending messages to this discussion list and
 [archives are available online as
 well](http://librelist.com/browser/econometricslibrary/).  The second
 is by [filing an issue report for the
-project](https://github.com/EconometricsLibrary/GraduateText/issues/new).
+project](https://github.com/EconometricsLibrary/core/issues).
 
 If you find an error in the text, please let us know through one of
 those methods.  If you'd like to contribute to this project, please
@@ -132,5 +132,5 @@ subscribe to the mailing list.
 
 You can also follow dedicated RSS feeds that announce new commits to
 the project's GitHub repositories:
-* [the master branch](https://github.com/EconometricsLibrary/CoreEconometricsText/commits/master.atom)
-* [the development branch](https://github.com/EconometricsLibrary/CoreEconometricsText/commits/dev.atom)
+<https://github.com/EconometricsLibrary/core/commits/master.atom>
+
