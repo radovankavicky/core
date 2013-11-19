@@ -487,69 +487,6 @@
 
 \end{itemize}
 
-\section{Making predictions from regression models}
-
-\subsection{motivation and setup}
-\begin{itemize}
-\item Say we've estimated a regression model.  What do we do with it?
-\item Easiest possible use: make forecasts
-\item Setup:
-\begin{itemize}
-\item have observations $(y_i, x_i)$ for $i = 1,...,n$
-\item observe regressors for period $n+1$
-\item want to predict $y_{n+1}$
-\end{itemize}
-\item model \[ y_i = x_i'β + ε_i \]
-\item Estimated by OLS (or, maybe, GLS)
-\end{itemize}
-
-\subsection{natural forecast}
-
-\begin{itemize}
-\item The natural forecast for $y_{n+1}$ is $x_{n+1}'\βh$
-\begin{itemize}
-\item $x_{n+1}'β$ would be the forecast that minimizes expected
-         squared error
-\item $\βh$ is our best (minimum-variance) estimator of $β$
-\item Expected value of $\hat y_{n+1}$ is $y_{n+1}$
-\end{itemize}
-\item How reliable is our forecast?
-\begin{itemize}
-\item more precisely, what is the variance of the forecast error?
-\item Define the forecast error as 
-  \[ e_{n+1} = y_{n+1} - \hat y_{n+1} = ε_{n+1} - x_{n+1}'(\βh - β) \]
-\end{itemize}
-\item Variance of forecast erro is going to reflect
-\begin{itemize}
-\item variance of $\βh$
-\item variance of $ε_{n+1}$
-\end{itemize}
-\end{itemize}
-
-\subsection{calculation of variance}
-
-     We're going to assume that the errors are uncorrelated (like we
-     have) and homoskedastic.
-\begin{itemize}
-\item conditionally heteroeskedastic errors can be dealt with by GLS
-\item The usual calculation gives us
-  \[ \var(e_{n+1} ∣ X, x_{n+1}) = \E(e_{n+1}² ∣ X_{n+1}) = \E(ε_{n+1}²
-  ∣ X, x_{n+1}) + \E(((\βh - β)'x_{n+1})² ∣ X, x_{n+1})\]
-\item the first term is just $σ²$
-\item the second is 
-  \[ x_{n+1}' \var(\βh ∣ X) x_{n+1} = σ² x_{n+1}'(X'X)^{-1}x_{n+1}\]
-\item draw a scatterplot to illustrate why $\hat y$ will depend on
-       the particular value of $x$.
-\end{itemize}
-
-\subsection{common use of this variance}
-
-\begin{itemize}
-\item \textbf{if the errors are normal}, we can construct a confidence
-       interval for $y_{n+1}$ from this result
-\item $\hat y_{n+1} ± t_{α/2} \sqrt{s² (1 + x_{n+1}'(X'X)^{-1}x_{n+1})}$
-\end{itemize}
-
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "../finitesample"
