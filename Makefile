@@ -70,20 +70,22 @@ asymptotics.pdf: $(wildcard asymptotics/*.tex) \
 regression.pdf: $(wildcard regression/*.tex)
 
 $(texts): %.pdf: %.tex $(latexdeps) $(docdeps) | ver
-	$(latexmk) $(latexmkFLAGS) $< && $(latexmk) -c $<
+	$(latexmk) $(latexmkFLAGS) $<
 
 $(support): %_standalone.pdf: %_standalone.tex %.tex $(latexdeps) | ver
-	$(latexmk) $(latexmkFLAGS) -bibtex- $< && $(latexmk) -c $<
+	$(latexmk) $(latexmkFLAGS) -bibtex- $<
 
 bibliography_standalone.pdf: %.pdf: %.tex common/references.bib \
   $(latexdeps) | ver
-	$(latexmk) $(latexmkFLAGS) $< && $(latexmk) -c $<
+	$(latexmk) $(latexmkFLAGS) $<
 
 $(addprefix tmp/,$(asymptoticsSweave:.Rnw=.tex)): tmp/%.tex: %.Rnw
 	$(sweave) $(sweaveFLAGS) $< && mv $(@F) $(@D)/
 
+alldocs = $(texts) $(support) bibliography_standalone.tex
 clean:
-	rm -f $(foreach ext,$(crud),*.$(ext)) *~
+	$(foreach doc, $(alldocs), $(latexmk) -c $(doc))
+	rm -f *~
 
 burn: clean
-	rm -f *.pdf *.dvi
+	$(foreach doc, $(alldocs), $(latexmk) -C $(doc))
