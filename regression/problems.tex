@@ -138,6 +138,32 @@ Please derive a test statistic for the null hypothesis $\beta_1 =
   satisfies the Gauss-Markov assumptions, so the OLS estimator of $\beta_1$
   should be BLUE too.  But both estimators can't be BLUE, can they?
   They're different except in a few special cases.  What's going on?
+
+\item Consider this situation: you are interested in the effect of a
+  variable $X_1$ (say, education level) on $Y$ (say, earnings), so you
+  want to test whether the coefficient $\beta_1$ is significant in the
+  equation
+  \begin{equation*}
+    Y_{i} = \beta_0 + \beta_1 X_{i1} + \vep_i.
+  \end{equation*}
+  But, you don't know whether or not you should include a second
+  regressor, $X_2$ (maybe some measure of ability, like a test score).
+
+  Three of the approaches we've discussed are:
+  \begin{enumerate}
+  \item regress $Y$ on $X_1$ and test for significance.
+  \item regress $Y$ on $X_1$ and $X_2$ and test $\beta_1$ for significance.
+  \item regress $Y$ on $X_1$ and $X_2$ and test $\beta_2$ for significance.
+    \begin{itemize}
+    \item If $\beta_2$ is significant, test $\beta_1$ for significance.
+    \item If $\beta_2$ is \emph{not} significant, regress $Y$ on only $X_1$
+      and test $\beta_1$ for significance in that model.
+    \end{itemize}
+  \end{enumerate}
+
+  Please design a Monte Carlo experiment in R that would let you study
+  how well each of these approaches would work.
+
 \end{enumerate}
 
 %%% Local Variables: 

@@ -9,449 +9,460 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\chapter{Issues in modeling}
+\chapter{Modeling with linear regression}
+\input{regression/modeling_macros.tex}
+\section{What happens when the model is wrong}
 
-\section{Functional form of regression models}
-\subsection{polynomial regression}
+\begin{itemize}[leftmargin=0pt]
 
-\paragraph{motivation}
+\item You've heard of \emph{omitted variable bias} but we need to
+  think about what that means.  Suppose that we have a single
+  regressor, the DGP is
+  \begin{equation*}
+    y_i = \alpha_0 + \alpha_1 x_i + \alpha_2 x^2_i + \vep_i
+  \end{equation*}
+  where (for argument's sake) $(x_i, \vep_i) \sim \iid\ (0,I)$ with
+  $\vep_i$ and $x_i$ independent.  But now suppose we estimate the
+  model
+  \begin{equation*}
+    y_i = \betah_0 + \betah_1 x_i
+  \end{equation*}
+  with OLS.  What are the properties of $\betah_0$ and $\betah_1$?  We know
+  that
+  \begin{equation*}
+    \betah =
+    \begin{pmatrix}
+      1 & (1/n) \sum_{i=1}^n x_i \\
+      (1/n) \sum_{i=1}^n x_i & (1/n) \sum_{i=1}^n x^2_i
+    \end{pmatrix}^{-1}
+    \begin{pmatrix}
+      (1/n) \sum_{i=1}^n (\alpha_0 + \alpha_1 x_i + \alpha_2 x_i^2 + \vep_i ) \\
+      (1/n) \sum_{i=1}^n x_i (\alpha_0 + \alpha_1 x_i + \alpha_2 x_i^2 + \vep_i)
+    \end{pmatrix}.
+  \end{equation*}
+  Since we've assumed finite variance (not really an important part of
+  this example) we can apply LLNs to everything, so
+  \begin{gather*}
+     (1/n) \sum_{i=1}^n x_i \to^p 0 \\
+     (1/n) \sum_{i=1}^n x^2_i \to^p 1 \\
+     (1/n) \sum_{i=1}^n (\alpha_0 + \alpha_1 x_i + \alpha_2 x_i^2 + \vep_i ) \to^p  \alpha_0 + \alpha_1 \\
+     (1/n) \sum_{i=1}^n x_i (\alpha_0 + \alpha_1 x_i + \alpha_2 x_i^2 + \vep_i) \to^p
+     \alpha_1 + \alpha_2 \E x_i^3
+  \end{gather*}
+  so
+  \begin{equation*}
+    \betah \to^p
+    \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}^{-1}
+    \begin{pmatrix} \alpha_0 + \alpha_2 \\ \alpha_1 + \alpha_2 \end{pmatrix}
+    = \begin{pmatrix} \alpha_0 + \alpha_2 \\ \alpha_1 + \alpha_2 \end{pmatrix}
+  \end{equation*}
 
-\begin{itemize}
-\item We can get some flexibility while keeping the OLS framework
-\item Linear model is
-  \[y_i = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_k x_{ik} + \epsilon_i\]
-\begin{itemize}
-\item The regressors $x_{ij}$ can be transformations of the same
-          underlying ``variable''
-\end{itemize}
-\end{itemize}
+  Usually we don't care about the intercept, but we almost always care
+  about the slope, and the OLS estimator for the slope is
+  asymptotically biased.
 
-\paragraph{two degree polynomial}
-\begin{itemize}
-\item draw scatterplot of parabola
-\item might think that the model
-  \[y_i = \beta_0 + \beta_1 x_i + \beta_2 x^2_i + \vep_i\]
-  is a good description of the data
-\item This model can be estimated by OLS directly
-\item More generally, models of the form
-  \[y_i = \beta_0 + \beta_1 g_1(x_i) + \beta_2 g_2(x_i) + \cdots + \beta_k g_k(x_k) + \vep_i\]
-  can be estimated by OLS if
-\begin{itemize}
-\item conditional mean of $\epsilon_i$ given X is zero
-\item each $g_j$ is known.
-\end{itemize}
-\end{itemize}
-
-\subsection{Binary regressors}
-
-\paragraph{intro}
-\begin{itemize}
-\item This is basic, and you probably already know it
-\item Non-numeric data can arrive as numbers
-\begin{itemize}
-\item just because the data arrive as numbers, doesn't mean that
-          they are \emph{really} numbers.
-\end{itemize}
-\end{itemize}
-
-\paragraph{Example from Greene: education data}
-\begin{itemize}
-\item $y_i$ is income
-\item $x_{i1}$ (say) represents highest level of education and has
-          values
-\begin{enumerate}
-\item if individual i has not completed high school
-\item if individual i has completed high school but no higher
-             degree
-\item if individual i has completed college but no higher
-             degree
-\item if individual i has completed a master's degree (or
-             advanced to candidacy in a Ph.D. program) but no higher
-             degree
-\item if individual i has completed a ph.d. program
-\end{enumerate}
-\end{itemize}
-
-\paragraph{Common example from ``satisfaction surveys''}
-\begin{itemize}
-\item rate the following questions on a scale from 1 to 5
-\begin{enumerate}
-\item Strongly agree
-\item Agree
-\item neutral
-\item Disagree
-\item Strongly disagree
-\end{enumerate}
-\end{itemize}
-
-\paragraph{How to proceed}
-\begin{itemize}
-\item \textbf{do not} regress $y$ on $x_1$! (draw scatterplot of $y$ vs. $x_1$)
-\begin{itemize}
-\item assumes that the difference between expected income w/
-          Ph.D. vs Masters degree is the same as the difference for
-          college degree vs. highschool.
-\item Even worse, assumes that the expected difference between
-          income with Ph.D. and high school degree is \underline{exactly} three
-          times the difference between expected income with college
-          vs. high school degree.
-\end{itemize}
-\item Instead, create four dummy variables
-\begin{itemize}
-\item remember from undergrad, creating 5 and including a constant
-          means the design matrix doesn't have full rank
-\item $D_1$ :: 1 if $x_{i1}$ = 2, 3, 4, or 5; zero otherwise
-\item $D_2$ :: 1 if $x_{i1}$ = 3, 4, or 5; zero otherwise
-\item $D_3$ :: 1 if $x_{i1}$ = 4, or 5; zero otherwise
-\item $D_4$ :: 1 if $x_{i1}$ = 5; zero otherwise
-\item note :: There are other ways that you could code it, but
-                  this will make the comparisons we want to make easy.
-\end{itemize}
-\end{itemize}
-
-\paragraph{Estimation}
-\begin{itemize}
-\item Now, regress $y_i$ on $D_{i1}$, $D_{i2}$, $D_{i3}$, $D_{i4}$, and a constant:
-  \[ y_i = \beta_0 + \beta_1 D_{i1} + \beta_2 D_{i2} + \beta_3 D_{i3} + \beta_4 D_{i4} + \epsilon_i \]
-\item Interpretation of this model
-\begin{itemize}
-\item Expected income of a worker with a masters degree but no
-          higher degree:
-\begin{itemize}
-\item masters degree means that $D_1$, $D_2$, and $D_3$ all equal 1;
-  $D_4$ equals zero is
-  \[
-  \E(y_i \mid D_{i1}=1,D_{i2}=1,D_{i3}=1,D_{i4}=0) = \beta_0 + \beta_1 + \beta_2 + \beta_3
-  \]
-\item Estimate of expected income for those workers is
-  $\betah_0 + \betah_1 + \betah_2 + \betah_3$
-\end{itemize}
-\item Difference in expected income of people with college degree
-          vs. those with masters degree:
-\begin{itemize}
-\item $\E(y_i \mid \text{college}) = \beta_0 + \beta_1 + \beta_2$
-\item $\E(y_i \mid \text{masters}) = \beta_0 + \beta_1 + \beta_2 + \beta_3$
-\item difference in expected values is just $\beta_3$
-\item Estimated difference is $\betah_3$
-\end{itemize}
-\end{itemize}
-\end{itemize}
-
-\subsection{loosening ``linearity''}
-
-\paragraph{splines}
-
-\paragraph{motivation}
-\begin{itemize}
-\item Draw scatter plot for y vs. 1-5 (education) again
-\item have a general relationship between expected value of income
-         and observed level of education (not linear)
-\item transformed that relationship to something we can estimate by
-         OLS
-\item Can we do the same thing if the regressors are \underline{not}
-         discrete?
-\end{itemize}
-
-\paragraph{basic idea}
-\begin{itemize}
-\item Suppose x is unrestricted
-\item draw nonlinear function $\E(y \mid x)$
-\item We can discretize the regressors (draw blocks) and fit
-         separate OLS regressions within each block
-\begin{itemize}
-\item gives a better fit than OLS alone
-\item may be biased, but bias will be small if you have small
-           blocks
-\item decreasing the size of the block will increase the variance
-           of each estimate, so there is a tradeoff.
-\end{itemize}
-\end{itemize}
-
-\paragraph{improvements on the basic idea}
-\begin{itemize}
-\item may (probably) want to impose that $\E(y_i \mid x_i)$ is
-         continuous in $x_i$.
-\item formally, we can get our model from (assuming p different blocks)
-  \[
-  y_i = \delta_0 + \gamma_0x_i + \sum_{j=1}^{p-1} (\delta_j + \gamma_jx_i) \ind\{c_j \leq x_i\} + \epsilon_i
-  \]
-\begin{itemize}
-\item continuity implies that
-  \[ \delta_0 + \gamma_0 c_l + \sum_{j=1}^l (\delta_j + \gamma_j c_l) = \delta_0 + \gamma_0 c_l +
-  \sum_{j=1}^{l+1} (\delta_j + \gamma_l c_l)\] for $l = 1,...,p-1$, which implies
-  that $\delta_j = - \gamma_j c_j$ for all $l$
-\item plugging this in to the initial equation gives
-  \[
-  y_i = \delta_0 + \gamma_0x_i + \sum_{j=1}^{p-1} \gamma_j(x_i-c_j) \ind\{c_j \leq x_i\} + \epsilon_i
-  \]
-\end{itemize}
-\item we can estimate the model by regressing $y_i$ on a constant,
-  $x_i$, and the variables $(x_i - c_j) \ind\{c_j \leq x_i\}$
-\end{itemize}
-
-\paragraph{another improvement}
-\begin{itemize}
-\item We can combine this idea with the polynomial regression we
-         looked at earlier
-\begin{itemize}
-\item We could fit a quadratic or cubic polynomial in each block
-           instead of a straight line
-\item now we could impose that the function is continuous and
-           continuously differentiable
-\begin{itemize}
-\item requires additional restrictions on the coefficients
-\item no longer is OLS, but gives a similar estimator
-\end{itemize}
-\end{itemize}
-\item approach is called ``splines''
-\item formal discussion is beyond the scope of this class
-\end{itemize}
-
-\paragraph{local linear models}
-\begin{itemize}
-\item draw scatter plot again
-\item instead of setting up boxes first, we might just try to
-        estimate the regression model at this point
-\item create a box around the point and fit
-\item could do the same thing at each possible point and build up
-        the conditional expectation that way
-\item Obviously, could be improved by using a weighting scheme
-\item example of ``local linear regression''
-\item also beyond the scope of the class
-\end{itemize}
-
-\paragraph{common themes and discussion}
-\begin{itemize}
-\item Splines are an example of a ``semi-parametric'' estimator
-\begin{itemize}
-\item trying to estimate an unspecified function, but using a
-          finite number of parameters to do so
-\end{itemize}
-\item Local linear regression is an example of a nonparametric estimator
-\begin{itemize}
-\item estimating the unknown function directly
-\item different coefficient values for each possible value of the
-          function
-\end{itemize}
-\item For both, the coefficients themselves aren't very useful
-\begin{itemize}
-\item want to interpret changes in the expected value given
-          chagnges in the coefficient
-\item can derive them from the unknown coefficients (like we saw
-          with the binary regressor case
-\item use tools like the delta method to calculate standard errors.
-\end{itemize}
-\end{itemize}
-
-\section{model selection}
-\subsection{problems in modeling}
-
-\paragraph{Omitted variables}
-\begin{itemize}
-\item We've assumed so far that $Y = X\beta + \vep$ with $\E(\vep \mid X) = 0$.
-\item Suppose that the true model is
-  \[Y = X\beta + Z\alpha + \vep\] with $\E(\vep \mid X, Z) = 0$
-\begin{itemize}
-\item but you regress $Y$ on $X$ (and not $Z$)
-\item e.g. $Y$ is income, $X$ is education and experience, and
-          $Z$ is some numeric measure of ability.
-\item maybe $Z$ is unobserved
-\item maybe there are other reasons you omit it (ignorance, possibly)
-\end{itemize}
-\item Is the OLS estimator consistent for $\beta$?
-\end{itemize}
-
-\paragraph{mathematical consequences}
-\begin{itemize}
-\item Rewrite the true relationship
-  \[ Y = X\beta + (Z\alpha + \vep) \equiv X\beta + u \]
-\item we know that (under reasonable assumptions ensuring LLNs)
+\item Now, how do we interpret those coefficients?  They minimize the
+  SSR among the class of models linear in $x_i$.  We can show that the
+  first order conditions for
+  \begin{equation*}
+    \argmin_{\beta_0, \beta_1} \E (y_i - \beta_0 - \beta_1 x_i)^2 
+  \end{equation*}
+  are satisfied by the above $\plim$s:
   \begin{align*}
-    \betah - \beta
-    &= (n^{-1} X'X)^{-1}(n^{-1} X'u) \\
-    &\to (\E(x_{i}x_{i}'))^{-1} \lim n^{-1} \sum_{i=1}^{n} x_{i} \E(u_{i} \mid X)
+    0
+    &= (\partial /\partial \beta) \E (y_i - \beta_0 - \beta_1 x_i)^2 \\
+    &= - 2
+    \begin{pmatrix}
+      \E (y_i - \beta_0 - \beta_1 x_i) \\
+      \E (y_i - \beta_0 - \beta_1 x_i) x_i
+    \end{pmatrix} \\
+    &= - 2
+    \begin{pmatrix}
+      \E (\alpha_0 + \alpha_1 x_i + \alpha_2 x_i^2 + \vep_i - \beta_0 - \beta_1 x_i) \\
+      \E (\alpha_0 + \alpha_1 x_i + \alpha_2 x_i^2 + \vep_i - \beta_0 - \beta_1 x_i) x_i
+    \end{pmatrix} \\
+    &= - 2
+    \begin{pmatrix}
+      \alpha_0 + \alpha_2 - \beta_0 \\
+      \alpha_1 + \alpha_2 \E x_i^3 - \beta_1
+    \end{pmatrix}
   \end{align*}
-\item \textbf{But} we can't assume that $\E(u_i \mid X) = 0$ (a.s.)
-\begin{itemize}
-\item $\E(u_{i} \mid X) = \E(\alpha z_{i} \mid X) + \E(\vep_{i} \mid X)$
-\begin{itemize}
-\item The second term is zero since (by the L.I.E.)
-  \[\E(\vep_{i} \mid X) = \E(\E(\vep_{i}\mid X, Z) \mid X) = 0\]
-\item The first term is zero only if
-\begin{itemize}
-\item $\alpha = 0$
-\item $\E(x_{i} z_{i}) = 0$
-\end{itemize}
-\end{itemize}
-\end{itemize}
-\item Think back to our example
-\begin{itemize}
-\item $\E(ability \mid education, experience)$ is probably not zero
-\item $\alpha = 0$ only if ability doesn't affect income, after
-           taking education and experience into account
-\item both are probably not zero
-\item OLS on just $X$ is going to give you a biased and
-           inconsistent estimate.
-\end{itemize}
-\end{itemize}
+  and this is satisfied only when $\beta_0 = \alpha_0 + \alpha_2$ and
+  $\beta_1 = \alpha_1 + \alpha_2 \E x_i^3$.
 
-\paragraph{remedies}
+\item Now, is this what you want?  Sometimes (for prediction) this
+  isn't too bad on average (especially if $\alpha_2$ is small).  But
+  usually this isn't what we want.
 
-\paragraph{include the variable!}
-\begin{itemize}
-\item If you observe $Z$, it's usually a good idea to include it
-          in the regression.
-\begin{itemize}
-\item a caveat with small sample sizes: when $\alpha$ is close
-            to zero, this can increase the variance of your estimator
-            enough that including the variable is a bad idea
-\item when $\alpha$ is close to zero, the bias is small too.
-\end{itemize}
-\item we'll discuss ways to determine whether or not you should
-          include a variable soon
-\end{itemize}
+  But the thing to notice is that the moment and weak dependence
+  conditions ensure that the OLS estimator converges to
+  \emph{something} and is asymptotically normal around that parameter
+  value, even if it's not what we want to estimate.
 
-\paragraph{proxies -- see \citet[Section 12.5]{Gre12}}
-\begin{itemize}
-\item What if you can't include the variable?
-\begin{itemize}
-\item ability might be impossible to directly observe, for
-            example.
-\end{itemize}
-\item Suppose you included a different variable that is a measure
-          of the missing variable
-\begin{itemize}
-\item A test score instead of ability
-\item Call that variable $W$; moreover, suppose that
-            \[W = \gamma_0 + Z \gamma_1 + \delta\]
-            so $W$ is unrelated to the $X$ variables
-\end{itemize}
-\item What happens if you regress $Y$ on $X$ and $W$?
-\end{itemize}
-\begin{itemize}
-
-\item mathematical representation of proxies
-\begin{itemize}
-\item We can solve for $Z$ in the previous relationship:
-  \[ Z = (W - \gamma_0 - \delta ) / \gamma_1 \]
-\item We can rewrite the true relationship as
-  \begin{align*} 
-    Y &= X\beta + Z\alpha + \vep \\
-    &= \beta_0 + X\beta + (W - \gamma_0 - \delta) \alpha/\gamma_1 \\
-    &= (\beta_0 - \gamma_0\alpha/\gamma_1) + X\beta + W \alpha/\gamma_1 + (\vep - \alpha/\gamma_1\delta)
+\item But we can also look at the variance of the OLS estimator here
+  (where $X$ is just a column of ones and the column of $x_i$'s)
+  \begin{align*}
+    \E(\betah \mid X)
+    &= ((1/n) X'X)^{-1}
+    \begin{pmatrix}
+      (1/n) \sum_{i=1}^n \E(\alpha_0 + \alpha_1 x_i + \alpha_2 x_i^2 + \vep_i \mid X) \\
+      (1/n) \sum_{i=1}^n \E(x_i (\alpha_0 + \alpha_1 x_i + \alpha_2 x_i^2 + \vep_i) \mid X)
+    \end{pmatrix} \\
+    &= ((1/n) X'X)^{-1}
+    \begin{pmatrix}
+      (1/n) \sum_{i=1}^n (\alpha_0 + \alpha_1 x_i + \alpha_2 x_i^2) \\
+      (1/n) \sum_{i=1}^n (\alpha_0 x_i + \alpha_1 x_i^2 + \alpha_2 x_i^3)
+    \end{pmatrix}
   \end{align*}
-\item If $\E(\delta \mid X, W) = 0$ (which may be reasonable), we
-           can use OLS to get consistent estimates of
-\begin{itemize}
-\item $\beta-\gamma_0\alpha/\gamma_1$ (the new intercept)
-\item $\beta$
-\item $\alpha/\gamma_1$ (the slope on W)
-\end{itemize}
-\item In our setup, we only care about $\beta$, and we can
-           estimate it consistently by OLS (and unbiased, too).
-\item The same concept applies with more than one variable
-\begin{itemize}
-\item Note that $\alpha/\gamma_1$ is complicated
-\item Will be more complicated with more variables
-\item In particular, it can have a \textbf{different sign} than $\alpha$.
-\end{itemize}
-\end{itemize}
+  and so
+  \begin{align*}
+    \var(\betah \mid X)
+    &= ((1/n) X'X)^{-1}
+      (1/n^2) \sum_{i=1}^n \E(\vep_i^2 \mid X)
+      \begin{pmatrix} 1 & x_i \\ x_i & x_i^2 \end{pmatrix}
+      ((1/n) X'X)^{-1} \\
+    &= \sigma^2 (X'X)^{-1}
+  \end{align*}
+  under conditional homoskedasticity.  The natural question is how
+  this variance compares to that of the full model.
+
+  To simplify comparisons, impose that $\beta_0$ is known to be zero.  Then
+  the restricted variance just becomes $\sigma^2 / \sum_{i=1}^n x_i^2$ and the full
+  model's variance-covariance matrix is
+  \begin{equation*} \sigma^2
+    \begin{pmatrix}
+      \sum_{i=1}^n x_i^2 & \sum_{i=1}^n x_i^3 \\
+      \sum_{i=1}^n x_i^3 & \sum_{i=1}^n x_i^4
+    \end{pmatrix}^{-1}
+    = \frac{\sigma^2}{\sum_{i=1}^n x_i^2 \sum_{i=1}^n x_i^4 - \big( \sum_{i=1}^n x_i^3 \big)^2}
+    \begin{pmatrix}
+      \sum_{i=1}^n x_i^4 & -\sum_{i=1}^n x_i^3 \\
+      -\sum_{i=1}^n x_i^3 & \sum_{i=1}^n x_i^3
+    \end{pmatrix}.
+  \end{equation*}
+  Now, we're just interested in the top left element of that matrix,
+  which is
+  \begin{equation*}
+    \frac{\sigma^2 \sum_{i=1}^n x_i^4}%
+    {\sum_{i=1}^n x_i^2 \sum_{i=1}^n x_i^4 - \big( \sum_{i=1}^n x_i^3 \big)^2}.
+  \end{equation*}
+
+  We can compare their reciprocals easily; the reciprocal of the full
+  model's variance is
+  \begin{equation*}
+    \sum_{i=1}^n x_i^2 / \sigma^2 -
+    \big( \sum_{i=1}^n x_i^3 \big)^2 \Big/ \sigma^2 \sum_{i=1}^n x_i^4
+  \end{equation*}
+  which is clearly less than $\sum_{i=1}^n x_i^2 / \sigma^2$, the
+  reciprocal of the variance of the restricted estimator, so the
+  restricted estimator has smaller conditional variance.
+
+\item Don't go overboard.  We can come up with examples where the
+  unrestricted model has lower variance too.
+  \begin{hw}[Regression model with omitted exogenous variables]
+    Suppose that $(Y_i, X_i, Z_i)$ are \iid\ such that
+    \begin{equation*}
+      \E(Y_i \mid X_i, Z_i) = \alpha' X_i + \beta' Z_i
+    \end{equation*}
+    and assume that $X_i$ and $Z_i$ have finite second moments and
+    that $\E(Z_i \mid X_i) = 0$.  This second condition makes the OLS
+    estimator of $Y$ on $X$ unbiased for $\alpha$.  Find parameter
+    values for $\beta$ and $\alpha$ and $\var(Y_i \mid X_i, Z_i)$ so
+    that the OLS estimator of the regression of $Y$ on $X$ has higher
+    variance than the OLS estimator from the regression on $X$ and
+    $Z$.
+
+    Then verify your results by writing a short program to conduct a
+    Monte Carlo study comparing the variance of each estimator.
+  \end{hw}
+
+\item There's nothing special about the original variables we're
+  given, and often they need to be transformed.  We can use OLS
+  whenever we have models of the form
+  \begin{equation*}
+    y_i = \beta_0 + \beta_1 g_1(z_i) + \cdots + \beta_k g_k(z_i) + \vep_i
+  \end{equation*}
+  as long as the moment and dependence conditions hold.  And, of
+  course, the coefficients estimated are going to be the ones that
+  minimize the expected SSR, regardless of the true DGP.
+
+\item An extreme example of this is for categorical data.  You will
+  often see this in marketing-type surveys where the numbers 1--5
+  represent ``strongly agree'' through ``strongly disagree.''
+
+  \begin{ex}[Categorical regressor]
+    Suppose that $y_i$ is income for individual $i$ and $x_i$
+    represents highest level of education achieved by individual $i$,
+    where
+    \begin{equation*}
+      x_i =
+      \begin{cases}
+        0 & \text{if individual $i$ has not completed high school} \\
+        1 & \text{completed high school but no higher degree} \\
+        2 & \text{completed college but no higher degree} \\
+        3 & \text{completed a master's degree or entered a PhD
+          program, but no higher degree} \\
+        4 & \text{completed a PhD program}.
+      \end{cases}
+    \end{equation*}
+
+    It would be a mistake to regress $y_i$ on the raw values of $x_i$.
+    The numbers in $x_i$ \emph{don't mean anything}, but that
+    regression would impose an assumption that the difference in
+    expected income between someone with no degree ($x_i = 0$) and
+    someone with a high school diploma ($x_i = 1$) is exactly half the
+    difference between someone with a college diploma and someone with
+    a PhD.  So, obviously, estimating that sort of model is basically
+    useless for interpretation, etc.  You could still interpret the
+    model as a best linear predictor, just like we did earlier, but
+    why?
+
+    Instead, for this sort of model you want to create separate
+    indicator variables:
+    \begin{align*}
+      D_{i1} &= \ind\{x_i = 1\} &
+      D_{i2} &= \ind\{x_i = 2\} \\
+      D_{i3} &= \ind\{x_i = 3\} &
+      D_{i4} &= \ind\{x_i = 4\}
+    \end{align*}
+    and then estimate the model
+    \begin{equation*}
+      y_i = \beta_0 + \sum_{j=1}^4 \beta_j D_{ij} + \vep_i.
+    \end{equation*}
+    
+    Now each $\beta_j$ can be interpreted as the conditional
+    expectation given each educational level, and the difference in
+    the coefficients gives the difference in conditional expectations.
+  \end{ex}
+
+  NB: even if you estimate the correct model (with indicator
+  variables) it's likely that you'll only be able to estimate the mean
+  of the population of people with college degrees, etc.  It's
+  unlikely that you're going to be able to estimate the expected
+  change in someone's earnings, etc., that would result from a change
+  in their education level.
+  
 \end{itemize}
 
-\paragraph{Inclusion of too many variables}
-\begin{itemize}
-\item We saw this earlier in the lecture
-\item If we include variables that have population coefficients equal
-        to zero, the variance of our estimator increases and the model
-        is less accurate
-\item The coefficients are still unbiased, though.
-\end{itemize}
+\section{Model selection}
 
-\subsection{choosing a model}
+[need to add material on graphics, residual plots, etc.]
 
-\paragraph{$R^2$}
-\begin{itemize}
-\item We know that $R^2$ increases if we include more regressors:
-  \[R^2 = \frac{SSR}{SST} = 1 - \frac{\veph'\veph}{y'M_0y}\]
-  with $M_0 = I - n^{-1} \i \i'$
-\begin{itemize}
-\item If we add regressors, the numerator,
-  $\veph'\veph$, decreases.
-\end{itemize}
-\item motivates adjusted $R^2$:
-  \[ \bar{R}^2 = 1 - \frac{n-1}{n-K}(1-R^2)\]
-\begin{itemize}
-\item if we add a regressor, $K$ increases too, so the decrease in
-  $R^2$ is offset.
-\end{itemize}
-\end{itemize}
+\begin{itemize}[leftmargin=0pt]
 
-\paragraph{Information criteria}
-\begin{itemize}
-\item In general, it's nice to have a somewhat automatic approach.
-\item Suppose you have a set of regressors you think is plausible,
-  $x_1,...,x_p$
-\item Is there a general (ie popularly accepted) procedure to get a
-        set of regressors to apply OLS?
-\item In practice, both the AIC and BIC amount to increasing the
-        penalty term on $\bar{R}^2$ (they have more formal
-        derivations, but we don't have time to go through them
-\item AIC :: $s^2_y (1 - R^2) e^{2K/n}$
-\item BIC :: $s^2_y (1 - R^2) n^{2K/n}$
-\item note :: \underline{smaller} values mean that the model is a better fit
-\end{itemize}
+\item There are lots of tools for choosing a model, ranging from
+  informal tools, like eyeballing scatter plots, to formal tools that
+  try to give the researcher a precise measure of ``model fit.''  Some
+  are very bad, but most of them can be helpful in discovering gross
+  features of a dataset.  Generally speaking, the informal tools
+  (graphing, plotting, etc.) work better but take longer, so they
+  might be prohibitively time consuming for datasets with many
+  potential regressors.
 
-\paragraph{use}
-\begin{itemize}
-\item presentation
-\begin{itemize}
-\item usually these are presented in logs (so the numbers don't get
-           too large)
-\item AIC is often reported as $\ln(\veph'\veph/n) + 2K/n$
-\item BIC is often reported as $\ln(\veph'\veph/n) + (K/n) \ln n$
-\item read the help of the software you're using to be sure
-\end{itemize}
-\item workflow
-\begin{itemize}
-\item calculate the AIC (or BIC) for all of the models you're considering.
-\item choose the one that minimizes the criterion.
-\item these are commonly used in timeseries/macro, less so (that
-           I'm aware of) in cross-section/micro
-\end{itemize}
-\end{itemize}
+\item As we'll see, pretty much all of the model selection tools
+  perform alarmingly badly at discovering detailed features of a
+  dataset.  This is easiest to show for the formal tools, obviously,
+  but there's no reason to think that informal tools do any better.
+  It's just hard to prove results about them.
 
-\paragraph{homework \textbf{:hw:}}
-\begin{itemize}
-\item Consider this situation: you are interested in the effect of a
-        variable $X_1$ (say, education level) on $Y$ (say, earnings),
-        so you want to test whether the coefficient $\beta_1$ is
-        significant in the equation
-        \[ Y_{i} = \beta_0 + \beta_1 X_{i1} + \vep_i. \]
-        But, you don't know whether or not you should include a second
-        regressor, $X_2$ (maybe some measure of ability, like a test
-        score).
+  We'll talk about this issue later in the section, but if you are
+  impatient or want more details, see the review article by
+  \citet{LP05}.
 
-        Three of the approaches we've discussed are:
-\begin{enumerate}
-\item regress $Y$ on $X_1$ and test for significance.
-\item regress $Y$ on $X_1$ and $X_2$ and test $\beta_1$ for
-           significance.
-\item regress $Y$ on $X_1$ and $X_2$ and test $\beta_2$ for
-           significance.
-\begin{itemize}
-\item If $\beta_2$ is significant, test $\beta_1$ for
-             significance.
-\item If $\beta_2$ is \textbf{not} significant, regress $Y$ on only
-             $X_1$ and test $\beta_1$ for significance in that
-             model.
-\end{itemize}
-\end{enumerate}
-\item Please design a monte carlo experiment in R that would let you
-        study how well each of these approaches would work.
+\item The first model-selection statistic that anyone sees is
+  $R$-square, so let's get it out of the way.
+
+  \begin{defn}[Centered $R$-square] $R$-square measures the highest
+    fraction of variance in the dependent variable that can be removed
+    by a linear combination of the regressors:
+    \begin{equation*}
+      R^2 = 1 - SSR/SST = 1 - \veph'\veph/y'M_0y
+    \end{equation*}
+    with $M_0 = I - \iota \iota' / n$.
+  \end{defn}
+
+  This measure has the obvious shortcoming that adding any regressor
+  will allow no less of the variance of the dependent variable to be
+  removed, so $R^2$ will go up (weakly) if you add more regressors.
+
+\item One response, then, is to use $R^2$ but add an additional
+  penalty term to offset the increase that one would expect if adding
+  an irrelevant regressor.  This gives \emph{adjusted $R$-square},
+  $\Rb^2$, which is defined as
+  \begin{equation*}
+    \Rb^2 = 1 - \frac{n-1}{n-K}(1-R^2).
+  \end{equation*}
+  Now if we add a regressor, $K$ increases too and $\Rb^2$ may go
+  down.
+
+\item We can also increase the penalty even more, giving the AIC and
+  the BIC:
+  \begin{equation*}
+    AIC = s^2_y (1 - R^2) e^{2K/n}
+  \end{equation*}
+  and
+  \begin{equation*}
+    BIC = s^2_y (1 - R^2) n^{2K/n}
+  \end{equation*}
+  where $s_y^2 = \sum_{i=1}^n (y_i - \yb)^2 / n$.\footnote{The penalty
+    is higher for the BIC, so it will typically select a smaller model
+    than the AIC.}
+  For these measures, smaller values mean the model is a better fit.
+
+  Usually these are presented in logs, so the AIC is often reported as
+  $\ln(\veph'\veph/n) + 2K/n$ and the BIC is often reported as
+  $\ln(\veph'\veph/n) + (K/n) \ln n$.
+
+  The imagined workflow is that the researcher calculates the AIC (or
+  BIC) for all of the models under consideration, then chooses the one
+  that minimizes the criterion.
+
+\item There is a problem with all of this, though.  Imagine the
+  setting where you're choosing between two models and the only
+  difference between the two is that the larger model has an
+  additional regressor---for a specific example, imagine that your
+  model selection method is to do a \ttest\ on its coefficient and
+  choose the smaller model if the test fails to reject.  Step back for
+  a second and remember: you always have the option of just using the
+  larger model.  If the coefficient on the additional regressor is not
+  zero, this model will have lower bias and may have lower variance as
+  well.
+
+  So the pre-test can only be helpful when the coefficients are small
+  (but should be harmless for very large coefficients).
+  Unfortunately, there is enough noise in the coefficient estimates
+  that the \ttest s do extremely badly here.  The next example is
+  heavily stylized but illustrates this point.
+
+  \begin{ex}
+    Consider the simplest possible setting: $X_1,\dots,X_n \sim \iid
+    N(\mu,\sigma^2)$ where $\mu$ is unknown and the two models are
+    $\Xb$ and
+    \begin{equation*}
+      \muh =
+      \begin{cases}
+        0   & |\Xb| \leq n^{-1/4} \\
+        \Xb & |\Xb| > n^{-1/4}.
+      \end{cases}
+    \end{equation*}
+    (this is ``Hodges's estimator''\footnote{Need to track down the
+      real citation, but see \citet{LP08}.})
+
+    The first question is to look at the asymptotic variance of each
+    estimator.  Obviously, $\var(\sqrt{n} \Xb) = \sigma^2$.  But the
+    asymptotic variance of $\muh$ depends on $mu$.  If $\mu \neq 0$
+    then
+    \begin{equation*}
+      \Pr[ \Xb > n^{-1/4} ] \to 1
+    \end{equation*}
+    so $\muh = \Xb + o_p/\sqrt{n}$ and $\var(\sqrt{n} \muh) \to
+    \sigma^2$.  On the other hand, if $\mu = 0$ then
+    \begin{equation*}
+      \Pr[ \Xb > n^{-1/4} ] = \Pr[ \sqrt{n} \Xb > n^{1/4} ] \to 0
+    \end{equation*}
+    and so $\var(\sqrt{n} \muh) \to 0$.  Combined, we have
+    \begin{equation*}
+      \var(\sqrt{n} \muh) \to
+      \begin{cases}
+        0        & \mu = 0 \\
+        \sigma^2 & \mu \neq 0,
+      \end{cases}
+    \end{equation*}
+    which looks like a clear improvement: the asymptotic variance is
+    the same everywhere except at $\mu = 0$ and the estimator is much
+    more precise there.
+
+    More sophisticated mathematical arguments show that this
+    conclusion is wrong.  But we'll just get some intuition from
+    simulations.
+
+    The R code for the second estimator is straightforward:
+    \begin{lstlisting}[gobble=6]
+      mh <- function(x) {
+        xbar <- mean(x)
+        crit <- 1 / length(x)^0.25
+        if (abs(xbar) > crit) {
+          return(xbar)
+        } else {
+          return(0)
+        }
+      }
+    \end{lstlisting}
+    We can also write a simple function to estimate the relative
+    variance of the two estimators for any $n$ and $\mu$ through
+    simulation:
+    \begin{lstlisting}[gobble=6]
+      relvariance <- function(mu, n, nsims = 10000) {
+        variances <- apply(replicate(nsims, {
+          x <- rnorm(n, mu)
+          c(xbar = mean(x), mhat = mh(x))
+        }), 1, var)
+        return(variances[2] / variances[1])
+      }
+    \end{lstlisting}
+    So, for example, calling
+    \begin{lstlisting}[firstline=3,lastline=3,gobble=6]
+      set.seed(647893)
+      exvar <-
+        relvariance(1, 100)
+    \end{lstlisting}
+    returns~\exvar, which is the simulated estimate of $\var(\muh)
+    / \var(\Xb)$ when $\mu$ is 1 and $n$ is 100.
+
+    We can repeat this call for $\mu$ between $-1$ and $1$:
+    \begin{lstlisting}[firstline=2,lastline=2,gobble=8]
+      mcvars <-
+        sapply(seq(-1, 1, 0.01), function(m) relvariance(m, 100))
+      pdf(file = "regression/modeling_fig1.pdf", width=5, height=5)
+      plot(mcvars ~ seq(-1, 1, 0.01), type = "l")
+      lines(c(1,1) ~ c(-1,1), col = "light gray")
+      dev.off()
+    \end{lstlisting}
+    and the results are plotted in Figure~\ref{fig:m1}.  For $\mu$
+    very near zero the selection model is more efficient, and for
+    $\mu$ far from zero the models are essentially equivalent (the
+    ratio is about 1).  But for $\mu$ in a neighborhood of 1 the
+    selection model is much, much worse than the naive sample average.
+
+    Figure~\ref{fig:m2} plots the same graph for 1000 observations,
+    called by
+    \begin{lstlisting}[firstline=2,lastline=2,gobble=8]
+      mcvars2 <-
+        sapply(seq(-1, 1, 0.01), function(m) relvariance(m, 1000))
+      pdf(file = "regression/modeling_fig2.pdf", width=5, height=5)
+      plot(mcvars2 ~ seq(-1, 1, 0.01), type = "l")
+      lines(c(1,1) ~ c(-1,1), col = "light gray")
+      dev.off()
+    \end{lstlisting}
+    and notice that the results are qualitatively the same.  But the
+    neighborhood is smaller and the relative inefficiency of the
+    selection model is larger.
+  \end{ex}
+
+  \begin{figure}[t]
+    \centering
+    \tryincludegraphics{regression/modeling_fig1.pdf}
+    \caption{Relative variance of model-selection method to mean for
+      100 observations.}
+    \label{fig:m1}
+  \end{figure}
+
+  \begin{figure}[t]
+    \centering
+    \tryincludegraphics{regression/modeling_fig2.pdf}
+    \caption{Relative variance of model-selection method to mean for
+      1000 observations.}
+    \label{fig:m2}
+  \end{figure}
+
+\item To discuss further: do we care about relative or absolute
+  efficiency; show that this applies even to a realistic selection
+  model.
+  
 \end{itemize}
 
 \section{Shrinkage}
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item Why is having irrelevant regressors bad?
 \begin{itemize}
 \item increases the variance of our estimators
@@ -532,6 +543,14 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
+
+\begin{lstlisting}[print=false]
+  texcommand <- function(macro, tex, fmt = "%s")
+    sprintf("\\newcommand{\\%s}{%s}\n", macro, sprintf(fmt, tex))
+
+  cat(file = "regression/modeling_macros.tex",
+      texcommand("exvar", exvar, "%.2f"))
+\end{lstlisting}
 
 %%% Local Variables:
 %%% mode: latex

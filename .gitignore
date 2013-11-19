@@ -3,6 +3,7 @@ VERSION.tex
 
 tex/localmod.tex
 asymptotics/bootstrap.R
+regression/modeling.R
 
 *.tmp
 tmp/

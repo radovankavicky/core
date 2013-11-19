@@ -42,19 +42,23 @@ CITATION.bib:
 
 # Execute the bootstrap code (if necessary)
 boots = $(addprefix asymptotics/,bootstrap_fig1.pdf \
-  bootstrap_fig2.pdf bootstrap_macros.tex)
+  bootstrap_fig2.pdf bootstrap_macros.tex) \
+  $(addprefix regression/,modeling_fig1.pdf \
+    modeling_fig2.pdf modeling_macros.tex)
 %bootstrap_fig1.pdf %bootstrap_fig2.pdf %bootstrap_macros.tex: %bootstrap.R
+	$(Rscript) $(RscriptFLAGS) $<
+%modeling_fig1.pdf %modeling_fig2.pdf %modeling_macros.tex: %modeling.R
 	$(Rscript) $(RscriptFLAGS) $<
 
 .SECONDARY: $(boots)
-.INTERMEDIATE: asymptotics/bootstrap.R
+.INTERMEDIATE: asymptotics/bootstrap.R regression/modeling.R
 
 knitr = $(Rscript) $(RscriptFLAGS) -e " require(knitr); \
   knit_patterns\$$set(list('chunk.begin' = \
                            '\\\\\\\\begin\\\\{lstlisting\\\\}.*',\
                            'chunk.end'='\\\\\\\\end\\\\{lstlisting\\\\}'));\
   purl('$(1)', output='$(2)')"
-asymptotics/bootstrap.R: asymptotics/bootstrap.tex
+%.R: %.tex
 	$(call knitr,$<,$@)
 
 rep: $(boots)
@@ -86,7 +90,7 @@ clean:
 	if $(latexmk) -v > /dev/null 2>&1; \
 	then $(latexmk) -c core_econometrics; fi
 	rm -rf $(foreach dir, $(dirs), $(addprefix $(dir)/,$(crud))) \
-	  asymptotics/bootstrap.R
+	  asymptotics/bootstrap.R regression/modeling.R
 
 burn: clean
 	rm -f $(addprefix core_econometrics.,pdf dvi bbl) \
