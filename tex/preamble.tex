@@ -11,19 +11,10 @@
 
 \input{VERSION}
 \author{Gray Calhoun} 
-% (This comment is repeated in the Makefile)
-% I'm still not sure the best way to do author information; I'm much
-% more concerned in the long run about how different attributation
-% styles would make someone more or less likely to contribute to an
-% existing text or to license an existing draft.  For now, there's
-% only one author, so I'll put myself as the author.  If someone else
-% contributes any edits, etc., I'll change it to {Gray Calhoun and
-% EFLP}.  If anyone wants to contribute a lot of original material and
-% wants named authorship, please email the mailing list so we can
-% discuss merging projects.
 
 \usepackage{amssymb,amsmath,amsthm,verbatim}
 \usepackage{fontspec,unicode-math,xltxtra,xunicode,booktabs}
+\usepackage[noae]{external/Sweave}
 \setromanfont[Ligatures=TeX]{TeX Gyre Pagella}
 \setsansfont[Ligatures=TeX,Scale=MatchLowercase]{TeX Gyre Heros}
 % \setmonofont[Scale=MatchLowercase]{Inconsolata}
@@ -32,9 +23,7 @@
 \frenchspacing
 \setcounter{secnumdepth}{1}
 \setcounter{tocdepth}{1}
-\renewcommand\bibname{}
-\renewcommand\refname{}
-\renewcommand\contentsname{}
+
 \bibliographystyle{abbrvnat}
 \setcitestyle{round}
 \newcommand{\email}[1]{\href{mailto:#1}{\nolinkurl{#1}}}

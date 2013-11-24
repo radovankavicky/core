@@ -9,8 +9,7 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\part*{Bootstrap}%
-\addcontentsline{toc}{part}{Bootstrap}
+\chapter{Bootstrap}
 \SweaveOpts{prefix.string=tmp/asymptotics/bootstrap}
 \SweaveOpts{stylepath=TRUE}
 \SweaveOpts{keep.source=TRUE}

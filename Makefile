@@ -9,30 +9,17 @@
 # LICENSE.tex and is also available online at
 # <http://www.gnu.org/copyleft/fdl.html>.
 
-.PHONY: all clean burn ver
+.PHONY: all clean burn ver tmp
 .DELETE_ON_ERROR:
 
 SHELL=/bin/bash
 latexmk := latexmk
 crud := .aux .log .out .toc .fdb_latexmk .fls
-latexmkFLAGS := -xelatex -silent
+latexmkFLAGS := -pdf -silent
 
 sweave := R CMD Sweave
 sweaveFLAGS := --encoding=utf8
-
-latexdeps := common/preamble.tex
-docdeps := common/references.bib AUTHORS.tex LICENSE.tex \
-  common/backmatter.tex common/frontmatter.tex
-
-# I'm still not sure the best way to do author information; I'm much
-# more concerned in the long run about how different attributation
-# styles would make someone more or less likely to contribute to an
-# existing text or to license an existing draft.  For now, there's
-# only one author, so I'll put myself as the author.  If someone else
-# contributes any edits, etc., I'll change it to {Gray Calhoun and
-# EFLP}.  If anyone wants to contribute a lot of original material and
-# wants named authorship, please email the mailing list so we can
-# discuss merging projects.
+tmpdir := tmp
 
 dateinfo := "\\date{$(shell git show -s --date=short --format=%cd HEAD), \
   $(shell git describe --tags)}"
@@ -44,10 +31,9 @@ citeinfo := "@Book{eflp-core, \n\
   year =	{$(shell git show -s --date=short --format=%cd | head -c 4)}, \n\
   note =	{$(shell git describe --tags)}}"
 
-texts = probability.pdf finitesample.pdf regression.pdf asymptotics.pdf
-support = LICENSE_standalone.pdf AUTHORS_standalone.pdf
+parts := probability finitesample asymptotics regression
 
-all: $(texts) $(support) bibliography_standalone.pdf
+all: core_econometrics.pdf
 
 ver:
 	echo $(dateinfo) > VER.tmp
@@ -62,30 +48,23 @@ CITATION.bib:
 	echo -e $(citeinfo) > $@
 
 asymptoticsSweave := $(wildcard asymptotics/*.Rnw)
+tmp:
+	mkdir -p $(addprefix $(tmpdir)/,$(parts))
 
-probability.pdf: $(wildcard probability/*.tex)
-finitesample.pdf: $(wildcard finitesample/*.tex)
-asymptotics.pdf: $(wildcard asymptotics/*.tex) \
-  $(addprefix tmp/,$(asymptoticsSweave:.Rnw=.tex))
-regression.pdf: $(wildcard regression/*.tex)
+core_econometrics.pdf: core_econometrics.tex AUTHORS.tex LICENSE.tex \
+  tex/preamble.tex tex/localmod.tex tex/references.bib \
+  $(addprefix $(tmpdir)/,$(asymptoticsSweave:.Rnw=.tex)) \
+  $(foreach dir, $(parts), $(wildcard $(dir)/*.tex)) \
+  | ver
+	$(latexmk) $(latexmkFLAGS) $(<F)
 
-$(texts): %.pdf: %.tex $(latexdeps) $(docdeps) | ver
-	$(latexmk) $(latexmkFLAGS) $<
-
-$(support): %_standalone.pdf: %_standalone.tex %.tex $(latexdeps) | ver
-	$(latexmk) $(latexmkFLAGS) -bibtex- $<
-
-bibliography_standalone.pdf: %.pdf: %.tex common/references.bib \
-  $(latexdeps) | ver
-	$(latexmk) $(latexmkFLAGS) $<
-
-$(addprefix tmp/,$(asymptoticsSweave:.Rnw=.tex)): tmp/%.tex: %.Rnw
+$(addprefix $(tmpdir)/,$(asymptoticsSweave:.Rnw=.tex)): \
+  $(tmpdir)/%.tex: %.Rnw | tmp
 	$(sweave) $(sweaveFLAGS) $< && mv $(@F) $(@D)/
 
-alldocs = $(texts) $(support) bibliography_standalone.tex
 clean:
-	$(foreach doc, $(alldocs), $(latexmk) -c $(doc))
-	rm -f *~
+	rm *~ $(foreach dir, $(parts), $(dir)/*~)
+	$(latexmk) -c core_econometrics
 
 burn: clean
-	$(foreach doc, $(alldocs), $(latexmk) -C $(doc))
+	$(latexmk) -C core_econometrics

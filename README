@@ -21,10 +21,10 @@ Downloads
 Material covered
 ----------------
 
-* Probability (see probability.tex for a list of sections)
-* Finite sample inference (finitesample.tex)
-* Asymptotics (asymptotics.tex)
-* Linear regression (regression.tex)
+* Probability
+* Finite sample inference
+* Asymptotics
+* Linear regression
 
 Dependencies
 ------------
@@ -56,7 +56,6 @@ Development notes
 
 * To generate pdfs, run the command `make` in the top-level directory
   of this project (you'll need to have `make` installed, obviously).
-  Running `make -j` will build the pdfs in parallel.
 
 * Type `make ver` to update the date and version information included
   in each pdf file; the files VERSION.tex and CITATION.bib are
@@ -96,12 +95,10 @@ Development notes
 * If you do not have `make` and `latexmk` installed, you can run
   `xelatex` manually from the command line:
 
-      xelatex probability.tex
-      bibtex probability.aux
-      xelatex probability.tex
-      xelatex probability.tex
-
-  and again for each of the five files listed above.
+      xelatex core_econometrics.tex
+      bibtex core_econometrics.aux
+      xelatex core_econometrics.tex
+      xelatex core_econometrics.tex
 
 * Please email the mailing list (see below) if you run into problems
   or have any other questions.
