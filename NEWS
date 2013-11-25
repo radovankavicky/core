@@ -11,6 +11,12 @@ Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
 copy of the license is included in the file LICENSE.tex and is also
 available online at <http://www.gnu.org/copyleft/fdl.html>.
 
+### Version 0.6.1
+
+This commit rewrites the very short introduction for part 4, the
+linear regression material.  It is still very short, but now it's not
+an outline.
+
 Version 0.6.0
 -------------
 This version does a lot internally, but not much in terms of the
