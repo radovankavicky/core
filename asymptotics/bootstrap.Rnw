@@ -65,29 +65,31 @@ nicehist <- function(rerror, nobs,...) {
 }
 @
 We'll generate averages from the uniform distribution:
-\begin{marginfigure}[-5in]
-<<fig=TRUE,width=2,height=7,echo=false>>=
-par(mfrow = c(3,1))
+\begin{figure*}
+<<fig=TRUE,width=9,height=3,echo=false>>=
+par(mfrow = c(1,3))
 nicehist(runif, 2)
 nicehist(runif, 5)
 nicehist(runif, 50)
 @
 \caption{Finite-sample distribution of the mean of uniform r.v.s.}
-\end{marginfigure}
+\end{figure*}
+
 Observe that the normal approximation for the uniform mean is
 reasonable even when $n$ is as small as 5.
 
 Same plots for the exponential distribution:
-\begin{marginfigure}
-<<fig=TRUE,width=2,height=7,echo=false>>=
-par(mfrow = c(3,1))
+\begin{figure*}
+<<fig=TRUE,width=9,height=3,echo=false>>=
+par(mfrow = c(1,3))
 nicehist(rexp, 2)
 nicehist(rexp, 15)
 nicehist(rexp, 50)
 @
 \caption{Finite-sample distribution of the mean of exponential random
   variables.}
-\end{marginfigure}
+\end{figure*}
+
 and we can see that the asymmetry has an effect even when $n$ is 50.
 
   Note that the histograms can be made arbitrarily close to the true
