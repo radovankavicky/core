@@ -28,9 +28,9 @@
   at the data to see whether it is consistent with those parameter
   values.
 
-\item So the setup is that we have a parameter $θ$ and are interested
-  in knowing which of two scenarios is true: if $θ ∈ Θ₀$ or if $θ ∈
-  Θ_a$.  The first is the \emph{null hypothesis}, which is what we
+\item So the setup is that we have a parameter $\theta$ and are interested
+  in knowing which of two scenarios is true: if $\theta \in \Theta_0$ or if $\theta \in
+  \Theta_a$.  The first is the \emph{null hypothesis}, which is what we
   would believe (and act on) in the absence of any data, and the
   second is the \emph{alternative hypothesis}, which is a candidate
   belief that might be true.  A \emph{hypothesis test} is a statistic
@@ -65,65 +65,65 @@
 \item Some more terminology:
   \begin{defn}
     A test's \emph{power function} is the probability that the test
-    will reject for each possible value of the true parameter, $θ$,
-    i.e., if $δ$ is a test statistic, then its power function $β$
+    will reject for each possible value of the true parameter, $\theta$,
+    i.e., if $\delta$ is a test statistic, then its power function $\beta$
     satisfies
     \begin{equation*}
-      β(θ) = \Pr_θ[δ = 1].
+      \beta(\theta) = \Pr_\theta[\delta = 1].
     \end{equation*}
     
-    The test has \emph{size $α$} if
+    The test has \emph{size $\alpha$} if
     \begin{equation*}
-      \sup_{θ ∈ Θ₀} β(θ) = α
+      \sup_{\theta \in \Theta_0} \beta(\theta) = \alpha
     \end{equation*}
-    and \emph{level $α$} if
+    and \emph{level $\alpha$} if
     \begin{equation*}
-      \sup_{θ ∈ Θ₀} β(θ) ≤ α.
+      \sup_{\theta \in \Theta_0} \beta(\theta) \leq \alpha.
     \end{equation*}
 
-    A test is \emph{unbiased} if $\inf_{θ ∈ Θ_a} β(θ) ≥ α$
+    A test is \emph{unbiased} if $\inf_{\theta \in \Theta_a} \beta(\theta) \geq \alpha$
   \end{defn}
 
-  Note that $α$ should be set in advance of the experiment.  By
+  Note that $\alpha$ should be set in advance of the experiment.  By
   convention, hypothesis tests that reject with size or level 0.05 are
   considered \emph{significant} rejections.  A test is \emph{valid} if
   it actually has the correct size.
 
 \item An example may be helpful.
   \begin{ex}
-    Suppose $X₁,...,X_n ∼ \iid N(θ,1)$ and we want to test the
-    hypothesis $θ = 0$ against $θ = 1$, so $Θ₀ = \{0\}$ and $Θ_a =
+    Suppose $X_1,...,X_n \sim \iid N(\theta,1)$ and we want to test the
+    hypothesis $\theta = 0$ against $\theta = 1$, so $\Theta_0 = \{0\}$ and $\Theta_a =
     \{1\}$.  We can use the  standard one-sided test statistic that
     you've seen in undergrad:
     \begin{equation*}
-      δ(X) = \1\{\sqrt{n} \Xb > c\}
+      \delta(X) = \ind\{\sqrt{n} \Xb > c\}
     \end{equation*}
-    where $c$ is a critical value chosen to ensure that $δ$ has size
-    $α$ (which we haven't set yet).
+    where $c$ is a critical value chosen to ensure that $\delta$ has size
+    $\alpha$ (which we haven't set yet).
 
-    We can find $c$ for a given value of $α$, say $α = 0.05$.  Then
+    We can find $c$ for a given value of $\alpha$, say $\alpha = 0.05$.  Then
     $c$ must satisfy
     \begin{equation*}
-      \Pr_θ[\sqrt{n} \Xb > c] = α
+      \Pr_\theta[\sqrt{n} \Xb > c] = \alpha
     \end{equation*}
-    Since $\Pr_θ[\sqrt{n} \Xb > c] = 1 - Φ(c)$, this becomes
+    Since $\Pr_\theta[\sqrt{n} \Xb > c] = 1 - \Phi(c)$, this becomes
     \begin{equation*}
-      c = Φ^{-1}(1 - α) ≈ 1.64
+      c = \Phi^{-1}(1 - \alpha) \approx 1.64
     \end{equation*}
-    and so $δ(X) = \1\{\sqrt{n} \Xb > 1.64\}$ which is probably
+    and so $\delta(X) = \ind\{\sqrt{n} \Xb > 1.64\}$ which is probably
     something you've seen before.
 
-    We can now find the power function, $β(θ)$.  For any $θ ∈ \RR$,
+    We can now find the power function, $\beta(\theta)$.  For any $\theta \in \RR$,
     \begin{align*}
-      β(θ) &= \Pr_θ[\sqrt{n} \Xb > 1.64] \\
-      &= \Pr_θ[\sqrt{n} (\Xb - θ) > 1.64 - \sqrt{n} θ] \\
-      &= 1 - Φ(1.64 - \sqrt{n} θ).
+      \beta(\theta) &= \Pr_\theta[\sqrt{n} \Xb > 1.64] \\
+      &= \Pr_\theta[\sqrt{n} (\Xb - \theta) > 1.64 - \sqrt{n} \theta] \\
+      &= 1 - \Phi(1.64 - \sqrt{n} \theta).
     \end{align*}
-    Note that as $θ$ grows towards $∞$, $Φ(1.64 - \sqrt{n} θ)$
-    converges to 0 and the power converges to 1; as $θ$ goes towards
-    $-∞$, $Φ(1.64 - \sqrt{n} θ)$ converges to 1 and the power
+    Note that as $\theta$ grows towards $\infty$, $\Phi(1.64 - \sqrt{n} \theta)$
+    converges to 0 and the power converges to 1; as $\theta$ goes towards
+    $-\infty$, $\Phi(1.64 - \sqrt{n} \theta)$ converges to 1 and the power
     converges to 0.  Monotonicity implies that this test is unbiased
-    (the probability that it rejects if $θ = 1$ is greater than $α$.
+    (the probability that it rejects if $\theta = 1$ is greater than $\alpha$.
   \end{ex}
 
 \item A brief aside on \pvalue s.  These are useful when you want to
@@ -136,43 +136,43 @@
   can construct a corresponding confidence interval as
   follows \citep[As described in][Section 9.2]{CB02}:
 
-  For each $θ₀$, let $A(θ₀)$ be the acceptance region of a level $α$
-  test of $H₀: θ = θ₀$.  For each sample $x$, define a set $C(x)$ in
-  the parameter space by \[C(x) = \{θ₀: x ∈ A(θ₀)\}.\]  Then the
-  random set $C(X)$ is a $1-α$ confidence set.\sidenote{You should
+  For each $\theta_0$, let $A(\theta_0)$ be the acceptance region of a level $\alpha$
+  test of $H_0: \theta = \theta_0$.  For each sample $x$, define a set $C(x)$ in
+  the parameter space by \[C(x) = \{\theta_0: x \in A(\theta_0)\}.\]  Then the
+  random set $C(X)$ is a $1-\alpha$ confidence set.\sidenote{You should
     prove this on your own for homework.  The proof follows
     immediately from the definition of each set, but it can take some
     thought and work to realize it.  Start by writing out the
-    definition of a $1-α$ confidence set and then verify by set
+    definition of a $1-\alpha$ confidence set and then verify by set
     relationships that $C(X)$ satisfies the definition.}
 
   \begin{ex}
-    Suppose that $X₁,…,X_n ∼ N(μ,σ²)$ and we want to construct a
-    two-sided $1-α$ confidence interval for $μ$; $σ²$ is known.  We
+    Suppose that $X_1,\dots,X_n \sim N(\mu,\sigma^2)$ and we want to construct a
+    two-sided $1-\alpha$ confidence interval for $\mu$; $\sigma^2$ is known.  We
     can start with the family of tests for the null hypothesis
     \begin{equation*}
-      H₀:\ μ = μ₀ \text{\quad vs \quad} μ ≠ μ₀
+      H_0:\ \mu = \mu_0 \text{\quad vs \quad} \mu \neq \mu_0
     \end{equation*}
     for which we want to use the statistic
     \begin{equation*}
-      δ(X) = \1\{\sqrt{n} |\Xb - μ₀| / σ > c_α\}
+      \delta(X) = \ind\{\sqrt{n} |\Xb - \mu_0| / \sigma > c_\alpha\}
     \end{equation*}
-    where $c_α$ is a critical value chosen so that the test has
+    where $c_\alpha$ is a critical value chosen so that the test has
     correct size (see the previous example).
 
     Then
     \begin{equation*}
-      A(μ₀) = \{X : \sqrt{n} |\Xb - μ₀| / σ ≤ c_α\}
+      A(\mu_0) = \{X : \sqrt{n} |\Xb - \mu_0| / \sigma \leq c_\alpha\}
     \end{equation*}
     and
     \begin{equation*}
-      C(X) = \{μ₀ : \sqrt{n} |\Xb - μ₀| / σ ≤ c_α\}.
+      C(X) = \{\mu_0 : \sqrt{n} |\Xb - \mu_0| / \sigma \leq c_\alpha\}.
     \end{equation*}
   \end{ex}
 
   Notice that
   \begin{itemize}
-  \item $A(μ₀)$ has samples as its elements and is different for
+  \item $A(\mu_0)$ has samples as its elements and is different for
     different parameter values.
   \item $C(x)$ has parameter values as its elements and is different
     for different samples.

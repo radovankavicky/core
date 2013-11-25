@@ -16,9 +16,6 @@
 <<echo=FALSE>>=
 options(width=60, continue = " ", warn = 1)
 @
-\DefineVerbatimEnvironment{Sinput}{Verbatim}{fontfamily=TeXGyrePagella}
-\DefineVerbatimEnvironment{Soutput}{Verbatim}{fontfamily=TeXGyrePagella}
-\DefineVerbatimEnvironment{Scode}{Verbatim}{fontfamily=TeXGyrePagella}
 
 \section{Introduction to bootstrap material}
 
@@ -98,34 +95,34 @@ and we can see that the asymmetry has an effect even when $n$ is 50.
   simulations.
 
 \item Notice that, by and large, it does not matter if we know the
-  exact distribution of the errors—using that information would not
+  exact distribution of the errors---using that information would not
   affect our critical values for the statistic.
 
 \item Of course, another approach would be to use the \emph{best}
-  finite sample distribution—one with potential optimality properties.
+  finite sample distribution---one with potential optimality properties.
   If we knew the true distribution of the errors, then we would have a
   slightly more accurate distribution for the OLS estimators.  Since
   we don't know the true distribution, we can try estimating it.  This
   is the basic idea behind the bootstrap.
 
-  Suppose we observe the data $y₁,...,y_n$ (univariate for now), and
+  Suppose we observe the data $y_1,...,y_n$ (univariate for now), and
   let $Y^*$ be a random variable s.t.
   \begin{equation*}
     Y^* =
     \begin{cases}
-      y₁ & \text{with probability } 1/n \\
-      y₂ & \text{with probability } 1/n \\
-      ⋮ \\
+      y_1 & \text{with probability } 1/n \\
+      y_2 & \text{with probability } 1/n \\
+      \vdots \\
       y_n & \text{with probability } 1/n.
     \end{cases}
   \end{equation*}
   The corresponding distribution function is called the empirical cdf,
   \begin{equation*}
-    \Fh(y) = (1/n) ∑_{i=1}^n \1\{ Y_i ≤ y \}.
+    \Fh(y) = (1/n) \sum_{i=1}^n \ind\{ Y_i \leq y \}.
   \end{equation*}
   Now we can estimate the sampling distribution of $\Yb$ by
   calculating it's finite sample distribution under the (incorrect)
-  assumption that each $Y_i ∼ \iid\ \Fh$.  We'll do that through
+  assumption that each $Y_i \sim \iid\ \Fh$.  We'll do that through
   simulation.
 
 <<>>=
@@ -157,11 +154,11 @@ mean(trues <= quantile(boots, 0.95))
   times:
   \begin{itemize}
   \item Draw a random sample of size $n$ from $\Fh$ with replacement
-    and estimate the statistic on that sample; call it $\θh^*_b$.
+    and estimate the statistic on that sample; call it $\thetah^*_b$.
   \end{itemize}
-  This gives $\θh^*_1,...,\θh^*_B$ replications of the estimator.
+  This gives $\thetah^*_1,...,\thetah^*_B$ replications of the estimator.
   Calculate their variance, and this is an estimator of the variance
-  of $\θh$.
+  of $\thetah$.
 
   We can illustrate this for the median
 <<>>=
@@ -194,7 +191,7 @@ work (you need conditions like you need for delta method to work).
   hypothesis, so you need to manually impose it.  Suppose you want to
   test the null hypotheses that $\E Y = 0$ so you use the bootstrap to
   generate a critical value for the median.  To do this, you need to
-  resample from $Y₁ - m(Y),...,Y_n - m(Y)$.
+  resample from $Y_1 - m(Y),...,Y_n - m(Y)$.
 
 <<>>=
 m <- median(Y)

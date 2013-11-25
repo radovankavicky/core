@@ -17,13 +17,13 @@
 
 \item We'll start with a few very basic definitions.
   \begin{defn}
-    The random variables $X₁,...,X_n$ are a \emph{random sample} if
+    The random variables $X_1,...,X_n$ are a \emph{random sample} if
     they form an i.i.d. draw from some distribution $F$.
   \end{defn}
 
   \begin{defn}
-    If $T$ is a function from the sample space of $(X₁,...,X_n)$ to
-    $\RR^k$ then the random variable $T(X₁,...,X_n)$ is a
+    If $T$ is a function from the sample space of $(X_1,...,X_n)$ to
+    $\RR^k$ then the random variable $T(X_1,...,X_n)$ is a
     \emph{statistic}.
   \end{defn}
 
@@ -39,10 +39,10 @@
   ``sufficient'' statistics.
 
   \begin{defn}
-    If $X₁,...,X_n ∼ f(·; θ)$ is a draw from a known family of
-    distributions with unknown parameter $θ$, a statistic $T(X)$ is a
-    \emph{sufficient statistic for $θ$} if the conditional
-    density/distribution $f(· ∣ T(X))$ does not depend on $θ$.
+    If $X_1,...,X_n \sim f(\cdot; \theta)$ is a draw from a known family of
+    distributions with unknown parameter $\theta$, a statistic $T(X)$ is a
+    \emph{sufficient statistic for $\theta$} if the conditional
+    density/distribution $f(\cdot \mid T(X))$ does not depend on $\theta$.
   \end{defn}
 
   The order statistics are always going to be a sufficient statistic
@@ -58,27 +58,27 @@
   First, though, there's the related concept of ancillarity.
 
   \begin{defn}
-    If $X₁,...,X_n ∼ f(·; θ)$ is a draw from a known family of
-    distributions with unknown parameter $θ$, a statistic $T(X)$ is an
-    \emph{ancillary statistic for $θ$} if the sampling distribution of
-    $T(X)$ does not depend on $θ$.
+    If $X_1,...,X_n \sim f(\cdot; \theta)$ is a draw from a known family of
+    distributions with unknown parameter $\theta$, a statistic $T(X)$ is an
+    \emph{ancillary statistic for $\theta$} if the sampling distribution of
+    $T(X)$ does not depend on $\theta$.
   \end{defn}
 
   Ancillary statistics can be informative about the precision of an
-  estimate: for example, if $X₁,\ldots,X_n ∼ \uniform(θ,θ+1)$, we can
+  estimate: for example, if $X_1,\ldots,X_n \sim \uniform(\theta,\theta+1)$, we can
   see that $\range(X_i) = \max_i X_i - \min_i X_i$ is ancillary:
   \begin{align*}
     \max_i X_i - \min_i X_i
-    &= \max_i (X_i - θ) - \min_i (X_i - θ) \\
+    &= \max_i (X_i - \theta) - \min_i (X_i - \theta) \\
     &=^d \max_i U_i - \min_i U_i
   \end{align*}
-  where $U_i ∼ \uniform(0, 1)$.  But, if
+  where $U_i \sim \uniform(0, 1)$.  But, if
   \begin{equation*}
-    \θh = (1/2) \min_i X_i + (1/2) \max_i (X_i - 1)
+    \thetah = (1/2) \min_i X_i + (1/2) \max_i (X_i - 1)
   \end{equation*}
   this estimator will clearly be more precise if the range is close to
   one than if it is close to zero.  So samples with a large range are
-  more informative about $θ$ than those with a small range.  This
+  more informative about $\theta$ than those with a small range.  This
   observation can sometimes make inference \emph{conditional on
   ancillary statistics} attractive, but we won't cover that topic in
   this document.  See \citet[Chapter 10]{LR:05} for further discussion.
@@ -86,15 +86,15 @@
 \item The ``factorization theorem'' is useful in determining whether
   or not a given statistic is sufficient for a parameter.
   \begin{thm}
-    If $f(x; θ)$ is the joint pdf of $(X₁,...,X_n)$, $T(X)$ is a
-    sufficient statistic for $θ$ if and only if
+    If $f(x; \theta)$ is the joint pdf of $(X_1,...,X_n)$, $T(X)$ is a
+    sufficient statistic for $\theta$ if and only if
     \begin{equation*}
-      f(x; θ) = g(T(x); θ) h(x)
+      f(x; \theta) = g(T(x); \theta) h(x)
     \end{equation*}
     for some functions $g$ and $h$.
   \end{thm}
-  The important thing to note is that $T(x)$ and $θ$ are both in $g$
-  and $θ$ is not in $h$.  The other thing to note is the ``if and only
+  The important thing to note is that $T(x)$ and $\theta$ are both in $g$
+  and $\theta$ is not in $h$.  The other thing to note is the ``if and only
   if'' part of the proof.
 
   It is straightforward to prove that sufficiency implies the
@@ -104,10 +104,10 @@
   The result still follows from the conditional densities (as it seems
   that it must).
   \begin{align*}
-    f_X(x ∣ T(X) = T(x); θ)
-    &= f(x, T(x); θ) / f_T(T(x); θ) \\
-    &= f_X(x; θ) / f_T(T(x); θ) \\
-    &= g(T(x); θ) h(x) / f_T(T(x); θ)
+    f_X(x \mid T(X) = T(x); \theta)
+    &= f(x, T(x); \theta) / f_T(T(x); \theta) \\
+    &= f_X(x; \theta) / f_T(T(x); \theta) \\
+    &= g(T(x); \theta) h(x) / f_T(T(x); \theta)
   \end{align*}
   where the second equality holds because $T(x)$ is redundant when we
   know $x$, and the third equality holds because we're assuming that
@@ -115,35 +115,37 @@
 
   Now we can write the denominator as
   \begin{align*}
-    f_T(T(x); θ)
-    &= ∫_A f(T(y) ∣ X = y; θ) f_X(y) \d y \\
-    &= ∫_A f_X(y; θ) \d y \\
-    &= ∫_A g(T(x); θ) h(y) \d y \\
-    &= g(T(x); θ) ∫_A h(y) \d y
+    f_T(T(x); \theta)
+    &= \int_A f(T(y) \mid X = y; \theta) f_X(y) \dy \\
+    &= \int_A f_X(y; \theta) \dy \\
+    &= \int_A g(T(x); \theta) h(y) \dy \\
+    &= g(T(x); \theta) \int_A h(y) \dy
   \end{align*}
-  where $A$ is the set of points s.t. $T(y) = T(x)$ for all $y ∈ A$
+  where $A$ is the set of points s.t. $T(y) = T(x)$ for all $y \in A$
   and the equalities hold for the same reasons as before.
 
   Now just merge the two equations to get
   \begin{equation*}
-    f_X(x ∣ T(X) = T(x); θ)
-    = \frac{g(T(x); θ) h(x)}{g(T(x); θ) ∫_A h(y) \d y}
-    = \frac{h(x)}{∫_A h(y) \d y}.
+    f_X(x \mid T(X) = T(x); \theta)
+    = \frac{g(T(x); \theta) h(x)}{g(T(x); \theta) \int_A h(y) \dy}
+    = \frac{h(x)}{\int_A h(y) \dy}.
   \end{equation*}
-  This last quantity does not depend on $θ$, so we're done.
+  This last quantity does not depend on $\theta$, so we're done.
 
   We can use the factorization theorem to prove that $\min_i X_i$ and
   $\max_i X_i$ are sufficient statistics for the $\uniform(a,b)$.
   \begin{ex}
-    The joint pdf of $X₁,...,X_n$ is
+    The joint pdf of $X_1,...,X_n$ is
     \begin{align*}
-      f(x₁,...,x_n; a, b)
-      &= ∏_{i=1}^n \tfrac{1}{b-a} \1\{x_i ∈ [a,b]\} \\
-      &= \Big(\tfrac{1}{b-a}\Big)^n \1\{a ≤ \min_i x_i \text{ and } \max_i x_i ≤ b\},
+      f(x_1,...,x_n; a, b)
+      &= \prod_{i=1}^n \tfrac{1}{b-a} \ind\{x_i \in [a,b]\} \\
+      &= \Big(\tfrac{1}{b-a}\Big)^n \ind\{a \leq \min_i x_i
+         \text{ and } \max_i x_i \leq b\},
     \end{align*}
     so we can define $h(x) = 1$ and
     \begin{equation*}
-      g(T(x); a, b) = \Big(\tfrac{1}{b-a}\Big)^n \1\{a ≤ \min_i x_i \text{ and } \max_i x_i ≤ b\}.
+      g(T(x); a, b) = \Big(\tfrac{1}{b-a}\Big)^n
+        \ind\{a \leq \min_i x_i \text{ and } \max_i x_i \leq b\}.
     \end{equation*}
   \end{ex}
 
@@ -155,7 +157,7 @@
   parameter values.  Now we're going to treat the random variables as
   known/observed and view the densities as functions of the possible
   parameterizations.  When we do that, we call them \emph{likelihoods}
-  and will typically write them as $L(θ; x)$.
+  and will typically write them as $L(\theta; x)$.
 
   [PLOT PICTURE OF UNIFORM LIKELIHOOD.]
 
@@ -169,96 +171,96 @@
 \section{The method of moments}
 
 \begin{itemize}
-\item Suppose we have $X₁,...,X_n ∼ \iid\ f(x; θ)$ where $f$ is known
-  and $θ$ is an unknown $p$-vector that we want to estimate.  The
+\item Suppose we have $X_1,...,X_n \sim \iid\ f(x; \theta)$ where $f$ is known
+  and $\theta$ is an unknown $p$-vector that we want to estimate.  The
   \emph{method of moments} estimator is based on a straightforward
-  idea often called the ``analogy principle''—replace population
+  idea often called the ``analogy principle''---replace population
   expectations with averages to derive an estimator.  A good estimator
-  of $\Pr[X_i ≤ c]$ is often $(1/n) ∑_i \1\{X_i ≤ c\}$, a good
-  estimator of $\E X_i$ is often $(1/n) ∑_i X_i$, etc.
+  of $\Pr[X_i \leq c]$ is often $(1/n) \sum_i \ind\{X_i \leq c\}$, a good
+  estimator of $\E X_i$ is often $(1/n) \sum_i X_i$, etc.
 
-  To estimate $θ$, we first relate it to the first $p$ moments of
+  To estimate $\theta$, we first relate it to the first $p$ moments of
   $X_i$:
-  \begin{equation}\label{eq:1}
-    (μ₁,...,μ_p)' = (g₁(θ),...,g_p(θ))'
+  \begin{equation}\label{f1}
+    (\mu_1,...,\mu_p)' = (g_1(\theta),...,g_p(\theta))'
   \end{equation}
-  where $μ_ℓ = \E X_i^ℓ$ and $g$ depends on the density $f$.  Then the
-  estimator of $θ$ is the population vector that solves~\eqref{eq:1},
+  where $\mu_\ell = \E X_i^\ell$ and $g$ depends on the density $f$.  Then the
+  estimator of $\theta$ is the population vector that solves~\eqref{f1},
   so
-  \begin{equation}\label{eq:2}
-    \big((1/n) ∑_i X_i,...,(1/n) ∑_i X_i^p\big)
-    = (g₁(\θh),...,g_p(\θh))'
+  \begin{equation}\label{f2}
+    \big((1/n) \sum_i X_i,...,(1/n) \sum_i X_i^p\big)
+    = (g_1(\thetah),...,g_p(\thetah))'
   \end{equation}
   or
   \begin{equation*}
-    \θh = g^{-1}\big((1/n) ∑_i X_i,...,(1/n) ∑_i X_i^p\big).
+    \thetah = g^{-1}\big((1/n) \sum_i X_i,...,(1/n) \sum_i X_i^p\big).
   \end{equation*}
   Obviously $g$ has to be inevitable for this to be a feasible
   estimator.  For this to be a reasonable estimator, we want each
-  $μ_ℓ$ to be close (in some as of yet unspecified way) to $μ_ℓ$ and
-  $g^{-1}$ to be continuous so that $\θh$ is correspondingly close to
-  $θ$.
+  $\mu_\ell$ to be close (in some as of yet unspecified way) to $\mu_\ell$ and
+  $g^{-1}$ to be continuous so that $\thetah$ is correspondingly close to
+  $\theta$.
 
 \item If it is difficult or impossible to get a closed form solution
-  for $\θh$ you can solve~\eqref{eq:2} numerically.
+  for $\thetah$ you can solve~\eqref{f2} numerically.
 
 \item We will see later that averages are easy to analyze with
   asymptotics (as the number of observations gets arbitrarily large)
-  and, if $g^{-1}$ is smooth, $\θh$ will also be easy to analyze.
+  and, if $g^{-1}$ is smooth, $\thetah$ will also be easy to analyze.
 
 \item It might help to do a few examples.
 
 \item %
   \begin{ex}
-    Suppose that $X_i ∼ \iid\ \N(μ, σ²)$ where both $μ$ and $σ²$ are
+    Suppose that $X_i \sim \iid\ \N(\mu, \sigma^2)$ where both $\mu$ and $\sigma^2$ are
     unknown.  The first two moments are
     \begin{equation*}
-      (\E X_i, \E X_i²) = (μ, μ² + σ²)
+      (\E X_i, \E X_i^2) = (\mu, \mu^2 + \sigma^2)
     \end{equation*}
-    and so the method of moments estimator of $(μ, σ²)$ is given by
+    and so the method of moments estimator of $(\mu, \sigma^2)$ is given by
     \begin{align*}
-      (\μh, \σh^2)
-      &= (\μh_1, \μh_2 - \μh_1^2) \\
-      &= \big( (1/n) ∑_i X_i, (1/n) ∑_i (X_i - \Xb)² \big)
+      (\muh, \sigmah^2)
+      &= (\muh_1, \muh_2 - \muh_1^2) \\
+      &= \big( (1/n) \sum_i X_i, (1/n) \sum_i (X_i - \Xb)^2 \big)
     \end{align*}
   \end{ex}
 
 \item %
   \begin{ex}
-    Suppose that $X_i ∼ \iid\ \uniform(a,b)$ where the parameters $a$
+    Suppose that $X_i \sim \iid\ \uniform(a,b)$ where the parameters $a$
     and $b$ are both unknown.  We can again calculate the first two
     moments of $X_i$,
     \begin{align*}
       \E X_i
-      &= \ov{b-a} ∫_a^b x \dx \\
+      &= (1/(b-a)) \int_a^b x \dx \\
       &= (b+a) / 2
     \intertext{and}
       \E X_i^2
-      &= \ov{b-a} ∫_a^b x² \dx \\
+      &= (1/(b-a)) \int_a^b x^2 \dx \\
       &= \frac{b^3 - a^3}{3(b - a)} \\
-      &= (1/3) × (b² + ab + a²).
+      &= (1/3) \times (b^2 + ab + a^2).
     \end{align*}
     These can be solved for $\ah$ and $\bh$:
     \begin{equation*}
-      \ah = \bh - 2 \μh_1
+      \ah = \bh - 2 \muh_1
     \end{equation*}
     and
     \begin{equation*}
-      \bh^2 + (\bh - 2 \μh_1) \bh + (\bh - 2 \μh_1)² - 3 \μh_2 = 0
+      \bh^2 + (\bh - 2 \muh_1) \bh + (\bh - 2 \muh_1)^2 - 3 \muh_2 = 0
     \end{equation*}
     so
     \begin{equation*}
-      (\ah, \bh) = (\μh_1 - \sh \sqrt{3}, \μh_1 + \sh \sqrt{3})
+      (\ah, \bh) = (\muh_1 - \sh \sqrt{3}, \muh_1 + \sh \sqrt{3})
     \end{equation*}
-    where $\sh = \sqrt{(1/n) ∑_i (X_i - \Xb)²}$.
+    where $\sh = \sqrt{(1/n) \sum_i (X_i - \Xb)^2}$.
   \end{ex}
 
   This is probably not a good estimator of $a$ and $b$.
 
 \item %
-  Suppose now that $(Y_i, X_i) ∼ \iid$ where the distribution of $X_i$
-  is unspecified and $Y_i ∣ X_i ∼ N(β₀ + β₁ X_i, σ²)$.  We want to estimate
-  $β₀$ and $β₁$ and will treat $σ²$ as a known constant for now.
+  Suppose now that $(Y_i, X_i) \sim \iid$ where the distribution of $X_i$
+  is unspecified and $Y_i \mid X_i \sim N(\beta_0 + \beta_1 X_i, \sigma^2)$.  We want to estimate
+  $\beta_0$ and $\beta_1$ and will treat $\sigma^2$ as a known constant for now.
 
   The method of moments estimator is based on $\E Y_i$ and $\E X_i
   Y_i$:
@@ -266,28 +268,28 @@
     \begin{pmatrix} \E Y_i \\ \E X_i Y_i  \end{pmatrix}
     =
     \begin{pmatrix}
-      β₀ + β₁ \E X_i \\ β₀ \E X₁ + β₁ \E X₁²
+      \beta_0 + \beta_1 \E X_i \\ \beta_0 \E X_1 + \beta_1 \E X_1^2
     \end{pmatrix}
     =
     \begin{pmatrix}
-      1 & \E X_i \\ \E X_i & \E X_i²
+      1 & \E X_i \\ \E X_i & \E X_i^2
     \end{pmatrix}
-    \begin{pmatrix} β₀ \\ β₁ \end{pmatrix}
+    \begin{pmatrix} \beta_0 \\ \beta_1 \end{pmatrix}
   \end{equation*}
   So
   \begin{equation*}
-    \begin{pmatrix} β₀ \\ β₁ \end{pmatrix}
+    \begin{pmatrix} \beta_0 \\ \beta_1 \end{pmatrix}
     =
-    \begin{pmatrix} 1 & \E X_i \\ \E X_i & \E X_i² \end{pmatrix}^{-1}
+    \begin{pmatrix} 1 & \E X_i \\ \E X_i & \E X_i^2 \end{pmatrix}^{-1}
     \begin{pmatrix} \E Y_i \\ \E X_i Y_i  \end{pmatrix}
   \end{equation*}
   Assuming invertability of the matrix.  The estimator is (again,
   assuming invertability)
   \begin{equation*}
-    \begin{pmatrix} \βh_0 \\ \βh_1 \end{pmatrix}
-    = \begin{pmatrix} 1 & (1/n) ∑_i X_i \\ 
-      (1/n) ∑_i X_i & (1/n) ∑_i X_i² \end{pmatrix}^{-1}
-    \begin{pmatrix} (1/n) ∑_i Y_i \\ (1/n) ∑_i X_i Y_i  \end{pmatrix}
+    \begin{pmatrix} \betah_0 \\ \betah_1 \end{pmatrix}
+    = \begin{pmatrix} 1 & (1/n) \sum_i X_i \\ 
+      (1/n) \sum_i X_i & (1/n) \sum_i X_i^2 \end{pmatrix}^{-1}
+    \begin{pmatrix} (1/n) \sum_i Y_i \\ (1/n) \sum_i X_i Y_i  \end{pmatrix}
   \end{equation*}
 
 \item The method of moments estimator has some advantages: it is
@@ -311,23 +313,23 @@
   economics give implication that the period $t$ conditional
   expectation satisfies 
   \begin{equation*}
-    \E_t g(X_t, θ) = 0
+    \E_t g(X_t, \theta) = 0
   \end{equation*}
-  where $g(x_t, θ)$ comes from agent rationality—essentially,
-  $g(X_t,θ)$ measures the agent's surprise, and if agents choose
+  where $g(x_t, \theta)$ comes from agent rationality---essentially,
+  $g(X_t,\theta)$ measures the agent's surprise, and if agents choose
   rationally in period $t$, then the difference between their
   prediction and the actual outcome must be unforecastable (if it
   weren't, they would have already acted).
 
   The LIE tells us that
   \begin{equation*}
-    \E g(X_t, θ) = 0
+    \E g(X_t, \theta) = 0
   \end{equation*}
-  unconditionally as well, so $θ$ can be estimated by solving
+  unconditionally as well, so $\theta$ can be estimated by solving
   \begin{equation*}
-    (1/n) ∑_t g(X_t, θ) = 0
+    (1/n) \sum_t g(X_t, \theta) = 0
   \end{equation*}
-  for $θ$.  If there are more equations than parameters, $θ$ can be
+  for $\theta$.  If there are more equations than parameters, $\theta$ can be
   estimated using a weighting scheme, and the additional equations can
   be used to test the adequacy model.  The key difference between GMM
   and the method of moments is that the equations here are generally
@@ -352,10 +354,10 @@
   value associated with the tightest density, i.e. the largest value
   of the likelihood function.
 
-  \begin{ex} Suppose that $X₁,...,X_n ∼ \uniform(0, b)$.  Then the
+  \begin{ex} Suppose that $X_1,...,X_n \sim \uniform(0, b)$.  Then the
     likelihood function (as before) is
     \begin{equation*}
-      L(b; x₁,...,x_n) = ∏_i (1/b) \1\{0 ≤ x_i ≤ b\}
+      L(b; x_1,...,x_n) = \prod_i (1/b) \ind\{0 \leq x_i \leq b\}
     \end{equation*}
     [Draw the likelihood and several densities]
 
@@ -364,43 +366,43 @@
 
 \item The definition is unsurprising:
   \begin{defn}
-    Suppose that $X₁,...,X_n ∼ f(x₁,...,x_n; θ)$.  The \emph{Maximum
-      Likelihood Estimator} (MLE) of $θ$ is
+    Suppose that $X_1,...,X_n \sim f(x_1,...,x_n; \theta)$.  The \emph{Maximum
+      Likelihood Estimator} (MLE) of $\theta$ is
     \begin{equation*}
-      \θh = \argmax_θ L(θ; x₁,...,x_n).
+      \thetah = \argmax_\theta L(\theta; x_1,...,x_n).
     \end{equation*}
   \end{defn}
 
 \item We can see that the usual OLS estimator is the MLE.
-  \begin{ex} Suppose that $(Y_i,X_i)$ are \iid\ where $X_i$ is a $k ×
+  \begin{ex} Suppose that $(Y_i,X_i)$ are \iid\ where $X_i$ is a $k \times
     1$ random vector with unspecified density $f$ and
     \begin{equation*}
-      Y_i ∣ X_i ∼ N(X_i'β, σ²),
+      Y_i \mid X_i \sim N(X_i'\beta, \sigma^2),
     \end{equation*}
-    $β$ and $σ²$ are the parameters of interest.  The maximization
+    $\beta$ and $\sigma^2$ are the parameters of interest.  The maximization
     problem will be easier of we take logs (remember, log is
     monotonic, so the maximizer of the log likelihood will be the same
     as that of the likelihood.  The log likelihood is
     \begin{equation*}
-      \log L(β,σ²; x, y) = const - n\log (\sqrt{σ²}) -
-      (1/2σ²) ∑_i (y_i - x_i'β)² + ∑_i f(x_i).
+      \log L(\beta,\sigma^2; x, y) = const - n\log (\sqrt{\sigma^2}) -
+      (1/2\sigma^2) \sum_i (y_i - x_i'\beta)^2 + \sum_i f(x_i).
     \end{equation*}
     
-    The first order conditions for $β$ are
+    The first order conditions for $\beta$ are
     \begin{equation*}
-      0 = (∂/∂β) \log L(β, σ²; x, y) = (1/σ²) ∑_i x_i (y_i - x_i'β)
+      0 = (\partial/\partial\beta) \log L(\beta, \sigma^2; x, y) = (1/\sigma^2) \sum_i x_i (y_i - x_i'\beta)
     \end{equation*}
     which gives
     \begin{equation*}
-      \βh = \big(∑_i x_i x_i'\big)^{-1} ∑_i x_i y_i.
+      \betah = \big(\sum_i x_i x_i'\big)^{-1} \sum_i x_i y_i.
     \end{equation*}
-    The first order conditions for $σ²$ are
+    The first order conditions for $\sigma^2$ are
     \begin{equation*}
-      0 = (∂/∂σ²) \log L(β, σ²; x, y) = -(n/2σ²) + (1/2σ⁴) ∑_i (y_i - x_i'β)²
+      0 = (\partial/\partial\sigma^2) \log L(\beta, \sigma^2; x, y) = -(n/2\sigma^2) + (1/2\sigma^4) \sum_i (y_i - x_i'\beta)^2
     \end{equation*}
     which gives
     \begin{equation*}
-      \σh² = (1/n) ∑_i (y_i - x_i'\βh)².
+      \sigmah^2 = (1/n) \sum_i (y_i - x_i'\betah)^2.
     \end{equation*}
 
     You should verify that this is a maximum using the second order
@@ -419,8 +421,8 @@
 
 \item The MLE has a nice invariance property: say you're not
   interested in the parameters per se, but care about a transformation
-  of the parameters $T(θ)$.  If $\θh$ is the maximum likelihood
-  estimator of $θ$, then $T(\θh)$ is the MLE of $T(θ)$.
+  of the parameters $T(\theta)$.  If $\thetah$ is the maximum likelihood
+  estimator of $\theta$, then $T(\thetah)$ is the MLE of $T(\theta)$.
 \item We'll see later that you can use MLE to get an estimator, even
   if you don't believe that the distribution is true.  This estimator
   is called the \emph{quasi-maximum likelihood} estimator and will be

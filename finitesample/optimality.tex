@@ -28,70 +28,70 @@
   errors.  Such an estimator is called a ``unbiased'' estimator.
 
   \begin{defn}
-    If $\θh$ is an estimator of $θ₀$, the \emph{bias} of $\θh$ is the
-    quantity $\E \θh - θ₀$.  An estimator is \emph{unbiased} if its
-    bias equals zero for every value of $θ₀$
+    If $\thetah$ is an estimator of $\theta_0$, the \emph{bias} of $\thetah$ is the
+    quantity $\E \thetah - \theta_0$.  An estimator is \emph{unbiased} if its
+    bias equals zero for every value of $\theta_0$
   \end{defn}
 
   It can make sense to compare unbiased estimators through their
   dispersion: a more disperse estimator is probably worse than one
   that's more tightly concentrated around the true parameter value
-  $θ₀$.
+  $\theta_0$.
 
   \begin{defn}
-    If $\θh₁$ and $\θh₂$ are two unbiased estimators of a parameter
-    $θ$, $\θh₁$ is \emph{more efficient} than $\θh₂$ if the variance
-    of $\θh₁$ is less than that of $\θh₂$.
+    If $\thetah_1$ and $\thetah_2$ are two unbiased estimators of a parameter
+    $\theta$, $\thetah_1$ is \emph{more efficient} than $\thetah_2$ if the variance
+    of $\thetah_1$ is less than that of $\thetah_2$.
   \end{defn}
 
-  An estimator $\θh$ of $θ$ is said to be the \emph{best unbiased
-  estimator of $θ$} if it is unbiased and has smaller variance than
+  An estimator $\thetah$ of $\theta$ is said to be the \emph{best unbiased
+  estimator of $\theta$} if it is unbiased and has smaller variance than
   any other unbiased estimator
 
-\item For parameter vectors, we need the variance of $γ'\θh₁$ to be
-  smaller than that of $γ'\θh₂$ for all nonzero $γ$.  This is the same
-  as requiring that $\var(\θh₂) - \var(\θh₁)$ is positive definite
+\item For parameter vectors, we need the variance of $\gamma'\thetah_1$ to be
+  smaller than that of $\gamma'\thetah_2$ for all nonzero $\gamma$.  This is the same
+  as requiring that $\var(\thetah_2) - \var(\thetah_1)$ is positive definite
   (you should verify this on your own).
 
 \item A particular result comes up in many different contexts
   \begin{thm}
-    Suppose $\E \θh₁ = θ$; $\θh₁$ is the best unbiased estimator of
-    $θ$ iff $\θh₁$ and $\θh₁ - \θh₂$ are uncorrelated for any other
-    unbiased estimator $\θh₂$ of $θ$.
+    Suppose $\E \thetah_1 = \theta$; $\thetah_1$ is the best unbiased estimator of
+    $\theta$ iff $\thetah_1$ and $\thetah_1 - \thetah_2$ are uncorrelated for any other
+    unbiased estimator $\thetah_2$ of $\theta$.
   \end{thm}
   This also holds when restricted to other classes.
 
-  The first part of the proof is easy.  Assume that $\θh₁$ and $\θh₁ -
-  \θh₂$ are uncorrelated.  Then
+  The first part of the proof is easy.  Assume that $\thetah_1$ and $\thetah_1 -
+  \thetah_2$ are uncorrelated.  Then
   \begin{align*}
-    \var(\θh₂) &= \var(\θh₂ - \θh₁ + \θh₁) \\
-    &= \var(\θh₂ - \θh₁) + \var(\θh₁) \\
-    &≥ \var(\θh₁)
+    \var(\thetah_2) &= \var(\thetah_2 - \thetah_1 + \thetah_1) \\
+    &= \var(\thetah_2 - \thetah_1) + \var(\thetah_1) \\
+    &\geq \var(\thetah_1)
   \end{align*}
   as required.
 
-  For the second part of the proof, assume $\θh₁$ is the best unbiased
+  For the second part of the proof, assume $\thetah_1$ is the best unbiased
   estimator and consider the variance of the unbiased estimator $a
-  \θh₁ + (1 - a) \θh₂$.  Then
+  \thetah_1 + (1 - a) \thetah_2$.  Then
   \begin{align*}
-    \var(a \θh₁ + (1 - a) \θh₂)
-    &= \var(\θh₁ + (1 - a) (\θh₂ - \θh₁)) \\
-    &= \var(\θh₁) + (1 - a)² \var(\θh₂ - \θh₁)
-    + 2 (1 - a) \cov(\θh₁, \θh₂ - \θh₁).
+    \var(a \thetah_1 + (1 - a) \thetah_2)
+    &= \var(\thetah_1 + (1 - a) (\thetah_2 - \thetah_1)) \\
+    &= \var(\thetah_1) + (1 - a)^2 \var(\thetah_2 - \thetah_1)
+    + 2 (1 - a) \cov(\thetah_1, \thetah_2 - \thetah_1).
   \end{align*}
 
   We can choose $a$ to minimize this variance and find that it is
   smallest for
   \begin{equation*}
-    a = 1 + \frac{\cov(\θh₁, \θh₂ - \θh₁)}{\var(\θh₂ - \θh₁)}.
+    a = 1 + \frac{\cov(\thetah_1, \thetah_2 - \thetah_1)}{\var(\thetah_2 - \thetah_1)}.
   \end{equation*}
   Plugging in above gives
   \begin{equation*}
-    \var(a \θh₁ + (1 - a) \θh₂)
-    = \var(\θh₁) - \frac{(\cov(\θh₁, \θh₂ - \θh₁))²}{\var(\θh₂ - \θh₁)}.
+    \var(a \thetah_1 + (1 - a) \thetah_2)
+    = \var(\thetah_1) - \frac{(\cov(\thetah_1, \thetah_2 - \thetah_1))^2}{\var(\thetah_2 - \thetah_1)}.
   \end{equation*}
-  This last quantity is less than $\var(\θh₁)$ (a contradiction)
-  unless $\cov(\θh₁, \θh₂ - \θh₁) = 0$, completing the proof.
+  This last quantity is less than $\var(\thetah_1)$ (a contradiction)
+  unless $\cov(\thetah_1, \thetah_2 - \thetah_1) = 0$, completing the proof.
 
 \item It can also be useful to know the smallest possible variance
   that an unbiased estimator (or estimator in general) could have in a
@@ -101,15 +101,15 @@
 
   The Cramer-Rao lower bound gives us such a bound.
   \begin{thm}
-    Suppose $X₁,...,X_n$ have a joint density with likelihood $L(θ;
-    X)$ and let $\θh$ be an estimator of $θ$ with finite variance and
+    Suppose $X_1,...,X_n$ have a joint density with likelihood $L(\theta;
+    X)$ and let $\thetah$ be an estimator of $\theta$ with finite variance and
     \begin{equation*}
-      (d/dθ) ∫_\Xc \θh(x) L(θ; x) \dx = ∫_\Xc \θh(x) (d/dθ) L(θ; x) \dx
+      (d/d\theta) \int_\Xc \thetah(x) L(\theta; x) \dx = \int_\Xc \thetah(x) (d/d\theta) L(\theta; x) \dx
     \end{equation*}
-    where $\Xc$ is the support of $X₁,...,X_n$.
+    where $\Xc$ is the support of $X_1,...,X_n$.
     Then 
     \begin{equation*}
-      \var(\θh) ≥  \frac{((d/dθ) \E \θh(X))²}{\E ((d/dθ) \log L(θ; X))²}.
+      \var(\thetah) \geq  \frac{((d/d\theta) \E \thetah(X))^2}{\E ((d/d\theta) \log L(\theta; X))^2}.
     \end{equation*}
   \end{thm}
   If the data are \iid\ then this result can be simplified.
@@ -118,38 +118,38 @@
   Cauchy-Schwarz inequality.  For any random variables $Y$ and $Z$,
   the CS inequality implies that
   \begin{equation*}
-    \cov(Y, Z)² ≤ \var(Y) \var(Z).
+    \cov(Y, Z)^2 \leq \var(Y) \var(Z).
   \end{equation*}
-  If we let $Y = \θh$ and $Z = (d/dθ) \log L(θ; X)$, we get
+  If we let $Y = \thetah$ and $Z = (d/d\theta) \log L(\theta; X)$, we get
   \begin{equation*}
-    \var(\θh) ≥
-    \frac{\cov(\θh, (d/dθ) \log L(θ; X))²}
-         {\var((d/dθ) \log L(θ; X))}
+    \var(\thetah) \geq
+    \frac{\cov(\thetah, (d/d\theta) \log L(\theta; X))^2}
+         {\var((d/d\theta) \log L(\theta; X))}
   \end{equation*}
-  (as long as $\var((d/dθ) \log L(θ; X)) > 0$), and the result holds
+  (as long as $\var((d/d\theta) \log L(\theta; X)) > 0$), and the result holds
   after we show that
   \begin{equation*}
-    \cov(\θh, (d/dθ) \log L(θ; X)) = (d/dθ) \E \θh
+    \cov(\thetah, (d/d\theta) \log L(\theta; X)) = (d/d\theta) \E \thetah
   \end{equation*}
   and
   \begin{equation*}
-    \E (d/dθ) \log L(θ; X)) = 0,
+    \E (d/d\theta) \log L(\theta; X)) = 0,
   \end{equation*}
   which I need to fill in in the future.
 
   \begin{ex}
-    Suppose that $X₁,...,X_n ∼ \iid N(μ, σ²)$ with $σ$² known.  We can
+    Suppose that $X_1,...,X_n \sim \iid N(\mu, \sigma^2)$ with $\sigma^2$ known.  We can
     use the CR lower bound to find the best-case variance of an
     unbiased estimator.  Since
     \begin{equation*}
-      d/dμ \log L(μ, σ²; X) = ∑_i (x_i - μ)/σ²,
+      d/d\mu \log L(\mu, \sigma^2; X) = \sum_i (x_i - \mu)/\sigma^2,
     \end{equation*}
     we have
     \begin{equation*}
-      \E(d/dμ \log L(μ, σ²; X))² = n/σ²,
+      \E(d/d\mu \log L(\mu, \sigma^2; X))^2 = n/\sigma^2,
     \end{equation*}
-    and the CR lower bound for any unbiased estimator of $μ$ is
-    $σ²/n$.  The sample mean is unbiased and has this variance, so
+    and the CR lower bound for any unbiased estimator of $\mu$ is
+    $\sigma^2/n$.  The sample mean is unbiased and has this variance, so
     it's the best unbiased estimator.
   \end{ex}
 
@@ -166,18 +166,18 @@
   consider the average loss associated with an estimator.  A
   \emph{loss function} $L$ is a convex function s.t. $L(0) = 0$ that
   measures the cost associated with misestimating $\theta$: the cost
-  associated with the error $\θh - θ$ is $L(\θh - θ)$.  An estimator
-  $\θh₁$ has lower risk than $\θh₂$ if
+  associated with the error $\thetah - \theta$ is $L(\thetah - \theta)$.  An estimator
+  $\thetah_1$ has lower risk than $\thetah_2$ if
   \begin{equation*}
-    \E L(\θh₁ - θ) ≤ \E L(\θh₂ - θ)
+    \E L(\thetah_1 - \theta) \leq \E L(\thetah_2 - \theta)
   \end{equation*}
   
-  A standard loss criterion is MSE, where $L(x) = x²$.  Notice that
+  A standard loss criterion is MSE, where $L(x) = x^2$.  Notice that
   MSE weights (squared) bias and variance equally:
   \begin{align*}
-    \E (\θh - θ)² &= \E((\θh - \E \θh) + (\E \θh - θ))² \\
-    &= \E(\θh - \E \θh)² + 2 \E (\θh - \E \θh) (\E \θh - θ) + (\E \θh - θ)² \\
-    &= \var(\θh) + \bias(\θh)²
+    \E (\thetah - \theta)^2 &= \E((\thetah - \E \thetah) + (\E \thetah - \theta))^2 \\
+    &= \E(\thetah - \E \thetah)^2 + 2 \E (\thetah - \E \thetah) (\E \thetah - \theta) + (\E \thetah - \theta)^2 \\
+    &= \var(\thetah) + \bias(\thetah)^2
   \end{align*}
   since the middle term in the second to last equation is zero.  Loss
   functions can also be derived directly from economic criteria like
@@ -187,14 +187,14 @@
   that the best estimator can depend on the parameter values, as shown
   in the next example.
   \begin{ex}
-    Suppose that $X₁,...,X_n ∼ \binomial(p)$ and consider two
+    Suppose that $X_1,...,X_n \sim \binomial(p)$ and consider two
     estimators of $p$, $\Xb$ and $1/2$.  Then
     \begin{equation*}
-      \mse(\Xb) = \bias(\Xb)² + \var(\Xb) = p(1-p)/n
+      \mse(\Xb) = \bias(\Xb)^2 + \var(\Xb) = p(1-p)/n
     \end{equation*}
     and
     \begin{equation*}
-      \mse(1/2) = \bias(1/2)² + \var(1/2) = (1/2 - p)².
+      \mse(1/2) = \bias(1/2)^2 + \var(1/2) = (1/2 - p)^2.
     \end{equation*}
     When $p$ is near $1/2$, the second estimator has lower MSE.  When
     $p$ is not near $1/2$, the first estimator will typically have
@@ -202,11 +202,11 @@
   \end{ex}
 
   For loss-function based optimality to be useful, the researcher
-  needs to weight the parameter space by importance; if $W(θ)$ is a
+  needs to weight the parameter space by importance; if $W(\theta)$ is a
   weighting function for the parameter space, we can choose the
-  estimator $\θh$ associated with the lowest average risk:
+  estimator $\thetah$ associated with the lowest average risk:
   \begin{equation*}
-    ∫ \E L(\θh - θ) W(θ) \dθ.
+    \int \E L(\thetah - \theta) W(\theta) \dtheta.
   \end{equation*}
 
 \end{itemize}

@@ -15,10 +15,10 @@
 \begin{itemize}
 
 \item The \emph{Probability Overview} deals with hypothetical and
-  theoretical relationships—where $X$ is a random vector that
+  theoretical relationships---where $X$ is a random vector that
   summarizes some experiment.  In this document, we imagine that some
   aspects of that experiment are known and some are unknown and that
-  we observe $n$ outcomes, $X₁,…,X_n$, drawn from that experiment.
+  we observe $n$ outcomes, $X_1,\dots,X_n$, drawn from that experiment.
   The question we'll start to answer is, what can we learn about the
   unknown aspects of the experiment from the observations?
 
@@ -33,7 +33,7 @@
   categories,
   \begin{description}
   \item[Point Estimation:] An estimate of the parameter of interest,
-    say $β$ in the linear regression examplem, ideally coupled with a
+    say $\beta$ in the linear regression examplem, ideally coupled with a
     measure of the precision of that estimate.
 
   \item[Hypothesis testing:] A binary outcome, yes or no, indicating
@@ -48,36 +48,35 @@
 
   \item[Bayesian inference:] In contrast to the other two, Bayesian
     inference is concerned with communicating the uncertainty about
-    the unknown parameter (again, here it's $β$).  To do this, the
-    researcher treats $β$ itself as another random variable with its
+    the unknown parameter (again, here it's $\beta$).  To do this, the
+    researcher treats $\beta$ itself as another random variable with its
     own density, called a \emph{prior density}.  After observing
-    $X₁,…,X_n$, the researcher then computes the \emph{posterior
-      density}, $f_β(· ∣ X₁,…,X_n)$, which describes uncertainty over
-    $β$ after observing the data.  As you can imagine, the choice of
-    the prior density sometimes has a strong effect on the analysis
-    and sometimes does not, and researchers are usually relieved when
-    it does not.
+    $X_1,\dots,X_n$, the researcher then computes the \emph{posterior
+      density}, $f_\beta(\cdot \mid X_1,\dots,X_n)$, which describes
+    uncertainty over $\beta$ after observing the data.  As you can
+    imagine, the choice of the prior density sometimes has a strong
+    effect on the analysis and sometimes does not, and researchers are
+    usually relieved when it does not.
 
-    Sometimes it is natural to view $β$ as a random variable and
+    Sometimes it is natural to view $\beta$ as a random variable and
     sometimes it is quite unnatural.  Whether or not this assumption
-    is realistic or not is irrelevant as far as applying a Bayesian
-    analysis goes.  You can think of it as a mathematical model of
-    uncertainty without taking it as an assumption about the real
-    world.
+    is realistic is irrelevant as far as applying a Bayesian analysis
+    goes.  You can think of it as a mathematical model of uncertainty
+    without taking it as an assumption about the real world.
   \end{description}
   
-\item If $x₁,…,x_n$ is a sequence of random variables, any function of
-  that sequence, $T(x₁,…,x_n)$ is called a \emph{statistic} or
+\item If $x_1,\dots,x_n$ is a sequence of random variables, any function of
+  that sequence, $T(x_1,\dots,x_n)$ is called a \emph{statistic} or
   \emph{estimator}.  The important part of this defnintion is that an
   estimator can feasibly be constructed from any sequence possible
   outcomes of the random sequence, it can not depend on any additional
   information about the DGP.  For example, the sample mean $\Xb =
-  n^{-1} ∑_{i=1}ⁿ X_i$ is an estimator because it is only a function
+  n^{-1} \sum_{i=1}^n X_i$ is an estimator because it is only a function
   of the observed data; the statistic $\max(\Xb, 10)$ is as well,
   because the number 10 is arbitrary and unconnected with the DGP.
-  But the random variable $\max(\Xb, \E X₁ + 1)$ is not an estimator,
+  But the random variable $\max(\Xb, \E X_1 + 1)$ is not an estimator,
   because it depends on unknown information about the DGP
-  (specifically, $\E X₁$).
+  (specifically, $\E X_1$).
 
 \item Also note that some things that are probably pretty bad
   estimators meet our definition of \emph{estimator}.  For example,

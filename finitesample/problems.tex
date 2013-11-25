@@ -13,13 +13,12 @@
 
 \begin{enumerate}
 
-
 \item Write an R function that calculates the maximum likelihood
-  estimator of $α$ and $β$ for the gamma$(α,β)$ distribution. Maximize
-  the likelihood function numerically even if you are able to
-  analytically derive the MLE.  You may find the R functions
-  \texttt{optim} and \texttt{dgamma} helpful.  You should pay
-  attention to the initial values of the numerical optimization
+  estimator of $\alpha$ and $\beta$ for the gamma$(\alpha,\beta)$
+  distribution. Maximize the likelihood function numerically even if
+  you are able to analytically derive the MLE.  You may find the R
+  functions \texttt{optim} and \texttt{dgamma} helpful.  You should
+  pay attention to the initial values of the numerical optimization
   procedure, and may want to use the method of moments to derive
   sensible initial values.
 
@@ -31,14 +30,13 @@
   either situation, it can be useful to use a computer to simulate the
   estimator under different assumptions.
 
-  It can be shown (i.e. \citet[p. 483]{CB02}) that if
-  $X₁,…,X_n$ is an i.i.d. sample with distribution and density $F$
-  and $f$ respectively, then the sample median of $X₁,…,X_n$ is
-  approximately (i.e. this holds at $n = ∞$) distributed $\N(θ, (4 n
-  f²(θ))^{-1})$, where $θ$ is the population
-  median.
+  It can be shown (i.e. \citet[p. 483]{CB02}) that if $X_1,\dots,X_n$
+  is an i.i.d. sample with distribution and density $F$ and $f$
+  respectively, then the sample median of $X_1,\dots,X_n$ is
+  approximately (i.e. this holds at $n = \infty$) distributed $\N(\theta,
+  (4 n f^2(\theta))^{-1})$, where $\theta$ is the population median.
   \begin{enumerate}
-  \item Simulate 1000 samples of size 10 with $X ∼ N(1,2)$ and plot
+  \item Simulate 1000 samples of size 10 with $X \sim N(1,2)$ and plot
     a histogram of the sample median.  Also plot the density of the
     limiting normal distribution on the same graph.  How well does the
     approximation match the simulated density?  Hint: you will find it
@@ -49,91 +47,29 @@
     quality of the approximation?
   \end{enumerate}
 
-\item Suppose that $X₁,…,X_n ∼ i.i.d. N(μ, σ²)$.  Is
-  the sample median consistent for $μ$?  Is it asymptotically
+\item Suppose that $X_1,\dots,X_n \sim i.i.d. N(\mu, \sigma^2)$.  Is
+  the sample median consistent for $\mu$?  Is it asymptotically
   normal?  Do these answers require the $X_i$ to be Normal?
 
-\item Let $\{e_t\}$ be a sequence of i.i.d. $(0,1)$ random variables
-  and let $X_t = e_t + 0.5\, e_{t-1}$.  Such a process is called a
-  Moving Average of order 1, abbreviated as MA(1).  What is the
-  probability limit of $n^{-1} ∑_{t=1}ⁿ X_t$ as $n → ∞$?
+\item Suppose that $X_1,\dots,X_n$ are distributed uniform$(0,b)$.
+  Derive the LRT for the null hypothesis $b \geq b_0$ against the
+  alternative $b < b_0$ and also for the null hypothesis $b \leq b_0$
+  against $b > b_0$.  Please discuss and compare the tests.
 
-\item Suppose that $Z$ is a random variable with mean $μ$ and variance
-  $σ$ and let $e₁,e₂,…$ be a sequence of i.i.d. random variables with
-  mean zero and variance 1 that are independent of $Z$.  Show that the
-  sequence $X_i = Z + e_i$ obeys the following weak law of large
-  numbers: as $n → ∞$, $n^{-1} ∑_{i=1}ⁿ ( X_i - \E(X_i ∣ Z) ) → 0$ in
-  probability.  Note that $X₁,X₂,…$ is \emph{not} an i.i.d.\ sequence,
-  but is an example of an \emph{exchangeable} sequence of random
-  variables.
+\item Suppose that $X_1,\dots,X_n$ are i.i.d. uniform($a$,$b$).
+  Derive the LRT of the null hypothesis $\E X_i = 0$ against the
+  two-sided alternative $\E X_i \neq 0$.
 
-\item Suppose that $X_n →^p X$ and that $g$ is a continuous function.
-  Prove that $g(X_n) →^p g(X)$.
-
-\item Let $X₁,…,X_n ∼ N(θ, θ)$.  Derive the MLE of $θ$ and show that
-  it is asymptotically normal.
-
-\item Suppose that $X₁,…,X_n$ are an i.i.d. sample from the density
-  $f(x) = 1/θ$, $0 ≤ x ≤ θ$.  Prove that $\max_i X_i$ is consistent
-  for $θ$.
-
-\item Let $\{y_t\}$ be an iid $N(0,σ²)$ sequence.  Define $S_T =
-  (T-1)^{-1} ∑_{t=1}^T (y_t - \bar y)²$.
-  \begin{enumerate}
-  \item Prove that $\sqrt{n} (S_T - σ²) → N(0,2σ⁴)$ in
-    distribution.
-  \item Calculate the asymptotic distribution of $\log S_T$.
-  \item Do your results depend on the normality of $y_t$?
-  \item Calculate the 90th and 95th percentile for $S_T$ with
-    arbitrary values of $σ²$ using both of these asymptotic
-    distributions.
-  \item Use each of these results to derive a test of the null
-    hypothesis $σ² = σ₀²$ against the null $σ² > σ₀²$, where $σ₀²$ is
-    a known but arbitrary value.  Your answer should give two formulas
-    for the test's critical value---each one depends on $σ₀²$ and $α$
-    (the nominal size of the test) and you should have a separate
-    answer for each asymptotic approximation.
-  \item Let $c₁$ and $c₂$ denote the 90th percentiles that you
-    calculated in question ?.  Simulate 1000 i.i.d. standard normal
-    samples with $n = 50$ and calculate the probability that $S_T$ is
-    less than each of these percentiles.
-  \item Repeat the previous question for the 95th percentiles.
-  \item Plot a histogram of your 1000 simulated $S_T$ along with each
-    approximate density for $S_T$.  What do these results tell you
-    about the quality of the approximations?
-  \item You can also prove that $(T-1) S_T$ has a chi-square
-    distribution with $T-1$ degrees of freedom in finite samples.
-    Calculate the 90th and 95th percentiles of $S_T$ using this
-    chi-square distribution and repeat the previous two simulations.
-    How do these simulations compare to the previous simulations?
-  \item Repeat the previous three questions using a skewed
-    distribution and a heavy-tailed distribution (changing the
-    approximation as necessary).  How do the results change?  How do
-    they change if you use different values of $n$?
-  \item What do these simulations tell you about using these
-    approximations for testing.  Focus on the usual confidence levels
-    (i.e. 10\%, 5\%, and 1\% tests).
-  \end{enumerate}
-
-\item Suppose that $X₁,…,X_n$ are distributed uniform$(0,b)$.  Derive
-  the LRT for the null hypothesis $b ≥ b₀$ against the alternative $b
-  < b₀$ and also for the null hypothesis $b ≤ b₀$ against $b > b₀$.
-  Please discuss and compare the tests.
-
-\item Suppose that $X₁,…,X_n$ are i.i.d. uniform($a$,$b$).  Derive the
-  LRT of the null hypothesis $\E X_i = 0$ against the two-sided
-  alternative $\E X_i ≠ 0$.
-
-\item Let $X = (X₁,…,X_n)$ be a random sample and let $θ$ be some
-  parameter of interest.  For each $θ₀$, let $A(θ₀)$ be the acceptance
-  region of a level $α$ test of the null hypothesis that $θ = θ₀$.
-  For each sample $x$, define a set $C(x)$ in the parameter space
-  by
+\item Let $X = (X_1,\dots,X_n)$ be a random sample and let $\theta$ be
+  some parameter of interest.  For each $\theta_0$, let $A(\theta_0)$
+  be the acceptance region of a level $\alpha$ test of the null
+  hypothesis that $\theta = \theta_0$.  For each sample $x$, define a
+  set $C(x)$ in the parameter space by
   \begin{equation}
-     C(x) = \{ θ₀ : x ∈ A(θ₀) \}.
+     C(x) = \{ \theta_0 : x \in A(\theta_0) \}.
   \end{equation}
-  Prove that the random set $C(X)$ is a $1-α$ confidence set for the
-  parameter $θ$.
+  Prove that the random set $C(X)$ is a $1-\alpha$ confidence set for the
+  parameter $\theta$.
 
 \end{enumerate}
 

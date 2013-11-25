@@ -18,7 +18,7 @@
   observations increases.  For many DGPs, the sample average collapses
   to a point, the population mean, and the difference between the
   statistic and its limit has an approximately known distribution when
-  it is rescaled to offset the degeneracy—the normal distribution.
+  it is rescaled to offset the degeneracy---the normal distribution.
   These results are known as the \emph{Law of Large Numbers} (LLN) and
   the \emph{Central Limit Theorem} (CLT) respectively but that
   terminology is a little misleading since ``the LLN'' refers to any
@@ -26,37 +26,37 @@
   to the population mean and same for ``the CLT.''
 
   For either of these results to make sense, we need to define what it
-  means for a sequence of random variables $\{\Xb_n\}_{n=1}^∞$
-  to converge (where $\Xb_n = (1/n) ∑_{i=1}^n X_i$ and
-  $\{X_i\}_{i=1}^∞$ is another sequence of random variables).
+  means for a sequence of random variables $\{\Xb_n\}_{n=1}^\infty$
+  to converge (where $\Xb_n = (1/n) \sum_{i=1}^n X_i$ and
+  $\{X_i\}_{i=1}^\infty$ is another sequence of random variables).
 
 \item The simplest version of convergence is to say that $\Xb_n$
-  converges to some quantity $μ$ if $\E \Xb_n$ converges to $μ$ and
-  $\var(\Xb_n)$ converges to zero as $n → ∞$.  These conditions are
-  equivalent to $\E(\Xb_n - μ)²$ converging to zero as $n → ∞$, which
-  is called ``convergence in mean square'' or ``convergence in $L₂$''
+  converges to some quantity $\mu$ if $\E \Xb_n$ converges to $\mu$ and
+  $\var(\Xb_n)$ converges to zero as $n \to \infty$.  These conditions are
+  equivalent to $\E(\Xb_n - \mu)^2$ converging to zero as $n \to \infty$, which
+  is called ``convergence in mean square'' or ``convergence in $L_2$''
   for reasons that will become immediately clear.
 
-\item Notice that $(\E(X - Y)ᵖ)^{1/p} ≡ \lVert X - Y \rVert_p$ can be
+\item Notice that $(\E(X - Y)^p)^{1/p} \equiv \lVert X - Y \rVert_p$ can be
   viewed as a distance between the random variables $X$ and $Y$.  The
-  operation $\lVert · \rVert_p$ denotes the \emph{$L_p$-norm} of its
-  argument for $p ≥ 1$.\footnote{Remember that a \emph{norm} is an
-    abstraction of the idea of length.  A norm is a function $ρ$ (on
+  operation $\lVert \cdot \rVert_p$ denotes the \emph{$L_p$-norm} of its
+  argument for $p \geq 1$.\footnote{Remember that a \emph{norm} is an
+    abstraction of the idea of length.  A norm is a function $\rho$ (on
     a vector space) that satisfies
     \begin{enumerate}
-    \item $ρ(a v) = |a| ρ(v)$ for any scalar $a$,
-    \item $ρ(u + v) ≤ ρ(u) + ρ(v)$ (i.e. the triangle inequality),
-    \item $ρ(0) = 0$.
+    \item $\rho(a v) = |a| \rho(v)$ for any scalar $a$,
+    \item $\rho(u + v) \leq \rho(u) + \rho(v)$ (i.e. the triangle inequality),
+    \item $\rho(0) = 0$.
     \end{enumerate}
-    Clearly $ρ(·) = \lVert · \rVert$ satisfies conditions 1 and 3; it
+    Clearly $\rho(\cdot) = \lVert \cdot \rVert$ satisfies conditions 1 and 3; it
     can be shown to satisfy the triangle inequality by applying
     Holder's inequality.}
   We can define \emph{convergence in $L_p$} in the obvious way.
 
   \begin{defn}
     Let $\{X_n\}$ be a sequence of random variables and let $X$ be
-    another r.v.  $X_n$ converges to $X$ in $L_p$ as $n → ∞$ (or $X_n
-    →^{L_p} X$) if $\lVert X_n - X \rVert_p → 0$ as $n → ∞$.
+    another r.v.  $X_n$ converges to $X$ in $L_p$ as $n \to \infty$ (or $X_n
+    \to^{L_p} X$) if $\lVert X_n - X \rVert_p \to 0$ as $n \to \infty$.
   \end{defn}
   The sequence $\{\lVert X_n - X \rVert_p\}_n$ is just a sequence of
   numbers, so convergence of this quantity to zero is conceptually
@@ -65,29 +65,29 @@
   Convergence of random vectors holds if their individual elements
   converge.
 
-\item We can also show that if $X_n → X$ in $L_p$, then $X_n → X$ in
-  $L_q$ for any $q ∈ (0, p)$.  To see this, we can write
+\item We can also show that if $X_n \to X$ in $L_p$, then $X_n \to X$ in
+  $L_q$ for any $q \in (0, p)$.  To see this, we can write
   \begin{align*}
     \E | X_n - X |^p
-    &= \E | X_n - X |^{q · (p/q)} \\
-    &≥ (\E | X_n - X |^{q})^{p/q}
+    &= \E | X_n - X |^{q \cdot (p/q)} \\
+    &\geq (\E | X_n - X |^{q})^{p/q}
   \end{align*}
   since $p/q$ is a convex function (Jensen's inequality).  Raising
   both sides to the $1/p$ power completes the argument.
 
-\item If $X₁, X₂,...$ are an \iid$(μ, σ²)$ sequence, we can easily
-  verify that $\Xb_n → μ$ in $L₂$ as $n → ∞$.  First, we have
+\item If $X_1, X_2,...$ are an \iid$(\mu, \sigma^2)$ sequence, we can easily
+  verify that $\Xb_n \to \mu$ in $L_2$ as $n \to \infty$.  First, we have
   \begin{equation*}
-    \E \Xb_n = n^{-1} ∑_{i=1}^n \E X_i = μ.
+    \E \Xb_n = n^{-1} \sum_{i=1}^n \E X_i = \mu.
   \end{equation*}
   Second,
   \begin{align*}
-    \var \Xb &= (1/n²) \var\Big( ∑_{i=1}^n X_i \Big)\\
-    &= (1/n²) ∑_{i=1}^n \var(X_i) + (2/n²) ∑_{i=2}^n ∑_{j=1}^{i-1} \cov(X_i, X_j) \\
-    &= σ² / n.
+    \var \Xb &= (1/n^2) \var\Big( \sum_{i=1}^n X_i \Big)\\
+    &= (1/n^2) \sum_{i=1}^n \var(X_i) + (2/n^2) \sum_{i=2}^n \sum_{j=1}^{i-1} \cov(X_i, X_j) \\
+    &= \sigma^2 / n.
   \end{align*}
   
-  Then $\lVert \Xb - μ \rVert₂ = σ²/n → 0$ as $n → ∞$.
+  Then $\lVert \Xb - \mu \rVert_2 = \sigma^2/n \to 0$ as $n \to \infty$.
   
 \end{itemize}
 
@@ -106,10 +106,10 @@
         0 & \text{otherwise}.
       \end{cases}
     \end{equation*}
-    Then $\Pr[W_n = 0] → 1$ as $n → ∞$ but the sequence does not
+    Then $\Pr[W_n = 0] \to 1$ as $n \to \infty$ but the sequence does not
     converge in $L_1$ (and consequently in $L_p$ for $p > 1$):
     \begin{equation*}
-      \E | W_n | = 0 · \Pr[W_n = 0] + n · \Pr[W_n = n] = 1
+      \E | W_n | = 0 \cdot \Pr[W_n = 0] + n \cdot \Pr[W_n = n] = 1
     \end{equation*}
     for all $n$.
   \end{ex}
@@ -122,26 +122,26 @@
     A sequence of random variables $Y_n$ \emph{converges in
     probability} to $Y$ if
     \begin{equation*}
-      \Pr[ | Y_n - Y | > ε] → 0
+      \Pr[ | Y_n - Y | > \epsilon] \to 0
     \end{equation*}
-    for any positive constant $ε$.
+    for any positive constant $\epsilon$.
   \end{defn}
   This convergence can be written as
   \begin{itemize}
   \item $\plim Y_n = Y$
-  \item $Y_n →ᵖ Y$
-  \item $Y_n → Y$ i.p. (or ``in probability'').
+  \item $Y_n \to^p Y$
+  \item $Y_n \to Y$ i.p. (or ``in probability'').
   \end{itemize}
 
   Convergence in probability is implied by convergence in $L_p$
   as a consequence of Markov's/Chebychev's inequality.
   \begin{thm}[Markov's inequality]
-    If $X$ is an r.v., $\Pr[ |X|ᵖ ≥ ε ] ≤ \E |X|ᵖ /εᵖ$.
+    If $X$ is an r.v., $\Pr[ |X|^p \geq \epsilon ] \leq \E |X|^p /\epsilon^p$.
   \end{thm}
   \begin{proof}
     Start with the obvious inequality
     \begin{equation*}
-      \1\{ |X|^p ≥ ε \} ≤ |X|^p / ε^p
+      \ind\{ |X|^p \geq \epsilon \} \leq |X|^p / \epsilon^p
     \end{equation*}
     and then take the expectation of both sides.
   \end{proof}
@@ -151,8 +151,8 @@
   convergence.  But the problem in our $W_n$ example was that some of
   the mass diverged.  It turns out that a sufficient condition for
   convergence in probability to imply convergence in $L_p$ is for the
-  sequence of random variables to have uniformly bounded $p + δ$
-  moments for $δ > 0$.
+  sequence of random variables to have uniformly bounded $p + \delta$
+  moments for $\delta > 0$.
 
 \item A useful result holds for continuous functions: suppose that
   $X_n$ converges to $c$ in probability and that $g$ is a function and
@@ -160,43 +160,43 @@
   $g(c)$.
 
   To prove this, remember the definition of a continuous function.
-  $g$ is continuous at $c$ if for every $ε >0$, there exists a $δ > 0$
-  such that $|g(c + h) - g(c)| < ε$ for all $-δ ≤ h ≤ δ$.
+  $g$ is continuous at $c$ if for every $\epsilon >0$, there exists a $\delta > 0$
+  such that $|g(c + h) - g(c)| < \epsilon$ for all $-\delta \leq h \leq \delta$.
 
-  Now we want to prove that $\Pr[|g(X_n) - g(c)| > γ] → 0$ for all $γ
-  > 0$.  So take $γ$ as given.  Then define $δ$ so that $|g(c + h) -
-  g(c)| ≤ γ$ for all $-δ ≤ h ≤ δ$.
+  Now we want to prove that $\Pr[|g(X_n) - g(c)| > \gamma] \to 0$ for all $\gamma
+  > 0$.  So take $\gamma$ as given.  Then define $\delta$ so that $|g(c + h) -
+  g(c)| \leq \gamma$ for all $-\delta \leq h \leq \delta$.
 
-  Since $|X_n - c| < δ$ implies $|g(X_n) - g(c)| ≤ γ$, we have the
+  Since $|X_n - c| < \delta$ implies $|g(X_n) - g(c)| \leq \gamma$, we have the
   inequality
   \begin{equation*}
-    \Pr[ |X_n - c| < δ] ≤ \Pr[ |g(X_n) - g(c)| ≤ γ ]
+    \Pr[ |X_n - c| < \delta] \leq \Pr[ |g(X_n) - g(c)| \leq \gamma ]
   \end{equation*}
   and then
   \begin{equation*}
-    \Pr[|g(X_n) - g(c)| > γ] ≤ \Pr[|X_n - c| ≥ δ] → 0
+    \Pr[|g(X_n) - g(c)| > \gamma] \leq \Pr[|X_n - c| \geq \delta] \to 0
   \end{equation*}
-  since $X_n →^p c$.
+  since $X_n \to^p c$.
 
   To wrap it up, since $X_n$ converges to $c$, there exists an $N$
-  such that $P[|X_n - c| ≥ δ] < β$ for all $n ≥ N$ and this last step
+  such that $P[|X_n - c| \geq \delta] < \beta$ for all $n \geq N$ and this last step
   completes the proof.
 
 \item This result can be very useful: suppose you show that the
-  sequence of matrices $W_n$ converges in probability to $σ$.  Then we
-  know that $W_n^{-1}$ converges in probability to $σ^{-1}$ automatically.
+  sequence of matrices $W_n$ converges in probability to $\sigma$.  Then we
+  know that $W_n^{-1}$ converges in probability to $\sigma^{-1}$ automatically.
 
 
 \item As mentioned earlier, the Weak LLN is a family of results that
   can be basically stated: Suppose $\{X_n\}$ is a sequence of random
-  variables with mean $μ$.  Under some conditions, $n^{-1} ∑_{i=1}^n
-  X_i → μ$ in probability.
+  variables with mean $\mu$.  Under some conditions, $n^{-1} \sum_{i=1}^n
+  X_i \to \mu$ in probability.
 
   These conditions trade off the possibility of large deviations of
   individual observations (i.e. fat tails) for dependence conditions.
   The weakest WLLN for \iid\ sequences is \emph{Khinchine's WLLN},
   which requires $\{X_i\}$ to be an \iid\ sequence where each $X_i$
-  has mean $μ$ but is not required to have any higher moments.
+  has mean $\mu$ but is not required to have any higher moments.
   Obviously, in this case we can't use the proof based on convergence
   of the mean and variance from earlier.
 
@@ -204,16 +204,16 @@
   \emph{Chebychev's WLLN},\footnote{These names are coming from
   Appendix D of \citet{Gre12} and need to be verified and sourced
   better.} which requires that the $X_i$'s be independent but not
-  necessarily identically distributed with means $μ_i$ and variances
-  $σ²_i$ that satisfy $(1/n²) ∑_i σ²_i → 0$ as $n → ∞$.\footnote{An
-  example where this variance condition fails is if $σ²_i = i$; then
+  necessarily identically distributed with means $\mu_i$ and variances
+  $\sigma^2_i$ that satisfy $(1/n^2) \sum_i \sigma^2_i \to 0$ as $n \to \infty$.\footnote{An
+  example where this variance condition fails is if $\sigma^2_i = i$; then
   \begin{align*}
-    (1/n²) ∑_{i=1}^n σ²_i
-    &= (1/n²) × n (n+1) / 2 \\
-    &→ 1/2.
+    (1/n^2) \sum_{i=1}^n \sigma^2_i
+    &= (1/n^2) \times n (n+1) / 2 \\
+    &\to 1/2.
   \end{align*}}
-  Under those assumptions $\plim \Xb - \μb = 0$ where $\μb = (1/n)
-  ∑_{i=1}^n μ_i$.
+  Under those assumptions $\plim \Xb - \mub = 0$ where $\mub = (1/n)
+  \sum_{i=1}^n \mu_i$.
 
 \item When working with asymptotic arguments, there are often
   remainder terms that will converge to zero when we take limits.
@@ -222,38 +222,38 @@
 
   The first notation is for terms that vanish in the limit:
   \begin{defn}
-    A sequence of random variables $X_n$ \emph{is $o_p$ as $n → ∞$} if
-    $X_n →^p 0$, which is written as $X_n = o_p$.
+    A sequence of random variables $X_n$ \emph{is $o_p$ as $n \to \infty$} if
+    $X_n \to^p 0$, which is written as $X_n = o_p$.
   \end{defn}
   Note that this expression uses an equal sign, but the order matters.
   $X_n = o_p$ is not the same as $o_p = X_n$ (the second statement is
   more or less meaningless).  As an example, if $\Xb_n$ satisfies the
-  WLLN and converges in probability to $μ$, we could write
+  WLLN and converges in probability to $\mu$, we could write
   \begin{equation*}
-    \Xb = μ + o_p
+    \Xb = \mu + o_p
   \end{equation*}
   which can be useful in an intermediate step of an argument.
 
 \item There is also notation for terms that do not vanish but are
   non-explosive in the limit:
   \begin{defn}
-    A sequence of random variables $X_n$ \emph{is $O_p$ as $n → ∞$}
-    if, for each $ε > 0$, there are constants $c$ and $N$ such that
-    $\Pr[|X_n| > c] < ε$ for every $n > N$.  Again, this is written as
+    A sequence of random variables $X_n$ \emph{is $O_p$ as $n \to \infty$}
+    if, for each $\epsilon > 0$, there are constants $c$ and $N$ such that
+    $\Pr[|X_n| > c] < \epsilon$ for every $n > N$.  Again, this is written as
     $X_n = O_p$.
   \end{defn}
   Order matters here too.  $X_n = O_p$ means that the sequence $X_n$
-  is ``bounded in probability''—even if it is not a convergent
+  is ``bounded in probability''---even if it is not a convergent
   sequence, it is not divergent either.
 
   Note that $o_p = O_p$ (any sequence that converges in probability to
   zero is also asymptotically bounded in probability) and, more
-  generally, if $X_n → μ$ i.p., then $X_n = O_p$.  Moreover, if $X_n =
+  generally, if $X_n \to \mu$ i.p., then $X_n = O_p$.  Moreover, if $X_n =
   o_p$ and $Y_n = O_p$ then $X_n Y_n = o_p$ or, put much terser, $o_p
   O_p = o_p$.
 
 \item We can also introduce variations.  If $m_n$ is a sequence that
-  either diverges or converges to zero as $n → ∞$, we can write $X_n =
+  either diverges or converges to zero as $n \to \infty$, we can write $X_n =
   o_p(m_n)$ if $X_n / m_n = o_p$ and $X_n = O_p(m_n)$ if $X_n / m_n =
   O_p$.
 

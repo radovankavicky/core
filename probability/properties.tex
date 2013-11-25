@@ -16,38 +16,38 @@
 \begin{itemize}
 \item There are a few ways to think about the \emph{expectation} of a
   random variable.  One of the more natural is to think about many
-  independent repeated draws, $X₁, X₂,…,X_n$, from the same density
-  function $f$—think of them as repeated measurements of some physical
+  independent repeated draws, $X_1, X_2,\dots,X_n$, from the same density
+  function $f$---think of them as repeated measurements of some physical
   quantity, like a weight or a height.  Under some often plausible
   assumptions (that will be discussed later) these measurements
-  will cluster around a particular point $μ$ in the following sense:
-  as the number of observations grows ($n → ∞$), the average of the
-  observations will settle down and converge to $μ$.  If the
-  measurements are unbiased, then $μ$ will be the true quantity being
-  measured; if they are unbiased, $μ$ will reflect both the true
-  quantity and the systematic measurement error.  In either case, $μ$
+  will cluster around a particular point $\mu$ in the following sense:
+  as the number of observations grows ($n \to \infty$), the average of the
+  observations will settle down and converge to $\mu$.  If the
+  measurements are unbiased, then $\mu$ will be the true quantity being
+  measured; if they are unbiased, $\mu$ will reflect both the true
+  quantity and the systematic measurement error.  In either case, $\mu$
   is the \emph{expected value} of the density $f$.
 
   Formally, write the expected value of the density $f$ as $\E X$
-  where $X ∼ f$ is a representative draw from the distribution, and
+  where $X \sim f$ is a representative draw from the distribution, and
   define the expected value as
-  \begin{equation}\label{eq:3}
-    \E X = ∫ x f(x) \dx.
+  \begin{equation}\label{p3}
+    \E X = \int x f(x) \dx.
   \end{equation}
-  For a random vector $X = (X₁,…,X_k)$, the expected value is just the
+  For a random vector $X = (X_1,\dots,X_k)$, the expected value is just the
   vector of each element's expected value:
-  $\E X = (\E X₁,… \E X_k)'$
+  $\E X = (\E X_1,\dots \E X_k)'$
 
   Now, the expected value does not necessarily exist for a given
   random variable: if the density's tails are too fat, the integral
-  in~\eqref{eq:3} can be infinite.  Generally, if $\E |X| = ∞$ then
+  in~\eqref{p3} can be infinite.  Generally, if $\E |X| = \infty$ then
   the mean of $X$ is said to not exist.
 
 \item The expected value of a function of $X$, $\E g(X)$, is
   surprisingly straightforward and does not require the density of
   $g(X)$ to be calculated:
   \begin{equation*}
-    \E g(X) = ∫ g(x) f(x) \d x.
+    \E g(X) = \int g(x) f(x) \d x.
   \end{equation*}
   This can be verified in special cases from the formula for the
   density of $g(X)$.  For the general case, this result follows from
@@ -58,7 +58,7 @@
 \item Note that the expectation of an indicator function is just the
   probability of the event represented by that indicator function:
   \begin{equation*}
-    \E \1\{ X ∈ A \} = \Pr[X ∈ A]
+    \E \ind\{ X \in A \} = \Pr[X \in A]
   \end{equation*}
 
   Also notice a fundamental and important property of the expectation
@@ -70,23 +70,23 @@
 \item For a random vector, we define the expecation as the vector of
   expectations of the individual elements:
   \begin{equation*}
-    \E X = (\E X₁,...,\E X_k)
+    \E X = (\E X_1,\dots,\E X_k)
   \end{equation*}
 
 \item It is straightforward to see that if $X$ and $Y$ are
   independent then $\E XY = \E X \E Y$.  For proof:
   \begin{align*}
     \E XY
-    &= ∫∫ x y f_{X,Y}(x,y) \dx \dy \\
-    &= ∫∫ xy f_X(x) f_Y(y) \dx \dy \\
-    &= ∫ x f_X(x) \dx ∫ y f_Y(y) \dy \\
+    &= \int\int x y f_{X,Y}(x,y) \dx \dy \\
+    &= \int\int xy f_X(x) f_Y(y) \dx \dy \\
+    &= \int x f_X(x) \dx \int y f_Y(y) \dy \\
     &= \E X \E Y.
   \end{align*}
 
 \item An especially useful inequality based on the expectation is
   \emph{Jensen's inequality}.
   \begin{thm}
-    For any random variable $X$, $\E g(X) ≥ g(\E X)$ for any convex
+    For any random variable $X$, $\E g(X) \geq g(\E X)$ for any convex
     $g$.
   \end{thm}
 
@@ -94,9 +94,9 @@
   \begin{defn}
     A function $g(x)$ is convex if 
     \begin{equation*}
-      g( λ x + (1-λ) y ) ≤ λ g(x) + (1-λ) g(y) 
+      g( \lambda x + (1-\lambda) y ) \leq \lambda g(x) + (1-\lambda) g(y) 
     \end{equation*}
-    for all $λ ∈ [0,1]$ and any $x$ and $y$.
+    for all $\lambda \in [0,1]$ and any $x$ and $y$.
   \end{defn}
 
   [Add a picture.]
@@ -111,51 +111,51 @@
   densities.  If $X$ and $Y$ are two random vectors, the conditional
   expectation of $Y$ given $X$ is
   \begin{equation*}
-    \E(Y ∣ x) = ∫ y f_Y(y ∣ x) \dy
+    \E(Y \mid x) = \int y f_Y(y \mid x) \dy
   \end{equation*}
   where $f_Y$ is the density of $Y$.\sidenote{There are other, more
   fundamental ways to derive conditional expectations that we're not
   going to worry about.}  When we don't want to focus on a specific
-  value of $X$, we just write $\E(Y ∣ X)$ (note that this is now a
+  value of $X$, we just write $\E(Y \mid X)$ (note that this is now a
   function of the random variable $X$).
 
 \item The conditional expectation has some important properties (these
   properties actually make a lot more sense if you view the
   conditional expectation as a projection):
   \begin{enumerate}
-  \item If $Y = g(X)$ for some function $g$ then $\E(Y ∣ X) = Y$.
+  \item If $Y = g(X)$ for some function $g$ then $\E(Y \mid X) = Y$.
     This occurs because the conditional density of $Y$ given $X$ is
     degenerate.
-  \item Similarly, If $X = (X₁, X₂)$ then we have the relationships
+  \item Similarly, If $X = (X_1, X_2)$ then we have the relationships
     \begin{equation*}
-      \E(\E(Y ∣ X) ∣ X₁) = \E(Y ∣ X₁) \quad\text{a.s.}
+      \E(\E(Y \mid X) \mid X_1) = \E(Y \mid X_1) \quad\text{a.s.}
     \end{equation*}
     and
     \begin{equation*}
-      \E(\E(Y ∣ X₁) ∣ X) = \E(Y ∣ X₁) \quad\text{a.s.}
+      \E(\E(Y \mid X_1) \mid X) = \E(Y \mid X_1) \quad\text{a.s.}
     \end{equation*}
     Here it's important to remember the connection between random
-    variables and information sets.  The r.v. $X₁$ contains less
-    information than $X$, so when we first condition on $X₁$ to get
-    $\E(Y ∣ X₁)$, that step removes (integrates out) the information
-    in $X₂$.  A second conditioning step can not restore that
+    variables and information sets.  The r.v. $X_1$ contains less
+    information than $X$, so when we first condition on $X_1$ to get
+    $\E(Y \mid X_1)$, that step removes (integrates out) the information
+    in $X_2$.  A second conditioning step can not restore that
     information.
-  \item $\E(X₁ Y ∣ X) = X₁ \E(Y ∣ X)$; again, given the information in
-    $X$, we can view $X₁$ as a known constant.  The result then
+  \item $\E(X_1 Y \mid X) = X_1 \E(Y \mid X)$; again, given the information in
+    $X$, we can view $X_1$ as a known constant.  The result then
     follows from linearity of the expectation.
   \item The Law of Iterated Expectations
     \begin{thm}
       Suppose that $X$ and $Y$ are random variables and $Y$ has finite
-      mean; then $\E \E(Y ∣ X) = \E Y$.
+      mean; then $\E \E(Y \mid X) = \E Y$.
     \end{thm}
     The proof (assuming densities, etc) is pretty straightforward
     \begin{align*}
-      \E Y &= ∫ y f_Y(y) \dy \\
-      &= ∫ ∫ y f_{X,Y}(x,y) \dx \dy \\
-      &= ∫ ∫ y f_Y(y ∣ X = x) f_X(x) \dx \dy \\
-      &= ∫ ∫ y f_Y(y ∣ X = x) \dy f_X(x) \dx \\
-      &= ∫ \E(Y ∣ X = x) f_X(x) \dx \\
-      &= \E \E(Y ∣ X)
+      \E Y &= \int y f_Y(y) \dy \\
+      &= \int \int y f_{X,Y}(x,y) \dx \dy \\
+      &= \int \int y f_Y(y \mid X = x) f_X(x) \dx \dy \\
+      &= \int \int y f_Y(y \mid X = x) \dy f_X(x) \dx \\
+      &= \int \E(Y \mid X = x) f_X(x) \dx \\
+      &= \E \E(Y \mid X)
     \end{align*}
   \end{enumerate}
 
@@ -174,7 +174,7 @@
 \item %
   \begin{defn}
     The \emph{median} of a distribution $F$ is the value $c$ such that
-    $\Pr[X ≤ c] ≥ 1/2$ and $\Pr[X ≥ c] ≥ 1/2$.
+    $\Pr[X \leq c] \geq 1/2$ and $\Pr[X \geq c] \geq 1/2$.
   \end{defn}
   Note that this definition means that the median may not be unique if
   $X$ is discrete.
@@ -195,9 +195,9 @@
 \item The variance measures a random variable's dispersion about its
   mean, and is defined as
   \begin{equation*}
-    \var(X) = \E(X - \E X)².
+    \var(X) = \E(X - \E X)^2.
   \end{equation*}
-  An equivalent formula is $\var(X) = \E(X²) - (\E X)²$, which can be
+  An equivalent formula is $\var(X) = \E(X^2) - (\E X)^2$, which can be
   easier to use at times.  Obviously the variance is nonnegative (it
   will be zero if $X$ is a constant).
 
@@ -218,23 +218,23 @@
   between $-1$ and 1.
   \begin{thm}[Cauchy-Schwarz inequality]
     Let $X$ and $Y$ be random variables.  Then 
-    \begin{equation}\label{eq:5}
-      \E (|X Y|) ≤ \sqrt{\E X²} \sqrt{\E Y²}
+    \begin{equation}\label{p5}
+      \E (|X Y|) \leq \sqrt{\E X^2} \sqrt{\E Y^2}
     \end{equation}
   \end{thm}
   To prove this result, we're going to show that it is equivalent to
-  something like $0 ≤ something²$;~\eqref{eq:5} is equivalent to
+  something like $0 \leq \text{something}^2$;~\eqref{p5} is equivalent to
   \begin{equation*}
-    0 ≤ \E X² - (\E |X Y|)² / \E Y²
+    0 \leq \E X^2 - (\E |X Y|)^2 / \E Y^2
   \end{equation*}
   as long as $Y$ is not identically zero (if $Y$ is identically zero
   then the result holds trivially).  Then
   \begin{align*}
-    \E X² - (\E |X Y|)² / \E Y²
-    &= \E X² - 2 (\E |XY|)²/ \E Y² + (\E |XY|)²/ \E Y² \\
-    &= \E X² - 2(\E |XY| / \E Y²) \E |XY| + (\E |XY|/\E Y²)² \E Y² \\
-    &= \E(X² - 2(\E |XY| / \E Y²) |X| |Y| + (\E |XY|/\E Y²)² Y²) \\
-    &= \E(|X| - (\E |XY|/\E Y²) |Y|)²
+    \E X^2 - (\E |X Y|)^2 / \E Y^2
+    &= \E X^2 - 2 (\E |XY|)^2/ \E Y^2 + (\E |XY|)^2/ \E Y^2 \\
+    &= \E X^2 - 2(\E |XY| / \E Y^2) \E |XY| + (\E |XY|/\E Y^2)^2 \E Y^2 \\
+    &= \E(X^2 - 2(\E |XY| / \E Y^2) |X| |Y| + (\E |XY|/\E Y^2)^2 Y^2) \\
+    &= \E(|X| - (\E |XY|/\E Y^2) |Y|)^2
   \end{align*}
   and this last quantity is clearly nonnegative.
 
@@ -251,17 +251,17 @@
 \item We can define the variance for vectors as well: $\var(X) = \E(X
   - \E X) (X - \E X)'$.  For vectors, $\var(X)$ is called the
   \emph{variance-covariance matrix}.  Observe that if $X$ has
-  variance-covariance matrix $Σ$ and is $A$ a deterministic $j × k$
-  matrix then $A X$ has variance-covariance matrix $A Σ A'$.
+  variance-covariance matrix $\Sigma$ and is $A$ a deterministic $j \times k$
+  matrix then $A X$ has variance-covariance matrix $A \Sigma A'$.
 
 \item We can verify that the variance-covariance matrix is always
-  positive semi-definite, i.e. that $α'\var(X)α ≥ 0$ for any nonzero
-  $α$:
+  positive semi-definite, i.e. that $\alpha'\var(X)\alpha \geq 0$ for any nonzero
+  $\alpha$:
   \begin{align*}
-    α'\var(X)α &= α' \E((X - \E X)(X - \E X)') α \\
-    &= \E α'(X - \E X)(X - \E X)'α \\
-    &= \E (α'X - \E(α'X))² \\
-    &= \var(α'X) ≥ 0
+    \alpha'\var(X)\alpha &= \alpha' \E((X - \E X)(X - \E X)') \alpha \\
+    &= \E \alpha'(X - \E X)(X - \E X)'\alpha \\
+    &= \E (\alpha'X - \E(\alpha'X))^2 \\
+    &= \var(\alpha'X) \geq 0
   \end{align*}
 
 \item In general, we can refer to the $k$th moment or central moment.
@@ -273,29 +273,29 @@
   result: if the $p$th moment of a random variable is finite, so are
   all moments between 0 and $p$.
 
-  For a proof, let $q$ be between 0 and $p$ and observe that $g(x) ≡
+  For a proof, let $q$ be between 0 and $p$ and observe that $g(x) \equiv
   x^{p/q}$ is convex.  So, for any $Y$, Jensen's inequality implies
-  that $\E g(Y) ≥ g(\E Y)$.  Now, let $Y = |X|^q$, so
-  \begin{equation}\label{eq:4}
-    \E g(|X|^q) ≥ g(\E |X|^q).
+  that $\E g(Y) \geq g(\E Y)$.  Now, let $Y = |X|^q$, so
+  \begin{equation}\label{p4}
+    \E g(|X|^q) \geq g(\E |X|^q).
   \end{equation}
   But $\E g(|X|^q) = \E |X|^p$ and $g(\E |X|^q) = (\E |X|^q)^{p/q}$.
-  Raising both sides of Equation~\eqref{eq:4} to the $q/p$ power
+  Raising both sides of Equation~\eqref{p4} to the $q/p$ power
   completes the proof.
 
 \item The first four moments can be interpreted to some degree; we
   have already discussed the first two.  The random variable $X$'s
-  \emph{skewness} is its normalized third moment, $\E(X - \E X)³ /
-  σ³$, but you will sometimes see slightly different definitions.
+  \emph{skewness} is its normalized third moment, $\E(X - \E X)^3 /
+  \sigma^3$, but you will sometimes see slightly different definitions.
   Skewness measures the asymmetry of the density function: if the
   density is perfectly symmetric, it is zero; if there is a long right
   tail, the skewness is positive, etc.
 
   $X$'s \emph{kurtosis} is its normalized fourth moment, $\E(X - \E
-  X)⁴ / σ⁴$, which measures to some extent the thickness of the tails
+  X)^4 / \sigma^4$, which measures to some extent the thickness of the tails
   (higher kurtosis implies thicker tails).  It is sometimes useful to
-  discuss the \emph{excess kurtosis}, which is $\E(X - \E X)⁴ / σ⁴ -
-  3$; ``3'' is the kurtosis of the normal distribution.
+  discuss the \emph{excess kurtosis}, which is $\E(X - \E X)^4 / \sigma^4 -
+  3$; ``$3$'' is the kurtosis of the normal distribution.
 
 \end{itemize}
 
@@ -304,16 +304,16 @@
 \begin{itemize}
 
 \item Notice that, if $g$ is a Borel-measurable function from $\RR$ to
-  $\RR$, then $g(X)$ is a random variable as well.  For any $B ∈ \BB$,
-  we know that $g^{-1}(B) ∈ \BB$ by measurability of $g$, and so
-  $X^{-1}(g^{-1}(B)) ∈ \Fs$ by measurability of $X$.
+  $\RR$, then $g(X)$ is a random variable as well.  For any $B \in \BB$,
+  we know that $g^{-1}(B) \in \BB$ by measurability of $g$, and so
+  $X^{-1}(g^{-1}(B)) \in \Fs$ by measurability of $X$.
 
   This can be useful when $g$ is smooth and when $X$ has a known
   density function.  If we start with the distribution functions, let
   $H$ be the CDF of $g(X)$ and $F$ the CDF of $X$.  Then, if $g$ is
   invertible and monotone increasing,
   \begin{equation*}
-    H(c) = \Pr[g(X) ≤ c] = \Pr[X ≤ g^{-1} c] = F(g^{-1}(c)).
+    H(c) = \Pr[g(X) \leq c] = \Pr[X \leq g^{-1} c] = F(g^{-1}(c)).
   \end{equation*}
   Now, assuming all of these operations go through, we can write the
   density of $g(X)$ as
@@ -342,10 +342,10 @@
 
 \item \emph{Location-scale families} are a useful special case of the
   transformation formula.  If $X$ is a random variable with density
-  $f_X$ and $f_Y$ is the density of $Y = σ X + μ$ for some constant
-  $μ$ and positive constant $σ$, then
+  $f_X$ and $f_Y$ is the density of $Y = \sigma X + \mu$ for some constant
+  $\mu$ and positive constant $\sigma$, then
   \begin{equation*}
-    f_Y(x) = \tfrac{1}{σ} f_X\big( \tfrac{x - μ}{σ} \big)
+    f_Y(x) = \tfrac{1}{\sigma} f_X\big( \tfrac{x - \mu}{\sigma} \big)
   \end{equation*}
   for all $x$.\footnote{Verify on your own that this follows from the
   general transformation theorem.}
@@ -353,26 +353,26 @@
   This family of pdfs is called the ``location-scale family with
   standard pdf $f_X(x)$.''
   \begin{itemize}
-  \item $μ$ is the \emph{location parameter}
-  \item $σ$ is the \emph{scale parameter}.
+  \item $\mu$ is the \emph{location parameter}
+  \item $\sigma$ is the \emph{scale parameter}.
   \end{itemize}
-  If only $μ$ or $σ$ varies then we have either a \emph{location
+  If only $\mu$ or $\sigma$ varies then we have either a \emph{location
   family} or a \emph{scale family}.
 
 \item The math also becomes more painful if we are dealing with random
   vectors.  A general theory is very painful to work with because of
   dimension changes in particular, but working with one-to-one
-  transformations from $\RRᵏ$ to $\RRᵏ$ is reasonably straightforward.
+  transformations from $\RR^k$ to $\RR^k$ is reasonably straightforward.
   First we need a definition:
   
   \begin{defn}
-    Let $g: \RRᵏ → \RRᵏ$ be a differentiable function.  The Jacobian
+    Let $g: \RR^k \to \RR^k$ be a differentiable function.  The Jacobian
     of this function is the matrix of partial derivatives
     \begin{equation*}
       J(x) =
-      \begin{pmatrix} ∂g₁(x)/∂x₁ & ∂g₁(x)/∂x₂ & ⋯ & ∂g₁/∂x_k \\
-      ⋮ \\
-      ∂g_k/∂x₁ & ⋯ & ⋯ & ∂g_k/∂x_k
+      \begin{pmatrix} \partial g_1(x)/\partial x_1 & \partial g_1(x)/\partial x_2 & \cdots & \partial g_1/\partial x_k \\
+      \vdots \\
+      \partial g_k/\partial x_1 & \cdots & \cdots & \partial g_k/\partial x_k
       \end{pmatrix}.
     \end{equation*}
   \end{defn}
@@ -381,7 +381,7 @@
   \citealp[B.7.7]{Gre12})
   \begin{thm}
     Suppose that $X$ is a random vector in $\RR^k$ with joint density
-    $f_X$ and that $g: \RRᵏ → \RRᵏ$ is one-to-one from the support of
+    $f_X$ and that $g: \RR^k \to \RR^k$ is one-to-one from the support of
     $X$ to its image and let $Y = g(X)$.  Then the joint density of $Y$ is
     \begin{equation}
       f_Y(y) = f_X(g^{-1}(y)) \abs(\det( J(y) ))

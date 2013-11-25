@@ -27,9 +27,9 @@
     Let $\{X_n\}$ be a sequence of random variables with cdfs $F_n$.
     $X_n$ converges in distribution to the distribution $F$ if
     \begin{equation*}
-      \lvert F_n(c) - F(c) \rvert → 0
+      \lvert F_n(c) - F(c) \rvert \to 0
     \end{equation*}
-    as $n → ∞$ for all continuity points $c$ of $F$.
+    as $n \to \infty$ for all continuity points $c$ of $F$.
   \end{defn}
 
   The restriction to continuity points rules out uninteresting (from a
@@ -49,23 +49,23 @@
         1 + 1/n & \text{with probability 1/4}
       \end{cases}
     \end{equation*}
-    Then $X_n → \bernoulli(1/2)$ in distribution but the limit of the
+    Then $X_n \to \bernoulli(1/2)$ in distribution but the limit of the
     cdfs of $X_n$ is not a proper distribution.
   \end{ex}
 
 \item There are many ways to signify convergence in distribution.  In
-  this text, we will typically write $X_n →^d F$ or $X_n →^d X$ where
-  $X ∼ F$.  The definition for random vectors is the same as for
+  this text, we will typically write $X_n \to^d F$ or $X_n \to^d X$ where
+  $X \sim F$.  The definition for random vectors is the same as for
   scalars as long as $c$ is understood to be a vector with the same
   length as $X_n$.
 
 \item In later parts of the book, we'll use the following simple
   results.
   \begin{enumerate}
-  \item If $Y_n →^d c$ where $c$ is a constant, then $Y_n →^p c$.
-  \item If $X_n →^d X$ and $Y_n →^p c$, where $c$ is a constant, then
-    $X_n Y_n →^d c X$ and $X_n + Y_n →^d X + c$.
-  \item If $Y_n →^d Y$ and $X_n - Y_n →^p 0$ then $X_n →^d Y$.
+  \item If $Y_n \to^d c$ where $c$ is a constant, then $Y_n \to^p c$.
+  \item If $X_n \to^d X$ and $Y_n \to^p c$, where $c$ is a constant, then
+    $X_n Y_n \to^d c X$ and $X_n + Y_n \to^d X + c$.
+  \item If $Y_n \to^d Y$ and $X_n - Y_n \to^p 0$ then $X_n \to^d Y$.
   \end{enumerate}
   The third is an obvious implication of the second, but it underpins
   many asymptotic approximation results: if $Y_n$ is relatively easy
@@ -75,7 +75,7 @@
 
   A more general result is the continuous mapping theorem,
   \begin{thm}[Continuous Mapping Theorem]
-    If $X_n →^d X$ and $g$ is a continuous function, then $g(X_n) →^d
+    If $X_n \to^d X$ and $g$ is a continuous function, then $g(X_n) \to^d
     g(X)$.
   \end{thm}
   
@@ -88,31 +88,31 @@
 \item The biggest application of convergence in distribution is the
   central limit theorem.  (I assume you're familiar).
 
-  \begin{thm}[Lindeberg-L‌évy CLT]
-    If $X_1,...,X_n$ are \iid\ $(μ, σ²)$ then
+  \begin{thm}[Lindeberg-L\'evy CLT]
+    If $X_1,...,X_n$ are \iid\ $(\mu, \sigma^2)$ then
     \begin{equation*}
-      \sqrt{n} (\Xb - μ) →^d N(0,σ²).
+      \sqrt{n} (\Xb - \mu) \to^d N(0,\sigma^2).
     \end{equation*}
   \end{thm}
 
   \begin{thm}[Lindeberg-Feller CLT]
     Suppose that $X_1,...,X_n$ are independent random variables with
-    $X_i ∼ (0, σ²_i)$ and $\σb² = (1/n) ∑_{i=1}^n σ²_i$.  If $\σb² → 1$
+    $X_i \sim (0, \sigma^2_i)$ and $\sigmab^2 = (1/n) \sum_{i=1}^n \sigma^2_i$.  If $\sigmab^2 \to 1$
     and
-    \begin{equation}\label{eq:2}
-      (1/n) ∑_{i=1}^n \E( X_i² \1\{ |X_i| > c \sqrt{n} \} ) → 0
+    \begin{equation}\label{a2}
+      (1/n) \sum_{i=1}^n \E( X_i^2 \ind\{ |X_i| > c \sqrt{n} \} ) \to 0
     \end{equation}
-    as $n → ∞$ for all $c > 0$, then $\sqrt{n} \Xb →^d N(0, 1)$.
+    as $n \to \infty$ for all $c > 0$, then $\sqrt{n} \Xb \to^d N(0, 1)$.
   \end{thm}
-  Note that the condition $\σb² → 1$ is typically just a normalization
+  Note that the condition $\sigmab^2 \to 1$ is typically just a normalization
   requirement that can be satisfied by dividing $\sqrt{n} \Xb$ by
-  $\σb/n$ and the condition that each $X_i$ have mean zero can be
+  $\sigmab/n$ and the condition that each $X_i$ have mean zero can be
   trivially satisfied by subtracting off each observation's mean.
 
-\item Equation~\eqref{eq:2} is known as \emph{Lindeberg's condition}
+\item Equation~\eqref{a2} is known as \emph{Lindeberg's condition}
   and is a restriction on the tails of the observations.  A more
-  natural condition that ensures~\eqref{eq:2} is for $\E |X_i|^{2 +
-  δ}$ to be bounded for each $i$.
+  natural condition that ensures~\eqref{a2} is for $\E |X_i|^{2 +
+  \delta}$ to be bounded for each $i$.
 
 \item Proofs use the moment generating function or (for the least
   restrictive conditions) the characteristic function.
@@ -120,7 +120,7 @@
   \begin{defn}
     The \emph{moment generating function} of a random vector $X$ is
     defined as the function $M_X(t) = \E e^{t'X}$ and the
-    \emph{characteristic function} of $X$ is the function $ψ_X(t) = \E
+    \emph{characteristic function} of $X$ is the function $\psi_X(t) = \E
     e^{it'X}$ ($i = \sqrt{-1}$).
   \end{defn}
 
@@ -136,15 +136,15 @@
 
 \item There are multivariate extensions.  A simple one is for \iid\
   random vectors.
-  \begin{thm}[Multivariate Lindeberg-Lévy CLT]\label{multivariateCLT}
-    If $X₁,...,X_n$ are \iid\ random vectors with mean $μ$ and vcv $Σ$,
+  \begin{thm}[Multivariate Lindeberg-L\'evy CLT]\label{multivariateCLT}
+    If $X_1,...,X_n$ are \iid\ random vectors with mean $\mu$ and vcv $\Sigma$,
     then
     \begin{equation*}
-      \sqrt{n}(\Xb - μ) →^d N(0,Σ).
+      \sqrt{n}(\Xb - \mu) \to^d N(0,\Sigma).
     \end{equation*}
   \end{thm}
 
-  The proof uses the Cramèr-Wold device.
+  The proof uses the Crame\`er-Wold device.
   \begin{thm}
     Let $X$ be a random $k$-vector.  If $a'X$ is normally distributed
     for every nonzero deterministic $k$-vector $a$, then $X$ is
@@ -153,9 +153,9 @@
 
   \begin{proof}[Proof of Theorem~\ref{multivariateCLT}]
     Let $a$ be any nonzero vector with the same dimension as $X_i$.
-    The sequence $a'X₁,...,a'X_n$ satisfies the univariate
-    Lindeberg-Lévy CLT and has limiting mean $a'μ$ and variance
-    $a'Σa$.
+    The sequence $a'X_1,...,a'X_n$ satisfies the univariate
+    Lindeberg-L\'evy CLT and has limiting mean $a'\mu$ and variance
+    $a'\Sigma a$.
 \end{proof}
 
 \item It's important to remember that if the individual $X_i$'s are
@@ -178,19 +178,19 @@
   \begin{thm}
     Let $\{Y_n\}$ be a sequence of random variables that satisfies
     \begin{equation*}
-      \sqrt{n} (Y_n - y₀) →^d N(0,σ²)
+      \sqrt{n} (Y_n - y_0) \to^d N(0,\sigma^2)
     \end{equation*}
     and let $g$ be a measurable function that is differentiable with
-    nonzero derivative at $y₀$.  Then
+    nonzero derivative at $y_0$.  Then
     \begin{equation*}
-      \sqrt{n}[g(Y_n) - g(y₀)] →^d N(0, σ²[g'(y₀)]²).
+      \sqrt{n}[g(Y_n) - g(y_0)] \to^d N(0, \sigma^2[g'(y_0)]^2).
     \end{equation*}
   \end{thm}
 
   This result follows from a Taylor expansion of $g(Y_n)$ around
-  $g(y₀)$.
+  $g(y_0)$.
 
-  Note that the assumption of nonzero derivative at $y₀$ is only
+  Note that the assumption of nonzero derivative at $y_0$ is only
   necessary to ensure that the asymptotic variance of $\sqrt{n}
   g(Y_n)$ is positive.  If that condition holds, we can still get a
   distributional result by taking a second order expansion (a
@@ -201,4 +201,4 @@
 %%% TeX-master: "../core_econometrics"
 %%% End: 
 
-%  LocalWords:  Lindeberg's Lindeberg Cramèr Lévy CLT univariate
+%  LocalWords:  Lindeberg's Lindeberg CLT univariate

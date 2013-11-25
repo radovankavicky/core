@@ -18,7 +18,7 @@
 \begin{itemize}
 \item Suppose you have two relationships you are interested in
         (return data, say)
-        \[r_{jt} - r_{ft} = α_j + β_j (r_{mt} - r_{ft}) + ε_{it}\]
+        \[r_{jt} - r_{ft} = \alpha_j + \beta_j (r_{mt} - r_{ft}) + \epsilon_{it}\]
 \begin{itemize}
 \item $j = 1,2$
 \item $t = 1,2,3,...$
@@ -43,25 +43,25 @@
 
 \begin{itemize}
 \item We want to write these two models as
-       \[y₁ = X₁ β₁ + ε₁\]
+       \[y_1 = X_1 \beta_1 + \epsilon_1\]
        and
-       \[y₂ = X₂ β₂ + ε₂\]
+       \[y_2 = X_2 \beta_2 + \epsilon_2\]
 \begin{itemize}
-\item each $y_i$ is $n × 1$
+\item each $y_i$ is $n \times 1$
 \end{itemize}
 \item alternatively
-  \[ \binom{y_{1i}}{y_{2i}} = \binom{x_{1i}'β₁}{x_{2i}'β₂} + 
-  \binom{ε_{1i}}{ ε_{2i}}\]
+  \[ \binom{y_{1i}}{y_{2i}} = \binom{x_{1i}'\beta_1}{x_{2i}'\beta_2} + 
+  \binom{\epsilon_{1i}}{ \epsilon_{2i}}\]
        for $i = 1,...,n$.
 \end{itemize}
 
 \subsection{assumptions}
 
 \begin{description}
-\item[Exogeneity] \[E(\binom{\ep_{1i}}{\ep_{2i}} ∣ X) = 0\] for all $i$
-\item[homoskedasticity] \[E\Big(\binom{ε_{1i}}{ε_{2i}} \binom{ε_{1i}}{ε_{2i}}' ∣ X \Big) = Σ\]
-\item[uncorrelated errors] \[E\Big(\binom{ε_{1i}}{ε_{2i}}
-  \binom{ε_{1j}}{ε_{2j}}' ∣ X \Big) = 0\] if $i ≠ j$.
+\item[Exogeneity] \[E(\binom{\vep_{1i}}{\vep_{2i}} \mid X) = 0\] for all $i$
+\item[homoskedasticity] \[E\Big(\binom{\epsilon_{1i}}{\epsilon_{2i}} \binom{\epsilon_{1i}}{\epsilon_{2i}}' \mid X \Big) = \Sigma\]
+\item[uncorrelated errors] \[E\Big(\binom{\epsilon_{1i}}{\epsilon_{2i}}
+  \binom{\epsilon_{1j}}{\epsilon_{2j}}' \mid X \Big) = 0\] if $i \neq j$.
 \begin{itemize}
 \item allow errors to be correlated across equations but not across
          observations
@@ -75,43 +75,43 @@
 
 \begin{itemize}
 \item We want to rewrite the equations as
-       \[ \binom{\mathbf{y}₁}{\mathbf{y}₂} = \begin{pmatrix} \mathbf{X}₁
-       & 0 \\ 0 & \mathbf{X}₂  \end{pmatrix}
-       \binom{β₁}{β₂} +
-      \binom{\mathbf{\ep}₁}{\mathbf{\ep}₂} \]
+       \[ \binom{\mathbf{y}_1}{\mathbf{y}_2} = \begin{pmatrix} \mathbf{X}_1
+       & 0 \\ 0 & \mathbf{X}_2  \end{pmatrix}
+       \binom{\beta_1}{\beta_2} +
+      \binom{\mathbf{\vep}_1}{\mathbf{\vep}_2} \]
 \begin{itemize}
-\item ie $\mathbf{y} = \mathbf{X} \mathbf{β} + \mathbf{ε}$
+\item ie $\mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon}$
 \end{itemize}
 \item Remarkable thing is that we can estimate this model by GLS
 \begin{itemize}
-\item Note that $E(\mathbf{ε} ∣ \mathbf{X}) = 0$
+\item Note that $E(\mathbf{\epsilon} \mid \mathbf{X}) = 0$
 \item Moreover,
-  \[E(\mathbf{ε} \mathbf{ε}' ∣ \mathbf{X}) = Σ ⊗ I =
-  \begin{pmatrix} σ²_{11} I & σ_{12} I \\ σ_{21} I & σ²_{22} I \end{pmatrix}\]
+  \[E(\mathbf{\epsilon} \mathbf{\epsilon}' \mid \mathbf{X}) = \Sigma \otimes I =
+  \begin{pmatrix} \sigma^2_{11} I & \sigma_{12} I \\ \sigma_{21} I & \sigma^2_{22} I \end{pmatrix}\]
 \item So the model satisfies the requirements for GLS regression to
          be BLUE, even though the dependent variable is different for
          the two equations.
 \end{itemize}
-\item Assume that $Σ$ is known for now, 
-  \[\βh_{GLS} = (X'(Σ ⊗ I)^{-1}X)^{-1}X'(Σ ⊗ I)^{-1}Y\]
+\item Assume that $\Sigma$ is known for now, 
+  \[\betah_{GLS} = (X'(\Sigma \otimes I)^{-1}X)^{-1}X'(\Sigma \otimes I)^{-1}Y\]
 \begin{itemize}
 \item simplify this further:
 \begin{itemize}
-\item $(Σ ⊗ I)^{-1} = Σ^{-1} ⊗ I$
+\item $(\Sigma \otimes I)^{-1} = \Sigma^{-1} \otimes I$
 \begin{itemize}
-\item Let $γ_{ij}$ denote the $i,j$ element of $Σ^{-1}$
+\item Let $\gamma_{ij}$ denote the $i,j$ element of $\Sigma^{-1}$
 \end{itemize}
 \item as a result
-  \[\βh_{SUR} = \begin{pmatrix}
-    γ_{11} X₁'X₁ & γ_{12} X₁'X₂ \\ & γ_{22} X₂'X₂ 
+  \[\betah_{SUR} = \begin{pmatrix}
+    \gamma_{11} X_1'X_1 & \gamma_{12} X_1'X_2 \\ & \gamma_{22} X_2'X_2 
   \end{pmatrix}^{-1} 
   \begin{pmatrix}
-    γ_{11} X₁'y₁ + γ_{12} X₁'y₂ \\ γ_{12} X₂'y₁ + γ_{22} X₂'y₂
+    \gamma_{11} X_1'y_1 + \gamma_{12} X_1'y_2 \\ \gamma_{12} X_2'y_1 + \gamma_{22} X_2'y_2
   \end{pmatrix} \]
 \end{itemize}
 \end{itemize}
 \item variance-covariance matrix is found as usual:
-  \[\var(\βh_{GLS} ∣ X) = (X'(Σ ⊗ I)^{-1}X)^{-1}\]
+  \[\var(\betah_{GLS} \mid X) = (X'(\Sigma \otimes I)^{-1}X)^{-1}\]
 \begin{itemize}
 \item if you don't see this right away, please work through the
          math on your own.  The logic is identical to OLS or GLS.
@@ -127,20 +127,20 @@
 \item here, we assume homoskedasticity and uncorrelated observations
 \item allow correlation across equations.
 \end{itemize}
-\item We can estimate $Σ$ pretty easily:
+\item We can estimate $\Sigma$ pretty easily:
 \begin{itemize}
-\item let $(\εh_{i1}, \εh_{i2})$ be the pair of
+\item let $(\eph_{i1}, \eph_{i2})$ be the pair of
          residuals for observation $i$ from the OLS estimation
 \begin{itemize}
 \item \textbf{remember} OLS is consistent
-\item so $(\εh_{i1}, \εh_{i2})$ is consistent for $(ε_{i1}, ε_{i2})$
+\item so $(\eph_{i1}, \eph_{i2})$ is consistent for $(\epsilon_{i1}, \epsilon_{i2})$
 \end{itemize}
 \item LLN would impliy that
-  \[ n^{-1} ∑_i (ε_{i1}, ε_{i2})' (ε_{i1}, ε_{i2}) → Σ\] in
+  \[ n^{-1} \sum_i (\epsilon_{i1}, \epsilon_{i2})' (\epsilon_{i1}, \epsilon_{i2}) \to \Sigma\] in
   probability
 \end{itemize}
 \item Consistency of the residuals implies
-  \[\Σh = n^{-1} ∑_i (\εh_{i1}, \εh_{i2})'(\εh_{i1},\hat ε_{i2})→ Σ
+  \[\Sigmah = n^{-1} \sum_i (\eph_{i1}, \eph_{i2})'(\eph_{i1},\hat \epsilon_{i2})\to \Sigma
   \quad i.p.\]
 \item plug in to GLS formula for a feasible estimator
 \end{itemize}
@@ -160,70 +160,70 @@
 \paragraph{zero correlation}
 \begin{itemize}
 \item formula for SUR estimator:
-  \[\βh_{SUR} = (X'(Σ ⊗ I)^{-1}X)^{-1}X'(Σ ⊗ I)^{-1}Y\]
-\item Suppose that $σ_{12} = 0$, so
-  \[ Σ ⊗ I = (\begin{matrix} σ_{11}² I & 0 \\ 0 & σ_{22}² I \end{matrix})\]
+  \[\betah_{SUR} = (X'(\Sigma \otimes I)^{-1}X)^{-1}X'(\Sigma \otimes I)^{-1}Y\]
+\item Suppose that $\sigma_{12} = 0$, so
+  \[ \Sigma \otimes I = (\begin{matrix} \sigma_{11}^2 I & 0 \\ 0 & \sigma_{22}^2 I \end{matrix})\]
 \begin{itemize}
 \item First part becomes
-  \[(X'( Σ ⊗ I)^{-1} X) =
-  \begin{pmatrix} X₁'X₁ / σ_{11}² & 0 \\ 0 & X₂'X₂ / σ_{22}² \end{pmatrix}\]
+  \[(X'( \Sigma \otimes I)^{-1} X) =
+  \begin{pmatrix} X_1'X_1 / \sigma_{11}^2 & 0 \\ 0 & X_2'X_2 / \sigma_{22}^2 \end{pmatrix}\]
 \item Second part becomes 
-  \[X'(Σ ⊗ I)^{-1}Y = \binom{X₁' y₁ / σ_{11}²}{X₂'y₂ / σ_{22}²}\]
-\item $\βh_{SUR} = \binom{(X₁'X₁)^{-1}X₁'y₁}{(X₂'X₂)^{-1}X₂'y₂} =
-  \binom{\βh_{1,ols}}{\βh_{2,ols}}$
+  \[X'(\Sigma \otimes I)^{-1}Y = \binom{X_1' y_1 / \sigma_{11}^2}{X_2'y_2 / \sigma_{22}^2}\]
+\item $\betah_{SUR} = \binom{(X_1'X_1)^{-1}X_1'y_1}{(X_2'X_2)^{-1}X_2'y_2} =
+  \binom{\betah_{1,ols}}{\betah_{2,ols}}$
 \end{itemize}
 \end{itemize}
 
 \paragraph{Identical regressors in both models}
 \begin{itemize}
-\item Let $X₁$ and $X₂$ both equal $X$
+\item Let $X_1$ and $X_2$ both equal $X$
 \item Use the simplified form of the SUR estimator:
   \begin{align*}
-    \βh_{SUR}
+    \betah_{SUR}
     &= \begin{pmatrix}
-      γ_{11} X₁'X₁ & γ_{12} X₁'X₂ \\ & γ_{22} X₂'X₂ 
+      \gamma_{11} X_1'X_1 & \gamma_{12} X_1'X_2 \\ & \gamma_{22} X_2'X_2 
     \end{pmatrix}^{-1}
     \begin{pmatrix}
-      γ_{11} X₁'y₁ + γ_{12} X₁'y₂ \\ γ_{12} X₂'y₁ + γ_{22} X₂'y₂
+      \gamma_{11} X_1'y_1 + \gamma_{12} X_1'y_2 \\ \gamma_{12} X_2'y_1 + \gamma_{22} X_2'y_2
     \end{pmatrix} \\
     &= \begin{pmatrix}
-      γ_{11} X'X & γ_{12} X'X \\ & γ_{22}X'X
+      \gamma_{11} X'X & \gamma_{12} X'X \\ & \gamma_{22}X'X
     \end{pmatrix}^{-1}
     \begin{pmatrix}
-      γ_{11} X'y₁ + γ_{12}X'y₂ \\ γ_{12} X'y₁ + γ_{22} X'y₂
+      \gamma_{11} X'y_1 + \gamma_{12}X'y_2 \\ \gamma_{12} X'y_1 + \gamma_{22} X'y_2
     \end{pmatrix}
   \end{align*}
-\item First term becomes $(Σ^{-1} ⊗ X'X)^{-1}$ which equals
-  $Σ ⊗ (X'X)^{-1}$
+\item First term becomes $(\Sigma^{-1} \otimes X'X)^{-1}$ which equals
+  $\Sigma \otimes (X'X)^{-1}$
 \item second term becomes
   \[\begin{pmatrix}
-    X'X (γ_{11}\βh_{1,ols} + γ_{12}\βh_{2,ols}) \\
-    X'X (γ_{21}\βh_{1,ols} + γ_{22}\βh_{2,ols})
+    X'X (\gamma_{11}\betah_{1,ols} + \gamma_{12}\betah_{2,ols}) \\
+    X'X (\gamma_{21}\betah_{1,ols} + \gamma_{22}\betah_{2,ols})
   \end{pmatrix}\]
 \begin{itemize}
 \item Premultipy each $X'y_j$ with $X'X(X'X)^{-1}$
 \end{itemize}
 \item Multiply through and everything cancels, giving
-  \[\βh_{SUR} = \binom{\βh_{1,ols}}{\βh_{2,ols}}\]
+  \[\betah_{SUR} = \binom{\betah_{1,ols}}{\betah_{2,ols}}\]
 \end{itemize}
 
 \subsection{Hypothesis testing}
 
 \paragraph{similarities to OLS/GLS}
 \begin{itemize}
-\item $\βh_{SUR}$ is the estimate of $β₁$ and $β₂$
+\item $\betah_{SUR}$ is the estimate of $\beta_1$ and $\beta_2$
         stacked on top of eachother
-\item We can test hypotheses about the $β$ as usual
+\item We can test hypotheses about the $\beta$ as usual
 \begin{itemize}
 \item hypotheses about a single equation
-          \[ β_{1,1} = 0 \]
+          \[ \beta_{1,1} = 0 \]
           for example
 \item hypotheses about coefficients from different equations
 \begin{itemize}
 \item For example:
 \begin{itemize}
-\item $Y₁$ is log consumption of one good (imagine an individual)
-\item $Y₂$ is log consumption of another, similar good
+\item $Y_1$ is log consumption of one good (imagine an individual)
+\item $Y_2$ is log consumption of another, similar good
 \item Regressors include log prices
 \item may want to test that the elasticty of both goods are
               the same
@@ -235,13 +235,13 @@
 \paragraph{nature of hypothesis}
 \begin{itemize}
 \item We can write both sorts of hypotheses as
-        \[ R β = q \]
-\item the variance of $R\βh - Rβ$ is given by $R(X'(Σ ⊗ I)^{-1}X)^{-1}R'$
+        \[ R \beta = q \]
+\item the variance of $R\betah - R\beta$ is given by $R(X'(\Sigma \otimes I)^{-1}X)^{-1}R'$
 \item Under the null, 
-  \[(R\βh - q)'\left(R(X'(Σ ⊗ I)^{-1}X)R'\right)^{-1}(R\βh - q)\]
+  \[(R\betah - q)'\left(R(X'(\Sigma \otimes I)^{-1}X)R'\right)^{-1}(R\betah - q)\]
   is asymptotically chi-square with $J$-degrees of freedom
-\item Since $\Σh$ is consistent for $Σ$, so is
-  \[(R\βh - q)'\left(R(X'(\Σh ⊗ I)^{-1}X)R'\right)^{-1}(R\βh - q)\]
+\item Since $\Sigmah$ is consistent for $\Sigma$, so is
+  \[(R\betah - q)'\left(R(X'(\Sigmah \otimes I)^{-1}X)R'\right)^{-1}(R\betah - q)\]
 \end{itemize}
 
 %%% Local Variables:

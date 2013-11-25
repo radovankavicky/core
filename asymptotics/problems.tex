@@ -13,51 +13,55 @@
 
 \begin{enumerate}
 
-\item  Suppose that $X₁,...,X_n ∼$ i.i.d. uniform($a$,$b$).
+\item  Suppose that $X_1,...,X_n \sim$ i.i.d. uniform($a$,$b$).
   \begin{enumerate}
   \item Derive the MLE of $\E X_i$ and prove that it is consistent.
   \item Please find the asymptotic distribution of the MLE of $\E
     X_i$.  You will need to rescale the estimator to find an
     asymptotic distribution.  Two hints: it is not asymptotically
-    normal; and you may need to use the result $(1 + \tfrac{1}{n})^n →
-    e$ as $n → ∞$ (``may'' meaning that my solution uses that result).
+    normal; and you may need to use the result $(1 + \tfrac{1}{n})^n \to
+    e$ as $n \to \infty$ (``may'' meaning that my solution uses that result).
   \end{enumerate}
 
 \item Prove the assertions of Example~\ref{convergenceInDist}.
 
-\item Suppose $X₁,...,X_n ∼$ uniform$(-θ, θ)$.  Find
-  the method-of-moments estimator of $θ$ based on
-  \begin{equation}
-    \label{eq:prob_1}
-    n^{-1} ∑_{i=1}^n X_i².
-  \end{equation}
+\item Suppose $X_1,...,X_n \sim$ uniform$(-\theta, \theta)$.  Find
+  the method-of-moments estimator of $\theta$ based on
+  \begin{equation*}
+    n^{-1} \sum_{i=1}^n X_i^2.
+  \end{equation*}
   Is it consistent?  Asymptotically normal?
 
 \item Let $\{e_t\}$ be a sequence of i.i.d. $(0,1)$ random variables
   and let $X_t = e_t + 0.5\, e_{t-1}$.  Such a process is called a
   Moving Average of order 1, abbreviated as MA(1).  What is the
-  probability limit of $n^{-1} ∑_{t=1}^n X_t$ as $n → ∞$?
+  probability limit of $n^{-1} \sum_{t=1}^n X_t$ as $n \to \infty$?
 
-\item Suppose that $Z$ is a random variable with mean $μ$ and variance
-  $σ$ and let $e₁,e₂,...$ be a sequence of i.i.d. random variables with
+\item Suppose that $Z$ is a random variable with mean $\mu$ and variance
+  $\sigma$ and let $e_1,e_2,...$ be a sequence of i.i.d. random variables with
   mean zero and variance 1 that are independent of $Z$.  Show that the
   sequence $X_i = Z + e_i$ obeys the following weak law of large
-  numbers: as $n → ∞$, $n^{-1} ∑_{i=1}^n ( X_i - \E(X_i ∣ Z) ) → 0$ in
-  probability.  Note that $X₁,X₂,...$ is \emph{not} an i.i.d.\ sequence,
+  numbers: as $n \to \infty$, $n^{-1} \sum_{i=1}^n ( X_i - \E(X_i \mid Z) ) \to 0$ in
+  probability.  Note that $X_1,X_2,...$ is \emph{not} an i.i.d.\ sequence,
   but is an example of an \emph{exchangeable} sequence of random
   variables.
 
-\item Suppose that $X_n →^p X$ and that $g$ is a continuous function.
-  Prove that $g(X_n) →^p g(X)$.
+\item Suppose that $X_n \to^p X$ and that $g$ is a continuous function.
+  Prove that $g(X_n) \to^p g(X)$.
 
-\item Let $X₁,...,X_n ∼ N(θ, θ)$.  Derive the MLE of $θ$ and show that
+\item Let $X_1,...,X_n \sim N(\theta, \theta)$.  Derive the MLE of $\theta$ and show that
   it is asymptotically normal.
 
-\item Suppose that $X₁,...,X_n$ are an i.i.d. sample from the density
-  $f(x) = 1/θ$, $0 ≤ x ≤ θ$.  Prove that $\max_i X_i$ is consistent
-  for $θ$.
+\item Suppose that $X_1,...,X_n$ are an i.i.d. sample from the density
+  $f(x) = 1/\theta$, $0 \leq x \leq \theta$.  Prove that $\max_i X_i$ is consistent
+  for $\theta$.
 
-\item Suppose that $X₁,...,X_n ∼$ i.i.d. uniform($a$,$b$).
+\item Let $\{e_t\}$ be a sequence of i.i.d. $(0,1)$ random variables
+  and let $X_t = e_t + 0.5\, e_{t-1}$.  Such a process is called a
+  Moving Average of order 1, abbreviated as MA(1).  What is the
+  probability limit of $n^{-1} \sum_{t=1}^n X_t$ as $n \to \infty$?
+
+\item Suppose that $X_1,...,X_n \sim$ i.i.d. uniform($a$,$b$).
   \begin{enumerate}
   \item Show that $(\min_i X_i, \max_i X_i)$ is the maximum likelihood
     estimator of $(a,b)$.
@@ -65,14 +69,72 @@
   \item Please find the asymptotic distribution of the MLE.  You will
     need to rescale the estimator to find an asymptotic distribution.
     Two hints: it is not asymptotically normal; and you may need to
-    use the result $(1 + \tfrac{1}{n})^n → e$ as $n → ∞$.
+    use the result $(1 + \tfrac{1}{n})^n \to e$ as $n \to \infty$.
   \item Use your answer to the previous question to construct a
     two-sided 90\% confidence interval for $b$.
   \item When we derived the asymptotic distribution earlier, we used
-    only some aspects of the assumption that $X_i ∼$ uniform($a$,$b$).
+    only some aspects of the assumption that $X_i \sim$ uniform($a$,$b$).
     Can you show that $\max_i X_i$ and $\min_i X_i$ have the same
     asymptotic distribution that we derived above under weaker
     assumptions?
+  \end{enumerate}
+
+\item Suppose that $Z$ is a random variable with mean $\mu$ and
+  variance $\sigma$ and let $e_1,e_2,\dots$ be a sequence of
+  i.i.d. random variables with mean zero and variance 1 that are
+  independent of $Z$.  Show that the sequence $X_i = Z + e_i$ obeys
+  the following weak law of large numbers: as $n \to \infty$, $n^{-1}
+  \sum_{i=1}^n ( X_i - \E(X_i \mid Z) ) \to 0$ in probability.  Note
+  that $X_1,X_2,\dots$ is \emph{not} an i.i.d.\ sequence, but is an
+  example of an \emph{exchangeable} sequence of random variables.
+
+\item Suppose that $X_n \to^p X$ and that $g$ is a continuous
+  function.  Prove that $g(X_n) \to^p g(X)$.
+
+\item Let $X_1,\dots,X_n \sim N(\theta, \theta)$.  Derive the MLE of $\theta$ and
+  show that it is asymptotically normal.
+
+\item Suppose that $X_1,\dots,X_n$ are an i.i.d. sample from the
+  density $f(x) = 1/\theta$, $0 \leq x \leq \theta$.  Prove that
+  $\max_i X_i$ is consistent for $\theta$.
+
+\item Let $\{y_t\}$ be an iid $N(0,\sigma^2)$ sequence.  Define $S_T =
+  (T-1)^{-1} \sum_{t=1}^T (y_t - \bar y)^2$.
+  \begin{enumerate}
+  \item Prove that $\sqrt{n} (S_T - \sigma^2) \to N(0,2\sigma^4)$ in
+    distribution.
+  \item Calculate the asymptotic distribution of $\log S_T$.
+  \item Do your results depend on the normality of $y_t$?
+  \item Calculate the 90th and 95th percentile for $S_T$ with
+    arbitrary values of $\sigma^2$ using both of these asymptotic
+    distributions.
+  \item Use each of these results to derive a test of the null
+    hypothesis $\sigma^2 = \sigma_0^2$ against the null $\sigma^2 >
+    \sigma_0^2$, where $\sigma_0^2$ is a known but arbitrary value.
+    Your answer should give two formulas for the test's critical
+    value---each one depends on $\sigma_0^2$ and $\alpha$
+    (the nominal size of the test) and you should have a separate
+    answer for each asymptotic approximation.
+  \item Let $c_1$ and $c_2$ denote the 90th percentiles that you
+    calculated in question ?.  Simulate 1000 i.i.d. standard normal
+    samples with $n = 50$ and calculate the probability that $S_T$ is
+    less than each of these percentiles.
+  \item Repeat the previous question for the 95th percentiles.
+  \item Plot a histogram of your 1000 simulated $S_T$ along with each
+    approximate density for $S_T$.  What do these results tell you
+    about the quality of the approximations?
+  \item You can also prove that $(T-1) S_T$ has a chi-square
+    distribution with $T-1$ degrees of freedom in finite samples.
+    Calculate the 90th and 95th percentiles of $S_T$ using this
+    chi-square distribution and repeat the previous two simulations.
+    How do these simulations compare to the previous simulations?
+  \item Repeat the previous three questions using a skewed
+    distribution and a heavy-tailed distribution (changing the
+    approximation as necessary).  How do the results change?  How do
+    they change if you use different values of $n$?
+  \item What do these simulations tell you about using these
+    approximations for testing.  Focus on the usual confidence levels
+    (i.e. 10\%, 5\%, and 1\% tests).
   \end{enumerate}
 
 \end{enumerate}

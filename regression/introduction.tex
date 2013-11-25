@@ -72,33 +72,33 @@
 \item have k+1 regressors
 \item believe that there's a relationship between the dependent
         variable and the regressors:
-        \[\begin{pmatrix} Y₁ \\ ⋮ \\ Y_n\end{pmatrix}
+        \[\begin{pmatrix} Y_1 \\ \vdots \\ Y_n\end{pmatrix}
         = \begin{pmatrix} 
-        X_{1,0} & X_{1,1} & ⋯ & X_{1,k} \\
-        ⋮ \\
-        X_{n,0} & X_{n,1} & ⋯ & X_{n,k} \end{pmatrix}
-        \begin{pmatrix}  β₀ \\ ⋮ \\ β_k \end{pmatrix}+ 
-        \begin{pmatrix} \ep₁ \\ ⋮ \\ \ep_n \end{pmatrix} \]
+        X_{1,0} & X_{1,1} & \cdots & X_{1,k} \\
+        \vdots \\
+        X_{n,0} & X_{n,1} & \cdots & X_{n,k} \end{pmatrix}
+        \begin{pmatrix}  \beta_0 \\ \vdots \\ \beta_k \end{pmatrix}+ 
+        \begin{pmatrix} \vep_1 \\ \vdots \\ \vep_n \end{pmatrix} \]
 \begin{itemize}
 \item $Y$ is the response vector
 \item $X$ is the design matrix
-\item $β$ is the vector of unknown coefficients
-\item $\ep$ is the error
+\item $\beta$ is the vector of unknown coefficients
+\item $\vep$ is the error
 \item so, the ith row of this relationship is
-  \[Y_i = X_{i,0} β₀ + X_{i,1} β₁ + ⋯ + X_{i,k} β_k + \ep_i\]
+  \[Y_i = X_{i,0} \beta_0 + X_{i,1} \beta_1 + \cdots + X_{i,k} \beta_k + \vep_i\]
 \end{itemize}
 \end{itemize}
 
 \subsection{informal motivation}
 \begin{itemize}
-\item In matrix form: $Y = X β + \ep$
-\item if the error is small, then $Y ≈ Xβ$
+\item In matrix form: $Y = X \beta + \vep$
+\item if the error is small, then $Y \approx X\beta$
 \begin{itemize}
-\item so $X'Y ≈ X'X β$
+\item so $X'Y \approx X'X \beta$
 \begin{itemize}
 \item $X'X$ will be invertible if $X$ has full rank
 \end{itemize}
-\item and then $β ≈ (X'X)^{-1} X'Y$
+\item and then $\beta \approx (X'X)^{-1} X'Y$
 \end{itemize}
 \end{itemize}
 

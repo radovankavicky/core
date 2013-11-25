@@ -33,78 +33,82 @@
   function'').  Suppose that we're interested in a countable number of
   possible outcomes on the real line; think of handful of dice and
   adding up all of the numbers, so the possible values that the sum
-  can take on are in some set $S = \{x_i ∣ i ∈ \ZZ\}$, where \ZZ\ is
+  can take on are in some set $S = \{x_i \mid i \in \ZZ\}$, where \ZZ\ is
   the set of integers.  Then we can define a probability density
-  function $f: \RR → \RR$ as the function such that
+  function $f: \RR \to \RR$ as the function such that
   \begin{enumerate}
-  \item $f(x) ≥ 0$ for all $x ∈ \RR$,
-  \item $f(x) = 0$ for all $x ∉ S$, and
-  \item $∑_{x ∈ S} f(x_i) = 1$.
+  \item $f(x) \geq 0$ for all $x \in \RR$,
+  \item $f(x) = 0$ for all $x \notin S$, and
+  \item $\sum_{x \in S} f(x_i) = 1$.
   \end{enumerate}
 
   So now we can think of a random variable $X$ that takes on values in
-  the set $\mathcal{X}$ with probabilities given by $f$.  And we can
+  the set $\Xc$ with probabilities given by $f$.  And we can
   build a probability function from a density $f$ for the random
-  variable $X$ by asserting that, for any $A ⊂ S$,
+  variable $X$ by asserting that, for any $A \subset S$,
   \begin{equation*}
-    \Pr[ X ∈ A ] = ∑_{s ∈ A} f(s)
+    \Pr[ X \in A ] = \sum_{s \in A} f(s)
   \end{equation*}
 
 \item If we want to let $X$ take on the entire range of values in \RR\
   we can proceed the same way.  Again define the density function $f:
-  \RR → \RR$ such that
+  \RR \to \RR$ such that
   \begin{enumerate}
-  \item $f(x) ≥ 0$ for all $x ∈ \RR$ and
-  \item $∫_{-∞}^∞ f(x) \dx = 1$.
+  \item $f(x) \geq 0$ for all $x \in \RR$ and
+  \item $\int_{-\infty}^\infty f(x) \dx = 1$.
   \end{enumerate}
-  (The set $S ⊂ \RR$ s.t. $f(x) > 0$ for all $x ∈ S$ and $f(x) = 0$
-  for all $x ∉ S$ is called the \emph{support} of the r.v. $X$.)  We
+  (The set $S \subset \RR$ s.t. $f(x) > 0$ for all $x \in S$ and $f(x) = 0$
+  for all $x \notin S$ is called the \emph{support} of the r.v. $X$.)  We
   can again build a probability function from the density function.
-  For any closed interval $[a, b]$,\sidenote{Remember, $[a,b] = \{x ∈
-  \RR ∣ a ≤ x ≤ b\}$.} we can define
+  For any closed interval $[a, b]$,\sidenote{Remember, $[a,b] = \{x \in
+  \RR \mid a \leq x \leq b\}$.} we can define
   \begin{equation*}
-    \Pr[ X ∈ [a,b] ] = ∫_a^b f(x) \dx,
+    \Pr[ X \in [a,b] ] = \int_a^b f(x) \dx,
   \end{equation*}
   and for any set $A$ that can be written as the union of a countable
-  number of disjoint intervals, $A = ⋃_i [a_i, b_i]$, where $⋂_i [a_i,
-  b_i] = ∅$, we can define
+  number of disjoint intervals, $A = \bigcup_i [a_i, b_i]$, where
+  $\bigcap_i [a_i, b_i] = \emptyset$, we can define
   \begin{equation*}
-    \Pr[ X ∈ A ] = ∑_i \Pr[ X ∈ [a_i, b_i] ] = ∑_i ∫_{a_i}^{b_i} f(x) \dx
+    \Pr[ X \in A ] = \sum_i \Pr[ X \in [a_i, b_i] ]
+    = \sum_i \int_{a_i}^{b_i} f(x) \dx
   \end{equation*}
 
 \item It's natural to want to go even further, and define for any set
-  $A ⊂ \RR$
+  $A \subset \RR$
   \begin{equation*}
-    \Pr[ X ∈ A ] = ∫_A f(x) \dx ≡ ∫_{-∞}^∞ \1\{x ∈ A\} f(x) \dx,
+    \Pr[ X \in A ] = \int_A f(x) \dx 
+    \equiv \int_{-\infty}^\infty \ind\{x \in A\} f(x) \dx,
   \end{equation*}
   but it turns out that this integral is not well-defined for every $A
-  ⊂ \RR$ (and, consequently, it's possible to construct functions $f$
+  \subset \RR$ (and, consequently, it's possible to construct functions $f$
   that can't be used as densities, a fact that we glossed over
   earlier).  However, it should be obvious that we can construct a
   self-contained set of subsets of \RR, call it \BB, so that we can
-  define $\Pr[X ∈ B] = ∫_B f(x) \dx$ for all $B ∈ \BB$.
+  define $\Pr[X \in B] = \int_B f(x) \dx$ for all $B \in \BB$.
 
   We can motivate some of properties that \BB\ needs from properties
   that seem necessary for the probability function $\Pr$.
 
   \begin{enumerate}
-  \item We need $\Pr[X ∈ \RR] = ∫_{-∞}^∞ f(x) \dx = 1$, so \RR\ must be
-    in \BB.
-  \item If $\Pr[X ∈ B]$ is well defined then $\Pr[X ∉ B]$ should be as
-    well, and we should have $\Pr[X ∉ B] = 1 - \Pr[X ∈ B]$.  Since $X
-    ∉ B$ is equivalent to $X ∈ B^c$, $B^c$ must be in \BB\ whenever
-    $B$ is.
-  \item If $B₁$, $B₂$, $B₃$,… make up a countable sequence of sets and
-    we can define $\Pr[X ∈ B_i]$ for each of them, we should be able
-    to define $\Pr[X ∈ ⋃_i B_i]$ and $\Pr[X ∈ ⋂_i B_i]$.  So \BB\ must
-    be closed under countable unions and intersections.
+  \item We need $\Pr[X \in \RR] = \int_{-\infty}^\infty f(x) \dx = 1$,
+    so \RR\ must be in \BB.
+  \item If $\Pr[X \in B]$ is well defined then $\Pr[X \notin B]$
+    should be as well, and we should have $\Pr[X \notin B] = 1 - \Pr[X
+    \in B]$.  Since $X \notin B$ is equivalent to $X \in B^c$, $B^c$
+    must be in \BB\ whenever $B$ is.
+  \item If $B_1$, $B_2$, $B_3$,\dots make up a countable sequence of
+    sets and we can define $\Pr[X \in B_i]$ for each of them, we
+    should be able to define $\Pr[X \in \bigcup_i B_i]$ and $\Pr[X \in
+    \bigcap_i B_i]$.  So \BB\ must be closed under countable unions
+    and intersections.
   \end{enumerate}
 
   Any set of sets \BB\ that satisfies those three properties is called
-  a \emph{sigma-algebra} (or \emph{σ-algebra}).  For subsets of the
-  real line, there's an especially useful and common σ-algebra, the
-  \emph{Borel σ-algebra},which is defined as the smallest σ-algebra
-  that has all of the intervals as elements.
+  a \emph{sigma-algebra} (or \emph{\sigmaalgebra}).  For subsets of
+  the real line, there's an especially useful and common
+  \sigmaalgebra, the \emph{Borel \sigmaalgebra},which is defined as
+  the smallest \sigmaalgebra\ that has all of the intervals as
+  elements.
 
 \item The integral we're interested is a little different than the
   usual Riemann integral that you've seen in introductory calculus
@@ -114,37 +118,37 @@
   function's domain, while the Riemann integral works by taking
   different points in the function's domain and mapping them to the
   height.\sidenote{Remember, to get the Riemann integral of a function
-  $g: \RR → \RR$ over $[a,b]$, first define an increasingly fine
-  partition of $[a,b]$, $\{x_{i,n}, i = 1,…n, n = 1,2,…\}$ such that
+  $g: \RR \to \RR$ over $[a,b]$, first define an increasingly fine
+  partition of $[a,b]$, $\{x_{i,n}, i = 1,\dots,n = 1,2,\dots\}$ such that
   $a = x_{1,n}$, $b = x_{n,n}$, $x_{i,n} < x_{i+1,n}$ for all $i$
-  and $\max_{i=1,…,n-1} |x_{i+1,n} - x_{i,n}| → 0$ as $n → ∞$.  If
-  we let $M_i = \max_{x ∈ [x_{i,n}, x_{i+1,n}]} g(x)$ and $m_i =
-  \min_{x ∈ [x_{i,n}, x_{i+1,n}]} g(x)$, then the Riemann integral
+  and $\max_{i=1,\dots,n-1} |x_{i+1,n} - x_{i,n}| \to 0$ as $n \to \infty$.  If
+  we let $M_i = \max_{x \in [x_{i,n}, x_{i+1,n}]} g(x)$ and $m_i =
+  \min_{x \in [x_{i,n}, x_{i+1,n}]} g(x)$, then the Riemann integral
   exists if
   \begin{multline*}
-    \lim_{n → ∞} ∑_{i=1}^{n-1} M_i (x_{i+1,n} - x_{i,n}) \\
-    = \lim_{n → ∞} ∑_{i=1}^{n-1} m_i (x_{i+1,n} - x_{i,n})
+    \lim_{n \to \infty} \sum_{i=1}^{n-1} M_i (x_{i+1,n} - x_{i,n}) \\
+    = \lim_{n \to \infty} \sum_{i=1}^{n-1} m_i (x_{i+1,n} - x_{i,n})
   \end{multline*}
   for any partition $\{x_{n,i}\}$.} 
   So, if $g$ is any step function that can be written as a step
   function of Borel sets,
   \begin{equation*}
-    g(x) = ∑_{i=1}^∞ c_i \1\{x ∈ B_i\}
+    g(x) = \sum_{i=1}^\infty c_i \ind\{x \in B_i\}
   \end{equation*}
-  where $B_i ∈ \BB$, we can define the Lebesgue integral as
+  where $B_i \in \BB$, we can define the Lebesgue integral as
   \begin{equation*}
-    ∫ g dμ = ∑_{i=1}^∞ c_i μ(B_i),
+    \int g \dmu = \sum_{i=1}^\infty c_i \mu(B_i),
   \end{equation*}
-  where $μ(B_i)$ is the length of the set $B_i$.\sidenote{I should
+  where $\mu(B_i)$ is the length of the set $B_i$.\sidenote{I should
   maybe add a definition or an Appendix on Lebesgue measure, but
   that will probably happen later.}  The integrals of functions that
   are not step functions can be evaluated as the limit of a sequence
   of integrals of functions that are step functions.  For example, if
-  $g_n → f$ as $n → ∞$ where each $g_n = ∑_i c_{i,n} \1\{x ∈ B_{i,n}\}$
-  then we often can show that
-  $∫ f \dμ = \lim_{n → ∞} ∑_i c_{i,n} μ(B_{i,n})$ (I say ``often''
+  $g_n \to f$ as $n \to \infty$ where each $g_n = \sum_i c_{i,n}
+  \ind\{x \in B_{i,n}\}$ then we often can show that $\int f \dmu =
+  \lim_{n \to \infty} \sum_i c_{i,n} \mu(B_{i,n})$ (I say ``often''
   because there are some conditions on the sequence $\{g_n\}$ that we
-  haven't mentioned that need to be satisfied for this to hold)
+  haven't mentioned that need to be satisfied for this to hold).
 
   For all of this to work, we need to be able to find a Borel set in
   the domain of the function for any set of points in the range;
@@ -153,171 +157,171 @@
     g^{-1}(\{x\}) =
     \begin{cases}
       B_i & x = c_i \\
-      ∅ & x ∉ \{c₁, c₂,…\}
+      \emptyset & x \notin \{c_1, c_2,\dots\}
     \end{cases}
   \end{equation*}
-  and, for any $B ∈ \BB$, $g^{-1}(B) = ⋃_{i ∈ I} B_i$ where $I = \{i ∣
-  c_i ∈ B\}$.\sidenote{You should prove on your own that this means
-  that $\{g^{-1}(B) ∣ B ∈ \BB\}$ is a σ-algebra and is a subset of
-  \BB.}
+  and, for any $B \in \BB$, $g^{-1}(B) = \bigcup_{i \in I} B_i$ where
+  $I = \{i \mid c_i \in B\}$.\sidenote{You should prove on your own
+    that this means that $\{g^{-1}(B) \mid B \in \BB\}$ is a
+    \sigmaalgebra\ and is a subset of \BB.}
 
 \item The key property, then, for this integral to work is that
-  $g^{-1}(\BB)$ itself be a σ-algebra that is contained in \BB.  Such
+  $g^{-1}(\BB)$ itself be a \sigmaalgebra\ that is contained in \BB.  Such
   a function is called \emph{Borel-measurable}.  We're going to
   restrict our focus to densities $f$ that are Lebesgue measurable, so
   we can always write probabilities as
   \begin{equation*}
-    \Pr[X ∈ B] = ∫_B f(x) dx
+    \Pr[X \in B] = \int_B f(x) dx
   \end{equation*}
   for Borel-sets $B$.  We won't be able to define these probabilities
   for non-Borel sets, but that's fine; in this case, every function
   that we'd want to work with is Lebesgue-measurable and every set
   that we'd want to work with is a Borel set.\sidenote{Add example of
-  unmeasurable set here….}
+  unmeasurable set here\dots.}
 
   If we're clever, we can define probabilities for discrete random
-  variables the same way.  Define the function $δ$, known as Dirac's
-  δ-function, as $δ = \lim_{n → ∞} δ_n$ where
+  variables the same way.  Define the function $\delta$, known as Dirac's
+  \deltafunction, as $\delta = \lim_{n \to \infty} \delta_n$ where
   \begin{equation*}
-    δ_n(x) =
+    \delta_n(x) =
     \begin{cases}
-      n + n² x & - \tfrac{1}{n} ≤ x ≤ 0 \\
-      n - n² x & 0 < x ≤ \tfrac{1}{n} \\
+      n + n^2 x & - \tfrac{1}{n} \leq x \leq 0 \\
+      n - n^2 x & 0 < x \leq \tfrac{1}{n} \\
       0        & \text{otherwise},
     \end{cases}
   \end{equation*}
-  so each $δ_n$ is a very narrow, very tall spike at 0 with total area
+  so each $\delta_n$ is a very narrow, very tall spike at 0 with total area
   1, and as $n$ grows the spike gets narrower and higher.  The limit
-  $δ$ is an infinitely tall, infinitely narrow spike at 0 with total
+  $\delta$ is an infinitely tall, infinitely narrow spike at 0 with total
   area 1.
 
   Under Lebesgue-measure, we can now define the density of a
   Bernoulli(1/2) random variable $b$ as
   \begin{equation*}
-    f_b(x) = \tfrac{1}{2} δ(x) + \tfrac{1}{2} δ(x - 1).
+    f_b(x) = \tfrac{1}{2} \delta(x) + \tfrac{1}{2} \delta(x - 1).
   \end{equation*}
-  This lets us write $\Pr[b ∈ B] = ∫_B f_b(x) \dx$ for any Borel-set
+  This lets us write $\Pr[b \in B] = \int_B f_b(x) \dx$ for any Borel-set
   $B$, which is what we want.\sidenote{You should work through all of
   the steps necessary to prove this to yourself.}
 
 \item Two key points to emphasize and remember: if the usual Riemann
   integral of a function exists, its value is the same as the Lebesgue
   integral. And it is very difficult to accidentally write down a
-  function on \RRⁿ\ that is not Lebesgue measurable, so don't worry
+  function on $\RR^n$ that is not Lebesgue measurable, so don't worry
   that you will.
 
 \item The probabilities for a given random variable $X$ can be
   summarized by its \emph{cumulative distribution function} (CDF)
   which is typically written as $F_X$ and is defined as
   \begin{equation*}
-    F_x(c) ≡ \Pr[X ≤ c] = \Pr[X ∈ (∞, c]]
+    F_x(c) \equiv \Pr[X \leq c] = \Pr[X \in (\infty, c]]
   \end{equation*}
-  for any $c ∈ \RR$.  The CDF of a random variable always exists and
+  for any $c \in \RR$.  The CDF of a random variable always exists and
   satisfies
   \begin{enumerate}
-  \item $\lim_{x → -∞} F_X(x) = 0$
-  \item $\lim_{x → ∞} F_X(x) = 1$
+  \item $\lim_{x \to -\infty} F_X(x) = 0$
+  \item $\lim_{x \to \infty} F_X(x) = 1$
   \item $F_X$ is non-decreasing in $x$.
-  \item $F_X$ is right-continuous.  For every number $x₀$,
-    $\lim_{x ↓ x₀} F(x) = F(x₀)$.
+  \item $F_X$ is right-continuous.  For every number $x_0$,
+    $\lim_{x \downarrow x_0} F(x) = F(x_0)$.
   \end{enumerate}
 
-  You should verify the property $\Pr[X ∈ (a, b]] = F_X(b) - F_X(a)$
+  You should verify the property $\Pr[X \in (a, b]] = F_X(b) - F_X(a)$
   as homework.
 
 \item Obviously we can have vectors of random variables (often called
   \emph{random vectors}).  These vectors have density functions too,
-  which we can build up sequentially.  If $X₁ ∼ f₁$, we can imagine
-  that a second r.v., $X₂$ has (potentially) a different density that
-  depends on the value of $X₁$; write it as $f₂(· ∣ x₁)$, where $x₁$
-  is a hypothetical value of $X₁$ (and the function $f₂(· ∣ x₁)$ is
-  defined for all values in the support of $X₁$.  Then the joint
-  density of $X₁$ and $X₂$, which we'll write as $f$, can be evaluated
-  as
-  \begin{equation}\label{eq:2}
-    f(x₁,x₂) = f₂(x₂ ∣ x₁) × f₁(x₁).
+  which we can build up sequentially.  If $X_1 \sim f_1$, we can
+  imagine that a second r.v., $X_2$ has (potentially) a different
+  density that depends on the value of $X_1$; write it as $f_2(\cdot
+  \mid x_1)$, where $x_1$ is a hypothetical value of $X_1$ (and the
+  function $f_2(\cdot \mid x_1)$ is defined for all values in the
+  support of $X_1$.  Then the joint density of $X_1$ and $X_2$, which
+  we'll write as $f$, can be evaluated as
+  \begin{equation}\label{p2}
+    f(x_1,x_2) = f_2(x_2 \mid x_1) \times f_1(x_1).
   \end{equation}
   For discrete random variables, you can interpret this as saying
-  ``the probability that $X₁$ and $X₂$ take the values $x₁$ and $x₂$
-  is equal to the probability that $X₁$ takes the value $x₁$ and then
-  $X₂$ takes the value $x₂$.''  But don't read too much into the word
+  ``the probability that $X_1$ and $X_2$ take the values $x_1$ and $x_2$
+  is equal to the probability that $X_1$ takes the value $x_1$ and then
+  $X_2$ takes the value $x_2$.''  But don't read too much into the word
   ``then'' too literally since the ordering isn't important.  We can
   also write
   \begin{equation}
-    f(x₁,x₂) = f₁(x₁ ∣ x₂) f₂(x₂).
+    f(x_1,x_2) = f_1(x_1 \mid x_2) f_2(x_2).
   \end{equation}
 
-  If the conditional density of $X₁$ does not depend on $X₂$ (or vice
+  If the conditional density of $X_1$ does not depend on $X_2$ (or vice
   versa) the random variables are said to be \emph{independent}.  This
   means that joint density can be written as
   \begin{equation*}
-    f(x₁,x₂) = f₁(x₁) × f₂(x₂)
+    f(x_1,x_2) = f_1(x_1) \times f_2(x_2)
   \end{equation*}
   The elements of a $k$-vector of random variables are independent if
   \begin{equation*}
-    f(x₁,…,x_k) = ∏_{i=1}^k f_i(x_i)
+    f(x_1,\dots,x_k) = \prod_{i=1}^k f_i(x_i)
   \end{equation*}
-  for all $x₁,…,x_k$ in the random variables' support.
+  for all $x_1,\dots,x_k$ in the random variables' support.
 
 \begin{figure}[t]
   [Empty for now.  Sometime soon, I'll add a figure.]
   \caption{Illustration of the conditional density math to go here.}
 \end{figure}
 
-  The functions $f₁(· ∣ x2)$ and $f₂(· ∣ x₁)$ are called \emph{the
-  conditional densities of $X₁$ and $X₂$} respectively.  Given the
+  The functions $f_1(\cdot \mid x2)$ and $f_2(\cdot \mid x_1)$ are called \emph{the
+  conditional densities of $X_1$ and $X_2$} respectively.  Given the
   joint and marginal densities, they can be calculated/defined as
   \begin{equation*}
-    f₁(x₁ ∣ x₂) = f(x₁, x₂) / f₂(x₂)
+    f_1(x_1 \mid x_2) = f(x_1, x_2) / f_2(x_2)
   \end{equation*}
   Conditional probabilities of events and conditional distribution
   functions can be defined using this conditional density just as
   before; e.g.
   \begin{equation*}
-    F₁(x ∣ x₂) = ∫_{-∞}^x f₁(z ∣ x₂) dz
+    F_1(x \mid x_2) = \int_{-\infty}^x f_1(z \mid x_2) dz
   \end{equation*}
-  defines the \emph{conditional CDF of $X₁$ given $X₂$}, where $x₂$ is
-  a different hypothetical value in $X₂$'s support.
+  defines the \emph{conditional CDF of $X_1$ given $X_2$}, where $x_2$ is
+  a different hypothetical value in $X_2$'s support.
 
-\item Note that we can recover the marginal density of $X₁$ from
-  Equation~\eqref{eq:2} by integrating out the conditional density of
-  $X₂$:
+\item Note that we can recover the marginal density of $X_1$ from
+  Equation~\eqref{p2} by integrating out the conditional density of
+  $X_2$:
   \begin{equation*}
-    ∫_{-∞}^{-∞} f₂(x₂ ∣ x₁) f₁(x₁) \dx_2 = f₁(x₁)
+    \int_{-\infty}^{-\infty} f_2(x_2 \mid x_1) f_1(x_1) \dx_2 = f_1(x_1)
   \end{equation*}
-  since $f₂(· ∣ x₁)$ is a density function and so integrates to 1.
+  since $f_2(\cdot \mid x_1)$ is a density function and so integrates to 1.
   This gives a slightly less obvious relationship between the
   \emph{joint} and marginal densities:
   \begin{equation*}
-    ∫_{-∞}^{-∞} f(x₁, x₂) \dx_2 = f₁(x₁).
+    \int_{-\infty}^{-\infty} f(x_1, x_2) \dx_2 = f_1(x_1).
   \end{equation*}
   There is clearly nothing special about the order of the variables.
 
 \item We can define the joint CDF as
   \begin{equation*}
-    F(x₁,…,x_k) = \Pr[X₁ ≤ x₁,…, X_k ≤ x_k].
+    F(x_1,\dots,x_k) = \Pr[X_1 \leq x_1,\dots, X_k \leq x_k].
   \end{equation*}
   and can be retrieved from the joint density as before:
   \begin{equation*}
-    F(x₁,…,x_k) = ∫_{-∞}^{x₁} ⋯ ∫_{-∞}^{x_k} f(z₁,…,z_k) \dz_1 ⋯ \dz_k.
+    F(x_1,\dots,x_k) = \int_{-\infty}^{x_1} \cdots \int_{-\infty}^{x_k} f(z_1,\dots,z_k) \dz_1 \cdots \dz_k.
   \end{equation*}
   Writing this equation explicitly makes it clear that the CDF can be
   factored under independence just as the densities can.
 
   The marginal distribution and density functions can be derived
-  directly from the joint distribution and density.  If we let $F₁$ be
-  the marginal distribution of the first element and $f₁$ the marginal
+  directly from the joint distribution and density.  If we let $F_1$ be
+  the marginal distribution of the first element and $f_1$ the marginal
   density, then we have
   \begin{equation*}
-    F₁(x) = F(x, ∞,…,∞)
+    F_1(x) = F(x, \infty,\dots,\infty)
   \end{equation*}
   which is obvious in retrospect, because adding the additional
-  restrictions that $X_j ∈ (-∞, ∞)$ for $j = 2,…,k$ imposes no new
+  restrictions that $X_j \in (-\infty, \infty)$ for $j = 2,\dots,k$ imposes no new
   constraints on the vector $X$.
 
   Similarly, the relationship
   \begin{equation*}
-    f₁(x) = ∫_{-∞}^∞ ⋯ ∫_{-∞}^∞ f(z₁,…,z_k) \dz_k ⋯ \dz_2.
+    f_1(x) = \int_{-\infty}^\infty \cdots \int_{-\infty}^\infty f(z_1,\dots,z_k) \dz_k \cdots \dz_2.
   \end{equation*}
   can also seen by starting with the marginal CDF and then
   differentiating to get the density.
@@ -328,7 +332,7 @@
 
 \begin{itemize}
 
-\item In the previous section, we motivated the Borel σ-algebra as a
+\item In the previous section, we motivated the Borel \sigmaalgebra as a
   collection of sets that it makes sense to assign length to, and that
   it makes sense to talk about the ``Probability'' of a random
   variable landing in.  As you've probably seen elsewhere, we should
@@ -345,8 +349,8 @@
 
   In general, we can call the set of all possible outcomes of a
   (possibly hypothetical) experiment the \emph{sample space} of the
-  experiment, and let $Ω$ be the \emph{σ-algebra} of the experiment if
-  it satisfies the rules we discussed above.  The elements of $Ω$ are
+  experiment, and let $\Omega$ be the \emph{\sigmaalgebra} of the experiment if
+  it satisfies the rules we discussed above.  The elements of $\Omega$ are
   usually referred to as \emph{events}.
 
   Since set theory plays a large role in this material,
@@ -357,53 +361,53 @@
   \toprule
   \multicolumn{2}{c}{Finite Set Operations} \\
   \midrule
-  Union        & $A₁ ∪ A₂ ≡ \{x ∈ S : x ∈ A₁ \text{ or } x∈ A₂\}$ \\
-  Intersection & $A₁ ∩ A₂ ≡ \{x ∈ S : x ∈ A₁ \text{ and } x ∈ A₂\}$ \\
-  Subset       & $A₁ ⊂ A₂$ if $A₁ ∩ A₂ = A₁$ \\
-  Equality     & $A₁ = A₂$ if $A₁ ⊂ A₂$ and $A₂ ⊂ A₁$ \\
-  Complement   & $A₁^c ≡ \{x ∈ S : x ∉ A₁\}$ \\
-  Difference   & $A₁ ∖ A₂ ≡ \{x ∈ S : x ∈ A₁ \text{ and } x ∉ A₂\}$ \\
-  Symmetric difference & $A₁ Δ A₂ ≡ (A₁ ∖ A₂) ∪ (A₂ ∖ A₁)$ \\
+  Union        & $A_1 \cup A_2 \equiv \{x \in S : x \in A_1 \text{ or } x\in A_2\}$ \\
+  Intersection & $A_1 \cap A_2 \equiv \{x \in S : x \in A_1 \text{ and } x \in A_2\}$ \\
+  Subset       & $A_1 \subset A_2$ if $A_1 \cap A_2 = A_1$ \\
+  Equality     & $A_1 = A_2$ if $A_1 \subset A_2$ and $A_2 \subset A_1$ \\
+  Complement   & $A_1^c \equiv \{x \in S : x \notin A_1\}$ \\
+  Difference   & $A_1 \setminus A_2 \equiv \{x \in S : x \in A_1 \text{ and } x \notin A_2\}$ \\
+  Symmetric difference & $A_1 \Delta A_2 \equiv (A_1 \setminus A_2) \cup (A_2 \setminus A_1)$ \\
   \midrule
   \multicolumn{2}{c}{Infinite Set Operations (can be defined for uncountable index sets as well)} \\
   \midrule
-  Union        & $⋃_{k=1}^∞ A_k ≡ \{x ∈ S : x ∈ A_k$ for at least one $k ∈ 1,2,…\}$ \\
-  Intersection & $⋂_{k=1}^∞ A_k ≡ \{x ∈ S : x ∈ A_k$ for all $k ∈ 1,2,…\}$ \\
-  Infimum      & $\inf_{k ≥ n} A_k ≡ ⋂_{k=n}^∞ A_k$ \\
-  Supremum     & $\sup_{k ≥ n} A_k ≡ ⋃_{k=n}^∞ A_k$ \\
-  lim inf      & $\liminf_{n → ∞} A_n ≡ ⋃_{n=1}^∞ ⋂_{k=n}^∞ A_k$ \\
-  lim sup      & $\limsup_{n → ∞} A_n ≡ ⋂_{n=1}^∞ ⋃_{k=n}^∞ A_k$ \\
+  Union        & $\bigcup_{k=1}^\infty A_k \equiv \{x \in S : x \in A_k$ for at least one $k \in 1,2,\dots\}$ \\
+  Intersection & $\bigcap_{k=1}^\infty A_k \equiv \{x \in S : x \in A_k$ for all $k \in 1,2,\dots\}$ \\
+  Infimum      & $\inf_{k \geq n} A_k \equiv \bigcap_{k=n}^\infty A_k$ \\
+  Supremum     & $\sup_{k \geq n} A_k \equiv \bigcup_{k=n}^\infty A_k$ \\
+  lim inf      & $\liminf_{n \to \infty} A_n \equiv \bigcup_{n=1}^\infty \bigcap_{k=n}^\infty A_k$ \\
+  lim sup      & $\limsup_{n \to \infty} A_n \equiv \bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k$ \\
   \midrule
   \multicolumn{2}{c}{Other definitions} \\
   \midrule
   limit 
-  & Suppose that $A$, $A₁$, $A₂$,… is a sequence of subsets of $S$ and that $\limsup_{n → ∞} A_n = \liminf_{n → ∞} A_n = A$.
+  & Suppose that $A$, $A_1$, $A_2$,\dots is a sequence of subsets of $S$ and that $\limsup_{n \to \infty} A_n = \liminf_{n \to \infty} A_n = A$.
   Then $A$ is the limit of $\{A_n\}$. \\
   Disjoint 
-  & $A₁$ and $A₂$ are disjoint if $A₁ ∩ A₂ = ∅$. \\
+  & $A_1$ and $A_2$ are disjoint if $A_1 \cap A_2 = \emptyset$. \\
   Pairwise disjoint 
-  & $A₁, A₂, …$ are pairwise disjoint if $A_i ∩ A_j = ∅$ for all $i$ and $j$ such that $i ≠ j$. \\
-  Partition & If $A₁,A₂,…$ are pairwise disjoint and $⋃_{i=1}^∞ A_i = S$ then $\{A_i\}$ forms a partition of $S$. \\
+  & $A_1, A_2, \dots$ are pairwise disjoint if $A_i \cap A_j = \emptyset$ for all $i$ and $j$ such that $i \neq j$. \\
+  Partition & If $A_1,A_2,\dots$ are pairwise disjoint and $\bigcup_{i=1}^\infty A_i = S$ then $\{A_i\}$ forms a partition of $S$. \\
   Power set & The power set of $S$, denoted $\mathcal{P}(S)$, is the set of all subsets of $S$.
-  $\mathcal{P}(S) ≡ \{x : x ⊂ S\}$ \\
+  $\mathcal{P}(S) \equiv \{x : x \subset S\}$ \\
 \bottomrule
 \end{tabular}
-  \caption{Collection of set operations; let $A₁$, $A₂$, $A₃$,… be subsets of another set $S$.}
+  \caption{Collection of set operations; let $A_1$, $A_2$, $A_3$,\dots be subsets of another set $S$.}
   \label{tab:1}
 \end{table*}
 
 \item %
-  \begin{defn} A collection $Ω$ of subsets of $S$ is a
-    \emph{σ-algebra} if it satisfies the following
+  \begin{defn} A collection $\Omega$ of subsets of $S$ is a
+    \emph{\sigmaalgebra} if it satisfies the following
     \begin{enumerate}
-    \item $S ∈ Ω$,
-    \item $A^c ∈ Ω$ whenever $A ∈ Ω$, where $A^c = S ∖ A$,
-    \item If $A₁$, $A₂$,… is a countable sequence with $A_i ∈ Ω$ for
-      all $i$, then $⋃_{i=1}^∞ A_i ∈ Ω$ as well.
+    \item $S \in \Omega$,
+    \item $A^c \in \Omega$ whenever $A \in \Omega$, where $A^c = S \setminus A$,
+    \item If $A_1$, $A_2$,\dots is a countable sequence with $A_i \in \Omega$ for
+      all $i$, then $\bigcup_{i=1}^\infty A_i \in \Omega$ as well.
     \end{enumerate}
   \end{defn}
 
-\item A pretty typical first example for σ-algebras involves coin
+\item A pretty typical first example for \sigmaalgebra s involves coin
   flips.  But we're economists, so let's use a game.  One with the
   same structure as coin flips.
   \begin{ex}[Matching pennies]
@@ -416,55 +420,55 @@
     Now, let's model a single round of the game.  The sample space is
     the set $S = \{HH, HT, TH, TT\}$.\sidenote{Where, for example,
     \emph{HT} means that player A plays ``Heads'' and player B plays
-    ``Tails''} There are, of course, several σ-algebras that can be
-    constructed on this sample space.  For example, the σ-algebra that
+    ``Tails''} There are, of course, several \sigmaalgebra s that can be
+    constructed on this sample space.  For example, the \sigmaalgebra\ that
     represents whether or not A plays ``Heads'' is
     \begin{equation*}
-      \{∅, S, \{HH,HT\}, \{TH,TT\}\}
+      \{\emptyset, S, \{HH,HT\}, \{TH,TT\}\}
     \end{equation*}
-    and the σ-algebra representing whether or not A wins is
+    and the \sigmaalgebra\ representing whether or not A wins is
     \begin{equation*}
-      \{∅, S, \{HH,TT\}, \{TH,HT\}\}.
+      \{\emptyset, S, \{HH,TT\}, \{TH,HT\}\}.
     \end{equation*}
-    We can form the second σ-algebra by starting with the event ``A
+    We can form the second \sigmaalgebra by starting with the event ``A
     wins'' (i.e. the set $\{HH, TT\}$), and the sample space $S$, and
-    then adding more sets as necessary so that the σ-algebra is closed
+    then adding more sets as necessary so that the \sigmaalgebra\ is closed
     under complements and countable unions.\sidenote{You should verify
-    as an exercise that both of these sets are actually σ-algebras.}
+    as an exercise that both of these sets are actually \sigmaalgebra s.}
   \end{ex}
 
-\item This example gets at why we can view a σ-algebra as an
-  \emph{information set}.  The σ-algebra, ``A plays Heads,'' contains
+\item This example gets at why we can view a \sigmaalgebra\ as an
+  \emph{information set}.  The \sigmaalgebra, ``A plays Heads,'' contains
   all of the information we learn if we learn whether or not the event
   ``A plays Heads'' has happened.\sidenote{I.e., we learn whether or
   not A played Heads, and whether or not A played Tails.}  We might
   also view this as the information available to player A after choosing
   H or T, but before revealing his or her choice to B.
 
-  Also, if one σ-algebra contains another (the other is a subset) than
-  it embodies more information than the smaller σ-algebra.
+  Also, if one \sigmaalgebra\ contains another (the other is a subset) than
+  it embodies more information than the smaller \sigmaalgebra.
 
 \item Now we can formally define a probability measure that obeys the
   same rules as before.
   \begin{defn} A function $\Pr$ is a \emph{probability measure} on a
-    σ-algebra $Ω$ of subsets of $S$ if
+    \sigmaalgebra\ $\Omega$ of subsets of $S$ if
     \begin{enumerate}
-    \item $\Pr: Ω ↦ [0,1]$
-    \item if $A₁$, $A₂$,… are disjoint events in $Ω$ then
-      $\Pr(⋃_{i=1}^∞ A_i) = ∑_{i=1}^∞ \Pr(A_i)$
+    \item $\Pr: \Omega \mapsto [0,1]$
+    \item if $A_1$, $A_2$,\dots are disjoint events in $\Omega$ then
+      $\Pr(\bigcup_{i=1}^\infty A_i) = \sum_{i=1}^\infty \Pr(A_i)$
     \item $\Pr(S) = 1$.
     \end{enumerate}
   \end{defn}
   
-\item We refer to a sample space $S$, a σ-algebra $Ω$, and a
-  probability measure $\Pr$ as a \emph{probability space}, $(S, Ω,
+\item We refer to a sample space $S$, a \sigmaalgebra\ $\Omega$, and a
+  probability measure $\Pr$ as a \emph{probability space}, $(S, \Omega,
   \Pr)$.
 
 \item Let's go back to the example,
   \begin{ex}[Matching pennies, continued]
     We can define strategies through the probability measure on a
     generating class, then use the properties over countable unions
-    and intersections to extend it to the rest of the σ-algebra.
+    and intersections to extend it to the rest of the \sigmaalgebra.
 
     We'll suppose that A plays a mixed strategy and chooses ``Heads''
     with probability 1/3 (and Tails with probability 2/3), and that B
@@ -472,10 +476,10 @@
     neither player is cheating, so these choices are independent of
     each other.  This means that we have
     \begin{align*}
-      \Pr \{HH\} &= (1/3) × (4/5) = 4/15 \\
-      \Pr \{HT\} &= (1/3) × (1/5) = 1/15 \\
-      \Pr \{TH\} &= (2/3) × (4/5) = 8/15 \\
-      \Pr \{TT\} &= (2/3) × (1/5) = 2/15.
+      \Pr \{HH\} &= (1/3) \times (4/5) = 4/15 \\
+      \Pr \{HT\} &= (1/3) \times (1/5) = 1/15 \\
+      \Pr \{TH\} &= (2/3) \times (4/5) = 8/15 \\
+      \Pr \{TT\} &= (2/3) \times (1/5) = 2/15.
     \end{align*}
     We can write any other event as the union of these sets, so this
     lets us calculate the probability of any event in the game.  For
@@ -497,19 +501,19 @@
   probabilities conditional on an event is as follows,
 
   \begin{defn}
-    If $A$ and $B$ are events in some sample space $S$ and $\Pr[B]>0$,
+    If $A$ and $B$ are events in some sample space $S$ and $\Pr(B)>0$,
     the \emph{conditional probability of $A$ given $B$} is written as
-    $\Pr(A ∣ B)$ and defined to be
+    $\Pr(A \mid B)$ and defined to be
     \begin{equation*}
-      \Pr(A ∣ B) ≡ \Pr(A ∩ B) / \Pr(B).
+      \Pr(A \mid B) \equiv \Pr(A \cap B) / \Pr(B).
     \end{equation*}
-    If $\Pr(B) = 0$ then we can define $\Pr(A ∣ B)$ arbitrarily to be
+    If $\Pr(B) = 0$ then we can define $\Pr(A \mid B)$ arbitrarily to be
     zero.
   \end{defn}
 
   The equivalent formula
   \begin{equation*}
-    \Pr(A ∩ B) = \Pr(A ∣ B) \Pr(B)
+    \Pr(A \cap B) = \Pr(A \mid B) \Pr(B)
   \end{equation*}
   may make the interpretation easier: the probability that events $A$
   and $B$ happen is equal to the probability that $B$ happens times
@@ -518,17 +522,17 @@
   there is not time ordering implied by these formulas.}
 
 \item Observe that if $A$ and $B$ are mutually exclusive, then $\Pr(A
-  ∩ B) = 0$, and so $\Pr(A ∣ B) = 0$.
+  \cap B) = 0$, and so $\Pr(A \mid B) = 0$.
 
 \item We can use the definitions and the simple observation that
   \begin{equation*}
-    \Pr(A ∣ B) \Pr(B) = \Pr(B ∣ A) \Pr(A)
+    \Pr(A \mid B) \Pr(B) = \Pr(B \mid A) \Pr(A)
   \end{equation*}
   to justify \emph{Bayes's Rule}:
   \begin{thm}[Bayes's Rule]
     If $A$ and $B$ are sets in $S$ that have positive probability, then
     \begin{equation*}
-      \Pr(A ∣ B) = \Pr(B ∣ A) \Pr(A) / \Pr(B).
+      \Pr(A \mid B) = \Pr(B \mid A) \Pr(A) / \Pr(B).
     \end{equation*}
   \end{thm}
 
@@ -537,11 +541,11 @@
   \emph{independent}.
 
   \begin{defn}
-    Events $A$ and $B$ are \emph{independent} if $P(A ∩ B) = P(A)
+    Events $A$ and $B$ are \emph{independent} if $P(A \cap B) = P(A)
     P(B)$.
   \end{defn}
 
-  An immediate implication is that $\Pr(A ∣ B) = \Pr(A)$ if $A$ and
+  An immediate implication is that $\Pr(A \mid B) = \Pr(A)$ if $A$ and
   $B$ are independent.
 
 \end{itemize}
@@ -552,11 +556,11 @@
 \item The way to think about random variables, now, is that they
   summarize a probability space.  They take events that occur in a
   possibly abstract experiment and turn them into events in an easier
-  to analyze experiment.  Often they map into the Borel σ-field.
+  to analyze experiment.  Often they map into the Borel \sigmafield.
 
   As an example, think back to the matching pennies example, but now
   imagine that players A and B play $n$ games in a row.  The sample
-  space is now $\{HH, HT, TH, TT\}ⁿ$.  For some purposes, though, it
+  space is now $\{HH, HT, TH, TT\}^n$.  For some purposes, though, it
   might be sufficient to know how much money A wins from or loses to B
   (assuming they're gambling).  A random variable can map the
   different game outcomes to the real line and preserve the
@@ -568,33 +572,34 @@
   \end{defn}
 
   Remember the definition of \emph{$\Fs$-measurable}: $X$ is an
-  $\Fs$-measurable function from $S$ to $\RR$ if $X^{-1}(B) ∈ \Fs$ for
-  all $B ∈ \BB$.  Intuitively, we want to use the random variable $X$
+  $\Fs$-measurable function from $S$ to $\RR$ if $X^{-1}(B) \in \Fs$ for
+  all $B \in \BB$.  Intuitively, we want to use the random variable $X$
   to transfer the probability measure on $S$ to $\RR$.  This is only
   going to work if we can map events in $\RR$ (i.e., elements of
   $\BB$) back to the original sigma algebra $\Fs$.
 
   Formally, this means that $X$ is a function (it's worth repeating),
-  and the random variable takes on values $X(ω)$, where $ω ∈ S$.  It
-  can sometimes be useful to write it out so explicitly in proofs, but
-  usually we will just write $X$ and suppress the argument.
+  and the random variable takes on values $X(\omega)$, where $\omega
+  \in S$.  It can sometimes be useful to write it out so explicitly in
+  proofs, but usually we will just write $X$ and suppress the
+  argument.
 
 \item This also reinforces the idea of $\Fs$ as an information set:
   $X$ is $\Fs$-measurable if knowledge of events in $\Fs$ is
   sufficient to know about $X$.  This concept is most clear in a
   time-series setting.  Let $\{\Fs_t\}$ be an expanding sequence of
-  information sets, so $\Fs_t ⊂ \Fs_{t+1}$ for all $t$ (this means
+  information sets, so $\Fs_t \subset \Fs_{t+1}$ for all $t$ (this means
   that $\Fs_t$ is something like ``the information available in period
-  $t$''—in period $t$, we know/remember what happened in period $t-1$,
+  $t$''---in period $t$, we know/remember what happened in period $t-1$,
   contained in $\Fs_{t-1}$, but do not know what will happen in period
   $t+1$).  If $\{X_t\}$ is a sequence of random variables s.t. $X_t$ is
-  $\Fs_t$-measurable for every $t$ (which is often written as $X_t ∈
+  $\Fs_t$-measurable for every $t$ (which is often written as $X_t \in
   \Fs_t$), then $X_t$ is a random variable whose value is determined
-  in period $t$—knowledge of the outcomes in period $t$ is sufficient
+  in period $t$---knowledge of the outcomes in period $t$ is sufficient
   to know the value of $X_t$, but not necessarily the value of
   $X_{t+1}$.
 
-\item Measurable mappings from the sample space $S$ to $\RRⁿ$ are
+\item Measurable mappings from the sample space $S$ to $\RR^n$ are
   called \emph{random vectors}, more generally they're often called
   \emph{random elements}.
 
@@ -604,13 +609,14 @@
   measure.  I.e., given a probability measure and a random variable
   $X$, we \emph{define} the CDF of $X$ as the function $F_X$ given by
   \begin{equation*}
-    F_X(x) = \Pr(\{ω ∣ X(ω) ≤ x\}).
+    F_X(x) = \Pr(\{\omega \mid X(\omega) \leq x\}).
   \end{equation*}
-  Note that the $ω$'s are elements of a sample space $S$, so the set
-  $\{ω ∣ X(ω) ≤ x\}$ is an element of the sigma field that we've been
-  calling $\Fs$.  We know that the set $\{ω ∣ X(ω) ≤ x\}$ must be in
-  $\Fs$ by measurability: it is equivalent to the set $X^{-1}((-∞,x])$,
-  and $(-∞,x] ∈ \BB$.
+  Note that the $\omega$'s are elements of a sample space $S$, so the
+  set $\{\omega \mid X(\omega) \leq x\}$ is an element of the sigma
+  field that we've been calling $\Fs$.  We know that the set $\{\omega
+  \mid X(\omega) \leq x\}$ must be in $\Fs$ by measurability: it is
+  equivalent to the set $X^{-1}((-\infty,x])$, and $(-\infty,x] \in
+  \BB$.
 
   The properties that we listed for CDFs can be derived from this
   definition by using some fundamental properties of probability
@@ -618,13 +624,13 @@
   function $F_X$, the density of $X$ can be defined as the function
   $f_X$ such that
   \begin{equation*}
-    F_X(x) = ∫_{-∞}^{x} f_X(z) \dz.
+    F_X(x) = \int_{-\infty}^{x} f_X(z) \dz.
   \end{equation*}
 
   As alluded to earlier, this is the more mathematically sound way to
   proceed, but it can give the wrong impression.  One almost never
   needs to work at this level of abstraction even in theoretical
-  econometrics research—typically we start with the random variables
+  econometrics research---typically we start with the random variables
   and leave the deeper probability structure implicit.
 
 \item A similar definition of independence holds for information sets
@@ -633,15 +639,15 @@
   with a more justifiable mathematical underpinning).
   \begin{defn}
     Two sigma-fields $\Fs$ and $\Gs$ are independent if the events $F$
-    and $G$ are \emph{independent} for any $F ∈ \Fs$ and $G ∈ \Gs$.
+    and $G$ are \emph{independent} for any $F \in \Fs$ and $G \in \Gs$.
     Two random variables $X$ and $Y$ are \emph{independent} if the
     sigma-fields $X^{-1}(\BB)$ and $Y^{-1}(\BB)$ are independent.
   \end{defn}
   The random variable definition is essentially the same as
   \begin{equation*}
-    \Pr[X ∈ I₁ ∩ Y ∈ I₂] = \Pr[X ∈ I₁] \Pr[Y ∈ I₂]
+    \Pr[X \in I_1 \cap Y \in I_2] = \Pr[X \in I_1] \Pr[Y \in I_2]
   \end{equation*}
-  for any intervals $I₁$ and $I₂$.
+  for any intervals $I_1$ and $I_2$.
 
 \item It is then straightforward to verify that, for independent
   random variables $X$ and $Y$, the joint distribution has the
@@ -651,16 +657,16 @@
   information sets, but are somewhat harder to prove if starting from
   a less abstract definition of independence.
 
-  We also have, if $X₁$ and $X₂$ are independent, so are $g(X₁)$ and
-  $h(X₂)$ for any (measurable) functions $g$ and $h$.  For a proof,
+  We also have, if $X_1$ and $X_2$ are independent, so are $g(X_1)$ and
+  $h(X_2)$ for any (measurable) functions $g$ and $h$.  For a proof,
   observe
   \begin{align*}
-    \Pr[g(X₁) ∈ I₁ ∩ h(X₂) ∈ I₂]
-    &= \Pr[X₁ ∈ g^{-1}(X₁) ∩ X₂ ∈ h^{-1}(X₂)] \\
-    &= \Pr[X₁ ∈ g^{-1}(X₁)] \Pr[X₂ ∈ h^{-1}(X₂)] \\
-    &= \Pr[g(X₁) ∈ I₁] \Pr[h(X₂) ∈ I₂]
+    \Pr[g(X_1) \in I_1 \cap h(X_2) \in I_2]
+    &= \Pr[X_1 \in g^{-1}(X_1) \cap X_2 \in h^{-1}(X_2)] \\
+    &= \Pr[X_1 \in g^{-1}(X_1)] \Pr[X_2 \in h^{-1}(X_2)] \\
+    &= \Pr[g(X_1) \in I_1] \Pr[h(X_2) \in I_2]
   \end{align*}
-  where $g^{-1}(I₁) = \{x : g(x) ∈ I₁\}$, we don't need $g$ or $h$ to
+  where $g^{-1}(I_1) = \{x : g(x) \in I_1\}$, we don't need $g$ or $h$ to
   be invertible.
 
 \end{itemize}
@@ -671,25 +677,26 @@
 
 \item Remember our mathematical definition of random variables: a
   random variable is a (measurable) function from a sample space $S$
-  to the real line.  So, for any $ω ∈ S$, the sequence $X₁(ω),
-  X₂(ω),...$ is just a sequence of numbers.  For a given $ω$, the
-  sequence might converge and for a different $ω$, the sequence might
-  not.  Informally, the sequence of random variables $X₁,X₂,...$
+  to the real line.  So, for any $\omega \in S$, the sequence $X_1(\omega),
+  X_2(\omega),...$ is just a sequence of numbers.  For a given $\omega$, the
+  sequence might converge and for a different $\omega$, the sequence might
+  not.  Informally, the sequence of random variables $X_1,X_2,...$
   converges \emph{almost surely} if there is probability 1 of drawing
-  an $ω$ such that $X_n(ω)$ converges.
+  an $\omega$ such that $X_n(\omega)$ converges.
   \begin{defn}
     The sequence of random variables $X_n$ converges \emph{almost
-    surely} to the random variable $X$ if, for every $ε > 0$,
-    \begin{equation}\label{eq:1}
-      \Pr[\lim_{n → ∞} | X_n - X | < ε] = 1.
+    surely} to the random variable $X$ if, for every $\epsilon > 0$,
+    \begin{equation}\label{p1}
+      \Pr[\lim_{n \to \infty} | X_n - X | < \epsilon] = 1.
     \end{equation}
   \end{defn}
-  This will typically be written as $X_n → X$ a.s. or $X_n →^{a.s.}
+  This will typically be written as $X_n \to X$ a.s. or $X_n \to^{a.s.}
   X$.
 
-  We can write equation~\eqref{eq:1} more explicitly as
+  We can write equation~\eqref{p1} more explicitly as
   \begin{equation*}
-    \Pr(\{ ω : \lim_{n → ∞} | X_n(ω) - X(ω) | < ε \}) = 1.
+    \Pr(\{ \omega : \lim_{n \to \infty} | X_n(\omega) - X(\omega) |
+           < \epsilon \}) = 1.
   \end{equation*}
 
   You should prove that almost sure convergence implies convergence in
@@ -697,7 +704,7 @@
 
 \item The \emph{Strong LLN} deals with almost sure convergence.  One
   example is \emph{Kolmogorov's SLLN}: if $\{X_n\}$ is a sequence of
-  i.i.d. random variables with mean $μ$ then $\Xb → μ$ almost surely.
+  i.i.d. random variables with mean $\mu$ then $\Xb \to \mu$ almost surely.
 
 \item For statistical purposes, we pretty much only need convergence
   in probability, not almost sure convergence.

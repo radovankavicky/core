@@ -12,13 +12,8 @@
 \input{VERSION}
 \author{Gray Calhoun} 
 
-\usepackage{amssymb,amsmath,amsthm,verbatim}
-\usepackage{fontspec,unicode-math,xltxtra,xunicode,booktabs}
+\usepackage{amssymb,amsmath,amsthm,verbatim,booktabs}
 \usepackage[noae]{external/Sweave}
-\setromanfont[Ligatures=TeX]{TeX Gyre Pagella}
-\setsansfont[Ligatures=TeX,Scale=MatchLowercase]{TeX Gyre Heros}
-% \setmonofont[Scale=MatchLowercase]{Inconsolata}
-\setmathfont{Asana-Math}
 
 \frenchspacing
 \setcounter{secnumdepth}{1}
@@ -32,13 +27,10 @@
 \newcommand{\bugtrack}%
 {\url{https://github.com/EconometricsLibrary/core/issues}}
 
-% Workaround for bugs in the tufte-latex class
-\renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace = 8}\scshape#1}}
-\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace = 15}#1}}
-% Getting waringings from latexmk with default tufte-latex hyperref
-\usepackage[unicode,pdfencoding=auto,hyperfootnotes=false,hidelinks]{hyperref}
-
 \newcommand{\BibTeX}{Bib\!\TeX}
+\newcommand{\sigmafield}{\ensuremath{\sigma}-field}
+\newcommand{\sigmaalgebra}{\ensuremath{\sigma}-algebra}
+\newcommand{\deltafunction}{\ensuremath{\delta}-function}
 \newcommand{\pvalue}{\ensuremath{p}-value}
 \newcommand{\ftest}{\ensuremath{F}-test}
 \newcommand{\ttest}{\ensuremath{t}-test}
@@ -46,7 +38,7 @@
 % Math shortcuts
 \renewcommand{\Pr}{\operatorname{Pr}}
 
-\DeclareMathOperator{\1}{1}
+\DeclareMathOperator{\ind}{1}
 \DeclareMathOperator{\abs}{abs}
 \DeclareMathOperator{\avar}{avar}
 \DeclareMathOperator{\bias}{bias}
@@ -76,8 +68,6 @@
 \newcommand{\PP}{\ensuremath{\mathbb{P}}}
 \newcommand{\QQ}{\ensuremath{\mathbb{Q}}}
 \newcommand{\RR}{\ensuremath{\mathbb{R}}}
-\newcommand{\RRᵏ}{\ensuremath{\mathbb{R}ᵏ}}
-\newcommand{\RRⁿ}{\ensuremath{\mathbb{R}ⁿ}}
 \newcommand{\RRb}{\ensuremath{\bar{\mathbb{R}}}}
 \newcommand{\ZZ}{\ensuremath{\mathbb{Z}}}
 
@@ -85,34 +75,33 @@
 \newcommand{\Gs}{\ensuremath{\mathcal{G}}}
 \newcommand{\Ps}{\ensuremath{\mathcal{P}}}
 
-\newcommand{\ov}[2][1]{\tfrac{#1}{#2}}
 \newcommand{\iid}{i.i.d.}
 
-\newcommand{\ep}{\varepsilon}
-\newcommand{\eph}{\hat{\varepsilon}}
+\newcommand{\vep}{\varepsilon}
+\newcommand{\veph}{\hat{\varepsilon}}
 
 \newcommand{\ah}{\hat{a}}
-\newcommand{\αh}{\hat{α}}
+\newcommand{\alphah}{\hat{\alpha}}
 \newcommand{\bh}{\hat{b}}
-\newcommand{\βb}{\bar{β}}
-\newcommand{\βh}{\hat{β}}
-\newcommand{\βt}{\tilde{β}}
+\newcommand{\betab}{\bar{\beta}}
+\newcommand{\betah}{\hat{\beta}}
+\newcommand{\betat}{\tilde{\beta}}
 \newcommand{\eh}{\hat{e}}
-\newcommand{\εb}{\bar{ε}}
-\newcommand{\εh}{\hat{ε}}
-\newcommand{\εt}{\tilde{ε}}
-\newcommand{\ηh}{\hat{η}}
+\newcommand{\epb}{\bar{\epsilon}}
+\newcommand{\eph}{\hat{\epsilon}}
+\newcommand{\ept}{\tilde{\epsilon}}
+\newcommand{\etah}{\hat{\eta}}
 \newcommand{\Fh}{\hat{F}}
-\newcommand{\λh}{\hat{λ}}
-\newcommand{\μb}{\bar{μ}}
-\newcommand{\μh}{\hat{μ}}
-\newcommand{\Ωh}{\hat{Ω}}
+\newcommand{\labmdah}{\hat{\lambda}}
+\newcommand{\mub}{\bar{\mu}}
+\newcommand{\muh}{\hat{\mu}}
+\newcommand{\Omegah}{\hat{\Omega}}
 \newcommand{\Qh}{\hat{Q}}
-\newcommand{\Σh}{\hat{Σ}}
+\newcommand{\Sigmah}{\hat{\Sigma}}
 \newcommand{\sh}{\hat{s}}
-\newcommand{\σh}{\hat{σ}}
-\newcommand{\σb}{\bar{σ}}
-\newcommand{\θh}{\hat{θ}}
+\newcommand{\sigmah}{\hat{\sigma}}
+\newcommand{\sigmab}{\bar{\sigma}}
+\newcommand{\thetah}{\hat{\theta}}
 \newcommand{\Vh}{\hat{V}}
 \newcommand{\Xb}{\bar{X}}
 \newcommand{\Xc}{\mathcal{X}}
@@ -125,11 +114,16 @@
 
 \newcommand{\dx}{\,dx}
 \newcommand{\dy}{\,dy}
-\newcommand{\dμ}{\,dμ}
-\newcommand{\dθ}{\,dθ}
-\renewcommand{\dz}{\,dz}
+\newcommand{\dmu}{\,d\mu}
+\newcommand{\dtheta}{\,d\theta}
+\newcommand{\dz}{\,dz}
 
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{defn}{Definition}[section]
 \newtheorem{ex}{Example}[section]
 \newtheorem{asmp}{Assumption}[section]
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../core_econometrics"
+%%% End:

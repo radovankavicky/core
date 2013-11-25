@@ -19,7 +19,7 @@
 \begin{itemize}
 \item We can get some flexibility while keeping the OLS framework
 \item Linear model is
-  \[y_i = β₀ + β₁ x_{i1} + ⋯ + β_k x_{ik} + ε_i\]
+  \[y_i = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_k x_{ik} + \epsilon_i\]
 \begin{itemize}
 \item The regressors $x_{ij}$ can be transformations of the same
           underlying ``variable''
@@ -30,14 +30,14 @@
 \begin{itemize}
 \item draw scatterplot of parabola
 \item might think that the model
-  \[y_i = β₀ + β₁ x_i + β₂ x²_i + \ep_i\]
+  \[y_i = \beta_0 + \beta_1 x_i + \beta_2 x^2_i + \vep_i\]
   is a good description of the data
 \item This model can be estimated by OLS directly
 \item More generally, models of the form
-  \[y_i = β₀ + β₁ g₁(x_i) + β₂ g₂(x_i) + ⋯ + β_k g_k(x_k) + \ep_i\]
+  \[y_i = \beta_0 + \beta_1 g_1(x_i) + \beta_2 g_2(x_i) + \cdots + \beta_k g_k(x_k) + \vep_i\]
   can be estimated by OLS if
 \begin{itemize}
-\item conditional mean of $ε_i$ given X is zero
+\item conditional mean of $\epsilon_i$ given X is zero
 \item each $g_j$ is known.
 \end{itemize}
 \end{itemize}
@@ -86,7 +86,7 @@
 
 \paragraph{How to proceed}
 \begin{itemize}
-\item \textbf{do not} regress $y$ on $x₁$! (draw scatterplot of $y$ vs. $x₁$)
+\item \textbf{do not} regress $y$ on $x_1$! (draw scatterplot of $y$ vs. $x_1$)
 \begin{itemize}
 \item assumes that the difference between expected income w/
           Ph.D. vs Masters degree is the same as the difference for
@@ -100,10 +100,10 @@
 \begin{itemize}
 \item remember from undergrad, creating 5 and including a constant
           means the design matrix doesn't have full rank
-\item $D₁$ :: 1 if $x_{i1}$ = 2, 3, 4, or 5; zero otherwise
-\item $D₂$ :: 1 if $x_{i1}$ = 3, 4, or 5; zero otherwise
-\item $D₃$ :: 1 if $x_{i1}$ = 4, or 5; zero otherwise
-\item $D₄$ :: 1 if $x_{i1}$ = 5; zero otherwise
+\item $D_1$ :: 1 if $x_{i1}$ = 2, 3, 4, or 5; zero otherwise
+\item $D_2$ :: 1 if $x_{i1}$ = 3, 4, or 5; zero otherwise
+\item $D_3$ :: 1 if $x_{i1}$ = 4, or 5; zero otherwise
+\item $D_4$ :: 1 if $x_{i1}$ = 5; zero otherwise
 \item note :: There are other ways that you could code it, but
                   this will make the comparisons we want to make easy.
 \end{itemize}
@@ -112,27 +112,27 @@
 \paragraph{Estimation}
 \begin{itemize}
 \item Now, regress $y_i$ on $D_{i1}$, $D_{i2}$, $D_{i3}$, $D_{i4}$, and a constant:
-  \[ y_i = β₀ + β₁ D_{i1} + β₂ D_{i2} + β₃ D_{i3} + β₄ D_{i4} + ε_i \]
+  \[ y_i = \beta_0 + \beta_1 D_{i1} + \beta_2 D_{i2} + \beta_3 D_{i3} + \beta_4 D_{i4} + \epsilon_i \]
 \item Interpretation of this model
 \begin{itemize}
 \item Expected income of a worker with a masters degree but no
           higher degree:
 \begin{itemize}
-\item masters degree means that $D₁$, $D₂$, and $D₃$ all equal 1;
-  $D₄$ equals zero is
+\item masters degree means that $D_1$, $D_2$, and $D_3$ all equal 1;
+  $D_4$ equals zero is
   \[
-  \E(y_i ∣ D_{i1}=1,D_{i2}=1,D_{i3}=1,D_{i4}=0) = β₀ + β₁ + β₂ + β₃
+  \E(y_i \mid D_{i1}=1,D_{i2}=1,D_{i3}=1,D_{i4}=0) = \beta_0 + \beta_1 + \beta_2 + \beta_3
   \]
 \item Estimate of expected income for those workers is
-  $\βh₀ + \βh₁ + \βh₂ + \βh₃$
+  $\betah_0 + \betah_1 + \betah_2 + \betah_3$
 \end{itemize}
 \item Difference in expected income of people with college degree
           vs. those with masters degree:
 \begin{itemize}
-\item $\E(y_i ∣ \text{college}) = β₀ + β₁ + β₂$
-\item $\E(y_i ∣ \text{masters}) = β₀ + β₁ + β₂ + β₃$
-\item difference in expected values is just $β₃$
-\item Estimated difference is $\βh₃$
+\item $\E(y_i \mid \text{college}) = \beta_0 + \beta_1 + \beta_2$
+\item $\E(y_i \mid \text{masters}) = \beta_0 + \beta_1 + \beta_2 + \beta_3$
+\item difference in expected values is just $\beta_3$
+\item Estimated difference is $\betah_3$
 \end{itemize}
 \end{itemize}
 \end{itemize}
@@ -155,7 +155,7 @@
 \paragraph{basic idea}
 \begin{itemize}
 \item Suppose x is unrestricted
-\item draw nonlinear function $\E(y ∣ x)$
+\item draw nonlinear function $\E(y \mid x)$
 \item We can discretize the regressors (draw blocks) and fit
          separate OLS regressions within each block
 \begin{itemize}
@@ -169,24 +169,24 @@
 
 \paragraph{improvements on the basic idea}
 \begin{itemize}
-\item may (probably) want to impose that $\E(y_i ∣ x_i)$ is
+\item may (probably) want to impose that $\E(y_i \mid x_i)$ is
          continuous in $x_i$.
 \item formally, we can get our model from (assuming p different blocks)
   \[
-  y_i = δ₀ + γ₀x_i + ∑_{j=1}^{p-1} (δ_j + γ_jx_i) \1\{c_j ≤ x_i\} + ε_i
+  y_i = \delta_0 + \gamma_0x_i + \sum_{j=1}^{p-1} (\delta_j + \gamma_jx_i) \ind\{c_j \leq x_i\} + \epsilon_i
   \]
 \begin{itemize}
 \item continuity implies that
-  \[ δ₀ + γ₀ c_l + ∑_{j=1}^l (δ_j + γ_j c_l) = δ₀ + γ₀ c_l +
-  ∑_{j=1}^{l+1} (δ_j + γ_l c_l)\] for $l = 1,...,p-1$, which implies
-  that $δ_j = - γ_j c_j$ for all $l$
+  \[ \delta_0 + \gamma_0 c_l + \sum_{j=1}^l (\delta_j + \gamma_j c_l) = \delta_0 + \gamma_0 c_l +
+  \sum_{j=1}^{l+1} (\delta_j + \gamma_l c_l)\] for $l = 1,...,p-1$, which implies
+  that $\delta_j = - \gamma_j c_j$ for all $l$
 \item plugging this in to the initial equation gives
   \[
-  y_i = δ₀ + γ₀x_i + ∑_{j=1}^{p-1} γ_j(x_i-c_j) \1\{c_j ≤ x_i\} + ε_i
+  y_i = \delta_0 + \gamma_0x_i + \sum_{j=1}^{p-1} \gamma_j(x_i-c_j) \ind\{c_j \leq x_i\} + \epsilon_i
   \]
 \end{itemize}
 \item we can estimate the model by regressing $y_i$ on a constant,
-  $x_i$, and the variables $(x_i - c_j) \1\{c_j ≤ x_i\}$
+  $x_i$, and the variables $(x_i - c_j) \ind\{c_j \leq x_i\}$
 \end{itemize}
 
 \paragraph{another improvement}
@@ -248,9 +248,9 @@
 
 \paragraph{Omitted variables}
 \begin{itemize}
-\item We've assumed so far that $Y = Xβ + \ep$ with $\E(\ep ∣ X) = 0$.
+\item We've assumed so far that $Y = X\beta + \vep$ with $\E(\vep \mid X) = 0$.
 \item Suppose that the true model is
-  \[Y = Xβ + Zα + \ep\] with $\E(\ep ∣ X, Z) = 0$
+  \[Y = X\beta + Z\alpha + \vep\] with $\E(\vep \mid X, Z) = 0$
 \begin{itemize}
 \item but you regress $Y$ on $X$ (and not $Z$)
 \item e.g. $Y$ is income, $X$ is education and experience, and
@@ -258,36 +258,36 @@
 \item maybe $Z$ is unobserved
 \item maybe there are other reasons you omit it (ignorance, possibly)
 \end{itemize}
-\item Is the OLS estimator consistent for $β$?
+\item Is the OLS estimator consistent for $\beta$?
 \end{itemize}
 
 \paragraph{mathematical consequences}
 \begin{itemize}
 \item Rewrite the true relationship
-  \[ Y = Xβ + (Zα + \ep) ≡ Xβ + u \]
+  \[ Y = X\beta + (Z\alpha + \vep) \equiv X\beta + u \]
 \item we know that (under reasonable assumptions ensuring LLNs)
   \begin{align*}
-    \βh - β
+    \betah - \beta
     &= (n^{-1} X'X)^{-1}(n^{-1} X'u) \\
-    &→ (\E(x_{i}x_{i}'))^{-1} \lim n^{-1} ∑_{i=1}^{n} x_{i} \E(u_{i} ∣ X)
+    &\to (\E(x_{i}x_{i}'))^{-1} \lim n^{-1} \sum_{i=1}^{n} x_{i} \E(u_{i} \mid X)
   \end{align*}
-\item \textbf{But} we can't assume that $\E(u_i ∣ X) = 0$ (a.s.)
+\item \textbf{But} we can't assume that $\E(u_i \mid X) = 0$ (a.s.)
 \begin{itemize}
-\item $\E(u_{i} ∣ X) = \E(α z_{i} ∣ X) + \E(\ep_{i} ∣ X)$
+\item $\E(u_{i} \mid X) = \E(\alpha z_{i} \mid X) + \E(\vep_{i} \mid X)$
 \begin{itemize}
 \item The second term is zero since (by the L.I.E.)
-  \[\E(\ep_{i} ∣ X) = \E(\E(\ep_{i}∣ X, Z) ∣ X) = 0\]
+  \[\E(\vep_{i} \mid X) = \E(\E(\vep_{i}\mid X, Z) \mid X) = 0\]
 \item The first term is zero only if
 \begin{itemize}
-\item $α = 0$
+\item $\alpha = 0$
 \item $\E(x_{i} z_{i}) = 0$
 \end{itemize}
 \end{itemize}
 \end{itemize}
 \item Think back to our example
 \begin{itemize}
-\item $\E(ability ∣ education, experience)$ is probably not zero
-\item $α = 0$ only if ability doesn't affect income, after
+\item $\E(ability \mid education, experience)$ is probably not zero
+\item $\alpha = 0$ only if ability doesn't affect income, after
            taking education and experience into account
 \item both are probably not zero
 \item OLS on just $X$ is going to give you a biased and
@@ -302,10 +302,10 @@
 \item If you observe $Z$, it's usually a good idea to include it
           in the regression.
 \begin{itemize}
-\item a caveat with small sample sizes: when $α$ is close
+\item a caveat with small sample sizes: when $\alpha$ is close
             to zero, this can increase the variance of your estimator
             enough that including the variable is a bad idea
-\item when $α$ is close to zero, the bias is small too.
+\item when $\alpha$ is close to zero, the bias is small too.
 \end{itemize}
 \item we'll discuss ways to determine whether or not you should
           include a variable soon
@@ -323,7 +323,7 @@
 \begin{itemize}
 \item A test score instead of ability
 \item Call that variable $W$; moreover, suppose that
-            \[W = γ₀ + Z γ₁ + δ\]
+            \[W = \gamma_0 + Z \gamma_1 + \delta\]
             so $W$ is unrelated to the $X$ variables
 \end{itemize}
 \item What happens if you regress $Y$ on $X$ and $W$?
@@ -333,27 +333,27 @@
 \item mathematical representation of proxies
 \begin{itemize}
 \item We can solve for $Z$ in the previous relationship:
-  \[ Z = (W - γ₀ - δ ) / γ₁ \]
+  \[ Z = (W - \gamma_0 - \delta ) / \gamma_1 \]
 \item We can rewrite the true relationship as
   \begin{align*} 
-    Y &= Xβ + Zα + \ep \\
-    &= β₀ + Xβ + (W - γ₀ - δ) α/γ₁ \\
-    &= (β₀ - γ₀α/γ₁) + Xβ + W α/γ₁ + (\ep - α/γ₁δ)
+    Y &= X\beta + Z\alpha + \vep \\
+    &= \beta_0 + X\beta + (W - \gamma_0 - \delta) \alpha/\gamma_1 \\
+    &= (\beta_0 - \gamma_0\alpha/\gamma_1) + X\beta + W \alpha/\gamma_1 + (\vep - \alpha/\gamma_1\delta)
   \end{align*}
-\item If $\E(δ ∣ X, W) = 0$ (which may be reasonable), we
+\item If $\E(\delta \mid X, W) = 0$ (which may be reasonable), we
            can use OLS to get consistent estimates of
 \begin{itemize}
-\item $β-γ₀α/γ₁$ (the new intercept)
-\item $β$
-\item $α/γ₁$ (the slope on W)
+\item $\beta-\gamma_0\alpha/\gamma_1$ (the new intercept)
+\item $\beta$
+\item $\alpha/\gamma_1$ (the slope on W)
 \end{itemize}
-\item In our setup, we only care about $β$, and we can
+\item In our setup, we only care about $\beta$, and we can
            estimate it consistently by OLS (and unbiased, too).
 \item The same concept applies with more than one variable
 \begin{itemize}
-\item Note that $α/γ₁$ is complicated
+\item Note that $\alpha/\gamma_1$ is complicated
 \item Will be more complicated with more variables
-\item In particular, it can have a \textbf{different sign} than $α$.
+\item In particular, it can have a \textbf{different sign} than $\alpha$.
 \end{itemize}
 \end{itemize}
 \end{itemize}
@@ -369,20 +369,20 @@
 
 \subsection{choosing a model}
 
-\paragraph{$R²$}
+\paragraph{$R^2$}
 \begin{itemize}
-\item We know that $R²$ increases if we include more regressors:
-  \[R² = \frac{SSR}{SST} = 1 - \frac{\eph'\eph}{y'M₀y}\]
-  with $M₀ = I - n^{-1} \i \i'$
+\item We know that $R^2$ increases if we include more regressors:
+  \[R^2 = \frac{SSR}{SST} = 1 - \frac{\veph'\veph}{y'M_0y}\]
+  with $M_0 = I - n^{-1} \i \i'$
 \begin{itemize}
 \item If we add regressors, the numerator,
-  $\eph'\eph$, decreases.
+  $\veph'\veph$, decreases.
 \end{itemize}
-\item motivates adjusted $R²$:
-  \[ \bar{R}² = 1 - \frac{n-1}{n-K}(1-R²)\]
+\item motivates adjusted $R^2$:
+  \[ \bar{R}^2 = 1 - \frac{n-1}{n-K}(1-R^2)\]
 \begin{itemize}
 \item if we add a regressor, $K$ increases too, so the decrease in
-  $R²$ is offset.
+  $R^2$ is offset.
 \end{itemize}
 \end{itemize}
 
@@ -390,14 +390,14 @@
 \begin{itemize}
 \item In general, it's nice to have a somewhat automatic approach.
 \item Suppose you have a set of regressors you think is plausible,
-  $x₁,...,x_p$
+  $x_1,...,x_p$
 \item Is there a general (ie popularly accepted) procedure to get a
         set of regressors to apply OLS?
 \item In practice, both the AIC and BIC amount to increasing the
-        penalty term on $\bar{R}²$ (they have more formal
+        penalty term on $\bar{R}^2$ (they have more formal
         derivations, but we don't have time to go through them
-\item AIC :: $s²_y (1 - R²) e^{2K/n}$
-\item BIC :: $s²_y (1 - R²) n^{2K/n}$
+\item AIC :: $s^2_y (1 - R^2) e^{2K/n}$
+\item BIC :: $s^2_y (1 - R^2) n^{2K/n}$
 \item note :: \underline{smaller} values mean that the model is a better fit
 \end{itemize}
 
@@ -407,8 +407,8 @@
 \begin{itemize}
 \item usually these are presented in logs (so the numbers don't get
            too large)
-\item AIC is often reported as $\ln(\eph'\eph/n) + 2K/n$
-\item BIC is often reported as $\ln(\eph'\eph/n) + (K/n) \ln n$
+\item AIC is often reported as $\ln(\veph'\veph/n) + 2K/n$
+\item BIC is often reported as $\ln(\veph'\veph/n) + (K/n) \ln n$
 \item read the help of the software you're using to be sure
 \end{itemize}
 \item workflow
@@ -423,26 +423,26 @@
 \paragraph{homework \textbf{:hw:}}
 \begin{itemize}
 \item Consider this situation: you are interested in the effect of a
-        variable $X₁$ (say, education level) on $Y$ (say, earnings),
-        so you want to test whether the coefficient $β₁$ is
+        variable $X_1$ (say, education level) on $Y$ (say, earnings),
+        so you want to test whether the coefficient $\beta_1$ is
         significant in the equation
-        \[ Y_{i} = β₀ + β₁ X_{i1} + \ep_i. \]
+        \[ Y_{i} = \beta_0 + \beta_1 X_{i1} + \vep_i. \]
         But, you don't know whether or not you should include a second
         regressor, $X_2$ (maybe some measure of ability, like a test
         score).
 
         Three of the approaches we've discussed are:
 \begin{enumerate}
-\item regress $Y$ on $X₁$ and test for significance.
-\item regress $Y$ on $X₁$ and $X₂$ and test $β₁$ for
+\item regress $Y$ on $X_1$ and test for significance.
+\item regress $Y$ on $X_1$ and $X_2$ and test $\beta_1$ for
            significance.
-\item regress $Y$ on $X₁$ and $X₂$ and test $β₂$ for
+\item regress $Y$ on $X_1$ and $X_2$ and test $\beta_2$ for
            significance.
 \begin{itemize}
-\item If $β₂$ is significant, test $β₁$ for
+\item If $\beta_2$ is significant, test $\beta_1$ for
              significance.
-\item If $β₂$ is \textbf{not} significant, regress $Y$ on only
-             $X₁$ and test $β₁$ for significance in that
+\item If $\beta_2$ is \textbf{not} significant, regress $Y$ on only
+             $X_1$ and test $\beta_1$ for significance in that
              model.
 \end{itemize}
 \end{enumerate}
@@ -473,40 +473,40 @@
 \begin{itemize}
 \item For OLS:
 \begin{itemize}
-\item $\βh = (X'X)^{-1}X'Y$
-\item $\E(\βh ∣ X) = (X'X)^{-1}X'Xβ$
-\item $\var(\βh ∣ X) = σ²(X'X)^{-1} X'X (X'X)^{-1}$
+\item $\betah = (X'X)^{-1}X'Y$
+\item $\E(\betah \mid X) = (X'X)^{-1}X'X\beta$
+\item $\var(\betah \mid X) = \sigma^2(X'X)^{-1} X'X (X'X)^{-1}$
 \end{itemize}
 \item Another possibility
 \begin{itemize}
-\item $\βh₂ = (X'X + V)^{-1}X'Y$
+\item $\betah_2 = (X'X + V)^{-1}X'Y$
 \begin{itemize}
 \item $V$ is some positive definite matrix
 \item Assume $V$ is a function of $X$
-\item Say $V = X'X$ (for example); then $\βh₂ = \βh / 2$
+\item Say $V = X'X$ (for example); then $\betah_2 = \betah / 2$
 \end{itemize}
-\item $\E(\βh₂ ∣ X) = (X'X + V)^{-1}X'Xβ$
+\item $\E(\betah_2 \mid X) = (X'X + V)^{-1}X'X\beta$
 \begin{itemize}
 \item So the estimator is biased
-\item in our example, $\E(\βh ∣ X) = β/2$
+\item in our example, $\E(\betah \mid X) = \beta/2$
 \end{itemize}
-\item $\var(\βh₂ ∣ X) = σ² (X'X + V)^{-1} X'X (X'X + V)^{-1}$
+\item $\var(\betah_2 \mid X) = \sigma^2 (X'X + V)^{-1} X'X (X'X + V)^{-1}$
 \begin{itemize}
-\item in our example, $\var(\βh₂ ∣ X) = (σ²/4) (X'X)^{-1}$
+\item in our example, $\var(\betah_2 \mid X) = (\sigma^2/4) (X'X)^{-1}$
 \end{itemize}
 \end{itemize}
 \end{itemize}
 
 \paragraph{variance reduction of this estimator}
 \begin{itemize}
-\item We can see that $\var(\βh₂ ∣ X) ≤ \var(\βh ∣ X)$:
+\item We can see that $\var(\betah_2 \mid X) \leq \var(\betah \mid X)$:
 \begin{itemize}
 \item Take inverses and look at difference:
   \begin{align*}
-    (\var(\βh₂ ∣ X)^{-1} - (\var(\βh ∣ X))^{-1}
-    &= σ²((X'X + V) (X'X)^{-1} (X'X + V) - X'X) ] \\
-    &= σ² (X'X + V + V(X'X)^{-1} (X'X + V)) \\
-    &= σ² (X'X + 2 V + V(X'X)^{-1}V) 
+    (\var(\betah_2 \mid X)^{-1} - (\var(\betah \mid X))^{-1}
+    &= \sigma^2((X'X + V) (X'X)^{-1} (X'X + V) - X'X) ] \\
+    &= \sigma^2 (X'X + V + V(X'X)^{-1} (X'X + V)) \\
+    &= \sigma^2 (X'X + 2 V + V(X'X)^{-1}V) 
   \end{align*}
 \item This last term is positive definite
 \end{itemize}
@@ -518,12 +518,12 @@
 \begin{description}
 \item[$\Xt$] centered and scaled $X$
 \begin{itemize}
-\item $X = [1, X₁, X₂, ..., X_{k}]$
-\item $\Xt = [1, (X₁ - \i \Xb₁) / \sd(X₁), ...]$
+\item $X = [1, X_1, X_2, ..., X_{k}]$
+\item $\Xt = [1, (X_1 - \i \Xb_1) / \sd(X_1), ...]$
 \end{itemize}
 \end{description}
 \item The ridge regression estimator is
-  \[ \βh_{ridge} = (\Xt'\Xt + \l I)^{-1} \Xt'Y\]
+  \[ \betah_{ridge} = (\Xt'\Xt + \l I)^{-1} \Xt'Y\]
 \begin{itemize}
 \item For uncentered/unscaled regressors, either
 \begin{itemize}

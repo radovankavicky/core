@@ -20,10 +20,10 @@
 
   The \emph{Likelihood Ratio Test statistic} is given by
   \begin{equation*}
-    Λ(x₁,…,x_n) =
-    \frac{\sup_{θ ∈ Θ₀} L(θ; x₁,…,x_n)}{\sup_{θ ∈ Θ₀ ∪ Θ_a} L(θ; x₁,…,x_n)}
+    \Lambda(x_1,\dots,x_n) =
+    \frac{\sup_{\theta \in \Theta_0} L(\theta; x_1,\dots,x_n)}{\sup_{\theta \in \Theta_0 \cup \Theta_a} L(\theta; x_1,\dots,x_n)}
   \end{equation*}
-  and the test rejects if $Λ(x₁,...,x_n) ≤ c$ where $c$ is chosen so
+  and the test rejects if $\Lambda(x_1,...,x_n) \leq c$ where $c$ is chosen so
   that the test has the correct prespecified size.
 
   [You can draw some pictures connecting this to the maximum
@@ -35,49 +35,49 @@
 
 \item An example can help:
   \begin{ex}
-    Suppose that $X₁,...,X_n ∼ \iid\ \uniform(0, b)$ and we want to
-    test the null hypothesis $b ≥ 1$ vs $b < 1$.  (add some pictures).
+    Suppose that $X_1,...,X_n \sim \iid\ \uniform(0, b)$ and we want to
+    test the null hypothesis $b \geq 1$ vs $b < 1$.  (add some pictures).
     Intuitively, the test should always reject if $\max_i X_i > 1$,
     but it should also reject for values below but very close to 1.
     
     To start, calculate the likelihood:
     \begin{equation*}
-      L(b; x₁,...,x_n) = b^{-n} \1\{b ≥ \max_i X_i\}.
+      L(b; x_1,...,x_n) = b^{-n} \ind\{b \geq \max_i X_i\}.
     \end{equation*}
     
     Then (for the numerator)
     \begin{equation*}
-      \sup_{b ≥ 1} L(b; x₁,…,x_n) =
+      \sup_{b \geq 1} L(b; x_1,\dots,x_n) =
       \begin{cases}
         1 & \text{if } 1 > \max_i X_i \\
-        (\max_i X_i)^{-n} & \text{if } 1 ≤ \max_i X_i.
+        (\max_i X_i)^{-n} & \text{if } 1 \leq \max_i X_i.
       \end{cases}
     \end{equation*}
     and (for the denominator)
     \begin{equation*}
-      \sup_{b > 0} L(b; x₁,…,x_n) = (\max_i X_i)^{-n}.
+      \sup_{b > 0} L(b; x_1,\dots,x_n) = (\max_i X_i)^{-n}.
     \end{equation*}
     Putting them together, we get
     \begin{equation*}
-      Λ(x) =
+      \Lambda(x) =
       \begin{cases}
-        (\max_i X_i)^n & \text{if } \max_i X_i ≤ 1. \\
+        (\max_i X_i)^n & \text{if } \max_i X_i \leq 1. \\
         1 & \text{if } \max_i X_i > 1 \\
       \end{cases}
     \end{equation*}
 
-    Now, to find $c$ so that $\sup_{b ≥ 1} \Pr_b[(\max_i X_i)ⁿ ≤ c] = α$
+    Now, to find $c$ so that $\sup_{b \geq 1} \Pr_b[(\max_i X_i)^n \leq c] = \alpha$
     \begin{align*}
-      \sup_{b ≥ 1} \Pr_b[(\max_i X_i)ⁿ ≤ c]
-      &= \sup_{b≥ 1} \Pr_b[\max_i X_i/b ≤ c^{1/n}/b] \\
-      &= \sup_{b ≥ 1} \Pr_b[X₁/b ≤ c^{1/n}/b, ..., X_n/b ≤ c^{1/n}/b] \\
-      &= \sup_{b ≥ 1} \Pr_b[X₁/b ≤ c^{1/n}/b] ⋯ \Pr_b[X_n/b ≤ c^{1/n}/b] \\
-      &= \sup_{b ≥ 1} c/bⁿ \\
+      \sup_{b \geq 1} \Pr_b[(\max_i X_i)^n \leq c]
+      &= \sup_{b\geq 1} \Pr_b[\max_i X_i/b \leq c^{1/n}/b] \\
+      &= \sup_{b \geq 1} \Pr_b[X_1/b \leq c^{1/n}/b, ..., X_n/b \leq c^{1/n}/b] \\
+      &= \sup_{b \geq 1} \Pr_b[X_1/b \leq c^{1/n}/b] \cdots \Pr_b[X_n/b \leq c^{1/n}/b] \\
+      &= \sup_{b \geq 1} c/b^n \\
       &= c
     \end{align*}
-    where we're using the fact that $X_i/b ∼ \uniform(0,1)$.  So
-    $c=α$.  This test is obviously equivalent to comparing $\max_i
-    X_i$ to $α^{1/n}$.
+    where we're using the fact that $X_i/b \sim \uniform(0,1)$.  So
+    $c=\alpha$.  This test is obviously equivalent to comparing $\max_i
+    X_i$ to $\alpha^{1/n}$.
   \end{ex}
 
 \item We can run some simulations to verify that this works and makes
@@ -97,10 +97,10 @@ mean(stats <= crit)
 
 \begin{itemize}
 \item Helps us think about the best possible power
-\item Def of UMP: Let C be a class of tests for testing $θ ∈ Θ_0$
-  against $θ ∈ Θ_0^c$.  A test in C with power function $β(θ)$ is a
-  \emph{uniformly most powerful} (UMP) class C test if $β(θ) ≥ β'(θ)$
-  for all $θ ∈ Θ^c$ and all $β'$ that are power functions of tests in
+\item Def of UMP: Let C be a class of tests for testing $\theta \in \Theta_0$
+  against $\theta \in \Theta_0^c$.  A test in C with power function $\beta(\theta)$ is a
+  \emph{uniformly most powerful} (UMP) class C test if $\beta(\theta) \geq \beta'(\theta)$
+  for all $\theta \in \Theta^c$ and all $\beta'$ that are power functions of tests in
   C.
 \item Usefulness really shows up in asymptotics
 \item Often there is no UMP class C test
@@ -112,19 +112,19 @@ mean(stats <= crit)
 \subsection{Statement of Lemma}
 
 \begin{itemize}
-\item Consider testing $θ = θ_0$ vs $θ = θ₁$ where the pdf for each
-  parameter value is $f(x; θ_i)$, $i = 1,2$, using a test with
-  rejection region $R$ such that, for some $k ≥ 0$,
+\item Consider testing $\theta = \theta_0$ vs $\theta = \theta_1$ where the pdf for each
+  parameter value is $f(x; \theta_i)$, $i = 1,2$, using a test with
+  rejection region $R$ such that, for some $k \geq 0$,
 \begin{itemize}
-\item $x ∈ R$ if $f(x; θ₁) > k f(x; θ_0)$
-\item $x ∉ R$ if $f(x; θ₁) < k f(x; θ_0)$
+\item $x \in R$ if $f(x; \theta_1) > k f(x; \theta_0)$
+\item $x \notin R$ if $f(x; \theta_1) < k f(x; \theta_0)$
 \end{itemize}
 \item Then
 \begin{enumerate}
-\item Any size $α$ test with such a rejection region is a UMP level $α$-test
-\item If there is a size $α$ test with such a rejection region for $k
-  > 0$, then every UMP level $α$ test has size $α$ and every UMP level
-  $α$ test has this rejection region almost surely.
+\item Any size $\alpha$ test with such a rejection region is a UMP level $\alpha$-test
+\item If there is a size $\alpha$ test with such a rejection region for $k
+  > 0$, then every UMP level $\alpha$ test has size $\alpha$ and every UMP level
+  $\alpha$ test has this rejection region almost surely.
 \end{enumerate}
 \item Notes
 \begin{itemize}

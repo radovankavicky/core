@@ -16,12 +16,12 @@
 \begin{itemize}
 
 \item Quadratic forms will come up a lot when we study linear
-  regression.  If $X$ be a random $k$-vector and let $A$ be a $k × k$
+  regression.  If $X$ be a random $k$-vector and let $A$ be a $k \times k$
   deterministic matrix then $X'A X$ is a (random) quadratic form.
   These are (relatively) easy to study because they can be written as
   summations:
   \begin{equation*}
-    X'AX = ∑_{i,j} X_i X_j A_{ij}.
+    X'AX = \sum_{i,j} X_i X_j A_{ij}.
   \end{equation*}
 
 \item Usually, when we discuss quadratic forms, we assume (at least
@@ -35,11 +35,11 @@
 \item Here's a representative result for quadratic forms that
   illustrates a useful trick.
   \begin{thm}
-    Let $X$ be an $n × 1$ vector of random variables, and
-    let $A$ be an $n × n$ symmetric matrix.  If $\E X = μ$ and $\var(X) =
-    Σ$, then
+    Let $X$ be an $n \times 1$ vector of random variables, and
+    let $A$ be an $n \times n$ symmetric matrix.  If $\E X = \mu$ and $\var(X) =
+    \Sigma$, then
     \begin{equation}
-      \E X'AX = \tr(A Σ) + μ'Aμ.
+      \E X'AX = \tr(A \Sigma) + \mu'A\mu.
     \end{equation}
   \end{thm}
 
@@ -54,9 +54,9 @@
     &= \E(\tr(AXX')) \\
     &= \tr(\E(AXX')) \\
     &= \tr(A \E(XX')) \\
-    &= \tr(A (\var(X) + μμ')) \\
-    &= \tr(AΣ) + \tr(A μμ') \\
-    &= \tr(AΣ) + μ'Aμ.
+    &= \tr(A (\var(X) + \mu\mu')) \\
+    &= \tr(A\Sigma) + \tr(A \mu\mu') \\
+    &= \tr(A\Sigma) + \mu'A\mu.
   \end{align*}
 
 \item Similar results obviously exist for other moments, but the
@@ -65,18 +65,19 @@
   variance under a few simplifying assumptions (this particular
   statement comes from \citealp{SL03})
   \begin{thm}
-    let $X₁,...,X_n$ be independent random variables with means
-    $θ₁,...,θ_n$, and the same 2nd, 3rd and 4th central moments $μ₂$,
-    $μ₃$, $μ₄$.  If $A$ is an $n × n$ symmetric matrix and $a$ is a
-    column vector of the diagonal elements of $A$, then
+    let $X_1,...,X_n$ be independent random variables with means
+    $\theta_1,...,\theta_n$, and the same 2nd, 3rd and 4th central
+    moments $\mu_2$, $\mu_3$, $\mu_4$.  If $A$ is an $n \times n$
+    symmetric matrix and $a$ is a column vector of the diagonal
+    elements of $A$, then
     \begin{equation*}
       \var(X'AX) = 
-      (μ₄ - 3 μ₂²)a'a + 2 μ₂² \tr(A²) + 4 μ₂ θ'A² θ + 4 μ₃ θ' A a.
+      (\mu_4 - 3 \mu_2^2)a'a + 2 \mu_2^2 \tr(A^2) + 4 \mu_2 \theta'A^2 \theta + 4 \mu_3 \theta' A a.
     \end{equation*}
   \end{thm}
   To prove the result, take
   \begin{equation*}
-    X'A X = ∑_{ij} ((X_i - θ_i) + θ_i) ((X_j - θ_j) + θ_j) A_{ij},
+    X'A X = \sum_{ij} ((X_i - \theta_i) + \theta_i) ((X_j - \theta_j) + \theta_j) A_{ij},
   \end{equation*}
   multiply out and take the variance.
 
@@ -104,39 +105,39 @@
   \end{align*}
 
 \item The same pictures can be useful to understand the operations
-  when adding a variable.  Suppose you regress $Y$ on $X₁$ and get an
-  estimate $\βt₁$, then decide to regress $Y$ on $X₁$ and $X₂$, giving
-  $\βh₁$ and $\βh₂$.  There is a relationship between these estimates
+  when adding a variable.  Suppose you regress $Y$ on $X_1$ and get an
+  estimate $\betat_1$, then decide to regress $Y$ on $X_1$ and $X_2$, giving
+  $\betah_1$ and $\betah_2$.  There is a relationship between these estimates
   \begin{thm}[Frisch-Waugh-Lovel Theorem]
-    Let $e = Y - X₁\βt₁$ and define
+    Let $e = Y - X_1\betat_1$ and define
     \begin{equation*}
-      Z = (I - X₁(X₁'X₁)X₁')X₂,
+      Z = (I - X_1(X_1'X_1)X_1')X_2,
     \end{equation*}
     (i.e. $Z$ consists of the residuals after regressing each column
-    of $X₂$ on $X₁$.  Then $\βh₂ = (Z'Z)^{-1}Z'e$.
+    of $X_2$ on $X_1$.  Then $\betah_2 = (Z'Z)^{-1}Z'e$.
   \end{thm}
-  Similar formulae exist for getting $\βh₁$ from $\βt₁$
+  Similar formulae exist for getting $\betah_1$ from $\betat_1$
 
   [Need to scan pictures and add them]
 
   This result is less useful than it used to be, because computers are
-  far more powerful.  But the intuition is still just as useful—this
-  is what we mean by ``partial out''—and the result itself can still
+  far more powerful.  But the intuition is still just as useful---this
+  is what we mean by ``partial out''---and the result itself can still
   be useful when dealing with very large data sets.
 
 \item We may be interested in knowing how far $Y$ is from $\Yh$; a
   good comparison is how far relative to the distance between $Y$ and
-  $ι \Yb$.  This is what the centered $R$-squared measures:
+  $\iota \Yb$.  This is what the centered $R$-squared measures:
   \begin{equation*}
-    R² = 1 - \frac{ \lVert Y - \Yh \rVert₂²}{\lVert Y - ι \Yb \rVert²}.
+    R^2 = 1 - \frac{ \lVert Y - \Yh \rVert_2^2}{\lVert Y - \iota \Yb \rVert^2}.
   \end{equation*}
   As long as the model contains a constant, this will be between zero
   and one.
 
-  You should realize that $R²$ is almost useless as a guide to whether
+  You should realize that $R^2$ is almost useless as a guide to whether
   or not your model is ``good.''  There are a few specific
   applications (mostly forecasting) where I was somewhat interested in
-  the model's $R²$, but that's it (knowing that it's high can
+  the model's $R^2$, but that's it (knowing that it's high can
   sometimes reassure you that there's no need to look for a model with
   more predictive power).
 
@@ -152,23 +153,23 @@
   Moreover, whenever we use the Central Limit Theorem, we get an
   approximately normal random variable.
 
-\item If $X$ is an $N(μ, Σ)$ random vector, its density is
+\item If $X$ is an $N(\mu, \Sigma)$ random vector, its density is
   \begin{equation*}
-    f(x) = \frac{1}{\sqrt{2ⁿ πⁿ \det(Σ)}} exp(-1/2(x - μ)'Σ^{-1}(x- μ)).
+    f(x) = \frac{1}{\sqrt{2^n \pi^n \det(\Sigma)}} exp(-1/2(x - \mu)'\Sigma^{-1}(x- \mu)).
   \end{equation*}
-  The parameters $μ$ and $Σ$ can be shown to be the mean and variance
+  The parameters $\mu$ and $\Sigma$ can be shown to be the mean and variance
   of the r.v. and completely determine its distribution.
 
   [you should draw the shape of the density and some elliptical
   contour plots]
 
-  If $X$ is a $k$-dimensional multivariate normal with mean $μ$
-  and variance $Σ$, $A X + b$ is also multivariate normal for any
-  constant $n × k$ matrix $A$ and $n$-vector $b$.
+  If $X$ is a $k$-dimensional multivariate normal with mean $\mu$
+  and variance $\Sigma$, $A X + b$ is also multivariate normal for any
+  constant $n \times k$ matrix $A$ and $n$-vector $b$.
 
-  If $X$ is multivariate normal with mean $μ$ and variance $Σ$,
-  and $Σ^{1/2}$ is a symmetric matrix such that $Σ^{1/2} Σ^{1/2} = Σ$,
-  then $(Σ^{1/2})^{-1} (X - μ)$ is multivariate standard normal.
+  If $X$ is multivariate normal with mean $\mu$ and variance $\Sigma$,
+  and $\Sigma^{1/2}$ is a symmetric matrix such that $\Sigma^{1/2} \Sigma^{1/2} = \Sigma$,
+  then $(\Sigma^{1/2})^{-1} (X - \mu)$ is multivariate standard normal.
 
 \item Independence of normal random variables is especially easy: if
   $X$ and $Y$ are uncorrelated normal random vectors, then they are
@@ -178,20 +179,20 @@
   Marginal and conditional distributions are also especially easy to
   work with.  If 
   \begin{equation*}
-    (X₁,X₂) ∼ N((μ₁,μ₂), Σ)
+    (X_1,X_2) \sim N((\mu_1,\mu_2), \Sigma)
   \end{equation*}
   with
   \begin{equation*}
-    Σ = \begin{pmatrix}
-      Σ_{11} & Σ_{12} \\ Σ_{12}' & Σ_{22}
+    \Sigma = \begin{pmatrix}
+      \Sigma_{11} & \Sigma_{12} \\ \Sigma_{12}' & \Sigma_{22}
     \end{pmatrix}
   \end{equation*}
-  then $X₁ ∼ N(μ₁, Σ_{11})$, $X₂ ∼ N(μ₂, Σ_{22})$, and
+  then $X_1 \sim N(\mu_1, \Sigma_{11})$, $X_2 \sim N(\mu_2, \Sigma_{22})$, and
   \begin{equation*}    
-    X₁ ∣ X₂ ∼ N(μ₁ + Σ_{12} Σ_{22}^{-1} (X₂ - μ₂),
-               Σ_{11} - Σ_{12}'Σ_{22}^{-1} Σ_{12}).
+    X_1 \mid X_2 \sim N(\mu_1 + \Sigma_{12} \Sigma_{22}^{-1} (X_2 - \mu_2),
+               \Sigma_{11} - \Sigma_{12}'\Sigma_{22}^{-1} \Sigma_{12}).
   \end{equation*}
-  Notice that the conditional mean of $X₁$ depends on $X₂$, but the
+  Notice that the conditional mean of $X_1$ depends on $X_2$, but the
   conditional variance doesn't.
 
 \item The fact that zero correlation implies independence also makes
@@ -199,11 +200,11 @@
   independent.  Linear combinations and quadratic forms of normal
   r.v.s will come up often, so we'll single those results out.  For
   the next results, let $X$ be a $k$-dimensional standard normal
-  random vector (in practice, we will often work with $Σ^{-1/2} X$).
+  random vector (in practice, we will often work with $\Sigma^{-1/2} X$).
   \begin{enumerate}
-  \item If $A$ is a $k × j$ matrix and $B$ a $k × l$ matrix such that
+  \item If $A$ is a $k \times j$ matrix and $B$ a $k \times l$ matrix such that
     $A'B = 0$, then $A'X$ and $B'X$ are independent.
-  \item If $P$ is a $k × k$ idempotent matrix and $PB = 0$ then $X'PX$
+  \item If $P$ is a $k \times k$ idempotent matrix and $PB = 0$ then $X'PX$
     and $B'X$ are independent (an idempotent matrix is a square and
     symmetric matrix that satisfies $P = PP$).
   \item If $P$ and $Q$ are idempotent and $PQ = 0$ then $X'PX$ and
@@ -211,14 +212,14 @@
   \end{enumerate}
   
 \item Idempotent matrices come up often, as they represent projections
-  in $\RRⁿ$.  If $z$ is a point in $\RRⁿ$ and $x₁,...,x_k$ is a set of
-  vectors in $\RRⁿ$, we may want to project $z$ into the space spanned
-  by $x₁,...,x_k$.  This amounts to finding a linear operator $P$ so
+  in $\RR^n$.  If $z$ is a point in $\RR^n$ and $x_1,...,x_k$ is a set of
+  vectors in $\RR^n$, we may want to project $z$ into the space spanned
+  by $x_1,...,x_k$.  This amounts to finding a linear operator $P$ so
   that $P z$ is a linear combination of the $x_i$'s and $P z$ is as
   close as possible to $z$ subject to the first constraint.
 
   We'll worry about making sure that $Pz$ is a linear combination of
-  the $x_i$'s later—that's going to be the focus of linear regression.
+  the $x_i$'s later---that's going to be the focus of linear regression.
   But to ensure that $P z$ is as close as possible to $z$, we just
   need to have $z - Pz$ and $Pz$ perpendicular, so $(z - Pz)' Pz = 0$.
   But this requires that $z'(I - P)'P z = 0$ for any $z$, so $(I -
@@ -228,31 +229,31 @@
   eigenvalues must be zero or one, so $\rank(P) = \tr(P)$.
 
 \item Two statistics that are particularly relevant to the normal
-  distribution are the sample mean, $\Xb = (1/n) ∑_{i=1}^n X_i$, and
-  the sample variance, $S² = (1/(n-1)) ∑_{i=1}^n (X_i - \Xb)²$.  Note
+  distribution are the sample mean, $\Xb = (1/n) \sum_{i=1}^n X_i$, and
+  the sample variance, $S^2 = (1/(n-1)) \sum_{i=1}^n (X_i - \Xb)^2$.  Note
   that we can write $\Xb$ as a linear combination of the $X_i$'s:
   \begin{equation*}
-    \Xb = (1/n,...,1/n) · (X₁,...,X_n)' = (1/n) ι'X,
+    \Xb = (1/n,...,1/n) \cdot (X_1,...,X_n)' = (1/n) \iota'X,
   \end{equation*}
-  where $ι$ is a vector of $n$ ones, and
+  where $\iota$ is a vector of $n$ ones, and
   \begin{equation*}
-    S² = (1/(n-1)) (X - ι \Xb)'(X - ι \Xb) = (1/(n-1)) X'(I - (1/n) ιι')X.
+    S^2 = (1/(n-1)) (X - \iota \Xb)'(X - \iota \Xb) = (1/(n-1)) X'(I - (1/n) \iota\iota')X.
   \end{equation*}
-  If $X ∼ N(μ, σ² I)$ then we have $\Xb ∼ N(μ, (σ²/n) I)$.  Also,
-  since $(I - (1/n) ιι')$ is idempotent, we know right away that $\Xb$
-  and $S²$ are independent.
+  If $X \sim N(\mu, \sigma^2 I)$ then we have $\Xb \sim N(\mu, (\sigma^2/n) I)$.  Also,
+  since $(I - (1/n) \iota\iota')$ is idempotent, we know right away that $\Xb$
+  and $S^2$ are independent.
 
 \item Some derived distributions are important
 
 \item %
   \begin{defn}
-    Let $X₁,...,X_k$ be independent standard normal.  The
+    Let $X_1,...,X_k$ be independent standard normal.  The
     chi-squared distribution with $k$ degrees of freedom is the
-    distribution of $∑_{i=1}^k X²_i$.
+    distribution of $\sum_{i=1}^k X^2_i$.
   \end{defn}
 
   \begin{thm}
-    Let $X ∼ N(0, I_n)$ and let $P$ be a symmetric $n × n$ matrix.
+    Let $X \sim N(0, I_n)$ and let $P$ be a symmetric $n \times n$ matrix.
     Then $X'PX$ is chi-squared with $k$ degrees of freedom iff $P$ is
     idempotent with rank $k$.
   \end{thm}
@@ -263,7 +264,7 @@
     degrees of freedom.
   \end{thm}
 
-  If $X ∼ N(μ, σ² I)$ then $S²$ is chi-square with $n-1$ degrees of
+  If $X \sim N(\mu, \sigma^2 I)$ then $S^2$ is chi-square with $n-1$ degrees of
   freedom.
 
 \item %
@@ -293,15 +294,15 @@
 \begin{itemize}
 \item We typically will invoke some of the following assumptions:
   \begin{enumerate}
-  \item $\E(\ep_i ∣ X) = 0$ for all $i$
-  \item $\var(\ep_i ∣ X) = σ²$
-  \item $\cov(\ep_i, \ep_j ∣ X) = 0$ for $i ≠ j$
-  \item $\ep_i ∼ \iid(0,σ²)$ given $X$
-  \item $\ep_i ∼ \iid\; N(0,σ²)$ given $X$
+  \item $\E(\vep_i \mid X) = 0$ for all $i$
+  \item $\var(\vep_i \mid X) = \sigma^2$
+  \item $\cov(\vep_i, \vep_j \mid X) = 0$ for $i \neq j$
+  \item $\vep_i \sim \iid(0,\sigma^2)$ given $X$
+  \item $\vep_i \sim \iid\; N(0,\sigma^2)$ given $X$
   \end{enumerate}
   note that 5 implies 4 which implies 1, 2, and 3.
 
-\item To derive OLS as the MLE, we assume that $\ep ∼ N(0,σ² I)$.
+\item To derive OLS as the MLE, we assume that $\vep \sim N(0,\sigma^2 I)$.
   The mathematical derivation is presented in earlier sections, so
   we'll discuss some of the intuition now.
 
@@ -315,10 +316,10 @@
   \item draw a new picture to show estimating $Y$
     \begin{itemize}
     \item start with $Y$ and $X$ given
-    \item choose some $β = B₁$
+    \item choose some $\beta = B_1$
     \item draw different spheres for the ``epsilon'' corresponding to that mean
-    \item draw a second picutre corresponding to $β = B₂$
-    \item We can judge which of the values of $β$ is more plausible by
+    \item draw a second picutre corresponding to $\beta = B_2$
+    \item We can judge which of the values of $\beta$ is more plausible by
       looking at the density function, and choosing the one that's
       larger (which is just MLE); it should be clear that the
       coefficients that maximize the likelihood are going to be the
@@ -328,39 +329,39 @@
 
 \item Define a few terms: the OLS estimator is given by
   \begin{equation*}
-    \βh = (X'X)^{-1}X'Y = \left(∑_i x_i x_i'\right) ∑_i x_i y_i;
+    \betah = (X'X)^{-1}X'Y = \left(\sum_i x_i x_i'\right) \sum_i x_i y_i;
   \end{equation*}
-  The \emph{fitted values} are defined as $\Yh = X \βh$ and the OLS
-  \emph{residuals} are defined as $\eph = Y - \Yh$.
+  The \emph{fitted values} are defined as $\Yh = X \betah$ and the OLS
+  \emph{residuals} are defined as $\veph = Y - \Yh$.
 
 \item Some of the finite sample properties are relatively easy to
   prove.  The first is unbiasedness; or really conditional
   unbiasedness.
   \begin{thm}
-    Suppose that $Y = Xβ + \ep$ where $\E(\ep ∣ X) = 0$ and $X$ has
-    full rank.  Then $\E(\βh ∣ X) = β$.
+    Suppose that $Y = X\beta + \vep$ where $\E(\vep \mid X) = 0$ and $X$ has
+    full rank.  Then $\E(\betah \mid X) = \beta$.
   \end{thm}
   This conditional result implies unconditional unbiasedness through
-  the LIE: $\E \βh = \E \E(\βh ∣ X) = β$.  The proof is pretty
+  the LIE: $\E \betah = \E \E(\betah \mid X) = \beta$.  The proof is pretty
   straightforward:
   \begin{align*}
-    \E(\βh ∣ X) &= \E((X'X)^{-1} X'Y ∣ X) \\
-    &= (X'X)^{-1} X'\E(Y ∣ X) \\
-    &= (X'X)^{-1} X'\E(Xβ + e ∣ X) \\
-    &= (X'X)^{-1} X'X β \\
-    &= β.
+    \E(\betah \mid X) &= \E((X'X)^{-1} X'Y \mid X) \\
+    &= (X'X)^{-1} X'\E(Y \mid X) \\
+    &= (X'X)^{-1} X'\E(X\beta + e \mid X) \\
+    &= (X'X)^{-1} X'X \beta \\
+    &= \beta.
   \end{align*}
   One thing to notice is that this is a slightly stronger result than
   unbiasedness on its own: the expected value of the OLS coefficient
-  estimator is $β$ \emph{regardless} of the value of $X$.
+  estimator is $\beta$ \emph{regardless} of the value of $X$.
 
 \item If we also assume that the errors are homoskedastic and
   uncorrelated, the same sort of approach gives us a formula for the
   variance of the OLS estimator.
   \begin{thm}
-    Suppose that $Y = Xβ + \ep$ where $\E(\ep ∣ X) = 0$ and $X$ has
-    full rank, and also assume that $\E(\ep \ep' ∣ X) = σ² I$ for some
-    $σ²$.  Then $\var(\βh ∣ X) = σ²(X'X)^{-1}$.
+    Suppose that $Y = X\beta + \vep$ where $\E(\vep \mid X) = 0$ and $X$ has
+    full rank, and also assume that $\E(\vep \vep' \mid X) = \sigma^2 I$ for some
+    $\sigma^2$.  Then $\var(\betah \mid X) = \sigma^2(X'X)^{-1}$.
   \end{thm}
 
   The proof is similar to before.  Notice that now the variance
@@ -368,32 +369,32 @@
   inspection will show you that the variance of the $i$th coefficient
   estimator increases with the variance of the $i$th regressor.
 
-  Since $\βh - β = (X'X)^{-1}X'\ep$, we have
+  Since $\betah - \beta = (X'X)^{-1}X'\vep$, we have
   \begin{align*}
-    \var(\βh ∣ X) &= \E((\βh - β)(\βh-β)' ∣ X) \\
-    &= \E((X'X)^{-1}X'\ep\ep'X(X'X)^{-1} ∣ X) \\
-    &= (X'X)^{-1} X' \E(\ep\ep' ∣ X) X (X'X)^{-1} \\
-    &= σ² (X'X)^{-1} X'X (X'X)^{-1} \\
-    &= σ² (X'X)^{-1}
+    \var(\betah \mid X) &= \E((\betah - \beta)(\betah-\beta)' \mid X) \\
+    &= \E((X'X)^{-1}X'\vep\vep'X(X'X)^{-1} \mid X) \\
+    &= (X'X)^{-1} X' \E(\vep\vep' \mid X) X (X'X)^{-1} \\
+    &= \sigma^2 (X'X)^{-1} X'X (X'X)^{-1} \\
+    &= \sigma^2 (X'X)^{-1}
   \end{align*}
 
 \item It's also worth thinking about optimality properties under only
   the exogeneity and heteroskedasticity assumtions; you've probably
   heard of the Gauss-Markov Theorem before.  Notice that OLS can be
-  viewed as a weighted average: $\βh = (X'X) X'Y = ∑_{i=1}ⁿ w_i y_i$
+  viewed as a weighted average: $\betah = (X'X) X'Y = \sum_{i=1}^n w_i y_i$
   where $w_i$ is a $k$-vector, $w_i = (X'X)^{-1} x_i$.  The
   Gauss-Markov Theorem shows that OLS has the smallest variance of all
   of the unbiased linear estimators.
   \begin{thm}
-    Assume that $Y = Xβ + \ep$ where $\ep ∼ (0, σ² I)$ given $X$.
-    Then $\βh$ is the unique estimator with minimum variance (given
+    Assume that $Y = X\beta + \vep$ where $\vep \sim (0, \sigma^2 I)$ given $X$.
+    Then $\betah$ is the unique estimator with minimum variance (given
     $X$) among all linear, unbiased estimators (i.e. OLS is BLUE).
   \end{thm}
 
   Just as in our earlier proofs of optimaility, the trick here will be
   to show that any other linear, unbiased estimator can be written as
-  $\βh$ plus some additional uncorrelated noise term.  Suppose that
-  $V$ is a $k × n$ matrix s.t. $\E V'Y = β$ is unbiased for $β$, so
+  $\betah$ plus some additional uncorrelated noise term.  Suppose that
+  $V$ is a $k \times n$ matrix s.t. $\E V'Y = \beta$ is unbiased for $\beta$, so
   $V'Y$ is a linear unbiased estimator.  We can write down immediately
   that
   \begin{equation*}
@@ -402,87 +403,87 @@
   and the proof then follows after showing that these two parts are
   uncorrelated.
   
-  By construction, $V'Y = V'Xβ + V'e$, so
+  By construction, $V'Y = V'X\beta + V'e$, so
   \begin{equation*}
-    β = \E(V'Y ∣ X) = \E(V'Xβ + V'e ∣ X) = V'X β + V'\E(e ∣ X) = V'Xβ.
+    \beta = \E(V'Y \mid X) = \E(V'X\beta + V'e \mid X) = V'X \beta + V'\E(e \mid X) = V'X\beta.
   \end{equation*}
-  This holds for any choice of $β$, so $V'X$ must be equal to $I$ and,
-  as a result, $V'Y - β = V'e$.
+  This holds for any choice of $\beta$, so $V'X$ must be equal to $I$ and,
+  as a result, $V'Y - \beta = V'e$.
 
   Now it is straightforward to calculate the covariance between
   $(X'X)^{-1}X'Y$ and $(V - (X'X)^{-1}X')Y$,
   \begin{align*}
-    \cov((X'X)^{-1}X'Y, (V - (X'X)^{-1}X')Y ∣ X)
-    &= \E((X'X)^{-1}X'e e'(V - X(X'X)^{-1}) ∣ X) \\
-    &= σ² (X'X)^{-1}X'(V - X(X'X)^{-1}) \\
-    &= σ² [(X'X)^{-1}X'V - (X'X)^{-1} X'X (X'X)^{-1}].
+    \cov((X'X)^{-1}X'Y, (V - (X'X)^{-1}X')Y \mid X)
+    &= \E((X'X)^{-1}X'e e'(V - X(X'X)^{-1}) \mid X) \\
+    &= \sigma^2 (X'X)^{-1}X'(V - X(X'X)^{-1}) \\
+    &= \sigma^2 [(X'X)^{-1}X'V - (X'X)^{-1} X'X (X'X)^{-1}].
   \end{align*}
   Both equal $(X'X)^{-1}$, so the whole term is zero and we've shown
   that the covariance is zero, completing the proof.
 
 \item We've proved this result conditional on $X$, but the
-  unconditional extension is easy.  If $\var(\βh ∣ X) ≤ \var(V'Y ∣ X)$
-  for all values of $X$, then $\E \var(\βh ∣ X) ≤ \E \var(V'Y ∣ X)$ as
+  unconditional extension is easy.  If $\var(\betah \mid X) \leq \var(V'Y \mid X)$
+  for all values of $X$, then $\E \var(\betah \mid X) \leq \E \var(V'Y \mid X)$ as
   well.
 
 \item This argument can be generalized.  Suppose that instead of
-  having $\E(\ep \ep' ∣ X) = σ² I$ we knew that $\E(\ep \ep' ∣ X) = σ²
-  Ω$ for some other known matrix $Ω$.  We could still do MLE to
-  estimate $β$ and $σ$, and this would generally give a different
-  estimate than OLS.  But observe that $Ω^{-1/2} \ep ∼ (0, σ² I)$ given
+  having $\E(\vep \vep' \mid X) = \sigma^2 I$ we knew that $\E(\vep \vep' \mid X) = \sigma^2
+  \Omega$ for some other known matrix $\Omega$.  We could still do MLE to
+  estimate $\beta$ and $\sigma$, and this would generally give a different
+  estimate than OLS.  But observe that $\Omega^{-1/2} \vep \sim (0, \sigma^2 I)$ given
   $X$, so if we transform the regression relationship to be
   \begin{equation*}
-    Ω^{-1/2} Y = Ω^{-1/2} X β + Ω^{-1/2} \ep,
+    \Omega^{-1/2} Y = \Omega^{-1/2} X \beta + \Omega^{-1/2} \vep,
   \end{equation*}
   this new relationship meets the conditions of the Gauss-Markov
   theorem.
 
   This implies that the efficient estimator is the OLS regression of
-  $Ω^{-1/2} Y$ on $Ω^{-1/2} X$, or
+  $\Omega^{-1/2} Y$ on $\Omega^{-1/2} X$, or
   \begin{equation*}
-    \βh_{GLS} = (X'Ω^{-1}X)^{-1}X'Ω^{-1}Y.
+    \betah_{GLS} = (X'\Omega^{-1}X)^{-1}X'\Omega^{-1}Y.
   \end{equation*}
-  So $\βh_{GLS}$ is BLUE and has variance equal to $σ² (X' Ω^{-1}
+  So $\betah_{GLS}$ is BLUE and has variance equal to $\sigma^2 (X' \Omega^{-1}
   X)^{-1}$.
 
-  Now, it is unlikely that we will know $Ω$ in practice.  We'll
-  discuss how to estimate $Ω$ when we discuss asymptotic properties of
+  Now, it is unlikely that we will know $\Omega$ in practice.  We'll
+  discuss how to estimate $\Omega$ when we discuss asymptotic properties of
   these estimators in part 3.
 
 \item The sampling distributions also matter.  Finite sample
   distributions are going to depend on the distribution of the error
-  term, $\ep$.  $\βh$ is relatively easy to work with, since it equals
-  $β + (X'X)^{-1} X'\ep$; if $\ep ∼ N(0, σ²)$ given $X$, clearly
-  $\βh ∼ N(β, σ²(X'X)^{-1})$ given $X$.
+  term, $\vep$.  $\betah$ is relatively easy to work with, since it equals
+  $\beta + (X'X)^{-1} X'\vep$; if $\vep \sim N(0, \sigma^2)$ given $X$, clearly
+  $\betah \sim N(\beta, \sigma^2(X'X)^{-1})$ given $X$.
 
-  For $s²$, we can get results pretty quickly by relating it back to
-  the quadratic form results. We have $s² = (n-k)^{-1} ∑_{i=1}ⁿ \eph²_i$
+  For $s^2$, we can get results pretty quickly by relating it back to
+  the quadratic form results. We have $s^2 = (n-k)^{-1} \sum_{i=1}^n \veph^2_i$
   which can also be written as
   \begin{align*}
-    s² &= (n-k)^{-1} ∑_i (y_i - x_i'\βh)² \\
-    &= (n-k)^{-1} (Y - X\βh)'(Y - X\βh) \\
+    s^2 &= (n-k)^{-1} \sum_i (y_i - x_i'\betah)^2 \\
+    &= (n-k)^{-1} (Y - X\betah)'(Y - X\betah) \\
     &= (n-k)^{-1} (Y - X(X'X)^{-1}X'Y)'(Y - X(X'X)^{-1}X'Y) \\
     &= (n-k)^{-1} Y'(I - X(X'X)^{-1}X')'(I - X(X'X)^{-1}X')Y \\
     &= (n-k)^{-1} Y'(I - X(X'X)^{-1}X')Y \\
-    &= (n-k)^{-1} (Xβ + \ep)'(I - X(X'X)^{-1}X')(Xβ + \ep) \\
-    &= (n-k)^{-1} \ep'(I - X(X'X)^{-1}X')\ep.
+    &= (n-k)^{-1} (X\beta + \vep)'(I - X(X'X)^{-1}X')(X\beta + \vep) \\
+    &= (n-k)^{-1} \vep'(I - X(X'X)^{-1}X')\vep.
   \end{align*}
   Now $I - X(X'X)^{-1}X'$ is a projection matrix with rank $n-k$, so
-  $s² ∼ (n-k)^{-1} χ²(n-k)$ given $X$.  Moreover, it is easy to verify
-  that $s²$ and $\βh$ are independent given $X$.
+  $s^2 \sim (n-k)^{-1} \chi^2(n-k)$ given $X$.  Moreover, it is easy to verify
+  that $s^2$ and $\betah$ are independent given $X$.
 
 \item Two unconditional results are more useful.  If we let $q_i$ be
   the $i,i$ element of $(X'X)^{-1}$ and look at the unconditional
-  density of $(\βh_i - β_i)/\sqrt{q_i σ²}$, we see that
+  density of $(\betah_i - \beta_i)/\sqrt{q_i \sigma^2}$, we see that
   \begin{align*}
-    f_{(\βh_i - β_i)/\sqrt{q_i σ²}}(b)
-    &= ∫ f_{(\βh_i - β_i)/\sqrt{q_i σ²}, q_i} (b, q) dq \\
-    &= ∫ f_{(\βh_i - β_i)/\sqrt{q_i σ²}}(b ∣ q_i = q) f_{q_i}(q) dq \\
-    &= ∫ φ(b) f_{q_i}(q) dq \\
-    &= φ(b) ∫ f_{q_i}(q) dq \\
-    &= φ(b).
+    f_{(\betah_i - \beta_i)/\sqrt{q_i \sigma^2}}(b)
+    &= \int f_{(\betah_i - \beta_i)/\sqrt{q_i \sigma^2}, q_i} (b, q) dq \\
+    &= \int f_{(\betah_i - \beta_i)/\sqrt{q_i \sigma^2}}(b \mid q_i = q) f_{q_i}(q) dq \\
+    &= \int \phi(b) f_{q_i}(q) dq \\
+    &= \phi(b) \int f_{q_i}(q) dq \\
+    &= \phi(b).
   \end{align*}
-  Similarly, replacing $σ²$ with $s²$ gives us a $t(n-k)$ distribution.
+  Similarly, replacing $\sigma^2$ with $s^2$ gives us a $t(n-k)$ distribution.
 
 \end{itemize}
 
@@ -498,30 +499,30 @@
 \item observe regressors for period $n+1$
 \item want to predict $y_{n+1}$
 \end{itemize}
-\item model \[ y_i = x_i'β + ε_i \]
+\item model \[ y_i = x_i'\beta + \epsilon_i \]
 \item Estimated by OLS (or, maybe, GLS)
 \end{itemize}
 
 \subsection{natural forecast}
 
 \begin{itemize}
-\item The natural forecast for $y_{n+1}$ is $x_{n+1}'\βh$
+\item The natural forecast for $y_{n+1}$ is $x_{n+1}'\betah$
 \begin{itemize}
-\item $x_{n+1}'β$ would be the forecast that minimizes expected
+\item $x_{n+1}'\beta$ would be the forecast that minimizes expected
          squared error
-\item $\βh$ is our best (minimum-variance) estimator of $β$
+\item $\betah$ is our best (minimum-variance) estimator of $\beta$
 \item Expected value of $\hat y_{n+1}$ is $y_{n+1}$
 \end{itemize}
 \item How reliable is our forecast?
 \begin{itemize}
 \item more precisely, what is the variance of the forecast error?
 \item Define the forecast error as 
-  \[ e_{n+1} = y_{n+1} - \hat y_{n+1} = ε_{n+1} - x_{n+1}'(\βh - β) \]
+  \[ e_{n+1} = y_{n+1} - \hat y_{n+1} = \epsilon_{n+1} - x_{n+1}'(\betah - \beta) \]
 \end{itemize}
 \item Variance of forecast erro is going to reflect
 \begin{itemize}
-\item variance of $\βh$
-\item variance of $ε_{n+1}$
+\item variance of $\betah$
+\item variance of $\epsilon_{n+1}$
 \end{itemize}
 \end{itemize}
 
@@ -532,11 +533,11 @@
 \begin{itemize}
 \item conditionally heteroeskedastic errors can be dealt with by GLS
 \item The usual calculation gives us
-  \[ \var(e_{n+1} ∣ X, x_{n+1}) = \E(e_{n+1}² ∣ X_{n+1}) = \E(ε_{n+1}²
-  ∣ X, x_{n+1}) + \E(((\βh - β)'x_{n+1})² ∣ X, x_{n+1})\]
-\item the first term is just $σ²$
+  \[ \var(e_{n+1} \mid X, x_{n+1}) = \E(e_{n+1}^2 \mid X_{n+1}) = \E(\epsilon_{n+1}^2
+  \mid X, x_{n+1}) + \E(((\betah - \beta)'x_{n+1})^2 \mid X, x_{n+1})\]
+\item the first term is just $\sigma^2$
 \item the second is 
-  \[ x_{n+1}' \var(\βh ∣ X) x_{n+1} = σ² x_{n+1}'(X'X)^{-1}x_{n+1}\]
+  \[ x_{n+1}' \var(\betah \mid X) x_{n+1} = \sigma^2 x_{n+1}'(X'X)^{-1}x_{n+1}\]
 \item draw a scatterplot to illustrate why $\hat y$ will depend on
        the particular value of $x$.
 \end{itemize}
@@ -546,7 +547,7 @@
 \begin{itemize}
 \item \textbf{if the errors are normal}, we can construct a confidence
        interval for $y_{n+1}$ from this result
-\item $\hat y_{n+1} ± t_{α/2} \sqrt{s² (1 + x_{n+1}'(X'X)^{-1}x_{n+1})}$
+\item $\hat y_{n+1} \pm t_{\alpha/2} \sqrt{s^2 (1 + x_{n+1}'(X'X)^{-1}x_{n+1})}$
 \end{itemize}
 
 %%% Local Variables: 

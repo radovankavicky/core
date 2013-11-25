@@ -22,22 +22,22 @@ figure out some simulations to motivate this stuff.
 \item Suppose the null can be written as an intersection of simpler
   nulls:
   \begin{itemize}
-  \item $H₀: θ ∈ ⋃_{γ ∈ Γ} θ_γ$ vs.  $H_A: θ ∉ ⋂_{γ ∈ Γ} θ_γ$
+  \item $H_0: \theta \in \bigcup_{\gamma \in \Gamma} \theta_\gamma$ vs.  $H_A: \theta \notin \bigcap_{\gamma \in \Gamma} \theta_\gamma$
   \item It is easy to find tests for each individual set:
     \begin{itemize}
-    \item $T_γ$ tests the null $θ ∈ θ_γ$ vs. $θ ∉ θ_γ$ for each $γ$.
+    \item $T_\gamma$ tests the null $\theta \in \theta_\gamma$ vs. $\theta \notin \theta_\gamma$ for each $\gamma$.
     \end{itemize}
-  \item If $T_γ$ is a level-$α$ test with rejection region $R_γ$ (ie
-    it rejects if $(x₁,…,x_n) ∈ R$), then the test with rejection
-    region $⋂_{γ ∈ Γ} R_γ$ is the IU Test and has level $α$
+  \item If $T_\gamma$ is a level-$\alpha$ test with rejection region $R_\gamma$ (ie
+    it rejects if $(x_1,\dots,x_n) \in R$), then the test with rejection
+    region $\bigcap_{\gamma \in \Gamma} R_\gamma$ is the IU Test and has level $\alpha$
   \end{itemize}
 \item Note that we don't need to correct the critical values here
 \end{itemize}
 
 \paragraph{Proof of validity}
 \begin{itemize}
-\item We know that, under the null, $θ ∈ θ_γ'$ for at least one $γ'$
-\item $\Pr_θ[(X₁,…,X_n) ∈ ⋂_γ R_γ] ≤ \Pr_θ[(X₁,…, X_n) ∈ R_{γ'}] ≤ α$
+\item We know that, under the null, $\theta \in \theta_\gamma'$ for at least one $\gamma'$
+\item $\Pr_\theta[(X_1,\dots,X_n) \in \bigcap_\gamma R_\gamma] \leq \Pr_\theta[(X_1,\dots, X_n) \in R_{\gamma'}] \leq \alpha$
 \end{itemize}
 
 \subsection{Union-Intersection Test}
@@ -47,37 +47,37 @@ figure out some simulations to motivate this stuff.
 \item Suppose the null can be written as an intersection of simpler
   nulls:
   \begin{itemize}
-  \item $H₀: θ ∈ ⋂_{γ ∈ Γ} θ_γ$ vs.  $H_A: θ ∉ ⋂_{γ ∈ Γ} θ_γ$
+  \item $H_0: \theta \in \bigcap_{\gamma \in \Gamma} \theta_\gamma$ vs.  $H_A: \theta \notin \bigcap_{\gamma \in \Gamma} \theta_\gamma$
   \item It is easy to find tests for each individual set:
     \begin{itemize}
-    \item $T_γ$ tests the null $θ ∈ θ_γ$ vs. $θ ∉ θ_γ$ for each $γ$.
+    \item $T_\gamma$ tests the null $\theta \in \theta_\gamma$ vs. $\theta \notin \theta_\gamma$ for each $\gamma$.
     \end{itemize}
-  \item If $T_γ$ is a level-$\frac{α}{\# Γ}$ test with rejection
-    region $R_γ$ (ie it rejects if $(x₁,…,x_n) ∈ R$), then the test
-    with rejection region $⋃_{γ ∈ Γ} R_γ$ is the UI Test and has level
-    $α$
+  \item If $T_\gamma$ is a level-$\frac{\alpha}{\# \Gamma}$ test with rejection
+    region $R_\gamma$ (ie it rejects if $(x_1,\dots,x_n) \in R$), then the test
+    with rejection region $\bigcup_{\gamma \in \Gamma} R_\gamma$ is the UI Test and has level
+    $\alpha$
   \end{itemize}
 \item Note that we don't need to use a stepdown procedure here
-\item Could still do better if we used the joint distribution of $T_γ$
+\item Could still do better if we used the joint distribution of $T_\gamma$
 \end{itemize}
 
-\paragraph{Show that testing at $α$ doesn't work}
+\paragraph{Show that testing at $\alpha$ doesn't work}
 
 \paragraph{Proof of validity}
 \begin{itemize}
 \item Follows from the same argument as in multiple comparisons
   \begin{align*}
-    \Pr_θ[(X₁,…,X_n) ∈ ⋃_{γ} R_γ] 
-    &≤ ∑_{γ ∈ Γ} \Pr_θ[(X₁,…,X_n) ∈ R_γ] \\
-    &≤ ∑_γ \frac{α}{\#Γ} \\
-    &= α
+    \Pr_\theta[(X_1,\dots,X_n) \in \bigcup_{\gamma} R_\gamma] 
+    &\leq \sum_{\gamma \in \Gamma} \Pr_\theta[(X_1,\dots,X_n) \in R_\gamma] \\
+    &\leq \sum_\gamma \frac{\alpha}{\#\Gamma} \\
+    &= \alpha
   \end{align*}
 \end{itemize}
 
 \subsection{Multiple hypothesis testing}
 
 \begin{itemize}
-\item Suppose we have a bunch of hypotheses $θ ∈ θ_γ$, but instead of
+\item Suppose we have a bunch of hypotheses $\theta \in \theta_\gamma$, but instead of
   being interested in knowing about compound hypotheses, we're
   interested in all of them
   \begin{itemize}
@@ -86,12 +86,12 @@ figure out some simulations to motivate this stuff.
   \end{itemize}
 \item Now we want to control the rate of ``familywise error''
   \begin{itemize}
-  \item Let $I$ index the true nulls: $I = \{γ ∈ Γ : θ_γ ∈ θ_γ\}$
-  \item FWE is \[\sup_{θ: θ_γ ∈ θ_γ, γ ∈ I} \Pr_θ[T_γ \text{ rejects
-      for at least one } γ ∈ I]\]
-  \item want this error probability to be less than $α$
+  \item Let $I$ index the true nulls: $I = \{\gamma \in \Gamma : \theta_\gamma \in \theta_\gamma\}$
+  \item FWE is \[\sup_{\theta: \theta_\gamma \in \theta_\gamma, \gamma \in I} \Pr_\theta[T_\gamma \text{ rejects
+      for at least one } \gamma \in I]\]
+  \item want this error probability to be less than $\alpha$
   \end{itemize}
-\item As with UIT, testing each one at $α$ doesn't work
+\item As with UIT, testing each one at $\alpha$ doesn't work
   \begin{itemize}
   \item show this
   \end{itemize}

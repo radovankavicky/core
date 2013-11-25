@@ -17,11 +17,11 @@
 \item Notice that the OLS estimator can be written as a function of
   averages:
   \begin{equation*}
-    \βh = β + \big( (1/n) ∑_{i=1}^n x_i x_i' \big)^{-1}
-    (1/n) ∑_{i=1}^n x_i \ep_i.
+    \betah = \beta + \big( (1/n) \sum_{i=1}^n x_i x_i' \big)^{-1}
+    (1/n) \sum_{i=1}^n x_i \vep_i.
   \end{equation*}
-  So it is easy to analyze the asymptotic behavior of $\βh$ whenever
-  $(1/n) ∑_{i=1}^n x_i x_i'$ obeys an LLN and $(1/n) ∑_{i=1}^n x_i \ep_i$
+  So it is easy to analyze the asymptotic behavior of $\betah$ whenever
+  $(1/n) \sum_{i=1}^n x_i x_i'$ obeys an LLN and $(1/n) \sum_{i=1}^n x_i \vep_i$
   obeys an LLN or CLT.
 
   If we maintain the assumption that the observations are independent
@@ -36,27 +36,27 @@
   \end{asmp}
   Under Assumption~\ref{xmoments},
   \begin{equation*}
-    (1/n) ∑_{i=1}^n x_i x_i' →^p Q
+    (1/n) \sum_{i=1}^n x_i x_i' \to^p Q
   \end{equation*}
-  where $Q = \lim_{n→∞} (1/n) ∑_{i=1}^n \E x_i x_i'$.
+  where $Q = \lim_{n\to\infty} (1/n) \sum_{i=1}^n \E x_i x_i'$.
 
   \begin{asmp}~\label{epmoments}
-    The r.v.s $\{x_i \ep_i\}$ are independent and mean zero with
-    uniformly bounded $2 + δ$ moments and uniformly positive definite
+    The r.v.s $\{x_i \vep_i\}$ are independent and mean zero with
+    uniformly bounded $2 + \delta$ moments and uniformly positive definite
     variances.
   \end{asmp}
   Under Assumption~\ref{epmoments},
   \begin{equation*}
-    (1/\sqrt{n}) ∑_{i=1}^n x_i \ep_i →^d N(0, V)
+    (1/\sqrt{n}) \sum_{i=1}^n x_i \vep_i \to^d N(0, V)
   \end{equation*}
-  where $V = \lim_{n→∞} (1/n) ∑_{i=1}^n \E x_i x_i' \ep_i²$
+  where $V = \lim_{n\to\infty} (1/n) \sum_{i=1}^n \E x_i x_i' \vep_i^2$
 
 \item Now, under Assumptions~\ref{xmoments} and~\ref{epmoments}, it is
   straightforward to show that the OLS estimator is consistent and
   asymptotically normal.
   \begin{defn}
-    An estimator $\θh_n$ of the parameter $θ$ is \emph{consistent} if
-    $\θh_n → θ$ in probability as $n → ∞$.
+    An estimator $\thetah_n$ of the parameter $\theta$ is \emph{consistent} if
+    $\thetah_n \to \theta$ in probability as $n \to \infty$.
   \end{defn}
   Consistency can be viewed as the minimal property that an estimator
   should have: if you have arbitrarily many observations, the
@@ -68,50 +68,50 @@
 \item So, assume that Assumptions~\ref{xmoments} and~\ref{epmoments}
   hold.  Then
   \begin{equation*}
-    \βh 
-    = β + \big( (1/n) ∑_{i=1}^n x_i x_i' \big)^{-1}
-       (1/n) ∑_{i=1}^n x_i \ep_i
-    = β + \big( (1/n) ∑_{i=1}^n x_i x_i' \big)^{-1} o_p.
+    \betah 
+    = \beta + \big( (1/n) \sum_{i=1}^n x_i x_i' \big)^{-1}
+       (1/n) \sum_{i=1}^n x_i \vep_i
+    = \beta + \big( (1/n) \sum_{i=1}^n x_i x_i' \big)^{-1} o_p.
   \end{equation*}
-  and, since $(1/n) ∑_{i=1}^n x_i x_i' →^p Q$ and $Q$ is invertible by
-  assumption, we have $\βh = β + o_p$.
+  and, since $(1/n) \sum_{i=1}^n x_i x_i' \to^p Q$ and $Q$ is invertible by
+  assumption, we have $\betah = \beta + o_p$.
 
 \item For asymptotic normality, we have
   \begin{equation*}
-    \sqrt{n} (\βh - β)
-    = \big( (1/n) ∑_{i=1}^n x_i x_i' \big)^{-1}
-      (1/\sqrt{n}) ∑_{i=1}^n x_i \ep_i →^d Q^{-1} Z
+    \sqrt{n} (\betah - \beta)
+    = \big( (1/n) \sum_{i=1}^n x_i x_i' \big)^{-1}
+      (1/\sqrt{n}) \sum_{i=1}^n x_i \vep_i \to^d Q^{-1} Z
   \end{equation*}
-  where $Z ∼ N(0, V)$, so $\sqrt{n} (\βh - β) ∼^a N(0, Q^{-1} V
-  Q^{-1})$, where ``$∼^a$'' designates asymptotic distribution.
+  where $Z \sim N(0, V)$, so $\sqrt{n} (\betah - \beta) \sim^a N(0, Q^{-1} V
+  Q^{-1})$, where ``$\sim^a$'' designates asymptotic distribution.
 
 \item This asymptotic distribution is different than the finite sample
   distribution.  Specifically, the variance is different.  In our
   finite sample results, we assumed conditional homoskedasticity;
-  namely that $\var(\ep_i ∣ X) = σ²$ for all $i$.  Making that
+  namely that $\var(\vep_i \mid X) = \sigma^2$ for all $i$.  Making that
   assumption here changes $V$:
   \begin{align*}
     V
-    &= \lim_{n → ∞} (1/n) ∑_{i=1}^n \E x_i x_i' \ep_i² \\
-    &= \lim_{n → ∞} (1/n) ∑_{i=1}^n \E \big( x_i x_i' \E(\ep_i² ∣ X) \big) \\
-    &= \lim_{n → ∞} (1/n) ∑_{i=1}^n \E( x_i x_i' ) σ² \\
-    &= σ² Q.
+    &= \lim_{n \to \infty} (1/n) \sum_{i=1}^n \E x_i x_i' \vep_i^2 \\
+    &= \lim_{n \to \infty} (1/n) \sum_{i=1}^n \E \big( x_i x_i' \E(\vep_i^2 \mid X) \big) \\
+    &= \lim_{n \to \infty} (1/n) \sum_{i=1}^n \E( x_i x_i' ) \sigma^2 \\
+    &= \sigma^2 Q.
   \end{align*}
-  Then we have $\sqrt{n} (\βh - β) ∼^a N(0, σ² Q^{-1})$, which is the
+  Then we have $\sqrt{n} (\betah - \beta) \sim^a N(0, \sigma^2 Q^{-1})$, which is the
   limit of the finite sample distribution under homoskedasticity.  The
-  proof that $(1/n) X'X → Q$ in probability has been done, so it
-  remains to show that $s² → σ²$ in probability:
+  proof that $(1/n) X'X \to Q$ in probability has been done, so it
+  remains to show that $s^2 \to \sigma^2$ in probability:
   \begin{align*}
-    s² &= (1/(n-k)) ∑_i (y_i - x_i'\βh)² \\
-    &= (1/(n-k)) ∑_i (\ep_i - x_i'(\βh - β))² \\
-    &= (1/(n-k)) ∑_i (\ep_i² - 2 \ep_i x_i'(\βh-β) + (x_i'(\βh-β))²) \\
-    &= (1/(n-k)) ∑_i \ep_i²
-       - 2 (\βh - β)' (1/(n-k)) ∑_i  x_i \ep_i
-       + (\βh - β)' (1/(n-k)) ∑_i x_i x_i' (\βh - β) \\
-    &= (1/n) ∑_i \ep_i² + o_p(1) o_p(1) + o_p(1)'O_p(1)o_p(1) \\
-    &= (1/n) ∑_i \ep_i² + o_p(1).
+    s^2 &= (1/(n-k)) \sum_i (y_i - x_i'\betah)^2 \\
+    &= (1/(n-k)) \sum_i (\vep_i - x_i'(\betah - \beta))^2 \\
+    &= (1/(n-k)) \sum_i (\vep_i^2 - 2 \vep_i x_i'(\betah-\beta) + (x_i'(\betah-\beta))^2) \\
+    &= (1/(n-k)) \sum_i \vep_i^2
+       - 2 (\betah - \beta)' (1/(n-k)) \sum_i  x_i \vep_i
+       + (\betah - \beta)' (1/(n-k)) \sum_i x_i x_i' (\betah - \beta) \\
+    &= (1/n) \sum_i \vep_i^2 + o_p(1) o_p(1) + o_p(1)'O_p(1)o_p(1) \\
+    &= (1/n) \sum_i \vep_i^2 + o_p(1).
   \end{align*}
-  And $(1/n) ∑_i \ep_i² → σ²$ through the LLN.
+  And $(1/n) \sum_i \vep_i^2 \to \sigma^2$ through the LLN.
 
 \end{itemize}
 
@@ -121,80 +121,80 @@
 
 \item To be able to use this asymptotic approximation, we need to
   estimate the parameters $Q$ and $V$.  We already know an estimator
-  for $Q$, simply $(1/n) ∑_{i=1}^n x_i x_i'$ which is consistent under
-  Assumption~\ref{xmoments}.  But we don't observe $\ep_i$, so the
-  obviously correct average $(1/n) ∑_{i=1}^n \ep_i² x_i x_i'$ is not
+  for $Q$, simply $(1/n) \sum_{i=1}^n x_i x_i'$ which is consistent under
+  Assumption~\ref{xmoments}.  But we don't observe $\vep_i$, so the
+  obviously correct average $(1/n) \sum_{i=1}^n \vep_i^2 x_i x_i'$ is not
   an option.
 
-  Of course, since we know $(1/n) ∑_{i=1}^n \ep_i² x_i x_i' →ᵖ V$
+  Of course, since we know $(1/n) \sum_{i=1}^n \vep_i^2 x_i x_i' \to^p V$
   under Assumption~\ref{epmoments}\footnote{Add the argument later.}
-  it suffices to find a quantity that converges to $(1/n) ∑_{i=1}^n
-  \ep_i² x_i x_i'$ in probability.  One option to replace $\ep_i$ with
-  the OLS residual $\eph_i$.  This gives the estimator
+  it suffices to find a quantity that converges to $(1/n) \sum_{i=1}^n
+  \vep_i^2 x_i x_i'$ in probability.  One option to replace $\vep_i$ with
+  the OLS residual $\veph_i$.  This gives the estimator
   \begin{equation*}
-    \Vh = (1/n) ∑_{i=1}^n \eph_i² x_i x_i',
+    \Vh = (1/n) \sum_{i=1}^n \veph_i^2 x_i x_i',
   \end{equation*}
   which was first proposed in the econometrics literature by
   \citet{Whi80}.
 
-\item Let's define $W_n = (1/n) ∑_{i=1}^n x_i x_i' \ep_i²$.  We can
+\item Let's define $W_n = (1/n) \sum_{i=1}^n x_i x_i' \vep_i^2$.  We can
   rewrite the difference between $W_n$ and $\Vh$ as
   \begin{align*}
     \Vh - W_n
-    &= (1/n) ∑_{i=1}^n x_i x_i' (\eph²_i - \ep_i²) \\
-    &= (1/n) ∑_{i=1}^n x_i x_i' (x_i'(\βh - β))²
-    - (2/n) ∑_{i=1}^n  x_i x_i' \ep_i x_i'(\βh - β))
+    &= (1/n) \sum_{i=1}^n x_i x_i' (\veph^2_i - \vep_i^2) \\
+    &= (1/n) \sum_{i=1}^n x_i x_i' (x_i'(\betah - \beta))^2
+    - (2/n) \sum_{i=1}^n  x_i x_i' \vep_i x_i'(\betah - \beta))
   \end{align*}
 
   Now, if we look at the $(j,k)$ element of the first matrix, we see
   \begin{equation*}
-    (1/n) ∑_{i=1}^n x_{ij} x_{ik}(x_i'(\βh - β))² =
-    (\βh - β)' \big((1/n) ∑_{i=1}^n x_i x_{ij} x_{ik} x_{i}'\big) (\βh- β).
+    (1/n) \sum_{i=1}^n x_{ij} x_{ik}(x_i'(\betah - \beta))^2 =
+    (\betah - \beta)' \big((1/n) \sum_{i=1}^n x_i x_{ij} x_{ik} x_{i}'\big) (\betah- \beta).
   \end{equation*}
   Under usual conditions, the term inside the sum is going to converge
-  to its average and each $\βh - β$ is going to converge to zero in
+  to its average and each $\betah - \beta$ is going to converge to zero in
   probability.  So this term is $o_p$.
 
   If we look at the $(j,k)$ element of the second matrix, we see
   \begin{equation*}
-    (1/n) ∑_{i=1}^n x_{ij} x_{ik}(\ep_i x_i'(\βh - β)) =
-    \big((1/n) ∑_{i=1}^n \ep_i x_{ij} x_{ik} x_{i}'\big) (\βh- β).
+    (1/n) \sum_{i=1}^n x_{ij} x_{ik}(\vep_i x_i'(\betah - \beta)) =
+    \big((1/n) \sum_{i=1}^n \vep_i x_{ij} x_{ik} x_{i}'\big) (\betah- \beta).
   \end{equation*}
   Again, the term inside the sum converges to its average (zero, in
-  this case) and $\βh - β$ converges in probability to zero.
+  this case) and $\betah - \beta$ converges in probability to zero.
 
   Consequently, $\Vh = W_n + o_p = V + o_p$.
 
 \item We can test linear restrictions on a single coefficient with a
   modification of the \ttest.  Instead of normalizing with the $(j,j)$
-  element of $n · s² (X'X)^{-1}$, however, we need to normalize with
-  the $(j,j)$ element of $\Qh^{-1} \Vh \Qh^{-1}$ (define $\Ωh =
-  \Qh^{-1} \Vh \Qh^{-1}$) .  So, under the null hypothesis $β_j = b₀$,
+  element of $n \cdot s^2 (X'X)^{-1}$, however, we need to normalize with
+  the $(j,j)$ element of $\Qh^{-1} \Vh \Qh^{-1}$ (define $\Omegah =
+  \Qh^{-1} \Vh \Qh^{-1}$) .  So, under the null hypothesis $\beta_j = b_0$,
   we have
   \begin{equation*}
-    \sqrt{n} (\βh_j - b₀) / \Ωh_{jj}^{1/2} =
-    \sqrt{n} (\βh_j - b₀) / Ω_{jj}^{1/2} × (Ω_{jj} / \Ωh_{jj})^{1/2}.
+    \sqrt{n} (\betah_j - b_0) / \Omegah_{jj}^{1/2} =
+    \sqrt{n} (\betah_j - b_0) / \Omega_{jj}^{1/2} \times (\Omega_{jj} / \Omegah_{jj})^{1/2}.
   \end{equation*}
-  Since $\sqrt{n} (\βh_j - b₀) / Ω_{jj}^{1/2} → N(0, 1)$ in
-  distribution and $(Ω_{jj} / \Ωh_{jj})^{1/2} → 1$ in probability,
+  Since $\sqrt{n} (\betah_j - b_0) / \Omega_{jj}^{1/2} \to N(0, 1)$ in
+  distribution and $(\Omega_{jj} / \Omegah_{jj})^{1/2} \to 1$ in probability,
   \begin{equation*}
-    \sqrt{n} (\βh_j - b₀) / \Ωh_{jj}^{1/2} →^d N(0,1)
+    \sqrt{n} (\betah_j - b_0) / \Omegah_{jj}^{1/2} \to^d N(0,1)
   \end{equation*}
 
-\item Under conditional homoskedasticity, we obviously can use $n · s²
+\item Under conditional homoskedasticity, we obviously can use $n \cdot s^2
   (X'X)^{-1}$ instead of $\Qh^{-1} \Vh \Qh^{-1}$.
 
 \item Also, notice that the $t_{n-k}$ distribution converges to a
   standard normal as well.
   \begin{equation*}
-    t_{n-k} =^d \frac{Z₀}{\sqrt{(1/(n-k)) ∑_{i=1}^{n-k} Z_i²}}
+    t_{n-k} =^d \frac{Z_0}{\sqrt{(1/(n-k)) \sum_{i=1}^{n-k} Z_i^2}}
   \end{equation*}
   where the $Z_i$ are independent standard normal random variables.
   Since the denominator obeys an LLN and converges in probability to
-  1, we have $t_{n-k} → N(0,1)$ in distribution.
+  1, we have $t_{n-k} \to N(0,1)$ in distribution.
 
-  This means that we can compare the test statistic $\sqrt{n} (\βh_j -
-  b₀) / \Ωh_{jj}^{1/2}$ to standard normal critical values or to
+  This means that we can compare the test statistic $\sqrt{n} (\betah_j -
+  b_0) / \Omegah_{jj}^{1/2}$ to standard normal critical values or to
   critical values from the $t_{n-k}$ distribution.  These approaches
   will almost always give you the same answer, but the $t_{n-k}$
   critical values will always be slightly larger.
@@ -208,119 +208,119 @@
 
 \item We can extend the \ftest\ in the same way to test several linear
   restrictions.  But an easier way to motivate the statistic is to
-  observe that, if the null hypothesis $R β = q$ holds, where $R$ and
+  observe that, if the null hypothesis $R \beta = q$ holds, where $R$ and
   $q$ are both known to the researcher,\footnote{Assume that $q$ has
   $p$ elements and that $R$ has full rank.} then
   \begin{equation*}
-    \sqrt{n} (R \βh - q) →^d N(0, R Q^{-1} V Q^{-1} R').
+    \sqrt{n} (R \betah - q) \to^d N(0, R Q^{-1} V Q^{-1} R').
   \end{equation*}
   Using the previous arguments, we have
   \begin{equation*}
-    \sqrt{n} (R \Ωh R')^{-1/2} (R \βh - q) →^d N(0, I)
+    \sqrt{n} (R \Omegah R')^{-1/2} (R \betah - q) \to^d N(0, I)
   \end{equation*}
   and so
   \begin{equation*}
-    n (R \βh - q)' (R \Ωh R')^{-1} (R \βh - q) →^d χ²_p.
+    n (R \betah - q)' (R \Omegah R')^{-1} (R \betah - q) \to^d \chi^2_p.
   \end{equation*}
   This is called the Wald test.
 
-  If we are willing to assume conditional homoskedasticity, then $\Ωh$
-  becomes $n · s² (X'X)^{-1}$ and the Wald test statistic becomes a
+  If we are willing to assume conditional homoskedasticity, then $\Omegah$
+  becomes $n \cdot s^2 (X'X)^{-1}$ and the Wald test statistic becomes a
   scaled \ftest.
 
 \item Notice that we can make the same argument as above: since the
-  $F_{p,n-k}$ converges to a $χ²_p$ distribution as $n-k → ∞$, we can
-  use either $χ²$ or $F$ critical values for our test statistic.  Just
+  $F_{p,n-k}$ converges to a $\chi^2_p$ distribution as $n-k \to \infty$, we can
+  use either $\chi^2$ or $F$ critical values for our test statistic.  Just
   like with the \ttest, the $F$ critical values will be somewhat more
   conservative (here it can actually make a noticeable difference), so
   you should use them.
 
 \item So far, we've discussed testing linear restrictions on the
   coefficients.  But we can also test nonlinear restrictions of the
-  form $c(β) = q$, where $c$ is a function from $\RR^{k+1}$ to
+  form $c(\beta) = q$, where $c$ is a function from $\RR^{k+1}$ to
   $\RR^p$.
 
   If we are willing to specify a distribution for the errors, we could
-  crank through the algebra and derive the distribution of $c(\βh)$.
+  crank through the algebra and derive the distribution of $c(\betah)$.
 
   But we can also use the delta method if $c$ is differentiable with
-  nonzero continuous derivative at $β$.  Let $C(β) = (∂/∂β) c(β)$ and
-  assume that $C(β)$ has full rank.  Then
+  nonzero continuous derivative at $\beta$.  Let $C(\beta) = (\partial/\partial\beta) c(\beta)$ and
+  assume that $C(\beta)$ has full rank.  Then
   \begin{equation*}
-    \sqrt{n} (c(\βh) - q) →^d N(0, C(β)' Ω C(β))
+    \sqrt{n} (c(\betah) - q) \to^d N(0, C(\beta)' \Omega C(\beta))
   \end{equation*}
-  and, since $C(\βh) →^p C(β)$ as $n → ∞$ by continuity, we have
+  and, since $C(\betah) \to^p C(\beta)$ as $n \to \infty$ by continuity, we have
   \begin{equation*}
-    \sqrt{n} (C(\βh)' \Ωh C(\βh))^{-1/2} (c(\βh) - q) →^d N(0, I)
+    \sqrt{n} (C(\betah)' \Omegah C(\betah))^{-1/2} (c(\betah) - q) \to^d N(0, I)
   \end{equation*}
   and
   \begin{equation*}
-    n (c(\βh) - q)' (C(\βh)' \Ωh C(\βh))^{-1} (c(\βh) - q) →^d χ²_p.
+    n (c(\betah) - q)' (C(\betah)' \Omegah C(\betah))^{-1} (c(\betah) - q) \to^d \chi^2_p.
   \end{equation*}
 
-  Again, $\Ωh$ can be estimated under homoskedasticity if the
+  Again, $\Omegah$ can be estimated under homoskedasticity if the
   researcher believes that assumption is justified.
 
-  If $C(β)$ does not have full rank, the same approach can work but it
+  If $C(\beta)$ does not have full rank, the same approach can work but it
   will be more awkward.
 
 \item We could also take another route.  Instead of correcting the
   asymptotic distribution of the OLS estimator, we could account for
-  heteroskedasticity in estimating $β$.  This would give us a feasible
+  heteroskedasticity in estimating $\beta$.  This would give us a feasible
   version of the GLS estimator discussed earlier.
 
-  So, suppose that $Y = X β + \ep$ and $\ep ∼ (0, Σ)$ given $X$ (where
-  $Σ$ is diagonal for now for convenience).
-  Further assume that $Σ$ has only a few unknown parameters,
+  So, suppose that $Y = X \beta + \vep$ and $\vep \sim (0, \Sigma)$ given $X$ (where
+  $\Sigma$ is diagonal for now for convenience).
+  Further assume that $\Sigma$ has only a few unknown parameters,
   so
   \begin{equation*}
-    \E(\ep²_i ∣ X) = z_i'α
+    \E(\vep^2_i \mid X) = z_i'\alpha
   \end{equation*}
-  where $z_i$ is some function of the regressors.  Since $\eph_i$ is
-  consistent for $\ep_i$, we can regress $\eph²_i$ on $z_i$ to
-  estimate $α$.
+  where $z_i$ is some function of the regressors.  Since $\veph_i$ is
+  consistent for $\vep_i$, we can regress $\veph^2_i$ on $z_i$ to
+  estimate $\alpha$.
 
   The two-step process is
   \begin{enumerate}
-  \item Regress $Y$ on $X$ with OLS to get $\eph$
-  \item Regress $\eph$ on $Z$ to estimate $α$
-  \item Regress $Y_i/w_i$ on $X_i/w_i$ to estimate $\βh_{FGLS}$ where
-    $w_i = \sqrt{z_i'\αh}$
+  \item Regress $Y$ on $X$ with OLS to get $\veph$
+  \item Regress $\veph$ on $Z$ to estimate $\alpha$
+  \item Regress $Y_i/w_i$ on $X_i/w_i$ to estimate $\betah_{FGLS}$ where
+    $w_i = \sqrt{z_i'\alphah}$
   \end{enumerate}
 
-  If we let $\Σh$ be the estimate of $Σ$ that uses $\αh$, consistency
-  of $\αh$ ensures that $\Σh$ behaves asymptotically like $Σ$.  All of
+  If we let $\Sigmah$ be the estimate of $\Sigma$ that uses $\alphah$, consistency
+  of $\alphah$ ensures that $\Sigmah$ behaves asymptotically like $\Sigma$.  All of
   the asymptotic results from the GLS estimator then automatically
   apply to the Feasible GLS estimator.  Note that the finite sample
   properties of the GLS estimator (efficiency via Gauss-Markov, for
   example) do not necessarily hold.
 
-\item We can also test for heteroskedasticity.  Note that $\βh$ is
-  consistent even under heteroskedasticity, so $\eph_i → \ep_i$ for
-  each $i$.  If $σ²_i$ is different for different individuals, it
-  implies that $\ep²_i$ should be correlated with $x_i$, so we might
-  regress $\ep²_i$ on $x_i$ and do an F-test for the significance of
+\item We can also test for heteroskedasticity.  Note that $\betah$ is
+  consistent even under heteroskedasticity, so $\veph_i \to \vep_i$ for
+  each $i$.  If $\sigma^2_i$ is different for different individuals, it
+  implies that $\vep^2_i$ should be correlated with $x_i$, so we might
+  regress $\vep^2_i$ on $x_i$ and do an F-test for the significance of
   the overall regression?
 
   More formally, the null hypothesis of homoskedasticity can be
   expressed as
   \begin{equation*}
-    H₀: \quad σ²_i = σ² \qquad i = 1,...,n.
+    H_0: \quad \sigma^2_i = \sigma^2 \qquad i = 1,...,n.
   \end{equation*}
-  If the null hypothesis is true, then $n s² (X'X)^{-1} → Ω$
-  in probability as $n → ∞$,
+  If the null hypothesis is true, then $n s^2 (X'X)^{-1} \to \Omega$
+  in probability as $n \to \infty$,
   so
   \begin{equation*}
-    (1/n) ∑_{i=1}^n (\eph²_i - s²) x_i x_i' →^p 0.
+    (1/n) \sum_{i=1}^n (\veph^2_i - s^2) x_i x_i' \to^p 0.
   \end{equation*}
   If the null is false, this convergence fails.  Since this looks like
   an average, we can apply the CLT to get critical values.
 
-  Let $ψ_i$ denote the vector of unique elements of $x_ix_i'$, along
+  Let $\psi_i$ denote the vector of unique elements of $x_ix_i'$, along
   with a constant term (if not in $x_i$), and let $p$ denote the
-  length of $ψ_i$.  One can show under some assumptions that
+  length of $\psi_i$.  One can show under some assumptions that
   \begin{equation*}
-    \sqrt{n} \big( ∑_{i=1}^n (\eph²_i - s²) ψ_i \big) →^d N(0, W)
+    \sqrt{n} \big( \sum_{i=1}^n (\veph^2_i - s^2) \psi_i \big) \to^d N(0, W)
   \end{equation*}
   where $W$ can be estimated.  But an easier way to test for
   heteroskedasticity is through an equivalent but simpler procedure
@@ -328,9 +328,9 @@
   
   \begin{enumerate}
   \item Regress $y_i$ on $x_i$ and save the OLS residuals.
-  \item Regress $\eph_i$ on $ψ_i$ and calculate the $R²$
+  \item Regress $\veph_i$ on $\psi_i$ and calculate the $R^2$
     from this regression.
-  \item $n R²$ is asymptotically $χ²_{p-1}$ under the null
+  \item $n R^2$ is asymptotically $\chi^2_{p-1}$ under the null
     hypothesis.
   \end{enumerate}
 

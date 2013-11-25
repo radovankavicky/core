@@ -13,17 +13,16 @@
 
 \begin{enumerate}
 
-\item When $X$ has a continuous distribution $F$ and $U ∼$
+\item When $X$ has a continuous distribution $F$ and $U \sim$
   uniform(0,1), $F(X) =^d U$ and, consequently, $X =^d F^{-1}(U)$ (see
   \citealt[Theorem 2.1.10]{CB02} for a proof).  Use this result to
   write an R function called \texttt{rtan} that generates $n$ random
-  variables from the location-scale family $μ + σ X$, where $X ∼ F$
-  and
-  \begin{equation}
-    \label{eq:1}
-    F(x) = 0.5 + \tan^{-1}(x)/π.
-  \end{equation}
-  The arguments of the function should include $n$, $μ$, and $σ$.
+  variables from the location-scale family $\mu + \sigma X$, where $X
+  \sim F$ and
+  \begin{equation*}
+    F(x) = 0.5 + \tan^{-1}(x)/\pi.
+  \end{equation*}
+  The arguments of the function should include $n$, $\mu$, and $\sigma$.
 
 \item You can also generate random variables indirectly.  If $f_X$ has
   support $(0,1)$ and $c = \max_x f_X(x)$, then the following
@@ -31,30 +30,30 @@
   5.6.2]{CB02}
   \begin{enumerate}
   \item Draw $U$ and $V$ as independent uniform(0,1).
-  \item If $U ≤ f_X(V) / c$, set $X = V$.  Otherwise draw $U$ and $V$
+  \item If $U \leq f_X(V) / c$, set $X = V$.  Otherwise draw $U$ and $V$
     again.
   \item One case where we might need to use this algorithm is if we
     wanted to draw $X$ and $Y$ that satisfy
-    \begin{align}\label{eq:prob_1}
-      \binom{X}{Y} &∼ N(μ,Σ) & \text{s.t.}&& X² + Y² &= r²,
-    \end{align}
+    \begin{align*}
+      \binom{X}{Y} &\sim N(\mu,\Sigma) & \text{s.t.}&& X^2 + Y^2 &= r^2,
+    \end{align*}
     where $r$ is some known scalar.  Note that the probability that
     the constraint holds is zero, so we can't just simulate $(X,Y)$
     from the normal distribution and discard pairs that don't satisfy
     it.  Use the accept-reject algorithm to write an $r$ function
     \texttt{rpair} that simulates $n$ observations from this
-    conditional distribution ($μ$, $Σ$ and $r$ should all be arguments
+    conditional distribution ($\mu$, $\Sigma$ and $r$ should all be arguments
     of the function).
   \end{enumerate}
 
 \item Let $X$ and $Y$ be two random variables with the joint density
   function
-  \begin{equation}\label{eq:prob_1}
+  \begin{equation*}
     f(x, y) = \begin{cases}
-      \min(6 y, 6 - 6y, 6 x, 6 - 6 x) & \text{if } (x, y) ∈ [0,1]² \\
+      \min(6 y, 6 - 6y, 6 x, 6 - 6 x) & \text{if } (x, y) \in [0,1]^2 \\
       0 & \text{otherwise.}
     \end{cases}
-  \end{equation}
+  \end{equation*}
   (this looks like a pyramid centered at (1/2, 1/2)).
   \begin{enumerate}
   \item Derive the joint distribution of $X$ and $Y$.
@@ -81,7 +80,7 @@
       \max_{x,y} f(x,y)$ and do the following
       \begin{enumerate}
       \item Draw $U$, $V$ and $W$ as independent uniform(0,1).
-      \item If $U ≤ f(V,W) / c$, set $X=V$ and $Y=W$.  Otherwise draw
+      \item If $U \leq f(V,W) / c$, set $X=V$ and $Y=W$.  Otherwise draw
         $U$, $V$, and $W$ again.
       \item Repeat until you accept candidate values of $X$ and
         $Y$. That is a single draw from the target density.
@@ -96,30 +95,30 @@
   \end{enumerate}
 
 \item Suppose that $X$ and $Y$ are random variables with finite second
-  moments such that $\E(Y ∣ X) = α + β X$.  Prove that
+  moments such that $\E(Y \mid X) = \alpha + \beta X$.  Prove that
   \begin{align}
-    α &= \E Y - β \E X &\text{and}&& β &= \frac{\cov(X, Y)}{\var(X)}.
+    \alpha &= \E Y - \beta \E X &\text{and}&& \beta &= \frac{\cov(X, Y)}{\var(X)}.
   \end{align}
 
-\item Suppose that $X₁,…,X_n$ are an i.i.d. sample from the continuous
+\item Suppose that $X_1,\dots,X_n$ are an i.i.d. sample from the continuous
   distribution $F$.  What is the distribution of $\max_i X_i$?  Derive
   the joint distribution of $\min_i X_i$ and $\max_i X_i$.
 
 \item Let $X$ and $Y$ be random variables.  Prove that 
   \begin{equation}
-    \var(Y) = \var(\E(Y ∣ X)) + \E \var(Y ∣ X)
+    \var(Y) = \var(\E(Y \mid X)) + \E \var(Y \mid X)
   \end{equation}
 
-\item Suppose that $X₁$ and $X₂$ are independent univariate Normal
-  random variables.  Prove that $X₁ + X₂$ is Normal and find its mean
+\item Suppose that $X_1$ and $X_2$ are independent univariate Normal
+  random variables.  Prove that $X_1 + X_2$ is Normal and find its mean
   and variance.
 
-\item Let $X ∼ N(0,I_n)$ and let $P$ be a symmetric $n × n$ matrix.
+\item Let $X \sim N(0,I_n)$ and let $P$ be a symmetric $n \times n$ matrix.
   Prove that $X'PX$ is chi-square with $k$ degrees of freedom if and
   only if $P$ is idempotent with rank $k$ \citep{SL03}.
 
-\item Suppose that $X₁ ∼$ beta$(α, β)$ and $X₂ ∼$ beta$(γ, δ)$ and
-  they are independent.  Derive the density of $X₁ · X₂$.
+\item Suppose that $X_1 \sim$ beta$(\alpha, \beta)$ and $X_2 \sim$ beta$(\gamma, \delta)$ and
+  they are independent.  Derive the density of $X_1 \cdot X_2$.
 
 \end{enumerate}
 
