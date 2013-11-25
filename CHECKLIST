@@ -9,3 +9,4 @@ Checklist for new releases
 - [ ] update version number and links to pdfs on index.md in gh-pages
       branch
 - [ ] push gh-pages to public repo
+- [ ] (optional) write blog post and email listserv
