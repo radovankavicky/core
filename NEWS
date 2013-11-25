@@ -11,6 +11,25 @@ Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
 copy of the license is included in the file LICENSE.tex and is also
 available online at <http://www.gnu.org/copyleft/fdl.html>.
 
+Version 0.6.0
+-------------
+This version does a lot internally, but not much in terms of the
+content.  The internal changes should make it easier for other
+contributors to edit the files.  The changes are:
+
+* Switch the TeX engine from XeLaTeX to pdfLaTeX.  This required
+  rewriting all of the unicode symbols in ascii
+
+* Consolidate all four parts of the book into a single document.  This
+  should make dissemination and global search/replace easier.
+
+* Update the dependencies listed in the README
+
+* Remove the .md extensions from textfiles where possible
+
+* Speed up the makefile and make it more robust (by checking for
+  latexmk)
+
 Version 0.5.0
 -------------
 Revises the asymptotics document to use sentences, paragraphs,
