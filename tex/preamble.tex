@@ -9,11 +9,10 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\usepackage{amssymb,amsmath,amsthm,verbatim,booktabs,ifdraft,listings,graphicx}
+\usepackage{amssymb,amsmath,amsthm,booktabs,ifdraft,listings,graphicx}
 
 \frenchspacing
-\setcounter{secnumdepth}{1}
-\setcounter{tocdepth}{1}
+\setcounter{secnumdepth}{2}
 
 % Accomodate missing files unless the 'final' option is set.  First
 % the accomodating versions:
@@ -21,7 +20,7 @@
   Please cite this document as
   \begin{itemize}
   \item[] \bibentry{eflp-core}
-  \item[] \verbatiminput{CITATION.bib}
+  \item[] \lstinputlisting{CITATION.bib}
   \end{itemize}
   The \BibTeX\ record is provided for your convenience.}
 \newcommand{\citemissing}{%
@@ -52,13 +51,10 @@
 
 \lstset{language=R,
         columns=fullflexible,
-        basicstyle=\sffamily,
+        basicstyle=\ttfamily,
         commentstyle=\rmfamily,
         showstringspaces=false,
         keywordstyle=,
-        literate={<-}{{$\leftarrow$\;}}1 {<<-}{{$\twoheadleftarrow$\;}}1
-          {~}{{$\sim$\,}}1 {<=}{{$\le$\,}}1 {>=}{{$\ge$\,}}1 {!=}{{$\neq$\,}}1,
-        alsoletter={.<-},% becomes a letter 
         numberstyle=\color{gray}}
 
 \bibliographystyle{abbrvnat}
@@ -69,7 +65,7 @@
 \newcommand{\bugtrack}%
 {\url{https://github.com/EconometricsLibrary/core/issues}}
 
-\newcommand{\BibTeX}{Bib\!\TeX}
+\newcommand{\BibTeX}{Bib\!TeX}
 \newcommand{\sigmafield}{\ensuremath{\sigma}-field}
 \newcommand{\sigmaalgebra}{\ensuremath{\sigma}-algebra}
 \newcommand{\deltafunction}{\ensuremath{\delta}-function}
