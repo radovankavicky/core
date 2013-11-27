@@ -1,4 +1,4 @@
-source("asymptotics/bootstrap_setup.R")
+source("asymptotics/bootstrap_setup.R"); set.seed(5743)
 
 Y <- rexp(40)
 boots <- rstats(function(n) sample(Y, size = n, replace = TRUE), 40)

@@ -1,3 +1,4 @@
+set.seed(58722543)
 source("asymptotics/bootstrap_setup.R")
 
 pdf(file = "asymptotics/bootstrap_fig1.pdf", width=8, height=3)
