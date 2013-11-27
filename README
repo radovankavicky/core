@@ -93,7 +93,7 @@ Development notes
   to reset the files.
 
 * If you do not have `make` and `latexmk` installed, you can run
-  `xelatex` manually from the command line:
+  `latex` manually from the command line:
 
       latex core_econometrics.tex
       bibtex core_econometrics.aux
