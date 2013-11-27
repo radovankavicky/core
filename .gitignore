@@ -1,5 +1,6 @@
 CITATION.bib
 VERSION.tex
+asymptotics/bootstrap_macros.tex
 
 *.tmp
 tmp/

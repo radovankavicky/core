@@ -9,8 +9,7 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\usepackage{amssymb,amsmath,amsthm,verbatim,booktabs,ifdraft}
-\usepackage[noae]{external/Sweave}
+\usepackage{amssymb,amsmath,amsthm,verbatim,booktabs,ifdraft,listings,graphicx}
 
 \frenchspacing
 \setcounter{secnumdepth}{1}
@@ -50,6 +49,14 @@
   \renewcommand{\tryinput}[2][{}]{\input{#2}}
   \renewcommand{\tryinclude}[2][{}]{\input{#2}}
 }{}
+
+\lstloadlanguages{R}
+\lstset{columns=fullflexible,
+        basicstyle=\sffamily,
+        literate={<-}{{$\leftarrow$\;}}1 {<<-}{{$\twoheadleftarrow$\;}}1
+          {~}{{$\sim$\,}}1 {<=}{{$\le$\,}}1 {>=}{{$\ge$\,}}1 {!=}{{$\neq$\,}}1,
+        alsoletter={.<-},% becomes a letter 
+        numberstyle=\color{gray}}
 
 \bibliographystyle{abbrvnat}
 \setcitestyle{round}

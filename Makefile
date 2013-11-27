@@ -17,9 +17,11 @@ latexmk := latexmk
 latex := pdflatex
 latexFLAGS := -pdf -silent
 bibtex := bibtex
+Rscript := Rscript
+RscriptFLAGS := --vanilla
 
-sweave := R CMD Sweave
-tmpdir := tmp
+parts := probability finitesample asymptotics regression
+lsall = $(foreach dir,. tex $(parts),$(wildcard $(dir)/*$(1)))
 
 dateinfo := "\\date{$(shell git show -s --date=short --format=%cd HEAD), \
   $(shell git describe --tags)}"
@@ -31,8 +33,6 @@ citeinfo := "@Book{eflp-core, \n\
   year =	{$(shell git show -s --date=short --format=%cd | head -c 4)}, \n\
   note =	{$(shell git describe --tags)}}"
 
-parts := probability finitesample asymptotics regression
-
 all: core_econometrics.pdf
 ver: VERSION.tex CITATION.bib
 VERSION.tex:
@@ -40,19 +40,24 @@ VERSION.tex:
 CITATION.bib:
 	echo -e $(citeinfo) > $@
 
-asymptoticsSweave := $(wildcard asymptotics/*.Rnw)
-tmp:
-	mkdir -p $(addprefix $(tmpdir)/,$(parts))
+bootfigs = asymptotics/bootstrap_fig1.pdf asymptotics/bootstrap_fig2.pdf
+.SECONDARY: $(bootfigs) asymptotics/bootstrap_macros.tex
+$(bootfigs): %.pdf: %.R asymptotics/bootstrap_setup.R
+	$(Rscript) $(RscriptFLAGS) $<
+asymptotics/bootstrap_macros.tex: \
+  asymptotics/bootstrap_sample.R asymptotics/bootstrap_setup.R
+	$(Rscript) $(RscriptFLAGS) $<
+
+fig: $(bootfigs)
 
 # Check if latexmk is installed by trying to print its version number.
 # If it is installed, use it.  Otherwise run latex and bibtex over and
 # over again manually.
 # I first saw this trick in the makefile for "Homotopy Type Theory:
 # Univalent Foundations of Mathematics"
-core_econometrics.pdf: core_econometrics.tex AUTHORS.tex LICENSE.tex \
-  tex/preamble.tex tex/localmod.tex tex/references.bib \
-  $(addprefix $(tmpdir)/,$(asymptoticsSweave:.Rnw=.tex)) \
-  $(foreach dir, $(parts), $(wildcard $(dir)/*.tex)) \
+core_econometrics.pdf: core_econometrics.tex tex/references.bib \
+  $(bootfigs) $(filter-out VERSION.tex, $(call lsall,.tex)) \
+  asymptotics/bootstrap_macros.tex \
   | VERSION.tex CITATION.bib
 	if $(latexmk) -v > /dev/null 2>&1; \
 	then $(latexmk) $(latexFLAGS) $(<F); \
@@ -63,10 +68,6 @@ core_econometrics.pdf: core_econometrics.tex AUTHORS.tex LICENSE.tex \
 	  $(latex) $(latexFLAGS) $(<F) && \
 	  $(latex) $(latexFLAGS) $(<F); \
 	fi
-
-$(addprefix $(tmpdir)/,$(asymptoticsSweave:.Rnw=.tex)): \
-  $(tmpdir)/%.tex: %.Rnw | tmp
-	$(sweave) $(sweaveFLAGS) $< && mv $(@F) $(@D)/
 
 dirs := . tmp tex $(parts) $(addprefix tmp/,$(parts))
 crud := auto *~ *.aux *.out *.log *.fls *.fdb_latexmk *.brf *.idx \
@@ -81,5 +82,4 @@ clean:
 burn: clean
 	rm -f $(foreach dir, $(dirs), $(addprefix $(dir)/*., pdf bbl dvi)) \
 	      $(addprefix $(tmpdir)/,$(asymptoticsSweave:.Rnw=.tex)) \
-	      VERSION.tex CITATION.bib
-	rm -rf tmp
+	      asymptotics/bootstrap_macros.tex VERSION.tex CITATION.bib
