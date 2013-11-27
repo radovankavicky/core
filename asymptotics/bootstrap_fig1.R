@@ -1,7 +1,7 @@
 set.seed(58722543)
 source("asymptotics/bootstrap_setup.R")
 
-pdf(file = "asymptotics/bootstrap_fig1.pdf", width=8, height=3)
+pdf(file = "asymptotics/bootstrap_fig1.pdf", width=6, height=2.5)
 par(mfrow = c(1,3))
 
 nicehist(runif, 2)
