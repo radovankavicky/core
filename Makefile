@@ -9,7 +9,7 @@
 # LICENSE.tex and is also available online at
 # <http://www.gnu.org/copyleft/fdl.html>.
 
-.PHONY: all clean burn ver tmp
+.PHONY: all clean burn ver tmp VERSION.tex CITATION.bib
 .DELETE_ON_ERROR:
 
 SHELL=/bin/bash
@@ -34,14 +34,7 @@ citeinfo := "@Book{eflp-core, \n\
 parts := probability finitesample asymptotics regression
 
 all: core_econometrics.pdf
-
-ver:
-	echo $(dateinfo) > VER.tmp
-	if diff --brief VERSION.tex VER.tmp; then rm VER.tmp; \
-	  else mv -f VER.tmp VERSION.tex; fi
-	echo -e $(citeinfo) > CIT.tmp
-	if diff --brief CITATION.bib CIT.tmp; then rm CIT.tmp; \
-	  else mv -f CIT.tmp CITATION.bib; fi
+ver: VERSION.tex CITATION.bib
 VERSION.tex:
 	echo $(dateinfo) > $@
 CITATION.bib:
@@ -60,7 +53,7 @@ core_econometrics.pdf: core_econometrics.tex AUTHORS.tex LICENSE.tex \
   tex/preamble.tex tex/localmod.tex tex/references.bib \
   $(addprefix $(tmpdir)/,$(asymptoticsSweave:.Rnw=.tex)) \
   $(foreach dir, $(parts), $(wildcard $(dir)/*.tex)) \
-  | ver
+  | VERSION.tex CITATION.bib
 	if $(latexmk) -v > /dev/null 2>&1; \
 	then $(latexmk) $(latexFLAGS) $(<F); \
 	else $(latex) $(latexFLAGS) $(<F) && \
@@ -76,15 +69,17 @@ $(addprefix $(tmpdir)/,$(asymptoticsSweave:.Rnw=.tex)): \
 	$(sweave) $(sweaveFLAGS) $< && mv $(@F) $(@D)/
 
 dirs := . tmp tex $(parts) $(addprefix tmp/,$(parts))
-crud := *~ *.aux *.out *.log *.fls *.fdb_latexmk *.brf *.idx *.ilg *.ind *.toc
+crud := auto *~ *.aux *.out *.log *.fls *.fdb_latexmk *.brf *.idx \
+  *.ilg *.ind *.toc
 # Check if latexmk is installed by trying to print its version number.
 # If it is, use it to clean up the extra latex files too.
 clean:
 	if $(latexmk) -v > /dev/null 2>&1; \
 	then $(latexmk) -c core_econometrics; fi
-	rm -f $(foreach dir, $(dirs), $(addprefix $(dir)/,$(crud)))
-	rm -rf auto
+	rm -rf $(foreach dir, $(dirs), $(addprefix $(dir)/,$(crud)))
 
 burn: clean
-	rm -f $(foreach dir, $(dirs), $(addprefix $(dir)/, *.pdf *.bbl)) \
+	rm -f $(foreach dir, $(dirs), $(addprefix $(dir)/*., pdf bbl dvi)) \
 	      $(addprefix $(tmpdir)/,$(asymptoticsSweave:.Rnw=.tex)) \
+	      VERSION.tex CITATION.bib
+	rm -rf tmp

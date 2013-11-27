@@ -3,7 +3,8 @@ Checklist for new releases
 
 - [ ] update NEWS
 - [ ] tag commit with new version number
-- [ ] run Makefile to generate new pdfs
+- [ ] add `final` option to core_econometrics.tex and run Makefile to
+  generate new pdfs (then turn off `final`)
 - [ ] push to public repo (and --tags too)
 - [ ] upload pdfs to 'releases' section on GitHub
 - [ ] update version number and links to pdfs on index.md in gh-pages

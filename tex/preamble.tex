@@ -9,15 +9,47 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\input{VERSION}
-\author{Gray Calhoun} 
-
-\usepackage{amssymb,amsmath,amsthm,verbatim,booktabs}
+\usepackage{amssymb,amsmath,amsthm,verbatim,booktabs,ifdraft}
 \usepackage[noae]{external/Sweave}
 
 \frenchspacing
 \setcounter{secnumdepth}{1}
 \setcounter{tocdepth}{1}
+
+% Accomodate missing files unless the 'final' option is set.  First
+% the accomodating versions:
+\newcommand{\citeinfo}{%
+  Please cite this document as
+  \begin{itemize}
+  \item[] \bibentry{eflp-core}
+  \item[] \verbatiminput{CITATION.bib}
+  \end{itemize}
+  The \BibTeX\ record is provided for your convenience.}
+\newcommand{\citemissing}{%
+  The date and version information for this document are missing.
+  This can happen if you generate this pdf directly from the \LaTeX\
+  source without using the Makefile provided.  Please see the README
+  file for more details.}
+
+\newcommand{\addciteinfo}{%
+  \IfFileExists{CITATION.bib}{\citeinfo}{\citemissing}}
+% Based on a TeX stackexchange answer:
+% http://tex.stackexchange.com/a/39983/9423
+\newcommand{\tryincludegraphics}[1]%
+{\IfFileExists{#1}{\includegraphics{#1}}%
+  {\framebox{Figure missing.  See README for help.}}}
+
+\newcommand{\tryinput}[2][{}]{\IfFileExists{#2}{\input{#2}}{#1}}
+\newcommand{\tryinclude}[2][{}]{\IfFileExists{#2}{\include{#2}}{#1}}
+
+% If the 'final' option is set, rewrite the nice and helpful commands
+% we just defined, so that LaTeX fails if anything is missing.
+\ifoptionfinal{
+  \renewcommand{\addciteinfo}{\citeinfo}
+  \renewcommand{\tryincludegraphics}[1]{\includegraphics{#1}}%
+  \renewcommand{\tryinput}[2][{}]{\input{#2}}
+  \renewcommand{\tryinclude}[2][{}]{\input{#2}}
+}{}
 
 \bibliographystyle{abbrvnat}
 \setcitestyle{round}

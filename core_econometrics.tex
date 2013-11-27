@@ -3,8 +3,13 @@
 % avoid some xelatex warnings.
 
 \title{Core Econometrics}
+
 \input{tex/preamble}
 \input{tex/localmod}
+
+\author{Gray Calhoun}
+\tryinput[\date{Unknown date and version,%
+  see README for more details.}]{VERSION.tex}
 
 \begin{document}
 \maketitle
@@ -30,20 +35,12 @@ information about this project is available at its homepage,
 to participate.  This text is typeset in \LaTeX\ and there is a link
 to the source of the document at the project's homepage as well.
 
-Please cite this document as
-\begin{itemize}
-\item[] \bibentry{eflp-core}
-\item[] \verbatiminput{CITATION.bib}
-\end{itemize}
-The \BibTeX\ record is provided for your convenience.
-If the year and version are not specified, please see the files
-\texttt{README} or \texttt{VERSION.tex} for directions on how to
-find them.
+\addciteinfo % defined in tex/preamble.tex
 
 When you find errors in this text, please email the project mailing
 list, \maillist\ or report the error at \bugtrack.  It would be
-helpful if you could refer to the version number listed above as well.
-Thanks!
+helpful if you could refer to the version number listed in the date as
+well.  Thanks!
 
 \tableofcontents
 \listoftables
@@ -72,7 +69,7 @@ Thanks!
 \include{asymptotics/central_limit_theorem}
 \include{asymptotics/linear_regression}
 \include{asymptotics/estimation}
-\include{tmp/asymptotics/bootstrap}
+\tryinclude[\chapter{Bootstrap Missing!}]{tmp/asymptotics/bootstrap}
 \include{asymptotics/problems}
 
 \part{Linear regression analysis}

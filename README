@@ -58,9 +58,11 @@ Development notes
   of this project (you'll need to have `make` installed, obviously).
 
 * Type `make ver` to update the date and version information included
-  in each pdf file; the files VERSION.tex and CITATION.bib are
-  placeholders that exist so that the files can be compiled without
-  error, and `make ver` will replace them with the correct information.
+  in each pdf file; the files VERSION.tex and CITATION.bib will be
+  created that have the correct version number, date, and citation
+  information.  Unless the option `final` is set in the documentclass,
+  the pdf can be generated whether or not `VERSION.tex` and
+  `CITATION.bib` exist.
 
   Alternatively, you can edit the date macro in VERSION.tex and bibtex
   entry in CITATION.bib manually:
@@ -72,25 +74,6 @@ Development notes
       git describe --tags
 
   gives the version number.
-
-* After VERSION.tex and CITATION.bib are updated with the correct date
-  and version information, `git status` will list them as modified
-  files.  Use
-
-      git update-index --assume-unchanged VERSION.tex CITATION.bib
-
-  to tell git to ignore changes in those files.  This command can be
-  reversed with
-
-      git update-index --no-assume-unchanged VERSION.tex CITATION.bib
-
-  Before checking out any commit that predates version 0.3.2 (when
-  placeholders for those files were first added to the repo), you may
-  need to first run the command
-
-      git checkout -- VERSION.tex CITATION.bib
-
-  to reset the files.
 
 * If you do not have `make` and `latexmk` installed, you can run
   `latex` manually from the command line:

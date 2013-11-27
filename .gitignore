@@ -1,3 +1,6 @@
+CITATION.bib
+VERSION.tex
+
 *.tmp
 tmp/
 
