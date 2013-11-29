@@ -85,9 +85,9 @@ crud := auto *~ *.aux *.out *.log *.fls *.fdb_latexmk *.brf *.idx \
 clean:
 	if $(latexmk) -v > /dev/null 2>&1; \
 	then $(latexmk) -c core_econometrics; fi
-	rm -rf $(foreach dir, $(dirs), $(addprefix $(dir)/,$(crud)))
+	rm -rf $(foreach dir, $(dirs), $(addprefix $(dir)/,$(crud))) \
+	  asymptotics/bootstrap.R
 
 burn: clean
-	rm -f $(foreach dir, $(dirs), $(addprefix $(dir)/*., pdf bbl dvi)) \
-	      $(addprefix $(tmpdir)/,$(asymptoticsSweave:.Rnw=.tex)) \
-	      asymptotics/bootstrap_macros.tex VERSION.tex CITATION.bib
+	rm -f $(addprefix core_econometrics.,pdf dvi bbl) \
+	  VERSION.tex CITATION.bib
