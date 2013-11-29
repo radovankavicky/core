@@ -50,9 +50,12 @@
   \renewcommand{\tryinclude}[2][{}]{\input{#2}}
 }{}
 
-\lstloadlanguages{R}
-\lstset{columns=fullflexible,
+\lstset{language=R,
+        columns=fullflexible,
         basicstyle=\sffamily,
+        commentstyle=\rmfamily,
+        showstringspaces=false,
+        keywordstyle=,
         literate={<-}{{$\leftarrow$\;}}1 {<<-}{{$\twoheadleftarrow$\;}}1
           {~}{{$\sim$\,}}1 {<=}{{$\le$\,}}1 {>=}{{$\ge$\,}}1 {!=}{{$\neq$\,}}1,
         alsoletter={.<-},% becomes a letter 
