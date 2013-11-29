@@ -9,7 +9,7 @@
 # LICENSE.tex and is also available online at
 # <http://www.gnu.org/copyleft/fdl.html>.
 
-.PHONY: all clean burn ver tmp VERSION.tex CITATION.bib
+.PHONY: all clean burn ver tmp VERSION.tex CITATION.bib rep
 .DELETE_ON_ERROR:
 
 SHELL=/bin/bash
@@ -40,15 +40,24 @@ VERSION.tex:
 CITATION.bib:
 	echo -e $(citeinfo) > $@
 
-bootfigs = asymptotics/bootstrap_fig1.pdf asymptotics/bootstrap_fig2.pdf
-.SECONDARY: $(bootfigs) asymptotics/bootstrap_macros.tex
-$(bootfigs): %.pdf: %.R asymptotics/bootstrap_setup.R
-	$(Rscript) $(RscriptFLAGS) $<
-asymptotics/bootstrap_macros.tex: \
-  asymptotics/bootstrap_sample.R asymptotics/bootstrap_setup.R
+# Execute the bootstrap code (if necessary)
+boots = $(addprefix asymptotics/,bootstrap_fig1.pdf \
+  bootstrap_fig2.pdf bootstrap_macros.tex)
+%bootstrap_fig1.pdf %bootstrap_fig2.pdf %bootstrap_macros.tex: %bootstrap.R
 	$(Rscript) $(RscriptFLAGS) $<
 
-fig: $(bootfigs)
+.SECONDARY: $(boots)
+.INTERMEDIATE: asymptotics/bootstrap.R
+
+knitr = $(Rscript) $(RscriptFLAGS) -e " require(knitr); \
+  knit_patterns\$$set(list('chunk.begin' = \
+                           '\\\\\\\\begin\\\\{lstlisting\\\\}.*',\
+                           'chunk.end'='\\\\\\\\end\\\\{lstlisting\\\\}'));\
+  purl('$(1)', output='$(2)')"
+asymptotics/bootstrap.R: asymptotics/bootstrap.tex
+	$(call knitr,$<,$@)
+
+rep: $(boots)
 
 # Check if latexmk is installed by trying to print its version number.
 # If it is installed, use it.  Otherwise run latex and bibtex over and
@@ -56,8 +65,7 @@ fig: $(bootfigs)
 # I first saw this trick in the makefile for "Homotopy Type Theory:
 # Univalent Foundations of Mathematics"
 core_econometrics.pdf: core_econometrics.tex tex/references.bib \
-  $(bootfigs) $(filter-out VERSION.tex, $(call lsall,.tex)) \
-  asymptotics/bootstrap_macros.tex \
+  $(filter-out VERSION.tex, $(call lsall,.tex)) $(boots) \
   | VERSION.tex CITATION.bib
 	if $(latexmk) -v > /dev/null 2>&1; \
 	then $(latexmk) $(latexFLAGS) $(<F); \
