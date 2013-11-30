@@ -1,6 +1,7 @@
 CITATION.bib
 VERSION.tex
 
+tex/localmod.tex
 asymptotics/bootstrap.R
 
 *.tmp
