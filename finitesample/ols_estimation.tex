@@ -9,11 +9,11 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\section{Estimation of linear regression}
+\chapter{Estimation of linear regression}
 
-\subsection{Properties of quadratic forms}
+\section{Properties of quadratic forms}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 
 \item Quadratic forms will come up a lot when we study linear
   regression.  If $X$ be a random $k$-vector and let $A$ be a $k \times k$
@@ -83,9 +83,9 @@
 
 \end{itemize}
 
-\subsection{Algebraic and geometric properties of linear regression}
+\section{Algebraic and geometric properties of linear regression}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 
 \item Before worrying too much about statistical issues, we'll discuss
   a few issues that come up just because of the math involved in the
@@ -143,9 +143,9 @@
 
 \end{itemize}
 
-\subsection{Gaussian random variables}
+\section{Gaussian random variables}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 
 \item The \emph{Normal distribution} is particularly important when
   studying linear regression.  To the extent that we have finite
@@ -289,9 +289,9 @@
 
 \end{itemize}
 
-\subsection{Statistical aspects of linear regression}
+\section{Statistical aspects of linear regression}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item We typically will invoke some of the following assumptions:
   \begin{enumerate}
   \item $\E(\vep_i \mid X) = 0$ for all $i$
@@ -487,10 +487,10 @@
 
 \end{itemize}
 
-\subsection{Making predictions from regression models}
+\section{Making predictions from regression models}
 
 \subsection{motivation and setup}
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item Say we've estimated a regression model.  What do we do with it?
 \item Easiest possible use: make forecasts
 \item Setup:
@@ -505,7 +505,7 @@
 
 \subsection{natural forecast}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item The natural forecast for $y_{n+1}$ is $x_{n+1}'\betah$
 \begin{itemize}
 \item $x_{n+1}'\beta$ would be the forecast that minimizes expected
@@ -530,7 +530,7 @@
 
      We're going to assume that the errors are uncorrelated (like we
      have) and homoskedastic.
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item conditionally heteroeskedastic errors can be dealt with by GLS
 \item The usual calculation gives us
   \[ \var(e_{n+1} \mid X, x_{n+1}) = \E(e_{n+1}^2 \mid X_{n+1}) = \E(\epsilon_{n+1}^2
@@ -544,7 +544,7 @@
 
 \subsection{common use of this variance}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item \textbf{if the errors are normal}, we can construct a confidence
        interval for $y_{n+1}$ from this result
 \item $\hat y_{n+1} \pm t_{\alpha/2} \sqrt{s^2 (1 + x_{n+1}'(X'X)^{-1}x_{n+1})}$

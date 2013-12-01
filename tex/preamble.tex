@@ -9,8 +9,17 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\usepackage{amssymb,amsmath,amsthm,booktabs,ifdraft,listings,
-  textcomp,graphicx}
+\usepackage{amssymb,amsmath,amsthm,booktabs,ifdraft,listings,microtype,
+  textcomp,graphicx,bibentry,url,enumitem}
+
+\usepackage{appendix}
+\usepackage[nottoc]{tocbibind}
+\usepackage[round,comma]{natbib}
+\bibliographystyle{abbrvnat}
+\nobibliography*
+
+\urlstyle{rm}
+\usepackage[hidelinks]{hyperref}
 
 \frenchspacing
 \setcounter{secnumdepth}{2}
@@ -58,14 +67,7 @@
         keywordstyle=,
         numberstyle=\color{gray}}
 
-\bibliographystyle{abbrvnat}
-\setcitestyle{round}
 \newcommand{\email}[1]{\href{mailto:#1}{\nolinkurl{#1}}}
-\newcommand{\homepage}{\url{http://www.econometricslibrary.org}}
-\newcommand{\maillist}{\email{econometricslibrary@librelist.com}}
-\newcommand{\bugtrack}%
-{\url{https://github.com/EconometricsLibrary/core/issues}}
-
 \newcommand{\BibTeX}{Bib\!TeX}
 \newcommand{\sigmafield}{\ensuremath{\sigma}-field}
 \newcommand{\sigmaalgebra}{\ensuremath{\sigma}-algebra}

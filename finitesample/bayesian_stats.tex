@@ -9,11 +9,11 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\section{Bayesian statistics}
+\chapter{Bayesian statistics}
 
-\subsection{Introduction}
+\section{Introduction}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 
 \item We're going to take a fairly moderate perspective on Bayesian
   statistics.  In contrast to point estimation or hypothesis testing,
@@ -33,9 +33,9 @@
 
 \end{itemize}
 
-\subsection{mathematics}
+\section{mathematics}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item dead simple.
 \item denote the whole sample as $X$ (ie $X_1,...,X_n$)
 \begin{itemize}
@@ -83,7 +83,7 @@
 
 \subsection{example}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item Suppose $X_i \sim i.i.d.\ bernoulli(\theta)$
 \begin{itemize}
 \item we're interested in $\sum_i X_i \sim\ bernoulli(n, \theta)$
@@ -92,9 +92,9 @@
 \item A prior might be that $\theta \sim\ uniform(0,1)$
 \end{itemize}
 
-\subsection{Choice of prior}
+\section{Choice of prior}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item There are three ``standard'' methods for choosing a priod
 \begin{itemize}
 \item Uninformative prior
@@ -109,7 +109,7 @@
 
 \subsection{Uninformative/objective prior}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item One chosen to (in a way) minimize the knowledge embodied in
        the prior
 \item Often people use ad hoc uninformative priors
@@ -138,7 +138,7 @@
 
 \subsection{Conjugate prior}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 
 \item A conjugate prior is one that is chosen so that the prior and
   the posterior are in the same family.  This can be computationally
@@ -210,7 +210,7 @@
 
 \subsection{Asymptotics}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item What happens as $N \to \infty$ (for conjugate prior)
 \item $\alpha$ and $\beta$ are fixed, so $\frac{R + \alpha}{R + G + \alpha + \beta}$ behaves
   like $\frac{R}{R+G}$
@@ -220,9 +220,9 @@
        counterexamples
 \end{itemize}
 
-\subsection{Implementing the prior numerically}
+\section{Implementing the prior numerically}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item for conjugate priors, everything is easy (if you know the analytical form)
 \item otherwise, finding the density is kind of a bitch:
   \[f_\theta(t \mid X = x) \propto f_X(x \mid \theta = t) f_\theta(t)\]
@@ -513,9 +513,9 @@ support
 \end{itemize}
 \end{itemize}
 
-\subsection{Bayesian modeling for OLS}
+\section{Bayesian modeling for OLS}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item For OLS, we have to specify a joint prior for
 \begin{itemize}
 \item $\sigma$ (ie $\E(\vep^2_i \mid X)$)
@@ -533,7 +533,7 @@ support
 
 \subsection{densities for beta}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item Finite sample theory and asymptotics indicate that
   $\betah$ is going to behave as though it is approximately normal.
 \item Suggests that getting a normal posterior might be a good idea
@@ -649,7 +649,7 @@ support
 
 \subsection{densities for sigma-squared}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item Conjugate prior for $1/\sigma^2$ is the gamma distribution, so $\sigma^2$
   has an inverse-gamma distribution:
   \[p_{\sigma^2}(\sigma^2 \mid \alpha, \delta) = (\delta^\alpha/\Gamma(\alpha)) (1/\sigma^2)^{\alpha+1} \exp\big(-\beta/\sigma^2\big)\]

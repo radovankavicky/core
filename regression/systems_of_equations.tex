@@ -9,9 +9,9 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\section{Systems of equations}
+\chapter{Systems of equations}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item There are lots of panel implications to what we're discussing,
       but we won't cover them
 \item Basic idea:
@@ -38,10 +38,10 @@
 \end{itemize}
 \end{itemize}
 
-\subsection{setup}
+\section{setup}
 \subsection{notation}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item We want to write these two models as
        \[y_1 = X_1 \beta_1 + \epsilon_1\]
        and
@@ -73,7 +73,7 @@
 
 \subsection{estimation with known covariance matrix}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item We want to rewrite the equations as
        \[ \binom{\mathbf{y}_1}{\mathbf{y}_2} = \begin{pmatrix} \mathbf{X}_1
        & 0 \\ 0 & \mathbf{X}_2  \end{pmatrix}
@@ -120,7 +120,7 @@
 
 \subsection{estimation with unknown covariance}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item Big difference from single-equation case
 \begin{itemize}
 \item with single equations, we were concerned about heteroskedasticity
@@ -145,7 +145,7 @@
 \item plug in to GLS formula for a feasible estimator
 \end{itemize}
 
-\subsection{Simplification of SUR}
+\section{Simplification of SUR}
 
      The SUR becomes the OLS estimator in two specific and informative
      cases
@@ -207,7 +207,7 @@
   \[\betah_{SUR} = \binom{\betah_{1,ols}}{\betah_{2,ols}}\]
 \end{itemize}
 
-\subsection{Hypothesis testing}
+\section{Hypothesis testing}
 
 \paragraph{similarities to OLS/GLS}
 \begin{itemize}

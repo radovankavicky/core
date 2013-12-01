@@ -9,16 +9,14 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\section{Multiple hypothesis testing in linear regression}
-
-\subsection{Testing multiple hypotheses}
+\chapter{Multiple hypothesis testing in linear regression}
 
 Some special issues come up when we have many hypotheses.  I need to
 figure out some simulations to motivate this stuff.
 
-\subsection{Intersection-Union Test}
+\section{Intersection-Union Test}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item Suppose the null can be written as an intersection of simpler
   nulls:
   \begin{itemize}
@@ -40,7 +38,7 @@ figure out some simulations to motivate this stuff.
 \item $\Pr_\theta[(X_1,\dots,X_n) \in \bigcap_\gamma R_\gamma] \leq \Pr_\theta[(X_1,\dots, X_n) \in R_{\gamma'}] \leq \alpha$
 \end{itemize}
 
-\subsection{Union-Intersection Test}
+\section{Union-Intersection Test}
 
 \paragraph{Setup of UIT}
 \begin{itemize}
@@ -74,9 +72,9 @@ figure out some simulations to motivate this stuff.
   \end{align*}
 \end{itemize}
 
-\subsection{Multiple hypothesis testing}
+\section{Multiple hypothesis testing}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item Suppose we have a bunch of hypotheses $\theta \in \theta_\gamma$, but instead of
   being interested in knowing about compound hypotheses, we're
   interested in all of them

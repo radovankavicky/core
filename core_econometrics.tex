@@ -1,4 +1,4 @@
-\documentclass[nofonts,oneside,openany,notitlepage]{tufte-handout}
+\documentclass[11pt,notitlepage]{report}
 \title{Core Econometrics}
 
 \input{tex/preamble}
@@ -12,8 +12,8 @@
 \maketitle
 
 \bigskip\noindent%
-Copyright \copyright\ 2013, the authors of \textit{Core Econometrics}.
-A complete author list is included in the Appendix titled ``Complete
+\copyright\ 2013, the authors of \textit{Core Econometrics}.  A
+complete author list is included in the Appendix titled ``Complete
 list of authors.''
 
 Permission is granted to copy, distribute and/or modify this document
@@ -28,27 +28,29 @@ This text was produced as part of the Econometrics Free Library
 Project.  The project's goal is to produce high-quality free and
 open access econometrics textbooks and reference material.  More
 information about this project is available at its homepage,
-\homepage, including information on how
+\url{http://www.econometricslibrary.org}, including information on how
 to participate.  This text is typeset in LaTeX and there is a link
 to the source of the document at the project's homepage as well.
 
 \addciteinfo % defined in tex/preamble.tex
 
 When you find errors in this text, please email the project mailing
-list, \maillist\ or report the error at \bugtrack.  It would be
-helpful if you could refer to the version number listed in the date as
-well.  Thanks!
-\newpage
+list,\footnote{\email{econometricslibrary@librelist.com}} or report
+the error in the project's bug tracker.%
+\footnote{\url{https://github.com/EconometricsLibrary/core/issues}}
+It would be helpful if you could refer to the version number listed in
+the date as well.  Thanks!
+
 \tableofcontents
-\newpage
-\part*{Part 1, Probability overview}%
-\addcontentsline{toc}{part}{Probability overview}
+
+\part{Probability overview}
 \include{probability/random_variables}
 \include{probability/properties}
+\begin{appendices}
 \include{probability/problems}
+\end{appendices}
 
-\part*{Part 2, Finite sample inference}%
-\addcontentsline{toc}{part}{Finite sample inference}
+\part{Finite sample inference}
 \include{finitesample/introduction}
 \include{finitesample/derivation}
 \include{finitesample/optimality}
@@ -58,30 +60,38 @@ well.  Thanks!
 \include{finitesample/likelihood_ratio_test}
 \include{finitesample/ols_inference}
 \include{finitesample/bayesian_stats}
+\begin{appendices}
 \include{finitesample/problems}
+\end{appendices}
 
-\part*{Part 3, Asymptotic theory}%
-\addcontentsline{toc}{part}{Asymptotic theory}
+\part{Asymptotic theory}
 \include{asymptotics/introduction}
 \include{asymptotics/law_of_large_numbers}
 \include{asymptotics/central_limit_theorem}
 \include{asymptotics/linear_regression}
 \include{asymptotics/estimation}
 \include{asymptotics/bootstrap}
+\begin{appendices}
 \include{asymptotics/problems}
+\end{appendices}
 
-\part*{Part 4, Linear regression analysis}%
-\addcontentsline{toc}{part}{Linear regression analysis}
+\part{Linear regression analysis}
 \include{regression/introduction}
 \include{regression/modeling}
 \include{regression/multiple_testing}
 \include{regression/systems_of_equations}
+\begin{appendices}
 \include{regression/problems}
+\end{appendices}
 
-\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+\part{More information}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+\begin{appendices}
+% Don't put individual sections of the FDL in the table of contents
 \include{AUTHORS}
 \include{LICENSE}
-\addcontentsline{toc}{part}{References}
+\end{appendices}
+
 \bibliography{tex/references,CITATION}
 \end{document}
 

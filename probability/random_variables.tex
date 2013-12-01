@@ -9,12 +9,12 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\section{Random variables, distributions, and densities}
+\chapter{Random variables, distributions, and densities}
 
-\subsection{Random variables as we might wish to introduce them to
+\section{Random variables as we might wish to introduce them to
   undergraduates.}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 
 \item We're trying to capture the idea of a ``hypothetical'' number
   that might take on many different values.  For example, if I were to
@@ -24,7 +24,7 @@
   we're going to need a way to match each outcome (here how much money
   I win or lose) with the relative frequency of that outcome.
 
-  The simplest\sidenote{``Simplest'' from a conceptual/intuitive
+  The simplest\footnote{``Simplest'' from a conceptual/intuitive
   standpoint; we'll see that this is far from the simplest way from
   a rigorous mathematical standpoint.}  way to do this is through a
   probability density function and, as in most of probability, the
@@ -60,7 +60,7 @@
   (The set $S \subset \RR$ s.t. $f(x) > 0$ for all $x \in S$ and $f(x) = 0$
   for all $x \notin S$ is called the \emph{support} of the r.v. $X$.)  We
   can again build a probability function from the density function.
-  For any closed interval $[a, b]$,\sidenote{Remember, $[a,b] = \{x \in
+  For any closed interval $[a, b]$,\footnote{Remember, $[a,b] = \{x \in
   \RR \mid a \leq x \leq b\}$.} we can define
   \begin{equation*}
     \Pr[ X \in [a,b] ] = \int_a^b f(x) \dx,
@@ -117,7 +117,7 @@
   the function's height and mapping them back to Borel sets in the
   function's domain, while the Riemann integral works by taking
   different points in the function's domain and mapping them to the
-  height.\sidenote{Remember, to get the Riemann integral of a function
+  height.\footnote{Remember, to get the Riemann integral of a function
   $g: \RR \to \RR$ over $[a,b]$, first define an increasingly fine
   partition of $[a,b]$, $\{x_{i,n}, i = 1,\dots,n = 1,2,\dots\}$ such that
   $a = x_{1,n}$, $b = x_{n,n}$, $x_{i,n} < x_{i+1,n}$ for all $i$
@@ -139,7 +139,7 @@
   \begin{equation*}
     \int g \dmu = \sum_{i=1}^\infty c_i \mu(B_i),
   \end{equation*}
-  where $\mu(B_i)$ is the length of the set $B_i$.\sidenote{I should
+  where $\mu(B_i)$ is the length of the set $B_i$.\footnote{I should
   maybe add a definition or an Appendix on Lebesgue measure, but
   that will probably happen later.}  The integrals of functions that
   are not step functions can be evaluated as the limit of a sequence
@@ -161,7 +161,7 @@
     \end{cases}
   \end{equation*}
   and, for any $B \in \BB$, $g^{-1}(B) = \bigcup_{i \in I} B_i$ where
-  $I = \{i \mid c_i \in B\}$.\sidenote{You should prove on your own
+  $I = \{i \mid c_i \in B\}$.\footnote{You should prove on your own
     that this means that $\{g^{-1}(B) \mid B \in \BB\}$ is a
     \sigmaalgebra\ and is a subset of \BB.}
 
@@ -176,7 +176,7 @@
   for Borel-sets $B$.  We won't be able to define these probabilities
   for non-Borel sets, but that's fine; in this case, every function
   that we'd want to work with is Lebesgue-measurable and every set
-  that we'd want to work with is a Borel set.\sidenote{Add example of
+  that we'd want to work with is a Borel set.\footnote{Add example of
   unmeasurable set here\dots.}
 
   If we're clever, we can define probabilities for discrete random
@@ -201,7 +201,7 @@
     f_b(x) = \tfrac{1}{2} \delta(x) + \tfrac{1}{2} \delta(x - 1).
   \end{equation*}
   This lets us write $\Pr[b \in B] = \int_B f_b(x) \dx$ for any Borel-set
-  $B$, which is what we want.\sidenote{You should work through all of
+  $B$, which is what we want.\footnote{You should work through all of
   the steps necessary to prove this to yourself.}
 
 \item Two key points to emphasize and remember: if the usual Riemann
@@ -328,9 +328,9 @@
 
 \end{itemize}
 
-\subsection{Sigma-algebras as information sets}
+\section{Sigma-algebras as information sets}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 
 \item In the previous section, we motivated the Borel \sigmaalgebra as a
   collection of sets that it makes sense to assign length to, and that
@@ -418,7 +418,7 @@
     B wins.
 
     Now, let's model a single round of the game.  The sample space is
-    the set $S = \{HH, HT, TH, TT\}$.\sidenote{Where, for example,
+    the set $S = \{HH, HT, TH, TT\}$.\footnote{Where, for example,
     \emph{HT} means that player A plays ``Heads'' and player B plays
     ``Tails''} There are, of course, several \sigmaalgebra s that can be
     constructed on this sample space.  For example, the \sigmaalgebra\ that
@@ -433,14 +433,14 @@
     We can form the second \sigmaalgebra by starting with the event ``A
     wins'' (i.e. the set $\{HH, TT\}$), and the sample space $S$, and
     then adding more sets as necessary so that the \sigmaalgebra\ is closed
-    under complements and countable unions.\sidenote{You should verify
+    under complements and countable unions.\footnote{You should verify
     as an exercise that both of these sets are actually \sigmaalgebra s.}
   \end{ex}
 
 \item This example gets at why we can view a \sigmaalgebra\ as an
   \emph{information set}.  The \sigmaalgebra, ``A plays Heads,'' contains
   all of the information we learn if we learn whether or not the event
-  ``A plays Heads'' has happened.\sidenote{I.e., we learn whether or
+  ``A plays Heads'' has happened.\footnote{I.e., we learn whether or
   not A played Heads, and whether or not A played Tails.}  We might
   also view this as the information available to player A after choosing
   H or T, but before revealing his or her choice to B.
@@ -518,7 +518,7 @@
   may make the interpretation easier: the probability that events $A$
   and $B$ happen is equal to the probability that $B$ happens times
   the probability that $A$ happened, knowing that $B$ already
-  happened.\sidenote{Don't take the word ``already'' literally, since
+  happened.\footnote{Don't take the word ``already'' literally, since
   there is not time ordering implied by these formulas.}
 
 \item Observe that if $A$ and $B$ are mutually exclusive, then $\Pr(A
@@ -550,9 +550,9 @@
 
 \end{itemize}
 
-\subsection{Random variables are maps between information sets}
+\section{Random variables are maps between information sets}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item The way to think about random variables, now, is that they
   summarize a probability space.  They take events that occur in a
   possibly abstract experiment and turn them into events in an easier
@@ -671,9 +671,9 @@
 
 \end{itemize}
 
-\subsection{Almost sure convergence of sequences of random variables}
+\section{Almost sure convergence of sequences of random variables}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 
 \item Remember our mathematical definition of random variables: a
   random variable is a (measurable) function from a sample space $S$

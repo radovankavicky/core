@@ -9,11 +9,11 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\section{Properties of random variables}
+\chapter{Properties of random variables}
 
-\subsection{Expectation}
+\section{Expectation}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 \item There are a few ways to think about the \emph{expectation} of a
   random variable.  One of the more natural is to think about many
   independent repeated draws, $X_1, X_2,\dots,X_n$, from the same density
@@ -103,9 +103,9 @@
 
 \end{itemize}
 
-\subsection{Conditional expectation}
+\section{Conditional expectation}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 
 \item We can also (obviously) take the expectation of conditional
   densities.  If $X$ and $Y$ are two random vectors, the conditional
@@ -113,7 +113,7 @@
   \begin{equation*}
     \E(Y \mid x) = \int y f_Y(y \mid x) \dy
   \end{equation*}
-  where $f_Y$ is the density of $Y$.\sidenote{There are other, more
+  where $f_Y$ is the density of $Y$.\footnote{There are other, more
   fundamental ways to derive conditional expectations that we're not
   going to worry about.}  When we don't want to focus on a specific
   value of $X$, we just write $\E(Y \mid X)$ (note that this is now a
@@ -161,9 +161,9 @@
 
 \end{itemize}
 
-\subsection{General measures of the center of a density}
+\section{General measures of the center of a density}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 
 \item The mean has lots of advantages; it is mathematically convenient
   to work with and shows up often because of the Law of Large Numbers.
@@ -188,9 +188,9 @@
 
 \end{itemize}
 
-\subsection{Measures of dispersion and other moments}
+\section{Measures of dispersion and other moments}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 
 \item The variance measures a random variable's dispersion about its
   mean, and is defined as
@@ -299,9 +299,9 @@
 
 \end{itemize}
 
-\subsection{General transformations of random variables}
+\section{General transformations of random variables}
 
-\begin{itemize}
+\begin{itemize}[leftmargin=0pt]
 
 \item Notice that, if $g$ is a Borel-measurable function from $\RR$ to
   $\RR$, then $g(X)$ is a random variable as well.  For any $B \in \BB$,
