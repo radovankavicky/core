@@ -57,6 +57,10 @@
   \renewcommand{\tryincludegraphics}[1]{\includegraphics{#1}}%
   \renewcommand{\tryinput}[2][{}]{\input{#2}}
   \renewcommand{\tryinclude}[2][{}]{\input{#2}}
+
+  % Also set document to use fonts that may not be available locally
+  \usepackage[bitstream-charter]{mathdesign}
+  \usepackage[scaled,osf]{sourcecodepro} 
 }{}
 
 \lstset{language=R,
@@ -65,6 +69,7 @@
         commentstyle=\rmfamily,
         showstringspaces=false,
         keywordstyle=,
+        xleftmargin=\baselineskip,
         numberstyle=\color{gray}}
 
 \newcommand{\email}[1]{\href{mailto:#1}{\nolinkurl{#1}}}
