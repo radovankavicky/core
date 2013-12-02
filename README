@@ -78,10 +78,10 @@ Development notes
 * If you do not have `make` and `latexmk` installed, you can run
   `latex` manually from the command line:
 
-      latex core_econometrics.tex
+      latex -pdf core_econometrics.tex
       bibtex core_econometrics.aux
-      latex core_econometrics.tex
-      latex core_econometrics.tex
+      latex -pdf core_econometrics.tex
+      latex -pdf core_econometrics.tex
 
 * Please email the mailing list (see below) if you run into problems
   or have any other questions.
