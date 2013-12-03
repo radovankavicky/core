@@ -11,95 +11,205 @@
 
 \chapter{Multiple hypothesis testing in linear regression}
 
-Some special issues come up when we have many hypotheses.  I need to
-figure out some simulations to motivate this stuff.
+Just a note on background reading: \citet{RSW08} is a fantastic review
+of many of these concepts. Of course, this area of research has been
+very active lately, so there have been developments since their
+article.
 
-\section{Intersection-Union Test}
+  \section{Some background on testing many hypotheses at once}
 
 \begin{itemize}[leftmargin=0pt]
-\item Suppose the null can be written as an intersection of simpler
-  nulls:
-  \begin{itemize}
-  \item $H_0: \theta \in \bigcup_{\gamma \in \Gamma} \theta_\gamma$ vs.  $H_A: \theta \notin \bigcap_{\gamma \in \Gamma} \theta_\gamma$
-  \item It is easy to find tests for each individual set:
-    \begin{itemize}
-    \item $T_\gamma$ tests the null $\theta \in \theta_\gamma$ vs. $\theta \notin \theta_\gamma$ for each $\gamma$.
-    \end{itemize}
-  \item If $T_\gamma$ is a level-$\alpha$ test with rejection region $R_\gamma$ (ie
-    it rejects if $(x_1,\dots,x_n) \in R$), then the test with rejection
-    region $\bigcap_{\gamma \in \Gamma} R_\gamma$ is the IU Test and has level $\alpha$
-  \end{itemize}
-\item Note that we don't need to correct the critical values here
-\end{itemize}
 
-\paragraph{Proof of validity}
-\begin{itemize}
-\item We know that, under the null, $\theta \in \theta_\gamma'$ for at least one $\gamma'$
-\item $\Pr_\theta[(X_1,\dots,X_n) \in \bigcap_\gamma R_\gamma] \leq \Pr_\theta[(X_1,\dots, X_n) \in R_{\gamma'}] \leq \alpha$
-\end{itemize}
+\item We are often in an environment where there are several
+  individual hypotheses that make up a single composite hypothesis of
+  interest. One example is in tests of \emph{bioequivalence}---after
+  developing a new treatment, it is sometimes necessary to demonstrate
+  that the treatment is effectively the same as another preexisting
+  treatment.  Here the null hypothesis is that the treatments are
+  \emph{different} and they will be viewed as equivalent only if their
+  effects are precisely measured to be the same.
 
-\section{Union-Intersection Test}
+  If $\theta_1$ is the expected effect of the first (pre-existing)
+  treatment and $\theta_2$ that of the new treatment, the null
+  hypothesis be expressed as
+  \begin{equation*}
+    H_0: \theta_2 \in
+    (-\infty, \theta_1 - \epsilon] \cup [\theta_1 + \epsilon, \infty),
+  \end{equation*}
+  where $\epsilon$ is a known allowable tolerance set in advance.  The
+  test would then reject (hopefully) under
+  \begin{equation*}
+    H_A: \theta_2 \in (\theta_1 - \epsilon, \theta_1 + \epsilon)
+  \end{equation*}
 
-\paragraph{Setup of UIT}
-\begin{itemize}
-\item Suppose the null can be written as an intersection of simpler
-  nulls:
-  \begin{itemize}
-  \item $H_0: \theta \in \bigcap_{\gamma \in \Gamma} \theta_\gamma$ vs.  $H_A: \theta \notin \bigcap_{\gamma \in \Gamma} \theta_\gamma$
-  \item It is easy to find tests for each individual set:
-    \begin{itemize}
-    \item $T_\gamma$ tests the null $\theta \in \theta_\gamma$ vs. $\theta \notin \theta_\gamma$ for each $\gamma$.
-    \end{itemize}
-  \item If $T_\gamma$ is a level-$\frac{\alpha}{\# \Gamma}$ test with rejection
-    region $R_\gamma$ (ie it rejects if $(x_1,\dots,x_n) \in R$), then the test
-    with rejection region $\bigcup_{\gamma \in \Gamma} R_\gamma$ is the UI Test and has level
-    $\alpha$
-  \end{itemize}
-\item Note that we don't need to use a stepdown procedure here
-\item Could still do better if we used the joint distribution of $T_\gamma$
-\end{itemize}
+\item We might have the opposite scenario, where economic theory
+  suggests that neither of two treatments should have an effect on a
+  particular variable.  We might then want to test the null hypothesis
+  \begin{equation*}
+    H_0: (\beta_1, \beta_2) = (0,0)
+  \end{equation*}
+  against the alternative
+  \begin{equation*}
+    H_A: (\beta_1, \beta_2) \in \RR^2 \setminus (0,0).
+  \end{equation*}
+  
+  Or, to give an example that can't be trivially solved with the
+  \ftest, one-sided tests; the null
+  \begin{equation*}
+    H_0: (\beta_1, \beta_2) \in (-\infty, 0] \times (-\infty, 0]
+  \end{equation*}
+  against the alternative
+  \begin{equation*}
+    H_A: (\beta_1, \beta_2) \notin (-\infty, 0] \times (-\infty, 0]
+  \end{equation*}
 
-\paragraph{Show that testing at $\alpha$ doesn't work}
+\item These two examples have a different structure.  Suppose we have
+  individual tests for the hypotheses $\beta_1 \leq 0$ and $\beta_2
+  \leq 0$; call them $T_1$ and $T_2$.  The first test asks us to
+  reject if both $T_1$ and $T_2$ reject, but the second asks us to
+  reject if either $T_1$ or $T_2$ reject.  This difference has big
+  implications for the critical values necessary for validity.
 
-\paragraph{Proof of validity}
-\begin{itemize}
-\item Follows from the same argument as in multiple comparisons
+  \begin{defn}[Intersection-Union test]
+    In a testing scenario, suppose the null hypothesis of interest can
+    be can be written as an intersection of simpler null hypotheses,
+    \begin{equation*}
+      H_0: \theta \in \bigcup_{\gamma \in \Gamma} \Theta_\gamma
+    \end{equation*}
+    with the natural null hypothesis
+    \begin{equation*}
+      H_A: \theta \notin \bigcap_{\gamma \in \Gamma} \Theta_\gamma,
+    \end{equation*}
+    and further suppose that test statistics are available for each of
+    the simple null hypotheses, so $T_\gamma$ tests the null $\theta
+    \in \Theta_\gamma$ vs. $\theta \notin \Theta_\gamma$ for each
+    $\gamma$.
+    
+    The \emph{Intersection-Union test} is formed by taking the
+    intersection of all of the individual rejection regions $R_\gamma$.
+  \end{defn}
+  
+  Note that we don't need to correct the critical values of the
+  individual test statistics.
+
+  \begin{thm}[Validity of Intersection-Union test]
+    If $T_\gamma$ is a level-$\alpha$ test with rejection region
+    $R_\gamma$ (ie it rejects if $(x_1,\dots,x_n) \in R$), then the
+    test with rejection region $\bigcap_{\gamma \in \Gamma} R_\gamma$
+    is the I.U. test and has level $\alpha$
+  \end{thm}
+
+  \begin{proof}
+    We know that, under the null, $\theta \in \Theta_\gamma'$ for at
+    least one $\gamma'$.  So
+    \begin{equation*}
+      \Pr_\theta\big[(X_1,\dots,X_n) \in \bigcap_\gamma R_\gamma\big]
+      \leq \Pr_\theta[(X_1,\dots, X_n) \in R_{\gamma'}]
+      \leq \alpha.
+    \end{equation*}
+  \end{proof}
+
+\item The \emph{Union-Intersection test} takes the other approach:
+  \begin{defn}[Union-Intersection test]
+    Suppose the null can be written as an intersection of simpler
+    nulls:
+    \begin{equation*}
+      H_0: \theta \in \bigcap_{\gamma \in \Gamma} \Theta_\gamma
+    \end{equation*}
+    vs.
+    \begin{equation*}
+      H_A: \theta \notin \bigcap_{\gamma \in \Gamma} \Theta_\gamma.
+    \end{equation*}
+    And suppose further that there are test statistics $T_\gamma$ to
+    test the null $\theta \in \Theta_\gamma$ vs. $\theta \notin
+    \Theta_\gamma$ for each $\gamma$.
+    The \emph{Union-Intersection test} is the test statistic that
+    rejects if any $T_\gamma$ rejects at level $\alpha / \#\Gamma$ and
+    has level $\alpha$ if each of the component tests is valid.
+  \end{defn}
+
+  It is straightforward to show why testing each individual hypothesis
+  at level $\alpha$ doesn't work here. Suppose that each of the
+  $T_\gamma$'s are independent. Then
   \begin{align*}
-    \Pr_\theta[(X_1,\dots,X_n) \in \bigcup_{\gamma} R_\gamma] 
-    &\leq \sum_{\gamma \in \Gamma} \Pr_\theta[(X_1,\dots,X_n) \in R_\gamma] \\
-    &\leq \sum_\gamma \frac{\alpha}{\#\Gamma} \\
-    &= \alpha
+    \Pr[\text{any } T_\gamma \text{ rejects under the null}]
+    &= 1 - \Pr[\text{no } T_\gamma \text{ rejects under the null}] \\
+    &= 1 - \prod_\gamma \Pr[T_\gamma \text{ fails to reject under the
+      null}] \\
+    &= 1 - \prod_\gamma (1 - \Pr[T_\gamma \text{ rejects under the
+      null}]) \\
+    &\geq 1 - (1 - \alpha)^{\#\Gamma}.
   \end{align*}
+  When $\alpha = 0.05$ and there are 30 hypotheses, the rejection rate
+  is roughly 80\%, which is a huge problem.
+
+  Proving that the right level for each individual test is
+  $\alpha/\#\Gamma$ is easy.
+  \begin{proof}
+    \begin{align*}
+      \Pr[\text{any } T_\gamma \text{ rejects under the null}]
+      &= \Pr\big[ \bigcup_\gamma T_\gamma \text{ rejects under the null}\big] \\
+      &\leq \sum_\gamma \Pr\big[ T_\gamma \text{ rejects under the null}\big] \\ 
+      &\leq \sum_\gamma \alpha / \# \Gamma \\
+      &= \alpha.
+    \end{align*}
+  \end{proof}
 \end{itemize}
 
 \section{Multiple hypothesis testing}
 
 \begin{itemize}[leftmargin=0pt]
-\item Suppose we have a bunch of hypotheses $\theta \in \theta_\gamma$, but instead of
-  being interested in knowing about compound hypotheses, we're
-  interested in all of them
-  \begin{itemize}
-  \item have many different parameters
-  \item Put up empirical example where we're looking at regressors
-  \end{itemize}
-\item Now we want to control the rate of ``familywise error''
-  \begin{itemize}
-  \item Let $I$ index the true nulls: $I = \{\gamma \in \Gamma : \theta_\gamma \in \theta_\gamma\}$
-  \item FWE is \[\sup_{\theta: \theta_\gamma \in \theta_\gamma, \gamma \in I} \Pr_\theta[T_\gamma \text{ rejects
-      for at least one } \gamma \in I]\]
-  \item want this error probability to be less than $\alpha$
-  \end{itemize}
-\item As with UIT, testing each one at $\alpha$ doesn't work
-  \begin{itemize}
-  \item show this
-  \end{itemize}
+
+\item The previous section was about splitting up complicated
+  hypotheses into simple parts, and then aggregating test results for
+  those simple parts into a test of the original complicated
+  hypothesis. But make no mistake, it was a single test of a single
+  hypothesis. In this section, we are actually interested in testing
+  many different individual hypotheses. You can imagine that you've
+  run a large regression and want to know which of the coefficients
+  are ``significant.''
+
+\item Suppose we have a collection of hypotheses $\theta \in
+  \Theta_\gamma$, but instead of being interested in knowing about
+  compound hypotheses, we're interested in all of them. Instead of
+  \emph{size}, which doesn't make sense here, we want to control the
+  rate of ``familywise error.''
+  \begin{defn}
+    Let $I$ index the true null hypotheses:
+    \begin{equation*}
+      I = \{\gamma \in \Gamma : \theta_\gamma \in \Theta_\gamma\}.
+    \end{equation*}
+    The \emph{familywise error rate} of a test procedure is the
+    probability that it rejects one of the hypotheses in $I$:
+    \begin{equation*}
+      \sup_I \sup_{\theta: \theta \in \Theta_\gamma, \gamma \in I}
+      \Pr_\theta[T_\gamma \text{ rejects for at least one } \gamma \in I].
+    \end{equation*}
+  \end{defn}
+
+  The familywise error rate is controlled at $\alpha$ if this error
+  probability is less than $\alpha$.
+
+\item As with the Union-Intersection test, testing each individual
+  hypothesis at $\alpha$ doesn't work, but testing each one at
+  $\alpha / \# \Gamma$ controls the FWE at $\alpha$.
+
+\item An interesting thing is that this procedure can be iterated:
+  first, reject all of the hypotheses you can at $\alpha/\#\Gamma$,
+  giving $\Gamma_1$ that contains the accepted hypotheses.  Then, test
+  those hypotheses at $\alpha/\#\Gamma_1$, and keep going until the
+  procedure no longer rejects new hypotheses.
+
+\item Additional items to add:
+  \begin{enumerate}
+  \item Proof for FWE
+  \item Bonferroni-Holm stepdown details
+  \item Bootstrap
+  \item One-sided tests and two-sided tests
+  \item Sequential testing as specification tests.
+  \end{enumerate}
+
 \end{itemize}
-
-\paragraph{Bonferroni bound}
-
-\paragraph{Bonferroni-Holm stepdown}
-
-\paragraph{Critical values from the joint distribution}
 
 %%% Local Variables:
 %%% mode: latex
