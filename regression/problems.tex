@@ -127,35 +127,6 @@
 \end{hw}
 
 \begin{hw}
-  Suppose that we have two equations we want to estimate:
-  \begin{equation}
-    \label{r1}
-    Y_1 = X_1 '\beta_1 + u_1
-  \end{equation}
-  and
-  \begin{equation}
-    \label{r2}
-    Y_2 = X_2'\beta_2 + u_2
-  \end{equation}
-  $\E(u \mid X_1, X_2) = 0$ and $\E(u u' \mid X_1, X_2) = \sigma
-  \otimes I$, $u = (u_1, u_2)'$. The Gauss-Markov theorem states that
-  the GLS estimator for $\beta_1$ and $\beta_2$ in the regression
-  \begin{equation}
-    \label{r3}
-    \begin{pmatrix} Y_1 \\ Y_2 \end{pmatrix}
-    = \begin{pmatrix} X_1 & 0 \\ 0 & X_2 \end{pmatrix} 
-    \begin{pmatrix} \beta_1 \\ \beta_2 \end{pmatrix}
-    + \begin{pmatrix} u_1 \\ u_2 \end{pmatrix}
-  \end{equation}
-  is BLUE. But what if we only care about $\beta_1$, and so we just
-  use the SUR estimate of $\beta_1$? Equation \eqref{r1} on its own
-  satisfies the Gauss-Markov assumptions, so the OLS estimator of
-  $\beta_1$ should be BLUE too. But both estimators can't be BLUE,
-  can they? They're different except in a few special cases. What's
-  going on?
-\end{hw}
-
-\begin{hw}
   Consider this situation: you are interested in the effect of a
   variable $X_1$ (say, education level) on $Y$ (say, earnings), so you
   want to test whether the coefficient $\beta_1$ is significant in the

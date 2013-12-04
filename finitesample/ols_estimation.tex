@@ -385,7 +385,7 @@
   where $w_i$ is a $k$-vector, $w_i = (X'X)^{-1} x_i$.  The
   Gauss-Markov Theorem shows that OLS has the smallest variance of all
   of the unbiased linear estimators.
-  \begin{thm}
+  \begin{thm}[Gauss-Markov Theorem]
     Assume that $Y = X\beta + \vep$ where $\vep \sim (0, \sigma^2 I)$ given $X$.
     Then $\betah$ is the unique estimator with minimum variance (given
     $X$) among all linear, unbiased estimators (i.e. OLS is BLUE).
@@ -425,6 +425,35 @@
   unconditional extension is easy.  If $\var(\betah \mid X) \leq \var(V'Y \mid X)$
   for all values of $X$, then $\E \var(\betah \mid X) \leq \E \var(V'Y \mid X)$ as
   well.
+
+\item Answering the next question may help your intuition
+  \begin{hw}
+    Suppose the true DGP is
+    \begin{equation*}
+      y_i = x_i'\beta + z_i'\alpha + \varepsilon_i
+    \end{equation*}
+    where
+    \begin{itemize}
+    \item $Y_i$, $X_i$, $Z_i$, and $\varepsilon_i$ are all stochastic,
+    \item $Y_i$, $X_i$, and $Z_i$ are all observed but $\varepsilon_i$ is not,
+    \item $\E(\varepsilon_i \mid X_i, Z_i) = 0$ almost surely,
+    \item $\E(Z_i \mid X_i) = 0$ almost surely.
+    \end{itemize}
+    Under these assumptions, the estimator $\hat \beta = (X'X)^{-1}
+    X'Y$ is the BLUE of $\beta$, by the Gauss-Markov theorem.  But
+    these assumptions also ensure that
+    \begin{equation*}
+      \begin{pmatrix} \tilde \beta \\ \tilde \alpha \end{pmatrix} =
+      \begin{pmatrix} X'X & X'Z \\ Z'X & Z'Z \end{pmatrix}^{-1}
+      \begin{pmatrix} X'Y \\ Z'Y \end{pmatrix}
+    \end{equation*}
+    is the BLUE for $(\beta',\alpha')'$, making $\tilde\beta$ the BLUE
+    for $\beta$, again by the Gauss Markov theorem.
+
+    How are both estimators the ``best linear unbiased estimator'' of
+    the same parameter?  (Please do not claim that $\hat\beta$ and
+    $\tilde\beta$ have the same value. They don't.)
+  \end{hw}
 
 \item This argument can be generalized.  Suppose that instead of
   having $\E(\vep \vep' \mid X) = \sigma^2 I$ we knew that $\E(\vep \vep' \mid X) = \sigma^2
