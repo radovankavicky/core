@@ -5,60 +5,65 @@
 % document under the terms of the GNU Free Documentation License,
 % Version 1.3 or any later version published by the Free Software
 % Foundation; with no Invariant Sections, no Front-Cover Texts, and no
-% Back-Cover Texts.  A copy of the license is included in the file
+% Back-Cover Texts. A copy of the license is included in the file
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\chapter{Problem Set}
+\chapter{Problems}
 
-This is a collection of problems for self-study.
+\begin{hw}
+  Prove that the OLS estimator $\betah$ and the OLS residuals $\hat u$
+  are uncorrelated.
+\end{hw}
 
-\begin{enumerate}
-\item Prove that the OLS estimator $\betah$ and the OLS residuals
-  $\hat u$ are uncorrelated.
+\begin{hw}
+  Suppose that
+  \begin{equation}
+    y_i = \beta_1 + \beta_2 x_i + u_i,
+  \end{equation}
+  with $u_i \mid X \sim (0, \sigma^2)$ and $x_i \sim (\mu,\tau^2)$.
+  Please derive a test statistic for the null hypothesis $\beta_1 =
+  \beta_2^2$ against the alternative $\beta_1 \neq \beta_2^2$.
+\end{hw}
 
-\item Suppose that 
-\begin{equation}
-  y_i = \beta_1 + \beta_2 x_i + u_i,  
-\end{equation}
-with $u_i \mid X \sim (0, \sigma^2)$ and $x_i \sim (\mu,\tau^2)$.
-Please derive a test statistic for the null hypothesis $\beta_1 =
-\beta_2^2$ against the alternative $\beta_1 \neq \beta_2^2$.
+\begin{hw}
+  Suppose that $y_1,\dots,y_n$ are i.i.d. with $y_i \mid x_i \sim
+  N(x_i'\beta, \sigma^2)$ and each $x_i$ a $k \times 1$ vector. Prove
+  that the OLS estimator is the best unbiased estimator of $\beta$.
+  Note that this is a stronger result than the Gauss-Markov theorem,
+  since we are claiming that OLS is also better than nonlinear
+  unbiased estimators.
+\end{hw}
 
-\item Suppose that $y_1,\dots,y_n$ are i.i.d. with $y_i \mid x_i \sim
-  N(x_i'\beta, \sigma^2)$ and each $x_i$ a $k \times 1$ vector.  Prove that
-  the OLS estimator is the best unbiased estimator of $\beta$.  Note
-  that this is a stronger result than the Gauss-Markov theorem, since
-  we are claiming that OLS is also better than nonlinear unbiased
-  estimators.
-
-\item We have the model $Y = X\beta + u$, where $n^{-1} X'X$ obeys a law
-  of large numbers, $u$ is homoskedastic, and $n^{-1/2} \sum_i x_i u_i$
-  obeys a central limit theorem.  Let $F$ be the F-statistic for the
-  null hypothesis that $R\beta = 0$, where $R$ is an arbitrary $J \times (K +
-  1)$ vector
+\begin{hw}
+  We have the model $Y = X\beta + u$, where $n^{-1} X'X$ obeys a law
+  of large numbers, $u$ is homoskedastic, and $n^{-1/2} \sum_i x_i
+  u_i$ obeys a central limit theorem. Let $F$ be the F-statistic for
+  the null hypothesis that $R\beta = 0$, where $R$ is an arbitrary $J
+  \times (K + 1)$ vector
   \begin{enumerate}
-  \item Suppose that the null hypothesis is true.  How does the
-    variance of $F$ behave as $n \to \infty$?  How does the mean of $F$
-    behave?
-  \item Suppose that $R\beta = \delta$ for some nonzero vector $\delta$, so the null
-    hypothesis is false.  How do your answers from the first part
-    change?
+  \item Suppose that the null hypothesis is true. How does the
+    variance of $F$ behave as $n \to \infty$? How does the mean of
+    $F$ behave?
+  \item Suppose that $R\beta = \delta$ for some nonzero vector
+    $\delta$, so the null hypothesis is false. How do your answers
+    from the first part change?
   \item What do your answers to the previous questions tell you about
     the power of the F-test as $n \to \infty$?
   \end{enumerate}
+\end{hw}
 
-\item Suppose that you are interested in the model $y_i = \beta_0 + x_i\beta_1
-  + u_i$ where $x_i$ is a random scalar, $\E(u_i \mid X) = 0$ and the
-  observations are i.i.d. But suppose that we do not observe $x_i$
-  directly but instead we observe $w_i = x_i + u_i$, where $u_i$ is
-  another error term.
-
+\begin{hw}
+  Suppose that you are interested in the model $y_i = \beta_0 +
+  x_i\beta_1 + u_i$ where $x_i$ is a random scalar, $\E(u_i \mid X) =
+  0$ and the observations are i.i.d. But suppose that we do not
+  observe $x_i$ directly but instead we observe $w_i = x_i + u_i$,
+  where $u_i$ is another error term.
   \begin{enumerate}
   \item Prove that, if $u_i$ is perfectly correlated with $x_i$, OLS
     is essentially consistent in the following sense: let $\dot x_i =
     (x_i - \E x_i) / sd(x_i)$ and let $\dot w_i = (w_i - \E w_i) /
-    sd(w_i)$.  Then the OLS coefficient in the regression of $y_t$ on
+    sd(w_i)$. Then the OLS coefficient in the regression of $y_t$ on
     $\dot x_i$ is the same as that of the regression of $y_i$ on $\dot
     w_i$.
   \item Prove that, if $u_i$ is independent of $x_i$ and $u_i$, OLS is
@@ -69,51 +74,60 @@ Please derive a test statistic for the null hypothesis $\beta_1 =
   \item Suppose now that $u_i$ and $u_i$ are independent, mean zero
     normal random variables, but now assume that we have another
     regressor $z_i = x_i + v_i$, where $v_i$ is another mean-zero,
-    normal error term that's independent of $u_i$ and $u_i$.  Derive
-    the MLE of $\beta_1$ and determine whether it is consistent.  For bonus
+    normal error term that's independent of $u_i$ and $u_i$. Derive
+    the MLE of $\beta_1$ and determine whether it is consistent. For bonus
     points and well-deserved pride: is it asymptotically normal?
   \end{enumerate}
+\end{hw}
 
-\item Suppose that you estimate the model $y_i = \beta_0 + \beta_1 x_{i1} + \beta_2
-  x_{i2} + u_i$ with OLS and calculate the F-test for the null
-  hypothesis $\beta_1 = 1$.  The $p$-value for this test is $0.03$ and
-  $\betah_1$ is 0.54.  In the following questions, you can assume that all
-  of the necessary OLS assumptions hold.
+\begin{hw}
+  Suppose that you estimate the model $y_i = \beta_0 + \beta_1 x_{i1}
+  + \beta_2 x_{i2} + u_i$ with OLS and calculate the F-test for the
+  null hypothesis $\beta_1 = 1$. The $p$-value for this test is
+  $0.03$ and $\betah_1$ is 0.54. In the following questions, you can
+  assume that all of the necessary OLS assumptions hold.
 
   \begin{enumerate}
   \item How would you use this information to test against the
-    one-sided alternative that $\beta_1 > 1$ at the 5\% level?  Do you
+    one-sided alternative that $\beta_1 > 1$ at the 5\% level? Do you
     reject the null in favor of this alternative?
-  \item How does your answer change if the alternative is $\beta_1 < 1$?
-    Do you reject in favor of this alternative?
+  \item How does your answer change if the alternative is $\beta_1 <
+    1$? Do you reject in favor of this alternative?
   \item Based on your answers to the previous two questions, please
-    outline a procedure to test the general null hypothesis that $R\beta \leq
-    q$, where the inequality holds element by element.
+    outline a procedure to test the general null hypothesis that
+    $R\beta \leq q$, where the inequality holds element by element.
   \end{enumerate}
+\end{hw}
 
-\item Let $y_i$ and $x_i$ be i.i.d. random scalars and $\E x_i = 0$.
+\begin{hw}
+  Let $y_i$ and $x_i$ be i.i.d. random scalars and $\E x_i = 0$.
   Suppose that you estimate two models: $y_i = \mu + u_i$ and $y_i =
   \beta_0 + \beta_1 x_i + v_i.$ Calculate the bias and variance of
-  $\hat \mu$ and $\betah_0$.  How do they depend on $\beta_1$?
+  $\hat \mu$ and $\betah_0$. How do they depend on $\beta_1$?
+\end{hw}
 
-\item Suppose that we have the model $y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i}
-  + \beta_3 x_{3i} + u_i$ where $\E(u_i \mid X) = 0$ but the errors may be
-  heteroskedastic.
+\begin{hw}
+  Suppose that we have the model $y_i = \beta_0 + \beta_1 x_{1i} +
+  \beta_2 x_{2i} + \beta_3 x_{3i} + u_i$ where $\E(u_i \mid X) = 0$
+  but the errors may be heteroskedastic.
 
   \begin{enumerate}
-  \item Suppose you want to test the null hypothesis $\beta_i \leq 0$ for all
-    $i = 1,\dots,3$ against the alternative that $\beta_i > 0$ for at least
-    one $i$ (note that this is a single null hypothesis against a
-    single alternative).  How could you use the multiple hypothesis
-    techniques we discussed in class to test this hypothesis?
-  \item If this procedure rejects the null that all of the $\beta_i$ are
-    weakly negative, do we know why?  Specifically, do we know which
-    of the $\beta_i$ is positive?  In what sense?
+  \item Suppose you want to test the null hypothesis $\beta_i \leq 0$
+    for all $i = 1,\dots,3$ against the alternative that $\beta_i > 0$
+    for at least one $i$ (note that this is a single null hypothesis
+    against a single alternative). How could you use the multiple
+    hypothesis techniques we discussed in class to test this
+    hypothesis?
+  \item If this procedure rejects the null that all of the $\beta_i$
+    are weakly negative, do we know why? Specifically, do we know
+    which of the $\beta_i$ is positive? In what sense?
   \item Please write an R program to implement your answer to the
     first part of the question.
   \end{enumerate}
+\end{hw}
 
-\item Suppose that we have two equations we want to estimate:
+\begin{hw}
+  Suppose that we have two equations we want to estimate:
   \begin{equation}
     \label{r1}
     Y_1 = X_1 '\beta_1 + u_1
@@ -123,9 +137,9 @@ Please derive a test statistic for the null hypothesis $\beta_1 =
     \label{r2}
     Y_2 = X_2'\beta_2 + u_2
   \end{equation}
-  $\E(u \mid X_1, X_2) = 0$ and $\E(u u' \mid X_1, X_2) = \sigma \otimes I$, $u = (u_1,
-  u_2)'$.  The Gauss-Markov theorem states that the GLS estimator for
-  $\beta_1$ and $\beta_2$ in the regression
+  $\E(u \mid X_1, X_2) = 0$ and $\E(u u' \mid X_1, X_2) = \sigma
+  \otimes I$, $u = (u_1, u_2)'$. The Gauss-Markov theorem states that
+  the GLS estimator for $\beta_1$ and $\beta_2$ in the regression
   \begin{equation}
     \label{r3}
     \begin{pmatrix} Y_1 \\ Y_2 \end{pmatrix}
@@ -133,13 +147,16 @@ Please derive a test statistic for the null hypothesis $\beta_1 =
     \begin{pmatrix} \beta_1 \\ \beta_2 \end{pmatrix}
     + \begin{pmatrix} u_1 \\ u_2 \end{pmatrix}
   \end{equation}
-  is BLUE.  But what if we only care about $\beta_1$, and so we just use
-  the SUR estimate of $\beta_1$?  Equation \eqref{r1} on its own
-  satisfies the Gauss-Markov assumptions, so the OLS estimator of $\beta_1$
-  should be BLUE too.  But both estimators can't be BLUE, can they?
-  They're different except in a few special cases.  What's going on?
+  is BLUE. But what if we only care about $\beta_1$, and so we just
+  use the SUR estimate of $\beta_1$? Equation \eqref{r1} on its own
+  satisfies the Gauss-Markov assumptions, so the OLS estimator of
+  $\beta_1$ should be BLUE too. But both estimators can't be BLUE,
+  can they? They're different except in a few special cases. What's
+  going on?
+\end{hw}
 
-\item Consider this situation: you are interested in the effect of a
+\begin{hw}
+  Consider this situation: you are interested in the effect of a
   variable $X_1$ (say, education level) on $Y$ (say, earnings), so you
   want to test whether the coefficient $\beta_1$ is significant in the
   equation
@@ -152,19 +169,21 @@ Please derive a test statistic for the null hypothesis $\beta_1 =
   Three of the approaches we've discussed are:
   \begin{enumerate}
   \item regress $Y$ on $X_1$ and test for significance.
-  \item regress $Y$ on $X_1$ and $X_2$ and test $\beta_1$ for significance.
-  \item regress $Y$ on $X_1$ and $X_2$ and test $\beta_2$ for significance.
+  \item regress $Y$ on $X_1$ and $X_2$ and test $\beta_1$ for
+    significance.
+  \item regress $Y$ on $X_1$ and $X_2$ and test $\beta_2$ for
+    significance.
     \begin{itemize}
-    \item If $\beta_2$ is significant, test $\beta_1$ for significance.
-    \item If $\beta_2$ is \emph{not} significant, regress $Y$ on only $X_1$
-      and test $\beta_1$ for significance in that model.
+    \item If $\beta_2$ is significant, test $\beta_1$ for
+      significance.
+    \item If $\beta_2$ is \emph{not} significant, regress $Y$ on only
+      $X_1$ and test $\beta_1$ for significance in that model.
     \end{itemize}
   \end{enumerate}
 
   Please design a Monte Carlo experiment in R that would let you study
   how well each of these approaches would work.
-
-\end{enumerate}
+\end{hw}
 
 %%% Local Variables: 
 %%% mode: latex
