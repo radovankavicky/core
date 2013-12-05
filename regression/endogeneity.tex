@@ -9,127 +9,135 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\chapter{Dealing with endogeneity}
+\chapter{Estimating causal relationships and dealing with endogeneity}
 
-\section{Problems in modeling}
+\section{Relaxing the complete exogeneity assumption}
 
-\paragraph{Omitted variables}
-\begin{itemize}
-\item We've assumed so far that $Y = X\beta + \vep$ with $\E(\vep \mid X) = 0$.
-\item Suppose that the true model is
-  \[Y = X\beta + Z\alpha + \vep\] with $\E(\vep \mid X, Z) = 0$
-\begin{itemize}
-\item but you regress $Y$ on $X$ (and not $Z$)
-\item e.g. $Y$ is income, $X$ is education and experience, and
-          $Z$ is some numeric measure of ability.
-\item maybe $Z$ is unobserved
-\item maybe there are other reasons you omit it (ignorance, possibly)
-\end{itemize}
-\item Is the OLS estimator consistent for $\beta$?
-\end{itemize}
+\begin{itemize}[leftmargin=0pt]
 
-\paragraph{mathematical consequences}
-\begin{itemize}
-\item Rewrite the true relationship
-  \[ Y = X\beta + (Z\alpha + \vep) \equiv X\beta + u \]
-\item we know that (under reasonable assumptions ensuring LLNs)
+\item The assumption that all of the regressors are exogenous is
+  usually unjustified. Suppose that we have a DGP
+  \begin{equation*}
+    y_i = \beta_0 + \beta_1 \text{education}_i
+    + \beta_2 \text{ability}_i + \varepsilon_i
+  \end{equation*}
+  where education is observed but ability is not, and they're
+  potentially correlated. We want to estimate $\beta_1$. Here we
+  assume that
+  \begin{equation*}
+    \E(\vep_i \mid \text{education}_i, \text{ability}_i) = 0 \ a.s.
+  \end{equation*}
+  The regression of $y_i$ on $\text{education}_i$ would then be biased
+  for $\beta_1$.
+
+  A common approach is to add variables related to ability to the
+  regression and then estimate the model
+  \begin{equation*}
+    y_i = \beta_0 + \beta_1 \text{education}_i
+    + \gamma'\text{controls}_i
+    + \underbrace{\beta_2 \text{ability}_i - 
+                  \gamma'\text{controls}_i + \varepsilon_i}_{u_i}
+  \end{equation*}
+  where $u_t$ is the unobserved error in the regression of $y_i$ on
+  education and the additional controls. Obviously, if
+  \begin{equation*}
+    \gamma'\text{controls}_i = \beta_2 \text{ability}_i
+  \end{equation*}
+  almost surely for a particular value of $\gamma$, there are no
+  problems. But that is very unlikely.
+
+  A more likely situation is that the expected value of
+  $\text{ability}_i$ is independent of $\text{education}_i$, once we
+  condition on the controls. Mathematically, this means that
   \begin{align*}
-    \betah - \beta
-    &= (n^{-1} X'X)^{-1}(n^{-1} X'u) \\
-    &\to^p (\E(x_{i}x_{i}'))^{-1} \lim n^{-1} \sum_{i=1}^{n} x_{i} \E(u_{i} \mid X)
+    \E(\text{ability}_i \mid \text{education}_i, \text{controls}_i)
+    &= \E(\text{ability}_i \mid \text{controls}_i) && a.s. \\
+    &= \alpha_0 + \alpha_1'\text{controls}_i && a.s.
   \end{align*}
-\item \textbf{But} we can't assume that $\E(u_i \mid X) = 0$ (a.s.)
-\begin{itemize}
-\item $\E(u_{i} \mid X) = \E(\alpha z_{i} \mid X) + \E(\vep_{i} \mid X)$
-\begin{itemize}
-\item The second term is zero since (by the L.I.E.)
-  \[\E(\vep_{i} \mid X) = \E(\E(\vep_{i}\mid X, Z) \mid X) = 0\]
-\item The first term is zero only if
-\begin{itemize}
-\item $\alpha = 0$
-\item $\E(x_{i} z_{i}) = 0$
-\end{itemize}
-\end{itemize}
-\end{itemize}
-\item Think back to our example
-\begin{itemize}
-\item $\E(ability \mid education, experience)$ is probably not zero
-\item $\alpha = 0$ only if ability doesn't affect income, after
-           taking education and experience into account
-\item both are probably not zero
-\item OLS on just $X$ is going to give you a biased and
-           inconsistent estimate.
-\end{itemize}
-\end{itemize}
+  where we impose linearity in the second equation, but that the last
+  conditional expectation is not zero.
 
-\paragraph{remedies}
-
-\paragraph{include the variable!}
-\begin{itemize}
-\item If you observe $Z$, it's usually a good idea to include it
-          in the regression.
-\begin{itemize}
-\item a caveat with small sample sizes: when $\alpha$ is close
-            to zero, this can increase the variance of your estimator
-            enough that including the variable is a bad idea
-\item when $\alpha$ is close to zero, the bias is small too.
-\end{itemize}
-\item we'll discuss ways to determine whether or not you should
-          include a variable soon
-\end{itemize}
-
-\paragraph{proxies -- see \citet[Section 12.5]{Gre12}}
-\begin{itemize}
-\item What if you can't include the variable?
-\begin{itemize}
-\item ability might be impossible to directly observe, for
-            example.
-\end{itemize}
-\item Suppose you included a different variable that is a measure
-          of the missing variable
-\begin{itemize}
-\item A test score instead of ability
-\item Call that variable $W$; moreover, suppose that
-            \[W = \gamma_0 + Z \gamma_1 + \delta\]
-            so $W$ is unrelated to the $X$ variables
-\end{itemize}
-\item What happens if you regress $Y$ on $X$ and $W$?
-\end{itemize}
-\begin{itemize}
-
-\item mathematical representation of proxies
-\begin{itemize}
-\item We can solve for $Z$ in the previous relationship:
-  \[ Z = (W - \gamma_0 - \delta ) / \gamma_1 \]
-\item We can rewrite the true relationship as
-  \begin{align*} 
-    Y &= X\beta + Z\alpha + \vep \\
-    &= \beta_0 + X\beta + (W - \gamma_0 - \delta) \alpha/\gamma_1 \\
-    &= (\beta_0 - \gamma_0\alpha/\gamma_1) + X\beta + W \alpha/\gamma_1 + (\vep - \alpha/\gamma_1\delta)
+  Under this setup, we can work out the parameter values identified by
+  OLS. Assume the controls are univariate (for simplicity) and that
+  $\beta_0 = 0$, so OLS identifies the parameters
+  \newcommand{\ab}{\text{ab}}
+  \newcommand{\ed}{\text{ed}}
+  \newcommand{\co}{\text{c}}
+  \begin{align*}
+    \begin{pmatrix}
+      \beta_1^* \\ \gamma^*
+    \end{pmatrix} &=
+    \begin{pmatrix}
+      \E \ed_i^2 & \E \ed_i \co_i \\ \E \ed_i \co_i & \E \co_i^2
+    \end{pmatrix}^{-1}
+    \begin{pmatrix}
+      \E \ed_i y_i \\ \E \co_i y_i
+    \end{pmatrix}
+    \\ &= \frac{1}{\E \ed_i^2 \E \co_i^2 - (\E \ed_i \co_i)^2}
+    \begin{pmatrix}
+      \E \co_i^2 & -\E \ed_i \co_i \\ -\E \ed_i \co_i & \E \ed_i^2
+    \end{pmatrix}
+    \begin{pmatrix}
+      \E \ed_i (\beta_1 \ed_i + \beta_2 \ab_i + \vep_i) \\
+      \E \co_i (\beta_1 \ed_i + \beta_2 \ab_i + \vep_i)
+    \end{pmatrix} \\
+    &= \frac{1}{\E \ed_i^2 \E \co_i^2 - (\E \ed_i \co_i)^2}
+    \begin{pmatrix}
+      \E \co_i^2 & -\E \ed_i \co_i \\ -\E \ed_i \co_i & \E \ed_i^2
+    \end{pmatrix}
+    \begin{pmatrix}
+      \beta_1 \E \ed_i^2 + \beta_2 \E \ed_i \ab_i \\
+      \beta_1 \E \ed_i \co_i + \beta_2 \E \co_i \ab_i
+    \end{pmatrix}
   \end{align*}
-\item If $\E(\delta \mid X, W) = 0$ (which may be reasonable), we
-           can use OLS to get consistent estimates of
-\begin{itemize}
-\item $\beta-\gamma_0\alpha/\gamma_1$ (the new intercept)
-\item $\beta$
-\item $\alpha/\gamma_1$ (the slope on W)
-\end{itemize}
-\item In our setup, we only care about $\beta$, and we can
-           estimate it consistently by OLS (and unbiased, too).
-\item The same concept applies with more than one variable
-\begin{itemize}
-\item Note that $\alpha/\gamma_1$ is complicated
-\item Will be more complicated with more variables
-\item In particular, it can have a \textbf{different sign} than $\alpha$.
-\end{itemize}
-\end{itemize}
+  where we have used the assumption that $\ed_i$ and $\vep_i$ are
+  uncorrelated and an implicit assumption that $\co_i$ and $\vep_i$
+  are uncorrelated. ($\vep_i$ is being treated here as irreducible
+  error; otherwise include the part correlated with $\co_i$ in with
+  $\ab_i$.)
+
+  We can then see that
+  \begin{equation*}
+    \beta_i^* = \beta_1 + \beta_2 
+    \frac{\E \co_i^2 \E \ed_i \ab_i - \E\ed_i \co_i \E \co_i \ab_i}%
+    {\E \ed_i^2 \E \co_i^2 - (\E \ed_i \co_i)^2},
+  \end{equation*}
+  so $\beta_i^* = \beta_1$ only if
+  \begin{align*}
+    0
+    &= \E \ed_i \ab_i - \E\ed_i \co_i \E \co_i \ab_i / \E \co_i^2 \\
+    &= \E\big( \ab_i \big(\ed_i - \co_i (\E \co_i^2)^{-1}\E(\co_i
+    \ed_i) \big) \big).
+  \end{align*}
+  Now, notice that
+  \begin{equation*}
+    \ed_i - \co_i (\E \co_i^2)^{-1}\E(\co_i \ed_i)
+  \end{equation*}
+  is the component of $\ed_i$ orthogonal to $\co_i$ and so is
+  uncorrelated with $\ab_i$, ensuring that $\beta_1^* = \beta_1$
+  (elaborate).
+
+\item This argument means that OLS is able to estimate $\beta_1$ even
+  though the other controls are necessarily endogenous.
+
+\item This would be a good place to explain how the same issue arises
+  in true experiments.
+
 \end{itemize}
 
-\paragraph{Inclusion of too many variables}
-\begin{itemize}
-\item We saw this earlier in the lecture
-\item If we include variables that have population coefficients equal
-        to zero, the variance of our estimator increases and the model
-        is less accurate
-\item The coefficients are still unbiased, though.
-\end{itemize}
+\section{Using too many regressors}
+
+This would be a good place to discuss having regressors that interrupt
+the causal effect. An example: suppose that you want to know the
+effect that taking a college test prep class has on college admissions
+(at the individual level). One might imagine including SAT scores as a
+regressor, if they were available. But the main mechanism that we'd
+expect this sort of class to affect college admissions is through test
+scores, so ``controling for'' test scores probably doesn't make sense.
+
+\section{Instrumental variable estimators}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../core_econometrics"
+%%% End: 
