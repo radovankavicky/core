@@ -2,6 +2,7 @@ Checklist for new releases
 ==========================
 
 - [ ] update NEWS
+- [ ] update README, VERSION.tex, and CITATION.bib with new version number
 - [ ] tag commit with new version number
 - [ ] add `final` option to core_econometrics.tex and run Makefile to
   generate new pdfs (then turn off `final`)

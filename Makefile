@@ -9,7 +9,7 @@
 # LICENSE.tex and is also available online at
 # <http://www.gnu.org/copyleft/fdl.html>.
 
-.PHONY: all clean burn ver tmp VERSION.tex CITATION.bib rep
+.PHONY: all clean burn tmp rep
 .DELETE_ON_ERROR:
 
 SHELL=/bin/bash
@@ -23,22 +23,7 @@ RscriptFLAGS := --vanilla
 parts := probability finitesample asymptotics regression
 lsall = $(foreach dir,. tex $(parts),$(wildcard $(dir)/*$(1)))
 
-dateinfo := "\\date{$(shell git show -s --date=short --format=%cd HEAD), \
-  $(shell git describe --tags)}"
-citeinfo := "@Book{eflp-core, \n\
-  author =	{Gray Calhoun}, \n\
-  title =	{Core Econometrics}, \n\
-  publisher =	{Econometrics Free Library Project, \n\
-		 \url{http://www.econometricslibrary.org}}, \n\
-  year =	{$(shell git show -s --date=short --format=%cd | head -c 4)}, \n\
-  note =	{$(shell git describe --tags)}}"
-
 all: core_econometrics.pdf
-ver: VERSION.tex CITATION.bib
-VERSION.tex:
-	echo $(dateinfo) > $@
-CITATION.bib:
-	echo -e $(citeinfo) > $@
 
 # Execute the bootstrap code (if necessary)
 boots = $(addprefix asymptotics/,bootstrap_fig1.pdf \
@@ -69,8 +54,7 @@ rep: $(boots)
 # I first saw this trick in the makefile for "Homotopy Type Theory:
 # Univalent Foundations of Mathematics"
 core_econometrics.pdf: core_econometrics.tex tex/references.bib \
-  $(filter-out VERSION.tex, $(call lsall,.tex)) $(boots) \
-  | VERSION.tex CITATION.bib
+  $(filter-out VERSION.tex, $(call lsall,.tex)) $(boots)
 	if $(latexmk) -v > /dev/null 2>&1; \
 	then $(latexmk) $(latexFLAGS) $(<F); \
 	else $(latex) $(latexFLAGS) $(<F) && \

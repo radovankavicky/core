@@ -1,12 +1,10 @@
 \documentclass[11pt,notitlepage]{report}
 \title{Core Econometrics}
+\author{Gray Calhoun}
 
+\input{VERSION.tex}
 \input{tex/preamble}
 \tryinput{tex/localmod} % <- Put local modifications here
-
-\author{Gray Calhoun}
-\tryinput[\date{Unknown date and version,%
-  see README for more details.}]{VERSION.tex}
 
 \begin{document}
 \maketitle
@@ -32,7 +30,12 @@ information about this project is available at its homepage,
 to participate.  This text is typeset in LaTeX and there is a link
 to the source of the document at the project's homepage as well.
 
-\addciteinfo % defined in tex/preamble.tex
+Please cite this document as
+\begin{itemize}
+\item[] \bibentry{eflp-core}
+\item[] \lstinputlisting[xleftmargin=0ex]{CITATION.bib}
+\end{itemize}
+The \BibTeX\ record is provided for your convenience.
 
 When you find errors in this text, please email the project mailing
 list,\footnote{\email{econometricslibrary@librelist.com}} or report
