@@ -127,35 +127,6 @@
 \end{hw}
 
 \begin{hw}
-  Suppose that we have two equations we want to estimate:
-  \begin{equation}
-    \label{r1}
-    Y_1 = X_1 '\beta_1 + u_1
-  \end{equation}
-  and
-  \begin{equation}
-    \label{r2}
-    Y_2 = X_2'\beta_2 + u_2
-  \end{equation}
-  $\E(u \mid X_1, X_2) = 0$ and $\E(u u' \mid X_1, X_2) = \sigma
-  \otimes I$, $u = (u_1, u_2)'$. The Gauss-Markov theorem states that
-  the GLS estimator for $\beta_1$ and $\beta_2$ in the regression
-  \begin{equation}
-    \label{r3}
-    \begin{pmatrix} Y_1 \\ Y_2 \end{pmatrix}
-    = \begin{pmatrix} X_1 & 0 \\ 0 & X_2 \end{pmatrix} 
-    \begin{pmatrix} \beta_1 \\ \beta_2 \end{pmatrix}
-    + \begin{pmatrix} u_1 \\ u_2 \end{pmatrix}
-  \end{equation}
-  is BLUE. But what if we only care about $\beta_1$, and so we just
-  use the SUR estimate of $\beta_1$? Equation \eqref{r1} on its own
-  satisfies the Gauss-Markov assumptions, so the OLS estimator of
-  $\beta_1$ should be BLUE too. But both estimators can't be BLUE,
-  can they? They're different except in a few special cases. What's
-  going on?
-\end{hw}
-
-\begin{hw}
   Consider this situation: you are interested in the effect of a
   variable $X_1$ (say, education level) on $Y$ (say, earnings), so you
   want to test whether the coefficient $\beta_1$ is significant in the
@@ -183,6 +154,75 @@
 
   Please design a Monte Carlo experiment in R that would let you study
   how well each of these approaches would work.
+\end{hw}
+
+\begin{hw}
+  Suppose that we're interested in the effect of a binary treatment on
+  some outcome of interest. Let $x_i$ denote the (univariate)
+  treatment variable for individual $i$ and $y_i$ the outcome.
+  Suppose that the DGP is
+  \begin{equation}\label{eq:1}
+    y_i = \beta_0 + \beta_1 x_i + \varepsilon_i
+  \end{equation}
+  but $\varepsilon_i$ and $x_i$ are potentially correlated.  For a
+  concrete example, imagine that $x_i$ indicates whether individual
+  $i$ smokes and $y_i$ is a measure of the individual's overall
+  health.
+
+  Fortunately, we have run an experiment that assigned individuals to
+  either be in a treatment or a control group: let $x_i^*$ be 1 when
+  the $i$th individual is in the treatment group and 0 otherwise and
+  assume that
+  \begin{equation}
+    \Pr[x_i^* = 0] = \Pr[x_i^* = 1] = 1/2
+  \end{equation}
+  and $x_i^*$ is set independently of $\varepsilon_i$.
+
+  \paragraph{The complication:} Individuals do not always comply with
+  treatment. In particular,
+  \begin{equation}
+    \Pr[x_i = 1 \mid x_i^* = 1] = \Pr[x_i = 0 \mid x_i^* = 0] = 0.90
+  \end{equation}
+  and (just to complete the algebra for you)
+  \begin{equation}
+    \Pr[x_i = 1 \mid x_i^* = 0] = \Pr[x_i = 0 \mid x_i^* = 1] = 0.10.
+  \end{equation}
+  (Maintain this assumption in answering the questions below. You
+  probably wouldn't know this information in real research, but there
+  are times that you would.)
+
+  \begin{enumerate}
+  \item Suppose that $x_i^*$ is observed but $x_i$ is not.  This is
+    the common situation where the experimenter knows whether or not
+    an individual was treated but not whether or not the individual
+    complied with treatment.  Derive the probability limit and
+    asymptotic distribution for the OLS regression of $y_i$ on $x_i^*$
+    and show that it is inconsistent for $\beta_1$.
+
+  \item Based on your answer to the first part, how could you
+    construct (asymptotic) 95\% confidence intervals for $\beta_1$?
+    {\bfseries You do not necessarily need a consistent estimator of
+      $\beta_1$ to construct these intervals.}  We know (by fiat) that
+    $x_i^*$ and $x_i$ will different in 10\% of the sample on average,
+    so you can work out the worst-case misclassification to derive
+    your answer.
+
+    If you need to impose additional assumptions to derive an answer,
+    feel free to. (It's much better than no answer at all.)
+
+  \item Now suppose that you observe $x_i$ but not $x_i^*$.  Repeat
+    your steps for the previous two parts, but using $x_i$.  Show that
+    the OLS regression of $y$ on $x_i$ is inconsistent for $\beta_1$
+    and give a procedure for constructing 95\% confidence intervals
+    for $\beta_1$ using only data on $y_i$ and $x_i$.
+
+  \item Now suppose that both $x_i$ and $x_i^*$ are observed. Prove
+    that $x_i^*$ can be used as an instrument for $x_i$ and show that
+    the two-stage least squares estimator can be used to consistently
+    estimate $\beta_1$ in~\eqref{eq:1}.
+
+  \end{enumerate}
+
 \end{hw}
 
 %%% Local Variables: 

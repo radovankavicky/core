@@ -20,6 +20,8 @@ Version 0.7.1
   adds the version information back to the repo
 * Reduces the number of simulations used in the modeling example to
   reduce execution time
+* Moves homework question on Gauss-Markov into the main text and adds
+  a question about IV and nonparametric bounds
 
 Version 0.7.0
 -------------
