@@ -16,6 +16,10 @@ Version 0.7.1
 * Updates chapter on multiple testing in part 4
 * Bugfix for display of sectioning inside the copy of the license
 * A few minor cosmetic tweaks
+* Moves simulation *results* back out of the repository and explicitly
+  adds the version information back to the repo
+* Reduces the number of simulations used in the modeling example to
+  reduce execution time
 
 Version 0.7.0
 -------------
