@@ -1,11 +1,12 @@
 tex/localmod.tex
 asymptotics/bootstrap.R
 regression/modeling.R
+asymptotics/*_macros.tex
+regression/*_macros.tex
 
-*.tmp
+*.pdf
 tmp/
 
-pdf/
 auto/
 .Rhistory
 _region_.tex
