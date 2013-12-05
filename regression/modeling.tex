@@ -394,7 +394,7 @@
     variance of the two estimators for any $n$ and $\mu$ through
     simulation:
     \begin{lstlisting}[gobble=6]
-      relvariance <- function(mu, n, nsims = 10000) {
+      relvariance <- function(mu, n, nsims = 2000) {
         variances <- apply(replicate(nsims, {
           x <- rnorm(n, mu)
           c(xbar = mean(x), mhat = mh(x))
