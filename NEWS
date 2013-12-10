@@ -20,6 +20,8 @@ Version 0.7.1
   adds the version information back to the repo
 * Reduces the number of simulations used in the modeling example to
   reduce execution time
+* Adds material on instrumental variables and 'predictive proxies'
+* Polishes material on seemingly unrelated regressions
 
 Version 0.7.0
 -------------
