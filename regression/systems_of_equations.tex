@@ -12,236 +12,217 @@
 \chapter{Systems of equations}
 
 \begin{itemize}[leftmargin=0pt]
-\item There are lots of panel implications to what we're discussing,
-      but we won't cover them
-\item Basic idea:
-\begin{itemize}
-\item Suppose you have two relationships you are interested in
-        (return data, say)
-        \[r_{jt} - r_{ft} = \alpha_j + \beta_j (r_{mt} - r_{ft}) + \epsilon_{it}\]
-\begin{itemize}
-\item $j = 1,2$
-\item $t = 1,2,3,...$
-\item $r_{it}$ is the return on asset $i$
-\item $r_{ft}$ is the risk-free rate of return (ie T-bills)
-\item $r_{mt}$ is the return on the entire market.
-\end{itemize}
-\end{itemize}
-\item here's the question: should you do OLS on each equation
-      individually, or do something different?
-\begin{itemize}
-\item we'll derive a new estimator
-\item called seemingly unrelated regression
-\item obviously, if the errors are exogenous you can do ols and it
-        will be fine; the question here is if we can do something
-        better than OLS.
-\end{itemize}
+
+\item The basic idea here is that it is sometimes more efficient to
+  estimate multiple equations simultaneously than individually.  For
+  example, suppose you have two relationships you are interested in
+  (returns data, say)
+  \begin{equation*}
+    r_{jt} - r_{ft} = \alpha_j + \beta_j (r_{mt} - r_{ft}) + \vep_{it}
+  \end{equation*}
+  where the variables are
+  \begin{itemize}
+  \item $r_{it}$ is the return on asset $i$
+  \item $r_{ft}$ is the risk-free rate of return (i.e. T-bills)
+  \item $r_{mt}$ is the return on the entire market.
+  \end{itemize}
+
+  In this setting, should you do OLS on each equation individually, or
+  do something different? This section will present the
+  \emph{Seemingly Unrelated Regressions} estimator and will discuss
+  when it is possible to do better than OLS.
+
+\item More generally, suppose we have two models
+  \begin{equation}\label{eq:3}
+    Y_1 = X_1 \beta_1 + \vep_1
+  \end{equation}
+  and
+  \begin{equation}\label{eq:4}
+    Y_2 = X_2 \beta_2 + \vep_2
+  \end{equation}
+  where each $Y_i$ is $n \times 1$.  Alternatively, we can write
+  \begin{equation*}
+    \binom{y_{1i}}{y_{2i}}
+    = \binom{x_{1i}'\beta_1}{x_{2i}'\beta_2} +  \binom{\vep_{1i}}{ \vep_{2i}}
+  \end{equation*}
+  for $i = 1,...,n$.
+
+\item We're going to make standard assumptions from our treatment of
+  OLS:
+  \begin{description}
+  \item[Exogeneity.] For all $i$,
+    \begin{equation*}
+      E\Bigg(\binom{\vep_{1i}}{\vep_{2i}} \ \Big|\ X\Bigg) = 0
+    \end{equation*}
+  \item[Homoskedasticity.] For all $i$,
+    \begin{equation*}
+      E\Bigg(\binom{\vep_{1i}}{\vep_{2i}} \binom{\vep_{1i}}{\vep_{2i}}'
+      \ \Big|\ X \Bigg) = \Sigma
+    \end{equation*}
+  \item[Uncorrelated errors.] For $i \neq j$,
+    \begin{equation*}
+      E\Bigg(\binom{\vep_{1i}}{\vep_{2i}}
+      \binom{\vep_{1j}}{\vep_{2j}}' \ \Big|\ X \Bigg) = 0
+    \end{equation*}
+    This assumption allows errors to be correlated across equations
+    but not across observations.
+  \end{description}
+  
+  Also assume that the usual technical conditions on the regressors
+  and errors hold to allow for us to apply laws of large numbers, etc.
+
 \end{itemize}
 
-\section{setup}
-\subsection{notation}
-
-\begin{itemize}[leftmargin=0pt]
-\item We want to write these two models as
-       \[y_1 = X_1 \beta_1 + \epsilon_1\]
-       and
-       \[y_2 = X_2 \beta_2 + \epsilon_2\]
-\begin{itemize}
-\item each $y_i$ is $n \times 1$
-\end{itemize}
-\item alternatively
-  \[ \binom{y_{1i}}{y_{2i}} = \binom{x_{1i}'\beta_1}{x_{2i}'\beta_2} + 
-  \binom{\epsilon_{1i}}{ \epsilon_{2i}}\]
-       for $i = 1,...,n$.
-\end{itemize}
-
-\subsection{assumptions}
-
-\begin{description}
-\item[Exogeneity] \[E(\binom{\vep_{1i}}{\vep_{2i}} \mid X) = 0\] for all $i$
-\item[homoskedasticity] \[E\Big(\binom{\epsilon_{1i}}{\epsilon_{2i}} \binom{\epsilon_{1i}}{\epsilon_{2i}}' \mid X \Big) = \Sigma\]
-\item[uncorrelated errors] \[E\Big(\binom{\epsilon_{1i}}{\epsilon_{2i}}
-  \binom{\epsilon_{1j}}{\epsilon_{2j}}' \mid X \Big) = 0\] if $i \neq j$.
-\begin{itemize}
-\item allow errors to be correlated across equations but not across
-         observations
-\end{itemize}
-\item[usual] assume that the usual technical conditions on the
-                regressors and errors hold to allow for us to apply
-                laws of large numbers, etc.
-\end{description}
-
-\subsection{estimation with known covariance matrix}
-
-\begin{itemize}[leftmargin=0pt]
-\item We want to rewrite the equations as
-       \[ \binom{\mathbf{y}_1}{\mathbf{y}_2} = \begin{pmatrix} \mathbf{X}_1
-       & 0 \\ 0 & \mathbf{X}_2  \end{pmatrix}
-       \binom{\beta_1}{\beta_2} +
-      \binom{\mathbf{\vep}_1}{\mathbf{\vep}_2} \]
-\begin{itemize}
-\item ie $\mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon}$
-\end{itemize}
-\item Remarkable thing is that we can estimate this model by GLS
-\begin{itemize}
-\item Note that $E(\mathbf{\epsilon} \mid \mathbf{X}) = 0$
-\item Moreover,
-  \[E(\mathbf{\epsilon} \mathbf{\epsilon}' \mid \mathbf{X}) = \Sigma \otimes I =
-  \begin{pmatrix} \sigma^2_{11} I & \sigma_{12} I \\ \sigma_{21} I & \sigma^2_{22} I \end{pmatrix}\]
-\item So the model satisfies the requirements for GLS regression to
-         be BLUE, even though the dependent variable is different for
-         the two equations.
-\end{itemize}
-\item Assume that $\Sigma$ is known for now, 
-  \[\betah_{GLS} = (X'(\Sigma \otimes I)^{-1}X)^{-1}X'(\Sigma \otimes I)^{-1}Y\]
-\begin{itemize}
-\item simplify this further:
-\begin{itemize}
-\item $(\Sigma \otimes I)^{-1} = \Sigma^{-1} \otimes I$
-\begin{itemize}
-\item Let $\gamma_{ij}$ denote the $i,j$ element of $\Sigma^{-1}$
-\end{itemize}
-\item as a result
-  \[\betah_{SUR} = \begin{pmatrix}
-    \gamma_{11} X_1'X_1 & \gamma_{12} X_1'X_2 \\ & \gamma_{22} X_2'X_2 
-  \end{pmatrix}^{-1} 
-  \begin{pmatrix}
-    \gamma_{11} X_1'y_1 + \gamma_{12} X_1'y_2 \\ \gamma_{12} X_2'y_1 + \gamma_{22} X_2'y_2
-  \end{pmatrix} \]
-\end{itemize}
-\end{itemize}
-\item variance-covariance matrix is found as usual:
-  \[\var(\betah_{GLS} \mid X) = (X'(\Sigma \otimes I)^{-1}X)^{-1}\]
-\begin{itemize}
-\item if you don't see this right away, please work through the
-         math on your own.  The logic is identical to OLS or GLS.
-\end{itemize}
-\end{itemize}
-
-\subsection{estimation with unknown covariance}
+\section{Estimation of $\beta$}
 
 \begin{itemize}[leftmargin=0pt]
-\item Big difference from single-equation case
-\begin{itemize}
-\item with single equations, we were concerned about heteroskedasticity
-\item here, we assume homoskedasticity and uncorrelated observations
-\item allow correlation across equations.
-\end{itemize}
-\item We can estimate $\Sigma$ pretty easily:
-\begin{itemize}
-\item let $(\eph_{i1}, \eph_{i2})$ be the pair of
-         residuals for observation $i$ from the OLS estimation
-\begin{itemize}
-\item \textbf{remember} OLS is consistent
-\item so $(\eph_{i1}, \eph_{i2})$ is consistent for $(\epsilon_{i1}, \epsilon_{i2})$
-\end{itemize}
-\item LLN would impliy that
-  \[ n^{-1} \sum_i (\epsilon_{i1}, \epsilon_{i2})' (\epsilon_{i1}, \epsilon_{i2}) \to \Sigma\] in
-  probability
-\end{itemize}
-\item Consistency of the residuals implies
-  \[\Sigmah = n^{-1} \sum_i (\eph_{i1}, \eph_{i2})'(\eph_{i1},\hat \epsilon_{i2})\to \Sigma
-  \quad i.p.\]
-\item plug in to GLS formula for a feasible estimator
+\item We can rewrite Equations~\eqref{eq:3} and~\eqref{eq:4} as
+  \begin{equation}\label{eq:5}
+    \underbrace{\binom{Y_1}{Y_2}}_Y
+    = \underbrace{\begin{pmatrix} X_1 & 0 \\ 0 & X_2 \end{pmatrix}
+    \binom{\beta_1}{\beta_2}}_{X\beta} +
+    \underbrace{\binom{\vep_1}{\vep_2}}_\vep.
+  \end{equation}
+
+  Under the assumptions listed earlier, we can estimate the
+  ``stacked'' model by OLS or GLS.
+  Since $E(\vep \mid X) = 0$ and
+  \begin{equation*}
+    E(\vep \vep' \mid X) = \Sigma \otimes I =
+    \begin{pmatrix}
+      \sigma^2_{11} I & \sigma_{12} I \\ \sigma_{21} I & \sigma^2_{22}
+      I
+    \end{pmatrix},
+  \end{equation*}
+  the model satisfies the requirements for GLS regression to be BLUE,
+  even though the dependent variable is different for the two
+  equations.
+
+  \begin{hw}
+    Verify that the direct OLS estimator of~\eqref{eq:5} is
+    numerically equivalent to the individual OLS estimators
+    of~\eqref{eq:3} and~\eqref{eq:4} individually.
+  \end{hw}
+
+\item Under the assumption that $\Sigma$ is known, 
+  \begin{equation*}
+    \betah_{GLS} = ( X' (\Sigma \otimes I)^{-1} X )^{-1} 
+                  X' (\Sigma \otimes I)^{-1} Y.
+  \end{equation*}
+  This expression can be simplified further. Using the equality
+  $(\Sigma \otimes I)^{-1} = \Sigma^{-1} \otimes I$ and letting
+  $\gamma_{ij}$ denote the $i,j$ element of $\Sigma^{-1}$, we have
+  \begin{equation*}
+    \betah_{SUR} = \begin{pmatrix}
+      \gamma_{11} X_1'X_1 & \gamma_{12} X_1'X_2 \\
+      \cdot & \gamma_{22} X_2'X_2
+    \end{pmatrix}^{-1}
+    \begin{pmatrix}
+      \gamma_{11} X_1'y_1 + \gamma_{12} X_1'y_2 \\
+      \gamma_{12} X_2'y_1 + \gamma_{22} X_2'y_2
+    \end{pmatrix}.
+  \end{equation*}
+
+\item The variance-covariance matrix is found as usual:
+  \begin{equation*}
+    \var(\betah_{SUR} \mid X) = (X'(\Sigma \otimes I)^{-1}X)^{-1}.
+  \end{equation*}
+
+\item Of course, the assumption that $\Sigma$ is known is
+  unreasonable. It can be estimated, pretty easily here, though,
+  because OLS is consistent (if inefficient) and so $(\veph_{i1},
+  \veph_{i2})$ is consistent for $(\vep_{i1}, \vep_{i2})$.
+
+  The LLN then implies that
+  \begin{equation*}
+    (1/n) \sum_i (\veph_{i1}, \veph_{i2})' (\veph_{i1}, \veph_{i2})
+    \equiv \Sigmah \to^p \Sigma
+  \end{equation*}
+  and we can plug $\Sigmah$ into the GLS formula for a feasible
+  estimator.
+
 \end{itemize}
 
-\section{Simplification of SUR}
+\section{Simplifications of the SUR estimator}
 
-     The SUR becomes the OLS estimator in two specific and informative
-     cases
-\begin{itemize}
-\item errors are uncorrelated across models
-\item all of the same regressors appear in both models
-\begin{itemize}
-\item VARs in macro, for example
-\end{itemize}
-\end{itemize}
+\begin{itemize}[leftmargin=0pt]
 
-\paragraph{zero correlation}
-\begin{itemize}
-\item formula for SUR estimator:
-  \[\betah_{SUR} = (X'(\Sigma \otimes I)^{-1}X)^{-1}X'(\Sigma \otimes I)^{-1}Y\]
-\item Suppose that $\sigma_{12} = 0$, so
-  \[ \Sigma \otimes I = (\begin{matrix} \sigma_{11}^2 I & 0 \\ 0 & \sigma_{22}^2 I \end{matrix})\]
-\begin{itemize}
-\item First part becomes
-  \[(X'( \Sigma \otimes I)^{-1} X) =
-  \begin{pmatrix} X_1'X_1 / \sigma_{11}^2 & 0 \\ 0 & X_2'X_2 / \sigma_{22}^2 \end{pmatrix}\]
-\item Second part becomes 
-  \[X'(\Sigma \otimes I)^{-1}Y = \binom{X_1' y_1 / \sigma_{11}^2}{X_2'y_2 / \sigma_{22}^2}\]
-\item $\betah_{SUR} = \binom{(X_1'X_1)^{-1}X_1'y_1}{(X_2'X_2)^{-1}X_2'y_2} =
-  \binom{\betah_{1,ols}}{\betah_{2,ols}}$
-\end{itemize}
-\end{itemize}
+\item The SUR becomes the OLS estimator in two specific and
+  informative cases. First, if the errors are uncorrelated across
+  models, and second, if all of the same regressors appear in both
+  models (which is the case for Vector Autoregressions in time series,
+  for example).
 
-\paragraph{Identical regressors in both models}
-\begin{itemize}
-\item Let $X_1$ and $X_2$ both equal $X$
-\item Use the simplified form of the SUR estimator:
+\item First, suppose that the errors in the two equations are
+  uncorrelated. Remember the formula for SUR estimator:
+  \begin{equation*}
+    \betah_{SUR} = (X'(\Sigma \otimes I)^{-1}X)^{-1}X'(\Sigma \otimes I)^{-1}Y
+  \end{equation*}
+  If $\sigma_{12} = 0$, the first term is
+  \begin{equation*}
+    (X'( \Sigma \otimes I)^{-1} X)^{-1} =
+    \begin{pmatrix}
+      X_1'X_1 / \sigma_{11}^2 & 0 \\ 0 & X_2'X_2 / \sigma_{22}^2
+    \end{pmatrix}^{-1}.
+  \end{equation*}
+  The second term is
+  \begin{equation*}
+    X'(\Sigma \otimes I)^{-1}Y =
+    \begin{pmatrix}      
+      X_1' Y_1 / \sigma_{11}^2 \\ X_2'Y_2 / \sigma_{22}^2
+    \end{pmatrix}.
+  \end{equation*}
+  And the estimator becomes
+  \begin{equation*}
+    \betah_{SUR} =
+    \begin{pmatrix}
+      (X_1'X_1)^{-1}X_1'Y_1 \\ (X_2'X_2)^{-1}X_2'Y_2
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      \betah_{1,OLS} \\ \betah_{2,OLS}
+    \end{pmatrix}.
+  \end{equation*}
+
+\item Now suppose that $X_1$ and $X_2$ both equal $X$.
+  The SUR estimator becomes
   \begin{align*}
     \betah_{SUR}
     &= \begin{pmatrix}
       \gamma_{11} X_1'X_1 & \gamma_{12} X_1'X_2 \\ & \gamma_{22} X_2'X_2 
     \end{pmatrix}^{-1}
     \begin{pmatrix}
-      \gamma_{11} X_1'y_1 + \gamma_{12} X_1'y_2 \\ \gamma_{12} X_2'y_1 + \gamma_{22} X_2'y_2
+      \gamma_{11} X_1'Y_1 + \gamma_{12} X_1'Y_2 \\
+      \gamma_{12} X_2'Y_1 + \gamma_{22} X_2'Y_2
     \end{pmatrix} \\
     &= \begin{pmatrix}
       \gamma_{11} X'X & \gamma_{12} X'X \\ & \gamma_{22}X'X
     \end{pmatrix}^{-1}
     \begin{pmatrix}
-      \gamma_{11} X'y_1 + \gamma_{12}X'y_2 \\ \gamma_{12} X'y_1 + \gamma_{22} X'y_2
+      \gamma_{11} X'Y_1 + \gamma_{12}X'Y_2 \\
+      \gamma_{12} X'Y_1 + \gamma_{22} X'Y_2
     \end{pmatrix}
   \end{align*}
-\item First term becomes $(\Sigma^{-1} \otimes X'X)^{-1}$ which equals
-  $\Sigma \otimes (X'X)^{-1}$
-\item second term becomes
+
+  The first term becomes $(\Sigma^{-1} \otimes X'X)^{-1}$ which equals
+  $\Sigma \otimes (X'X)^{-1}$. The second term becomes
   \[\begin{pmatrix}
-    X'X (\gamma_{11}\betah_{1,ols} + \gamma_{12}\betah_{2,ols}) \\
-    X'X (\gamma_{21}\betah_{1,ols} + \gamma_{22}\betah_{2,ols})
-  \end{pmatrix}\]
-\begin{itemize}
-\item Premultipy each $X'y_j$ with $X'X(X'X)^{-1}$
-\end{itemize}
-\item Multiply through and everything cancels, giving
-  \[\betah_{SUR} = \binom{\betah_{1,ols}}{\betah_{2,ols}}\]
+    X'X (\gamma_{11}\betah_{1,OLS} + \gamma_{12}\betah_{2,OLS}) \\
+    X'X (\gamma_{21}\betah_{1,OLS} + \gamma_{22}\betah_{2,OLS})
+  \end{pmatrix}\] after premultiplying each $X'Y_j$ with
+  $X'X(X'X)^{-1}$. Now Multiply through and everything cancels, giving
+  \begin{equation*}
+    \betah_{SUR} =
+    \begin{pmatrix} \betah_{1,OLS} \\ \betah_{2,OLS} \end{pmatrix}
+  \end{equation*}
 \end{itemize}
 
 \section{Hypothesis testing}
 
-\paragraph{similarities to OLS/GLS}
-\begin{itemize}
-\item $\betah_{SUR}$ is the estimate of $\beta_1$ and $\beta_2$
-        stacked on top of eachother
-\item We can test hypotheses about the $\beta$ as usual
-\begin{itemize}
-\item hypotheses about a single equation
-          \[ \beta_{1,1} = 0 \]
-          for example
-\item hypotheses about coefficients from different equations
-\begin{itemize}
-\item For example:
-\begin{itemize}
-\item $Y_1$ is log consumption of one good (imagine an individual)
-\item $Y_2$ is log consumption of another, similar good
-\item Regressors include log prices
-\item may want to test that the elasticty of both goods are
-              the same
-\end{itemize}
-\end{itemize}
-\end{itemize}
-\end{itemize}
-
-\paragraph{nature of hypothesis}
-\begin{itemize}
-\item We can write both sorts of hypotheses as
-        \[ R \beta = q \]
-\item the variance of $R\betah - R\beta$ is given by $R(X'(\Sigma \otimes I)^{-1}X)^{-1}R'$
-\item Under the null, 
-  \[(R\betah - q)'\left(R(X'(\Sigma \otimes I)^{-1}X)R'\right)^{-1}(R\betah - q)\]
-  is asymptotically chi-square with $J$-degrees of freedom
-\item Since $\Sigmah$ is consistent for $\Sigma$, so is
-  \[(R\betah - q)'\left(R(X'(\Sigmah \otimes I)^{-1}X)R'\right)^{-1}(R\betah - q)\]
+\begin{itemize}[leftmargin=0pt]
+\item Testing is exactly like in OLS or GLS: we have an asymptotically
+  normal estimator with a covariance matrix that can be consistently
+  estimated.  The (robust, usually) \ttest\ and \ftest\ work fine.
 \end{itemize}
 
 %%% Local Variables:
