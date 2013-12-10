@@ -1,0 +1,273 @@
+% Copyright (c) 2013, authors of "Core Econometrics;" a
+% complete list of authors is available in the file AUTHORS.tex.
+
+% Permission is granted to copy, distribute and/or modify this
+% document under the terms of the GNU Free Documentation License,
+% Version 1.3 or any later version published by the Free Software
+% Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+% Back-Cover Texts.  A copy of the license is included in the file
+% LICENSE.tex and is also available online at
+% <http://www.gnu.org/copyleft/fdl.html>.
+
+\chapter{Estimating causal relationships and dealing with endogeneity}
+
+Two reviews by \citet{IW07,IW09} expand on the material covered in
+this chapter.
+
+\section{Relaxing the complete exogeneity assumption}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item The assumption that all of the regressors are exogenous is
+  usually unjustified. Suppose that we have a DGP
+  \begin{equation*}
+    y_i = \beta_0 + \beta_1 \text{education}_i
+    + \beta_2 \text{ability}_i + \varepsilon_i
+  \end{equation*}
+  where education is observed but ability is not, and they're
+  potentially correlated. We want to estimate $\beta_1$. Here we
+  assume that
+  \begin{equation*}
+    \E(\vep_i \mid \text{education}_i, \text{ability}_i) = 0 \ a.s.
+  \end{equation*}
+  The regression of $y_i$ on $\text{education}_i$ would then be biased
+  for $\beta_1$.
+
+  A common approach is to add variables related to ability to the
+  regression and then estimate the model
+  \begin{equation*}
+    y_i = \beta_0 + \beta_1 \text{education}_i
+    + \gamma'\text{controls}_i
+    + \underbrace{\beta_2 \text{ability}_i - 
+                  \gamma'\text{controls}_i + \varepsilon_i}_{u_i}
+  \end{equation*}
+  where $u_t$ is the unobserved error in the regression of $y_i$ on
+  education and the additional controls. Obviously, if
+  \begin{equation*}
+    \gamma'\text{controls}_i = \beta_2 \text{ability}_i
+  \end{equation*}
+  almost surely for a particular value of $\gamma$, there are no
+  problems. But that is very unlikely.
+
+  A more likely situation is that the expected value of
+  $\text{ability}_i$ is independent of $\text{education}_i$, once we
+  condition on the controls. Mathematically, this means that
+  \begin{align*}
+    \E(\text{ability}_i \mid \text{education}_i, \text{controls}_i)
+    &= \E(\text{ability}_i \mid \text{controls}_i) && a.s. \\
+    &= \alpha_0 + \alpha_1'\text{controls}_i && a.s.
+  \end{align*}
+  where we impose linearity in the second equation, but that the last
+  conditional expectation is not zero.
+
+  Under this setup, we can work out the parameter values identified by
+  OLS. Assume the controls are univariate (for simplicity) and that
+  $\beta_0 = 0$, so OLS identifies the parameters
+  \newcommand{\ab}{\text{ab}}
+  \newcommand{\ed}{\text{ed}}
+  \newcommand{\co}{\text{c}}
+  \begin{align*}
+    \begin{pmatrix}
+      \beta_1^* \\ \gamma^*
+    \end{pmatrix} &=
+    \begin{pmatrix}
+      \E \ed_i^2 & \E \ed_i \co_i \\ \E \ed_i \co_i & \E \co_i^2
+    \end{pmatrix}^{-1}
+    \begin{pmatrix}
+      \E \ed_i y_i \\ \E \co_i y_i
+    \end{pmatrix}
+    \\ &= \frac{1}{\E \ed_i^2 \E \co_i^2 - (\E \ed_i \co_i)^2}
+    \begin{pmatrix}
+      \E \co_i^2 & -\E \ed_i \co_i \\ -\E \ed_i \co_i & \E \ed_i^2
+    \end{pmatrix}
+    \begin{pmatrix}
+      \E \ed_i (\beta_1 \ed_i + \beta_2 \ab_i + \vep_i) \\
+      \E \co_i (\beta_1 \ed_i + \beta_2 \ab_i + \vep_i)
+    \end{pmatrix} \\
+    &= \frac{1}{\E \ed_i^2 \E \co_i^2 - (\E \ed_i \co_i)^2}
+    \begin{pmatrix}
+      \E \co_i^2 & -\E \ed_i \co_i \\ -\E \ed_i \co_i & \E \ed_i^2
+    \end{pmatrix}
+    \begin{pmatrix}
+      \beta_1 \E \ed_i^2 + \beta_2 \E \ed_i \ab_i \\
+      \beta_1 \E \ed_i \co_i + \beta_2 \E \co_i \ab_i
+    \end{pmatrix}
+  \end{align*}
+  where we have used the assumption that $\ed_i$ and $\vep_i$ are
+  uncorrelated and an implicit assumption that $\co_i$ and $\vep_i$
+  are uncorrelated. ($\vep_i$ is being treated here as irreducible
+  error; otherwise include the part correlated with $\co_i$ in with
+  $\ab_i$.)
+
+  We can then see that
+  \begin{equation*}
+    \beta_i^* = \beta_1 + \beta_2 
+    \frac{\E \co_i^2 \E \ed_i \ab_i - \E\ed_i \co_i \E \co_i \ab_i}%
+    {\E \ed_i^2 \E \co_i^2 - (\E \ed_i \co_i)^2},
+  \end{equation*}
+  so $\beta_i^* = \beta_1$ only if
+  \begin{align*}
+    0
+    &= \E \ed_i \ab_i - \E\ed_i \co_i \E \co_i \ab_i / \E \co_i^2 \\
+    &= \E\big( \ab_i \big(\ed_i - \co_i (\E \co_i^2)^{-1}\E(\co_i
+    \ed_i) \big) \big).
+  \end{align*}
+  Now, notice that
+  \begin{equation*}
+    \ed_i - \co_i (\E \co_i^2)^{-1}\E(\co_i \ed_i)
+  \end{equation*}
+  is the component of $\ed_i$ orthogonal to $\co_i$ and so is
+  uncorrelated with $\ab_i$, ensuring that $\beta_1^* = \beta_1$
+  (elaborate).
+
+\item This argument means that OLS is able to estimate $\beta_1$ even
+  though the other controls are necessarily endogenous.
+
+\item This would be a good place to explain how the same issue arises
+  in true experiments.
+
+\end{itemize}
+
+\section{Using too many regressors}
+
+This would be a good place to discuss having regressors that interrupt
+the causal effect. An example: suppose that you want to know the
+effect that taking a college test prep class has on college admissions
+(at the individual level). One might imagine including SAT scores as a
+regressor, if they were available. But the main mechanism that we'd
+expect this sort of class to affect college admissions is through test
+scores, so ``controlling for'' test scores probably doesn't make sense.
+
+\section{Instrumental variable estimators}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item Sometimes, even if the important variables of $x_i$ are not
+  plausibly exogenous, there is some degree to which it is influenced
+  by exogenous factors. (Horrible sentence.) Again, assume that
+  \begin{equation*}
+    Y = X\beta + \vep
+  \end{equation*}
+  where $X$ and $\vep$ are potentially correlated, but now suppose
+  that there exists an $l \times 1$ random vector $z_i$ with $l \geq
+  k$ such that
+  \begin{equation*}
+    \E(\vep_i \mid z_i) = 0
+  \end{equation*}
+  and $\E z_i z_i'$, $\E x_i x_i'$, and $\E z_i x_i'$ all have full
+  rank. This gives the moment conditions
+  \begin{equation*}
+    \E (y_i - x_i'\beta) z_i = 0
+  \end{equation*}
+  or
+  \begin{equation}\label{eq:2}
+    \E (y_i z_i) = \E (z_i x_i')\beta
+  \end{equation}
+  which can be used as the foundation of an estimator.
+
+\item If $k = l$, the assumptions listed above imply that we can
+  solve~\eqref{eq:2} for $\beta$ directly, and
+  \begin{equation*}
+    \beta = \E (z_i x_i')^{-1} \E (y_i z_i).
+  \end{equation*}
+  The natural estimator for $\beta$ is then
+  \begin{equation*}
+    \betah = (Z'X)^{-1} Z'Y.
+  \end{equation*}
+  It is easy to see that this estimator is consistent and
+  asymptotically normal as long as LLNs and CLTs hold:
+  \begin{align*}
+    \betah
+    &= \beta + (Z'X)^{-1}Z'\vep \\
+    &= \beta + \Big((1/n) \sum_{i=1}^n z_i x_i'\Big)^{-1}
+    (1/n) \sum_{i=1}^n z_i \vep_i \\
+    &\to^p \beta
+  \end{align*}
+  and
+  \begin{align*}
+    \sqrt{n}(\betah - \beta)
+    &= \Big((1/n) \sum_{i=1}^n z_i x_i'\Big)^{-1}
+    (1/\sqrt{n}) \sum_{i=1}^n z_i \vep_i \\
+    &\to^d N\big(0, (\E z_i x_i')^{-1} \E \vep_i^2 z_i z_i' (\E x_i z_i')^{-1}\big).
+  \end{align*}
+
+  The expectations can be estimated with their sample analogues as
+  usual:
+  \begin{equation*}
+    (1/n) \sum_{i=1}^n z_i x_i' \to^p \E z_i x_i'
+  \end{equation*}
+  and
+  \begin{equation*}
+    (1/n) \sum_{i=1}^n \veph_i^2 z_i z_i' \to^p \E \vep_i^2 z_i z_i',
+  \end{equation*}
+  where $\veph_i = y_i - x_i'\betah$.
+
+\item If $k > l$, then $Z'X$ will not be square or invertible. But we can
+  derive a consistent estimator as follows. The sample analogue
+  of~\eqref{eq:2} is still
+  \begin{equation*}
+    (1/n) Z'X = (1/n) Z'Y\betah
+  \end{equation*}
+  and premultiplying both sides by $n X'Z (Z'Z)^{-1}$ gives
+  \begin{equation*}
+    X'Z (Z'Z)^{-1} Z'X = X'Z (Z'Z)^{-1} Z'Y\betah
+  \end{equation*}
+  which can now be solved for $\betah$,
+  \begin{equation*}
+    \betah = (X'Z (Z'Z)^{-1} Z'X)^{-1} X'Z (Z'Z)^{-1} Z'Y,
+  \end{equation*}
+  which can be shown to be consistent and asymptotically normal just
+  as above.
+
+  Note that $Z (Z'Z)^{-1} Z'Y$ is the projection of $Y$ onto the
+  column space of $Z$ and $Z (Z'Z)^{-1} Z'X$ is $X$'s projection.
+
+\item Remember that the variance of the OLS estimator decreases as the
+  dispersion of the regressors increases. Since we can think of
+  two-stage least squares as the OLS regression of the component of on
+  the component of $X$ driven by $Z$, which is going to have much
+  smaller dispersion than $X$ itself, it is intuitive that the
+  variance of the two-stage least squares estimator is larger than
+  OLS's.
+
+  When there is very little correlation between $z_i$ and $x_i$, more
+  serious problems arise. This is called the ``weak instruments problem.''
+  See \citet{SS97}, \citet{SWY02}, and \citet{SY05}.
+
+\item When we have more instruments than regressors, we can check
+  whether the instruments are internally consistent. Observe that we
+  could use any $k$ of the instruments to generate a consistent
+  estimator of $\beta$, so it is a useful check to verify that all of
+  these identified $\beta$s are actually the same.
+
+  If all of the exogeneity assumptions hold, then 
+  \begin{equation*}
+    (1/n) \sum_{i=1}^n z_i \veph_i \to^p 0
+  \end{equation*}
+  (since $\veph_i \to \vep_i$ by consistency) and
+  \begin{equation*}
+    (1/\sqrt{n}) \sum_{i=1}^n z_i \veph_i \to^d N(0, V)
+  \end{equation*}
+  with $V = \E \vep_i^2 z_i z_i'$. So then
+  \begin{equation*}
+    (1/n) \Big(\sum_{i=1}^n \veph_i z_i'\Big) \Vh^{-1}
+    \Big(\sum_{i=1}^n z_i \veph_i\Big)
+  \end{equation*}
+  converges in distribution to a chi-square random variable, under the
+  null.  What's interesting is that this chi-square has $l-k$ degrees
+  of freedom and not $l$ (need to add an explanation; I don't like the
+  one I have right now).
+
+\item Another check is to verify that the instruments are uncorrelated
+  with variables similar to what you're concerned about in the error
+  term. This statement needs to be elaborated on, obviously.
+
+\end{itemize}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../core_econometrics"
+%%% End: 
+
+%  LocalWords:  endogeneity exogeneity regressors DGP OLS univariate
+%  LocalWords:  regressor CLTs

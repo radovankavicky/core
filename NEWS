@@ -22,6 +22,8 @@ Version 0.7.1
   reduce execution time
 * Moves homework question on Gauss-Markov into the main text and adds
   a question about IV and nonparametric bounds
+* Adds material on instrumental variables and 'predictive proxies'
+* Polishes material on seemingly unrelated regressions
 
 Version 0.7.0
 -------------
