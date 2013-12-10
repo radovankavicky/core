@@ -100,6 +100,14 @@ Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
 copy of the license is included in the file LICENSE.tex and is also
 available online at <http://www.gnu.org/copyleft/fdl.html>.
 
+### Exceptions
+
+The contents of the file tex/macros.tex are CC0 (creative commons
+public domain): <http://creativecommons.org/publicdomain/zero/1.0>.
+To the extent possible under law, the copyright holders have waived
+all copyright and related or neighboring rights to the contents of
+tex/macros.tex.
+
 More information
 ----------------
 
