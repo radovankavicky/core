@@ -20,12 +20,6 @@
 \bibliographystyle{abbrvnat}
 \nobibliography*
 
-% This will make copy and pasting easier, and will prevent the
-% abomination that is monospace font ligatures.  Sorry, everyone who
-% really likes ligatures.  Don't worry, the Bitstream Charter font has
-% very, very few ligatures anyway.
-\DisableLigatures{encoding = *, family = * }
-
 \renewcommand{\labelitemi}{\textbullet}
 \renewcommand{\labelitemii}{\textbullet}
 \renewcommand{\labelitemiii}{\textbullet}
@@ -33,6 +27,12 @@
 
 \urlstyle{rm}
 \usepackage[hidelinks]{hyperref}
+
+% This will make copy and pasting easier, and will prevent the
+% abomination that is monospace font ligatures.  Sorry, everyone who
+% really likes ligatures.  Don't worry, the Bitstream Charter font
+% has very, very few ligatures anyway.
+\DisableLigatures{family = tt*}
 
 \frenchspacing
 \setcounter{secnumdepth}{2}
