@@ -10,60 +10,71 @@
 % <http://www.gnu.org/copyleft/fdl.html>.
 
 \chapter{Introduction}
-\section{How should we think about empirical applications?}
 
 \begin{itemize}[leftmargin=0pt]
 
-\item What are we hoping to do with linear regression?  We probably
-  have in mind changing one of the regressors.  Imagine a setting
-  where we have data on
+\item This chapter gives a short preview of what we're going to do in
+  Part~4. What we'll see, and what we've seen in earlier sections, is
+  that the statistical properties of estimators are generally easy for
+  a well-designed empirical study. (There are settings where things
+  get complicated: time-series and weak instruments both come to mind,
+  but this book doesn't deal with those settings in detail.) One will
+  typically have an asymptotically normal estimator with a robust
+  estimator of its variance, and constructing confidence intervals and
+  test statistics is routine.  Most of this text, and most
+  econometrics textbooks, can give you the appropriate formulas.
+
+\item But there are hard parts that aren't fully formalized yet. In
+  chronological order, they are roughly:
+  \begin{enumerate}
+  \item finding a research question and assembling a data set
+    (material needs to be added)
+  \item dealing with endogeneity and sample selection
+  \item choosing a model to estimate
+  \item checking the results for robustness and stability
+  \item writing up the results as a research paper.
+  \end{enumerate}
+  Chapter~\ref{ch_causality} deals with the second issue and
+  Chapter~\ref{ch_modeling} addresses the third. I need to write a
+  chapter about specification testing to address the fourth point.
+
+  This chapter will (in the future) have some additional material, but
+  right now it just has a few references to writing guides. Read them
+  all.\footnote{There are lots of online guides that could and should
+    be included too.}
+
   \begin{itemize}
-  \item some sort of school-average reading score on a state test
-    (which is going to be our dependent variable)
-  \item number of teachers per student at several schools
-  \item money available per student at these schools
+  \item \bibentry{StW99}.
+
+    \emph{This is a short and clear guide to American English grammar
+      and usage. Buy it and read it first.}
+
+  \item \bibentry{Mil13}.
+
+    \emph{Note that \citet{Mil04} is a similar book by the same
+      author.  But you don't need to buy it since it is entirely
+      contained in the \emph{Multivariate Analysis} book.}
+
+  \item \bibentry{Tuf01}.
+
+    \bibentry{Tuf90}.
+
+    \emph{Tufte has two other books, but his first two are the
+      best. These books discuss how to present data graphically.}
+
+  \item \bibentry{WiC10}.
+
+    \emph{This book gives step-by-step instructions on how to organize
+      a research paper, from the entire document down to individual
+      sentences. \citet{WiC10b} is a textbook-length treatment of this
+      material and includes exercises, but you probably want
+      \citet{WiC10}.}
+
   \end{itemize}
-  Conceivably, some policy could change number of teachers per student
-  or could change the money available per student.  To know which (if
-  either) of these is a good idea, we would need to know something like
-  \begin{multline*}
-    \E(\text{change in reading score} \mid \\
-       \text{an independent body makes a 1\% change in expenditure})
-  \end{multline*}
 
-\item What makes econometrics distintive and interesting is that we
-  usually don't get to observe changes in expenditure and changes in
-  test scores (although we do sometimes).  What we often have instead
-  is sometimes we see levels of expenditure and levels of test scores
-  in different schools.
-
-  Moreover, we almost never get to observe changes made by an
-  independent body.  We often will only see changes that were made for
-  some reason---for example, if a school performed abnormally badly one
-  year and was given funding to compensate, it would likely rebound
-  next year (with or without the funding) and that rebound would be
-  attributed to the funding.
-
-\item When you're starting an empirical research project, probably the
-  best thing to do is to think about what experiment you would want to
-  design if you could.
-
-  One approach if we want to understand how expenditure affects
-  student reading test scores, we'd want to take all of the schools
-  \emph{randomly} and \emph{independently} change their funding (leave
-  some unchanged), then observe the change in test scores the next
-  year.
-
-  Next, think hard about how closely the process that created your
-  data matches that experiment.
-
-\item This can be an iterative process (though it is suboptimal to go
-  back and forth to the data).  And you can't always think of an
-  experiment.  If you can not think of an experiment, the question
-  might not be an empirical question.  Sometimes this happens when you
-  think about changing preference parameters, which is often
-  interesting in the context of an economic model, but is more or less
-  impossible in real life.
+  I'll add more material later, but the last piece of advice is to use
+  LaTeX. There are people who will be biased against your job-market
+  paper if they see that it's written in Word.
 
 \end{itemize}
 

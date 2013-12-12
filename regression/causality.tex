@@ -10,9 +10,65 @@
 % <http://www.gnu.org/copyleft/fdl.html>.
 
 \chapter{Estimating causal relationships and dealing with endogeneity}
-
+\label{ch_causality}
 Two reviews by \citet{IW07,IW09} expand on the material covered in
 this chapter.
+\section{How should we think about empirical applications?}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item What are we hoping to do with linear regression?  We probably
+  have in mind changing one of the regressors.  Imagine a setting
+  where we have data on
+  \begin{itemize}
+  \item some sort of school-average reading score on a state test
+    (which is going to be our dependent variable)
+  \item number of teachers per student at several schools
+  \item money available per student at these schools
+  \end{itemize}
+  Conceivably, some policy could change number of teachers per student
+  or could change the money available per student.  To know which (if
+  either) of these is a good idea, we would need to know something like
+  \begin{multline*}
+    \E(\text{change in reading score} \mid \\
+       \text{an independent body makes a 1\% change in expenditure})
+  \end{multline*}
+
+\item What makes econometrics distintive and interesting is that we
+  usually don't get to observe changes in expenditure and changes in
+  test scores (although we do sometimes).  What we often have instead
+  is sometimes we see levels of expenditure and levels of test scores
+  in different schools.
+
+  Moreover, we almost never get to observe changes made by an
+  independent body.  We often will only see changes that were made for
+  some reason---for example, if a school performed abnormally badly one
+  year and was given funding to compensate, it would likely rebound
+  next year (with or without the funding) and that rebound would be
+  attributed to the funding.
+
+\item When you're starting an empirical research project, probably the
+  best thing to do is to think about what experiment you would want to
+  design if you could.
+
+  One approach if we want to understand how expenditure affects
+  student reading test scores, we'd want to take all of the schools
+  \emph{randomly} and \emph{independently} change their funding (leave
+  some unchanged), then observe the change in test scores the next
+  year.
+
+  Next, think hard about how closely the process that created your
+  data matches that experiment.
+
+\item This can be an iterative process (though it is suboptimal to go
+  back and forth to the data).  And you can't always think of an
+  experiment.  If you can not think of an experiment, the question
+  might not be an empirical question.  Sometimes this happens when you
+  think about changing preference parameters, which is often
+  interesting in the context of an economic model, but is more or less
+  impossible in real life.
+
+\end{itemize}
 
 \section{Relaxing the complete exogeneity assumption}
 
