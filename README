@@ -58,24 +58,6 @@ Development notes
 * To generate pdfs, run the command `make` in the top-level directory
   of this project (you'll need to have `make` installed, obviously).
 
-* Type `make ver` to update the date and version information included
-  in each pdf file; the files VERSION.tex and CITATION.bib will be
-  created that have the correct version number, date, and citation
-  information.  Unless the option `final` is set in the documentclass,
-  the pdf can be generated whether or not `VERSION.tex` and
-  `CITATION.bib` exist.
-
-  Alternatively, you can edit the date macro in VERSION.tex and bibtex
-  entry in CITATION.bib manually:
-
-      git show -s --date=short --format=%cd | head -c 4
-
-  gives the date of the latest commit (and other log information) and 
-
-      git describe --tags
-
-  gives the version number.
-
 * If you do not have `make` and `latexmk` installed, you can run
   `latex` manually from the command line:
 
@@ -83,6 +65,11 @@ Development notes
       bibtex core_econometrics.aux
       latex -pdf core_econometrics.tex
       latex -pdf core_econometrics.tex
+
+  But `make` also generates some graphs, and they will be missing from
+  the final pdf if you run LaTeX manually. (The source file will only
+  load the image files if they exist, so you should be able to
+  successfully build a pdf file either way.)
 
 * Please email the mailing list (see below) if you run into problems
   or have any other questions.
