@@ -5,7 +5,13 @@
 \input{VERSION.tex}
 \input{tex/preamble}
 \input{tex/macros}
-\tryinput{tex/localmod} % <- Put local modifications here
+\ifoptionfinal{
+  % Set document to use fonts that may not be available locally
+  \usepackage[bitstream-charter]{mathdesign}
+  \usepackage[osf]{sourcecodepro} 
+}{
+  \tryinput{tex/localmod} % <- Put local modifications here
+}
 
 \begin{document}
 \maketitle
