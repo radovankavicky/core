@@ -19,7 +19,7 @@ latexFLAGS := -pdf -silent
 bibtex := bibtex
 julia := julia
 
-parts := probability finitesample asymptotics regression
+parts := probability finitesample asymptotics regression interpretation
 lsall = $(foreach dir,. tex $(parts),$(wildcard $(dir)/*$(1)))
 
 all: core_econometrics.pdf
