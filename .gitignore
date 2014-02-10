@@ -1,6 +1,4 @@
 tex/localmod.tex
-asymptotics/bootstrap.R
-regression/modeling.R
 asymptotics/*_macros.tex
 regression/*_macros.tex
 

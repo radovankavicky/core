@@ -38,45 +38,20 @@
   simulation.
 
   Here are some examples.\footnote{This section's analysis is done in
-    R \citep{R} and uses the \emph{knitr} package \citep{Xie13} to
-    embed the R code in this document.}
+    R \citep{R} and uses the \emph{fancyvrb} LaTeX package
+    \citep{Zan98} to embed the R code in this document.}
 
-  First, define a simple function that will generate \lstinline|nsims|
-  averages, each of \lstinline|nobs| draws from the distribution
-  specified in \lstinline|rerror|, as follows
-  \begin{lstlisting}[firstline=2,gobble=4]
-    set.seed(76983)
-    rstats <- function(rerror, nobs, stat = mean, nsims = 150000) {
-      replicate(nsims, stat(rerror(nobs)))
-    }
-  \end{lstlisting}
+  First, define a simple function that will generate \verb|nsims|
+  averages, each of \verb|nobs| draws from the distribution
+  specified in \verb|rerror|, as follows
+  \renewcommand*\FancyVerbStartString{## block 1}
+  \VerbatimInput{asymptotics/bootstrap.R}
   and a simple function to plot the histogram along with the
   best-fitting Gaussian curve
-  \begin{lstlisting}[gobble=4]
-    nicehist <- function(rerror, nobs,...) {
-      stats <- rstats(rerror, nobs,...)
-      statMean <- mean(stats)
-      statSD <- sd(stats)
-  
-      xlim <- c(min(min(stats), qnorm(0.001, statMean, statSD)),
-                max(max(stats), qnorm(0.999, statMean, statSD)))
-
-      hist(stats, 50, col = "alice blue", freq = FALSE, xlab = "",
-           main = paste(nobs, "observations"), xlim = xlim)
-      curve(dnorm(x, mean = statMean, sd = statSD),
-            from = xlim[1], to = xlim[2], lwd = 2, add = TRUE)
-    }
-  \end{lstlisting}
+  \renewcommand*\FancyVerbStartString{## block 2}
+  \VerbatimInput{asymptotics/bootstrap.R}
 
   We'll generate averages from the uniform distribution:
-  \begin{lstlisting}[print=false]
-    pdf(file = "asymptotics/bootstrap_fig1.pdf", width=6, height=2.5)
-    par(mfrow = c(1,3))
-    nicehist(runif, 2)
-    nicehist(runif, 5)
-    nicehist(runif, 50)
-    dev.off()
-  \end{lstlisting}
   \begin{figure*}
     \tryincludegraphics{asymptotics/bootstrap_fig1.pdf}
     \caption{Finite-sample distribution of the mean of uniform r.v.s.}
@@ -86,14 +61,6 @@
   reasonable even when $n$ is as small as 5.
 
   Same plots for the exponential distribution:
-  \begin{lstlisting}[print=false]
-    pdf(file = "asymptotics/bootstrap_fig2.pdf", width=6, height=2.5)
-    par(mfrow = c(1,3))
-    nicehist(rexp, 2)
-    nicehist(rexp, 15)
-    nicehist(rexp, 50)
-    dev.off()
-  \end{lstlisting}
   \begin{figure*}
     \tryincludegraphics{asymptotics/bootstrap_fig2.pdf}
     \caption{Finite-sample distribution of the mean of exponential random
@@ -137,18 +104,15 @@
   assumption that each $Y_i \sim \iid\ \Fh$.  We'll do that through
   simulation.
 
-  \begin{lstlisting}[gobble=4]
-    Y <- rexp(40)
-    boots <- rstats(function(n) sample(Y, size = n, replace = TRUE), 40)
-    trues <- rstats(rexp, 40)
-  \end{lstlisting}
+  \renewcommand*\FancyVerbStartString{## block 3}
+  \VerbatimInput{asymptotics/bootstrap.R}
 
   We can mimic a testing scenario.  The endpoints for 5\% one-sided
   intervals based on the bootstrap distribution are given by
-  \lstinline|quantile(boots, c(0.05, 0.95))| and equal \bootquantiles.
+  \verb|quantile(boots, c(0.05, 0.95))| and equal \bootquantiles.
   They would have true coverage of \bootleft\ and \bootright\
-  (\lstinline|mean(trues >= quantile(boots, 0.05))| and
-  \lstinline|mean(trues >= quantile(boots, 0.05))| respectively)
+  (\verb|mean(trues >= quantile(boots, 0.05))| and
+  \verb|mean(trues >= quantile(boots, 0.05))| respectively)
 
 \end{itemize}
 
@@ -169,19 +133,15 @@
   of $\thetah$.
 
   We can illustrate this for the median with the command
-  \begin{lstlisting}[firstline=2,gobble=6]
-    boot2 <-
-      var(replicate(1000, median(sample(Y, replace = TRUE))))
-  \end{lstlisting}
+  \renewcommand*\FancyVerbStartString{## block 4}
+  \VerbatimInput{asymptotics/bootstrap.R}
   which equals \medv.
 
 \item When the variance is easy to calculate, this isn't a big
   advantage.  But if we (say) want to calculate the variance of the
   median raised to the 1.2 power, our code becomes
-  \begin{lstlisting}[firstline=2,gobble=6]
-    boot3 <-
-      var(replicate(1000, median(sample(Y, replace = TRUE))^(1.2)))
-  \end{lstlisting}
+  \renewcommand*\FancyVerbStartString{## block 5}
+  \VerbatimInput{asymptotics/bootstrap.R}
   which is a trivial code change (the variance estimate is now \powv).
   Now, the bootstrap doesn't always work (you need conditions like you
   need for delta method to work).
@@ -202,10 +162,8 @@
   test the null hypotheses that $\E Y = 0$ so you use the bootstrap to
   generate a critical value for the median.  To do this, you need to
   resample from $Y_1 - m(Y),...,Y_n - m(Y)$.
-  \begin{lstlisting}[firstline=2,gobble=6]
-    boot4 <-
-      replicate(1000, median(sample(Y - median(Y), replace = TRUE)))
-  \end{lstlisting}
+  \renewcommand*\FancyVerbStartString{## block 5}
+  \VerbatimInput{asymptotics/bootstrap.R}
   Here the median is \ymedian\ and the 95\% bootstrap quantile is
   \bootinference, so we would reject the null that the median is zero.
 
@@ -217,23 +175,6 @@
   world'' is an approximation to the real world.
 
 \end{itemize}
-
-% Write macros used in this section
-\begin{lstlisting}[print=false]
-  texcommand <- function(macro, tex, fmt = "%s")
-    sprintf("\\newcommand{\\%s}{%s}\n", macro, sprintf(fmt, tex))
-
-  cat(file = "asymptotics/bootstrap_macros.tex",
-      texcommand("bootquantiles",
-                 paste(sprintf("%.2f", quantile(boots, c(0.05, 0.95))),
-                 collapse = " and ")),
-      texcommand("bootleft",  mean(trues >= quantile(boots, 0.05)), "%.2f"),
-      texcommand("bootright", mean(trues <= quantile(boots, 0.95)), "%.2f"),
-      texcommand("medv", boot2, "%.4f"),
-      texcommand("powv", boot3, "%.4f"),
-      texcommand("ymedian", median(Y), "%.2f"),
-      texcommand("bootinference", quantile(abs(boot4), 0.95), "%.2f"))
-\end{lstlisting}
 
 %%% Local Variables:
 %%% mode: latex

@@ -41,7 +41,7 @@ Please cite this document as
 \begin{itemize}
 \raggedright
 \item[] \bibentry{eflp-core}
-\item[] \lstinputlisting[xleftmargin=0ex]{CITATION.bib}
+\item[] \VerbatimInput{CITATION.bib}
 \end{itemize}
 The \BibTeX\ record is provided for your convenience.
 
@@ -54,6 +54,8 @@ the date as well.  Thanks!
 
 \tableofcontents
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+\newcommand*\FancyVerbStopString{## end}
+\newcommand*\FancyVerbStartString{## block}
 
 \part{Probability overview}
 \include{probability/random_variables}

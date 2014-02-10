@@ -9,8 +9,8 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\usepackage{amssymb,amsmath,amsthm,booktabs,ifdraft,listings,microtype,
-  textcomp,graphicx,bibentry,url,enumitem}
+\usepackage{amssymb,amsmath,amsthm,booktabs,ifdraft,microtype,
+  textcomp,graphicx,bibentry,url,enumitem,fancyvrb}
 
 \date{\releasedate, version \version}
 
@@ -54,15 +54,6 @@
   \newcommand{\tryinput}[2][{}]{\IfFileExists{#2}{\input{#2}}{#1}}
   \newcommand{\tryinclude}[2][{}]{\IfFileExists{#2}{\include{#2}}{#1}}
 }
-
-\lstset{language=R,
-        columns=fixed,
-        basicstyle=\ttfamily,
-        commentstyle=\rmfamily,
-        showstringspaces=false,
-        keywordstyle=,
-        xleftmargin=\baselineskip,
-        numberstyle=\color{gray}}
 
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{defn}{Definition}[section]

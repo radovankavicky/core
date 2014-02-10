@@ -380,47 +380,22 @@
     simulations.
 
     The R code for the second estimator is straightforward:
-    \begin{lstlisting}[gobble=6]
-      mh <- function(x) {
-        xbar <- mean(x)
-        crit <- 1 / length(x)^0.25
-        if (abs(xbar) > crit) {
-          return(xbar)
-        } else {
-          return(0)
-        }
-      }
-    \end{lstlisting}
+    \renewcommand*\FancyVerbStartString{## block 1}
+    \VerbatimInput{regression/modeling.R}
     We can also write a simple function to estimate the relative
     variance of the two estimators for any $n$ and $\mu$ through
     simulation:
-    \begin{lstlisting}[gobble=6]
-      relvariance <- function(mu, n, nsims = 2000) {
-        variances <- apply(replicate(nsims, {
-          x <- rnorm(n, mu)
-          c(xbar = mean(x), mhat = mh(x))
-        }), 1, var)
-        return(variances[2] / variances[1])
-      }
-    \end{lstlisting}
+    \renewcommand*\FancyVerbStartString{## block 2}
+    \VerbatimInput{regression/modeling.R}
     So, for example, calling
-    \begin{lstlisting}[firstline=3,lastline=3,gobble=6]
-      set.seed(647893)
-      exvar <-
-        relvariance(1, 100)
-    \end{lstlisting}
+    \renewcommand*\FancyVerbStartString{## block 3}
+    \VerbatimInput{regression/modeling.R}
     returns~\exvar, which is the simulated estimate of $\var(\muh)
     / \var(\Xb)$ when $\mu$ is 1 and $n$ is 100.
 
     We can repeat this call for $\mu$ between $-1$ and $1$:
-    \begin{lstlisting}[firstline=2,lastline=2,gobble=8]
-      mcvars <-
-        sapply(seq(-1, 1, 0.01), function(m) relvariance(m, 100))
-      pdf(file = "regression/modeling_fig1.pdf", width=5, height=5)
-      plot(mcvars ~ seq(-1, 1, 0.01), type = "l")
-      lines(c(1,1) ~ c(-1,1), col = "light gray")
-      dev.off()
-    \end{lstlisting}
+    \renewcommand*\FancyVerbStartString{## block 4}
+    \VerbatimInput{regression/modeling.R}
     and the results are plotted in Figure~\ref{fig:m1}.  For $\mu$
     very near zero the selection model is more efficient, and for
     $\mu$ far from zero the models are essentially equivalent (the
@@ -429,14 +404,8 @@
 
     Figure~\ref{fig:m2} plots the same graph for 1000 observations,
     called by
-    \begin{lstlisting}[firstline=2,lastline=2,gobble=8]
-      mcvars2 <-
-        sapply(seq(-1, 1, 0.01), function(m) relvariance(m, 1000))
-      pdf(file = "regression/modeling_fig2.pdf", width=5, height=5)
-      plot(mcvars2 ~ seq(-1, 1, 0.01), type = "l")
-      lines(c(1,1) ~ c(-1,1), col = "light gray")
-      dev.off()
-    \end{lstlisting}
+    \renewcommand*\FancyVerbStartString{## block 5}
+    \VerbatimInput{regression/modeling.R}
     and notice that the results are qualitatively the same.  But the
     neighborhood is smaller and the relative inefficiency of the
     selection model is larger.
@@ -546,14 +515,6 @@
 \end{itemize}
 \end{itemize}
 \end{itemize}
-
-\begin{lstlisting}[print=false]
-  texcommand <- function(macro, tex, fmt = "%s")
-    sprintf("\\newcommand{\\%s}{%s}\n", macro, sprintf(fmt, tex))
-
-  cat(file = "regression/modeling_macros.tex",
-      texcommand("exvar", exvar, "%.2f"))
-\end{lstlisting}
 
 %%% Local Variables:
 %%% mode: latex

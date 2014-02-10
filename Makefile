@@ -42,16 +42,7 @@ boots = $(addprefix asymptotics/,bootstrap_fig1.pdf \
 	$(Rscript) $(RscriptFLAGS) $<
 
 .SECONDARY: $(boots)
-.INTERMEDIATE: asymptotics/bootstrap.R regression/modeling.R \
-  core_econometrics_final.tex
-
-knitr = $(Rscript) $(RscriptFLAGS) -e " require(knitr); \
-  knit_patterns\$$set(list('chunk.begin' = \
-                           '\\\\\\\\begin\\\\{lstlisting\\\\}.*',\
-                           'chunk.end'='\\\\\\\\end\\\\{lstlisting\\\\}'));\
-  purl('$(1)', output='$(2)')"
-%.R: %.tex
-	$(call knitr,$<,$@)
+.INTERMEDIATE: core_econometrics_final.tex
 
 rep: $(boots)
 
@@ -61,7 +52,8 @@ rep: $(boots)
 # I first saw this trick in the makefile for "Homotopy Type Theory:
 # Univalent Foundations of Mathematics"
 core_econometrics_final.pdf core_econometrics.pdf: %.pdf: %.tex \
-  tex/references.bib $(filter-out VERSION.tex, $(call lsall,.tex)) $(boots)
+  tex/references.bib $(filter-out VERSION.tex, $(call lsall,.tex)) \
+  asymptotics/bootstrap.R regression/modeling.R $(boots)
 	if $(latexmk) -v > /dev/null 2>&1; \
 	then $(latexmk) $(latexFLAGS) $(<F); \
 	else $(latex) $(latexFLAGS) $(<F) && \
