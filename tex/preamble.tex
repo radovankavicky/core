@@ -10,7 +10,9 @@
 % <http://www.gnu.org/copyleft/fdl.html>.
 
 \usepackage{amssymb,amsmath,amsthm,booktabs,ifdraft,microtype,
-  textcomp,graphicx,bibentry,url,enumitem,fancyvrb}
+  textcomp,graphicx,bibentry,url,enumitem,fancyvrb,subfig}
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
 
 \date{\releasedate, version \version}
 
@@ -24,6 +26,8 @@
 \renewcommand{\labelitemii}{\textbullet}
 \renewcommand{\labelitemiii}{\textbullet}
 \renewcommand{\labelitemiv}{\textbullet}
+
+\renewcommand{\FancyVerbFormatLine}[1]{\quad#1}
 
 \urlstyle{rm}
 \usepackage[hidelinks]{hyperref}

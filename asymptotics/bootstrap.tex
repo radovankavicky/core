@@ -38,36 +38,46 @@
   simulation.
 
   Here are some examples.\footnote{This section's analysis is done in
-    R \citep{R} and uses the \emph{fancyvrb} LaTeX package
-    \citep{Zan98} to embed the R code in this document.}
+    \emph{Julia} \citep{BKS12} and uses the \emph{fancyvrb} LaTeX
+    package \citep{Zan98} to embed source code in the document.}
 
   First, define a simple function that will generate \verb|nsims|
-  averages, each of \verb|nobs| draws from the distribution
-  specified in \verb|rerror|, as follows
-  \renewcommand*\FancyVerbStartString{## block 1}
-  \VerbatimInput{asymptotics/bootstrap.R}
-  and a simple function to plot the histogram along with the
-  best-fitting Gaussian curve
+  averages (default 5000), each of \verb|nobs| draws from the
+  distribution specified in \verb|dist|, as follows
   \renewcommand*\FancyVerbStartString{## block 2}
-  \VerbatimInput{asymptotics/bootstrap.R}
+  \VerbatimInput{asymptotics/bootstrap.jl}
+  For example, to draw sample means of two uniform random variables,
+  we would use \verb|rmeans(Uniform(), 2)|
 
-  We'll generate averages from the uniform distribution:
-  \begin{figure*}
-    \tryincludegraphics{asymptotics/bootstrap_fig1.pdf}
-    \caption{Finite-sample distribution of the mean of uniform r.v.s.}
-  \end{figure*}
+  We'll generate averages from the uniform distribution first; see
+  Figure~\ref{fig:bootstrap1}. Observe that the normal approximation
+  for the uniform mean is reasonable even when $n$ is as small as 5.
+  Plots for the exponential distribution are in the same figure and we
+  can see that the asymmetry has an effect even when $n$ is 50.
 
-  Observe that the normal approximation for the uniform mean is
-  reasonable even when $n$ is as small as 5.
+  \begin{figure}\centering
+    \begin{tabular}{cc}
+      \subfloat[Sampling distribution of the mean of two
+      $\uniform(0,1)$
+      r.v.s.]{\tryincludegraphics{asymptotics/bootstrap_u1.pdf}} &
+      \subfloat[Sampling distribution of the mean of two exponential
+      r.v.s.]{\tryincludegraphics{asymptotics/bootstrap_ex1.pdf}} \\
 
-  Same plots for the exponential distribution:
-  \begin{figure*}
-    \tryincludegraphics{asymptotics/bootstrap_fig2.pdf}
-    \caption{Finite-sample distribution of the mean of exponential random
-      variables.}
-  \end{figure*}
+      \subfloat[Sampling distribution of the mean of five
+      $\uniform(0,1)$
+      r.v.s.]{\tryincludegraphics{asymptotics/bootstrap_u2.pdf}} &
+      \subfloat[Sampling distribution of the mean of five exponential
+      r.v.s.]{\tryincludegraphics{asymptotics/bootstrap_ex2.pdf}} \\
 
-  and we can see that the asymmetry has an effect even when $n$ is 50.
+      \subfloat[Sampling distribution of the mean of 50 $\uniform(0,1)$
+      r.v.s.]{\tryincludegraphics{asymptotics/bootstrap_u3.pdf}} &
+      \subfloat[Sampling distribution of the mean of 50 exponential
+      r.v.s.]{\tryincludegraphics{asymptotics/bootstrap_ex3.pdf}}
+    \end{tabular}
+    \caption{Finite-sample distribution of the mean of uniform and
+      exponential random variables, based on 5000 simulations.}
+    \label{fig:bootstrap1}
+  \end{figure}
 
   Note that the histograms can be made arbitrarily close to the true
   \emph{finite sample} densities just by increasing the number of
@@ -104,15 +114,16 @@
   assumption that each $Y_i \sim \iid\ \Fh$.  We'll do that through
   simulation.
 
-  \renewcommand*\FancyVerbStartString{## block 3}
-  \VerbatimInput{asymptotics/bootstrap.R}
+  \renewcommand*\FancyVerbStartString{## block 1}
+  \VerbatimInput{asymptotics/bootstrap.jl}
 
-  We can mimic a testing scenario.  The endpoints for 5\% one-sided
-  intervals based on the bootstrap distribution are given by
-  \verb|quantile(boots, c(0.05, 0.95))| and equal \bootquantiles.
-  They would have true coverage of \bootleft\ and \bootright\
-  (\verb|mean(trues >= quantile(boots, 0.05))| and
-  \verb|mean(trues >= quantile(boots, 0.05))| respectively)
+  We can mimic a testing scenario as follows.
+  \renewcommand*\FancyVerbStartString{## block 3}
+  \VerbatimInput{asymptotics/bootstrap.jl}
+  The endpoints for 5\% one-sided intervals based on the bootstrap
+  distribution are given by \verb|quantile(boots, [0.05, 0.95])| and
+  equal \bootquantiles.  They would have true coverage of \bootleft\
+  and \bootright.
 
 \end{itemize}
 
@@ -134,14 +145,14 @@
 
   We can illustrate this for the median with the command
   \renewcommand*\FancyVerbStartString{## block 4}
-  \VerbatimInput{asymptotics/bootstrap.R}
+  \VerbatimInput{asymptotics/bootstrap.jl}
   which equals \medv.
 
 \item When the variance is easy to calculate, this isn't a big
   advantage.  But if we (say) want to calculate the variance of the
   median raised to the 1.2 power, our code becomes
   \renewcommand*\FancyVerbStartString{## block 5}
-  \VerbatimInput{asymptotics/bootstrap.R}
+  \VerbatimInput{asymptotics/bootstrap.jl}
   which is a trivial code change (the variance estimate is now \powv).
   Now, the bootstrap doesn't always work (you need conditions like you
   need for delta method to work).
@@ -162,8 +173,8 @@
   test the null hypotheses that $\E Y = 0$ so you use the bootstrap to
   generate a critical value for the median.  To do this, you need to
   resample from $Y_1 - m(Y),...,Y_n - m(Y)$.
-  \renewcommand*\FancyVerbStartString{## block 5}
-  \VerbatimInput{asymptotics/bootstrap.R}
+  \renewcommand*\FancyVerbStartString{## block 6}
+  \VerbatimInput{asymptotics/bootstrap.jl}
   Here the median is \ymedian\ and the 95\% bootstrap quantile is
   \bootinference, so we would reject the null that the median is zero.
 

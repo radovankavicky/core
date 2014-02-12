@@ -17,6 +17,7 @@ latexmk := latexmk
 latex := pdflatex
 latexFLAGS := -pdf -silent
 bibtex := bibtex
+julia := julia
 Rscript := Rscript
 RscriptFLAGS := --vanilla
 
@@ -32,19 +33,21 @@ core_econometrics_final.tex: core_econometrics.tex
 
 
 # Execute the bootstrap code (if necessary)
-boots = $(addprefix asymptotics/,bootstrap_fig1.pdf \
-  bootstrap_fig2.pdf bootstrap_macros.tex) \
-  $(addprefix regression/,modeling_fig1.pdf \
-    modeling_fig2.pdf modeling_macros.tex)
-%bootstrap_fig1.pdf %bootstrap_fig2.pdf %bootstrap_macros.tex: %bootstrap.R
-	$(Rscript) $(RscriptFLAGS) $<
+figs = $(addprefix asymptotics/bootstrap_, \
+                   u1.pdf u2.pdf u3.pdf ex1.pdf ex2.pdf ex3.pdf macros.tex) \
+       $(addprefix regression/modeling_, \
+                   fig1.pdf fig2.pdf macros.tex)
+
+%_u1.pdf %_u2.pdf %_u3.pdf %_ex1.pdf %_ex2.pdf %_ex3.pdf %_macros.tex: %.jl
+	$(julia) $<
+
 %modeling_fig1.pdf %modeling_fig2.pdf %modeling_macros.tex: %modeling.R
 	$(Rscript) $(RscriptFLAGS) $<
 
-.SECONDARY: $(boots)
+.SECONDARY: $(figs)
 .INTERMEDIATE: core_econometrics_final.tex
 
-rep: $(boots)
+rep: $(figs)
 
 # Check if latexmk is installed by trying to print its version number.
 # If it is installed, use it.  Otherwise run latex and bibtex over and
@@ -53,7 +56,7 @@ rep: $(boots)
 # Univalent Foundations of Mathematics"
 core_econometrics_final.pdf core_econometrics.pdf: %.pdf: %.tex \
   tex/references.bib $(filter-out VERSION.tex, $(call lsall,.tex)) \
-  asymptotics/bootstrap.R regression/modeling.R $(boots)
+  asymptotics/bootstrap.jl regression/modeling.R $(figs)
 	if $(latexmk) -v > /dev/null 2>&1; \
 	then $(latexmk) $(latexFLAGS) $(<F); \
 	else $(latex) $(latexFLAGS) $(<F) && \
@@ -72,9 +75,7 @@ crud := auto *~ *.aux *.out *.log *.fls *.fdb_latexmk *.brf *.idx \
 clean:
 	if $(latexmk) -v > /dev/null 2>&1; \
 	then $(latexmk) -c core_econometrics; fi
-	rm -rf $(foreach dir, $(dirs), $(addprefix $(dir)/,$(crud))) \
-	  asymptotics/bootstrap.R regression/modeling.R
+	rm -rf $(foreach dir, $(dirs), $(addprefix $(dir)/,$(crud)))
 
 burn: clean
-	rm -f $(addprefix core_econometrics.,pdf dvi bbl) \
-	  VERSION.tex CITATION.bib
+	rm -f $(addprefix core_econometrics.,pdf dvi bbl) $(figs)

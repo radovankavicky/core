@@ -6,6 +6,7 @@ regression/*_macros.tex
 tmp/
 
 auto/
+.juliahistory
 .Rhistory
 _region_.tex
 
