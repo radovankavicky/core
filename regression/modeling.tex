@@ -12,7 +12,7 @@
 \chapter{Modeling with linear regression}
 \label{ch_modeling}
 \tryinput{regression/modeling_macros.tex}
-\providecommand{\exvar}{?}
+\providecommand{\exampleratio}{?}
 
 \section{What happens when the model is wrong}
 
@@ -379,52 +379,51 @@
     conclusion is wrong.  But we'll just get some intuition from
     simulations.
 
-    The R code for the second estimator is straightforward:
+    The Julia code \citep{BKS12} for the second estimator is
+    straightforward:
     \renewcommand*\FancyVerbStartString{## block 1}
-    \VerbatimInput{regression/modeling.R}
+    \VerbatimInput{regression/modeling.jl}
     We can also write a simple function to estimate the relative
     variance of the two estimators for any $n$ and $\mu$ through
     simulation:
     \renewcommand*\FancyVerbStartString{## block 2}
-    \VerbatimInput{regression/modeling.R}
+    \VerbatimInput{regression/modeling.jl}
     So, for example, calling
     \renewcommand*\FancyVerbStartString{## block 3}
-    \VerbatimInput{regression/modeling.R}
-    returns~\exvar, which is the simulated estimate of $\var(\muh)
-    / \var(\Xb)$ when $\mu$ is 1 and $n$ is 100.
+    \VerbatimInput{regression/modeling.jl}
+    returns~\exampleratio, which is the simulated estimate of $\var(\muh)
+    / \var(\Xb)$ when $\mu$ is 0.1 and $n$ is 100.
 
     We can repeat this call for $\mu$ between $-1$ and $1$:
     \renewcommand*\FancyVerbStartString{## block 4}
-    \VerbatimInput{regression/modeling.R}
-    and the results are plotted in Figure~\ref{fig:m1}.  For $\mu$
+    \VerbatimInput{regression/modeling.jl}
+    and the results are plotted in Figure~\ref{fig:m1} (a).  For $\mu$
     very near zero the selection model is more efficient, and for
     $\mu$ far from zero the models are essentially equivalent (the
     ratio is about 1).  But for $\mu$ in a neighborhood of 1 the
     selection model is much, much worse than the naive sample average.
 
-    Figure~\ref{fig:m2} plots the same graph for 1000 observations,
+    Figure~\ref{fig:m1} (b) plots the same graph for 1000 observations,
     called by
     \renewcommand*\FancyVerbStartString{## block 5}
-    \VerbatimInput{regression/modeling.R}
+    \VerbatimInput{regression/modeling.jl}
     and notice that the results are qualitatively the same.  But the
     neighborhood is smaller and the relative inefficiency of the
     selection model is larger.
   \end{ex}
 
-  \begin{figure}[t]
-    \centering
-    \tryincludegraphics{regression/modeling_fig1.pdf}
-    \caption{Relative variance of model-selection method to mean for
-      100 observations.}
+  \begin{figure}[t]\centering
+    \begin{tabular}{c}
+      \subfloat[Relative variance of sample mean and threshold estimator
+      for different values of $\mu$, samples of 100 observations.]
+      {\tryincludegraphics{regression/modeling_fig1.pdf}} \\
+      \subfloat[Relative variance of sample mean and threshold estimator
+      for different values of $\mu$, samples of 1000 observations.]
+      {\tryincludegraphics{regression/modeling_fig2.pdf}} 
+    \end{tabular}
+    \caption{Relative variance of model-selection based estimation to
+      the sample mean.}
     \label{fig:m1}
-  \end{figure}
-
-  \begin{figure}[t]
-    \centering
-    \tryincludegraphics{regression/modeling_fig2.pdf}
-    \caption{Relative variance of model-selection method to mean for
-      1000 observations.}
-    \label{fig:m2}
   \end{figure}
 
 \item To discuss further: do we care about relative or absolute

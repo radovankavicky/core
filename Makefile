@@ -18,8 +18,6 @@ latex := pdflatex
 latexFLAGS := -pdf -silent
 bibtex := bibtex
 julia := julia
-Rscript := Rscript
-RscriptFLAGS := --vanilla
 
 parts := probability finitesample asymptotics regression
 lsall = $(foreach dir,. tex $(parts),$(wildcard $(dir)/*$(1)))
@@ -41,8 +39,8 @@ figs = $(addprefix asymptotics/bootstrap_, \
 %_u1.pdf %_u2.pdf %_u3.pdf %_ex1.pdf %_ex2.pdf %_ex3.pdf %_macros.tex: %.jl
 	$(julia) $<
 
-%modeling_fig1.pdf %modeling_fig2.pdf %modeling_macros.tex: %modeling.R
-	$(Rscript) $(RscriptFLAGS) $<
+%modeling_fig1.pdf %modeling_fig2.pdf %modeling_macros.tex: %modeling.jl
+	$(julia) $<
 
 .SECONDARY: $(figs)
 .INTERMEDIATE: core_econometrics_final.tex
@@ -56,7 +54,7 @@ rep: $(figs)
 # Univalent Foundations of Mathematics"
 core_econometrics_final.pdf core_econometrics.pdf: %.pdf: %.tex \
   tex/references.bib $(filter-out VERSION.tex, $(call lsall,.tex)) \
-  asymptotics/bootstrap.jl regression/modeling.R $(figs)
+  asymptotics/bootstrap.jl regression/modeling.jl $(figs)
 	if $(latexmk) -v > /dev/null 2>&1; \
 	then $(latexmk) $(latexFLAGS) $(<F); \
 	else $(latex) $(latexFLAGS) $(<F) && \
