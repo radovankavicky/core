@@ -14,6 +14,8 @@ available online at <http://www.gnu.org/copyleft/fdl.html>.
 Version 0.7.2
 -------------
 * Bugfix: successfully remove ligatures from monospaced text
+* Convert most of the R code to Julia. (Everything except what's in
+  the Bayesian material so far.)
 
 Version 0.7.1
 -------------
