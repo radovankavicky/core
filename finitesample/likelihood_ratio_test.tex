@@ -81,15 +81,20 @@
   \end{ex}
 
 \item We can run some simulations to verify that this works and makes
-  sense (in R).
-\begin{verbatim}
-n <- 1000
-crit <- 0.05
-b <- 1
-stats <- replicate(10000, max(runif(n, 0, b))^n)
-hist(stats, 40, col = "alice blue")
-mean(stats <= crit)
-\end{verbatim}
+  sense (code in Julia, \citealp{BKS12}).
+  \renewcommand*\FancyVerbStartString{## Fake start}
+  \begin{Verbatim}
+## Fake start
+b = 1; n = 10; crit = 0.05
+using Distributions
+
+lrt_stats = [maximum(rand(Uniform(0, b), n))
+                                       for i in 1:10000]
+mean(lrt_stats .<= crit^(1/n))
+
+### to plot:
+### plot(x = lrt_stats, Geom.histogram)
+  \end{Verbatim}
   And repeat for $n = 100$ and $n = 1000$ as well.
 \end{itemize}
 
