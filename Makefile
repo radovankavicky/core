@@ -53,7 +53,7 @@ rep: $(figs)
 # I first saw this trick in the makefile for "Homotopy Type Theory:
 # Univalent Foundations of Mathematics"
 core_econometrics_final.pdf core_econometrics.pdf: %.pdf: %.tex \
-  tex/references.bib $(filter-out VERSION.tex, $(call lsall,.tex)) \
+  tex/references.bib $(call lsall,.tex) \
   asymptotics/bootstrap.jl regression/modeling.jl $(figs)
 	if $(latexmk) -v > /dev/null 2>&1; \
 	then $(latexmk) $(latexFLAGS) $(<F); \
