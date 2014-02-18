@@ -82,14 +82,10 @@
 
 \item We can run some simulations to verify that this works and makes
   sense (code in Julia, \citealp{BKS12}).
-  \renewcommand*\FancyVerbStartString{## Fake start}
   \begin{Verbatim}
-## Fake start
-b = 1; n = 10; crit = 0.05
-using Distributions
+using Distributions; b = 1; n = 10; crit = 0.05
 
-lrt_stats = [maximum(rand(Uniform(0, b), n))
-                                       for i in 1:10000]
+lrt_stats = [maximum(rand(Uniform(0, b), n)) for i in 1:10000]
 mean(lrt_stats .<= crit^(1/n))
 
 ### to plot:

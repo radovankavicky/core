@@ -134,7 +134,7 @@
   \end{itemize}
 
   Convergence in probability is implied by convergence in $L_p$
-  as a consequence of Markov's/Chebychev's inequality.
+  as a consequence of Markov's inequality.
   \begin{thm}[Markov's inequality]
     If $X$ is an r.v., $\Pr[ |X|^p \geq \epsilon ] \leq \E |X|^p /\epsilon^p$.
   \end{thm}
@@ -207,11 +207,11 @@
   necessarily identically distributed with means $\mu_i$ and variances
   $\sigma^2_i$ that satisfy $(1/n^2) \sum_i \sigma^2_i \to 0$ as $n \to \infty$.\footnote{An
   example where this variance condition fails is if $\sigma^2_i = i$; then
-  \begin{align*}
+  \begin{equation*}
     (1/n^2) \sum_{i=1}^n \sigma^2_i
-    &= (1/n^2) \times n (n+1) / 2 \\
-    &\to 1/2.
-  \end{align*}}
+    = (1/n^2) \times n (n+1) / 2
+    \to 1/2.
+  \end{equation*}}
   Under those assumptions $\plim \Xb - \mub = 0$ where $\mub = (1/n)
   \sum_{i=1}^n \mu_i$.
 

@@ -77,23 +77,23 @@
 
     To construct an interval, we need to solve
     \begin{align*}
-      \Phi(\sqrt{n} (\Xb - \theta_U)) &= 0.025 \\
+      \Phi(\sqrt{n} (\Xb - \theta_U)) &= 0.025, &
       \Phi(\sqrt{n} (\Xb - \theta_L)) &= 0.975
     \end{align*}
     which becomes
     \begin{align*}
-      \Xb - \theta_U &= \Phi^{-1}(0.025) / \sqrt{n}
+      \Xb - \theta_U &= \Phi^{-1}(0.025) / \sqrt{n}, &
       \Xb - \theta_L &= \Phi^{-1}(0.975) / \sqrt{n}
     \end{align*}
     which then becomes
     \begin{align*}
-      \Xb - \Phi^{-1}(0.025) / \sqrt{n} &= \theta_U \\
+      \Xb - \Phi^{-1}(0.025) / \sqrt{n} &= \theta_U, &
       \Xb - \Phi^{-1}(0.975) / \sqrt{n} &= \theta_L.
     \end{align*}
     Since $\Phi^{-1}(0.025) = -1.96$ and $\Phi^{-1}(0.975) = 1.96$, this
     finally becomes
     \begin{align*}
-      \theta_U &= \Xb + 1.96 / \sqrt{n} \\
+      \theta_U &= \Xb + 1.96 / \sqrt{n}, &
       \theta_L &= \Xb - 1.96 / \sqrt{n}
     \end{align*}
   \end{ex}

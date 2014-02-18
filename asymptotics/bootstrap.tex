@@ -47,7 +47,11 @@
   \renewcommand*\FancyVerbStartString{## block 2}
   \VerbatimInput{asymptotics/bootstrap.jl}
   For example, to draw sample means of two uniform random variables,
-  we would use \verb|rmeans(Uniform(), 2)|
+  we would use
+  \begin{Verbatim}[gobble=4]
+## block 2
+    rmeans(Uniform(), 2)
+  \end{Verbatim}
 
   We'll generate averages from the uniform distribution first; see
   Figure~\ref{fig:bootstrap1}. Observe that the normal approximation

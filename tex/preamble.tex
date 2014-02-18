@@ -10,9 +10,17 @@
 % <http://www.gnu.org/copyleft/fdl.html>.
 
 \usepackage{amssymb,amsmath,amsthm,booktabs,ifdraft,microtype,
-  textcomp,graphicx,bibentry,url,enumitem,fancyvrb,subfig}
+  textcomp,graphicx,bibentry,url,enumitem,fancyvrb,subfig,ragged2e}
 \usepackage[T1]{fontenc}
 \usepackage[utf8x]{inputenc}
+\usepackage[top=1in,bottom=1.25in,left=1.25in,right=1.25in]{geometry}
+
+% Change to ragged-right without inline math breaks; this helps avoid
+% awkward line breaks or extensions into the right margin in math or
+% code.
+\RaggedRight
+\relpenalty=10000
+\binoppenalty=10000
 
 \usepackage{appendix}
 \usepackage[nottoc]{tocbibind}

@@ -259,8 +259,12 @@
 
 \item %
   Suppose now that $(Y_i, X_i) \sim \iid$ where the distribution of $X_i$
-  is unspecified and $Y_i \mid X_i \sim N(\beta_0 + \beta_1 X_i, \sigma^2)$.  We want to estimate
-  $\beta_0$ and $\beta_1$ and will treat $\sigma^2$ as a known constant for now.
+  is unspecified and
+  \begin{equation*}
+    Y_i \mid X_i \sim N(\beta_0 + \beta_1 X_i, \sigma^2).
+  \end{equation*}
+  We want to estimate $\beta_0$ and $\beta_1$ and will treat
+  $\sigma^2$ as a known constant for now.
 
   The method of moments estimator is based on $\E Y_i$ and $\E X_i
   Y_i$:
