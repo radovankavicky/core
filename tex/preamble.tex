@@ -23,6 +23,13 @@
 \binoppenalty=10000
 \setlength{\parindent}{1em}
 
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0ex}%
+{\baselineskip}{\baselineskip}{\raggedright\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0pt}%
+{0pt}{0pt}{\emph}}
+\makeatother
+
 \usepackage{appendix}
 \usepackage[nottoc]{tocbibind}
 \usepackage[round,comma]{natbib}
