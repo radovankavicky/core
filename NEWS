@@ -16,6 +16,8 @@ Version 0.7.2
 * Bugfix: successfully remove ligatures from monospaced text
 * Convert most of the R code to Julia. (Everything except what's in
   the Bayesian material so far.)
+* Decrease margins and increase font to reduce page count while
+  keeping the text readable.
 
 Version 0.7.1
 -------------
