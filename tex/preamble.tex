@@ -23,6 +23,7 @@
 \binoppenalty=10000
 \setlength{\parindent}{1em}
 
+\renewcommand{\thepart}{\arabic{part}}
 \makeatletter
 \renewcommand{\section}{\@startsection{section}{1}{0ex}%
 {\baselineskip}{\baselineskip}{\raggedright\bfseries}}
@@ -30,7 +31,6 @@
 {0pt}{0pt}{\emph}}
 \makeatother
 
-\usepackage{appendix}
 \usepackage[nottoc]{tocbibind}
 \usepackage[round,comma]{natbib}
 \bibliographystyle{abbrvnat}

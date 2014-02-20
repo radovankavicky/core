@@ -69,9 +69,9 @@ the date as well.  Thanks!
 \include{probability/properties}
 \include{probability/bayesian}
 \include{probability/asymptotics}
-\begin{appendices}
-\include{probability/problems}
-\end{appendices}
+\chapter*{Additional exercises}
+\addcontentsline{toc}{chapter}{Additional exercises}
+\input{probability/exercises}
 
 \part{Estimation and inference}
 \include{statistics/introduction}
@@ -83,9 +83,9 @@ the date as well.  Thanks!
 \newcommand*\FancyVerbStartString{## block}
 \include{statistics/bootstrap}
 \include{statistics/multiple_testing}
-\begin{appendices}
-\include{statistics/problems}
-\end{appendices}
+\chapter*{Additional exercises}
+\addcontentsline{toc}{chapter}{Additional exercises}
+\input{statistics/exercises}
 
 \part{Statistical properties of regression}
 \include{regression/introduction}
@@ -95,29 +95,30 @@ the date as well.  Thanks!
 \include{regression/asymptotics}
 \include{regression/modeling}
 \include{regression/systems_of_equations}
-\begin{appendices}
-\include{regression/appendix}
-\end{appendices}
+\chapter*{Additional exercises}
+\addcontentsline{toc}{chapter}{Additional exercises}
+\input{regression/exercises}
 
 \part{Economic interpretation of regression}
 \include{interpretation/introduction}
 \include{interpretation/causality}
-\begin{appendices}
-\include{interpretation/appendix}
-\end{appendices}
+\chapter*{Additional exercises}
+\addcontentsline{toc}{chapter}{Additional exercises}
+\input{interpretation/exercises}
 
-\part{More information}
-\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
-\begin{appendices}
+\addtocontents{toc}{\string\begin{NoHyper}}%
+\addcontentsline{toc}{part}{Appendices}%
+\addtocontents{toc}{\string\end{NoHyper}}
 % Don't put individual sections of the FDL in the table of contents
-\include{AUTHORS}
-\include{LICENSE}
-\end{appendices}
-
-{
-\raggedright
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+\chapter*{Complete list of authors}
+\addcontentsline{toc}{chapter}{Complete list of authors}
+\input{AUTHORS}
+\chapter*{GNU Free Documentation License}
+\addcontentsline{toc}{chapter}{GNU Free Documentation License}
+\input{LICENSE}
 \bibliography{tex/references}
-}
+
 \end{document}
 
 %%% Local Variables:
