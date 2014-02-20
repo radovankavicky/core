@@ -12,6 +12,76 @@
 \chapter{Problems}
 
 \begin{hw}
+  Write an R function that calculates the maximum likelihood
+  estimator of $\alpha$ and $\beta$ for the gamma$(\alpha,\beta)$
+  distribution. Maximize the likelihood function numerically even if
+  you are able to analytically derive the MLE. You may find the R
+  functions \texttt{optim} and \texttt{dgamma} helpful. You should
+  pay attention to the initial values of the numerical optimization
+  procedure, and may want to use the method of moments to derive
+  sensible initial values.
+\end{hw}
+
+\begin{hw}
+  We often want to understand the properties of a statistical
+  estimator that has too complicated of a distribution to calculate
+  directly. Or we might know that the distribution of a statistical
+  estimator is approximately equal to particular formula, but don't
+  know how accurate the approximation will be in any application. For
+  either situation, it can be useful to use a computer to simulate the
+  estimator under different assumptions.
+
+  It can be shown (i.e. \citet[p. 483]{CB02}) that if $X_1,\dots,X_n$
+  is an i.i.d. sample with distribution and density $F$ and $f$
+  respectively, then the sample median of $X_1,\dots,X_n$ is
+  approximately (i.e. this holds at $n = \infty$) distributed $\N(\theta,
+  (4 n f^2(\theta))^{-1})$, where $\theta$ is the population median.
+  \begin{enumerate}
+  \item Simulate 1000 samples of size 10 with $X \sim N(1,2)$ and plot
+    a histogram of the sample median. Also plot the density of the
+    limiting normal distribution on the same graph. How well does the
+    approximation match the simulated density? Hint: you will find it
+    easier if you use the R function \texttt{replicate}.
+  \item Repeat the previous question with $n=100$.
+  \item Repeat the first question with different distribution
+    functions. What features of the distribution function affect the
+    quality of the approximation?
+  \end{enumerate}
+\end{hw}
+
+\begin{hw}
+  Suppose that $X_1,\dots,X_n \sim i.i.d. N(\mu, \sigma^2)$. Is
+  the sample median consistent for $\mu$? Is it asymptotically
+  normal? Do these answers require the $X_i$ to be Normal?
+\end{hw}
+
+\begin{hw}
+  Suppose that $X_1,\dots,X_n$ are distributed uniform$(0,b)$.
+  Derive the LRT for the null hypothesis $b \geq b_0$ against the
+  alternative $b < b_0$ and also for the null hypothesis $b \leq b_0$
+  against $b > b_0$. Please discuss and compare the tests.
+\end{hw}
+
+\begin{hw}
+  Suppose that $X_1,\dots,X_n$ are i.i.d. uniform($a$,$b$).
+  Derive the LRT of the null hypothesis $\E X_i = 0$ against the
+  two-sided alternative $\E X_i \neq 0$.
+\end{hw}
+
+\begin{hw}
+  Let $X = (X_1,\dots,X_n)$ be a random sample and let $\theta$ be
+  some parameter of interest. For each $\theta_0$, let $A(\theta_0)$
+  be the acceptance region of a level $\alpha$ test of the null
+  hypothesis that $\theta = \theta_0$. For each sample $x$, define a
+  set $C(x)$ in the parameter space by
+  \begin{equation}
+     C(x) = \{ \theta_0 : x \in A(\theta_0) \}.
+  \end{equation}
+  Prove that the random set $C(X)$ is a $1-\alpha$ confidence set for the
+  parameter $\theta$.
+\end{hw}
+
+\begin{hw}
   Suppose that $X_1,...,X_n \sim$ i.i.d. uniform($a$,$b$).
   \begin{enumerate}
   \item Derive the MLE of $\E X_i$ and prove that it is consistent.
@@ -33,29 +103,6 @@
 \end{hw}
 
 \begin{hw}
-  Let $\{e_t\}$ be a sequence of i.i.d. $(0,1)$ random variables
-  and let $X_t = e_t + 0.5\, e_{t-1}$. Such a process is called a
-  Moving Average of order 1, abbreviated as MA(1). What is the
-  probability limit of $n^{-1} \sum_{t=1}^n X_t$ as $n \to \infty$?
-\end{hw}
-
-\begin{hw}
-  Suppose that $Z$ is a random variable with mean $\mu$ and variance
-  $\sigma$ and let $e_1,e_2,...$ be a sequence of i.i.d. random
-  variables with mean zero and variance 1 that are independent of $Z$.
-  Show that the sequence $X_i = Z + e_i$ obeys the following weak law
-  of large numbers: as $n \to \infty$, $n^{-1} \sum_{i=1}^n ( X_i -
-  \E(X_i \mid Z) ) \to 0$ in probability. Note that $X_1,X_2,...$ is
-  \emph{not} an i.i.d.\ sequence, but is an example of an
-  \emph{exchangeable} sequence of random variables.
-\end{hw}
-
-\begin{hw}
-  Suppose that $X_n \to^p X$ and that $g$ is a continuous function.
-  Prove that $g(X_n) \to^p g(X)$.
-\end{hw}
-
-\begin{hw}
   Let $X_1,...,X_n \sim N(\theta, \theta)$. Derive the MLE of
   $\theta$ and show that it is asymptotically normal.
 \end{hw}
@@ -64,13 +111,6 @@
   Suppose that $X_1,...,X_n$ are an i.i.d. sample from the density
   $f(x) = 1/\theta$, $0 \leq x \leq \theta$. Prove that $\max_i X_i$
   is consistent for $\theta$.
-\end{hw}
-
-\begin{hw}
-  Let $\{e_t\}$ be a sequence of i.i.d. $(0,1)$ random variables
-  and let $X_t = e_t + 0.5\, e_{t-1}$. Such a process is called a
-  Moving Average of order 1, abbreviated as MA(1). What is the
-  probability limit of $n^{-1} \sum_{t=1}^n X_t$ as $n \to \infty$?
 \end{hw}
 
 \begin{hw}
@@ -91,33 +131,6 @@
     have the same asymptotic distribution that we derived above under
     weaker assumptions?
   \end{enumerate}
-\end{hw}
-
-\begin{hw}
-  Suppose that $Z$ is a random variable with mean $\mu$ and variance
-  $\sigma$ and let $e_1,e_2,\dots$ be a sequence of i.i.d. random
-  variables with mean zero and variance 1 that are independent of $Z$.
-  Show that the sequence $X_i = Z + e_i$ obeys the following weak law
-  of large numbers: as $n \to \infty$, $n^{-1} \sum_{i=1}^n ( X_i -
-  \E(X_i \mid Z) ) \to 0$ in probability. Note that $X_1,X_2,\dots$
-  is \emph{not} an i.i.d.\ sequence, but is an example of an
-  \emph{exchangeable} sequence of random variables.
-\end{hw}
-
-\begin{hw}
-  Suppose that $X_n \to^p X$ and that $g$ is a continuous function.
-  Prove that $g(X_n) \to^p g(X)$.
-\end{hw}
-
-\begin{hw}
-  Let $X_1,\dots,X_n \sim N(\theta, \theta)$. Derive the MLE of
-  $\theta$ and show that it is asymptotically normal.
-\end{hw}
-
-\begin{hw}
-  Suppose that $X_1,\dots,X_n$ are an i.i.d. sample from the density
-  $f(x) = 1/\theta$, $0 \leq x \leq \theta$. Prove that $\max_i X_i$
-  is consistent for $\theta$.
 \end{hw}
 
 \begin{hw}

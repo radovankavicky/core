@@ -19,7 +19,7 @@ latexFLAGS := -pdf -silent
 bibtex := bibtex
 julia := julia
 
-parts := probability finitesample asymptotics regression interpretation
+parts := probability statistics regression interpretation
 lsall = $(foreach dir,. tex $(parts),$(wildcard $(dir)/*$(1)))
 
 all: core_econometrics.pdf
@@ -31,7 +31,7 @@ core_econometrics_final.tex: core_econometrics.tex
 
 
 # Execute the bootstrap code (if necessary)
-figs = $(addprefix asymptotics/bootstrap_, \
+figs = $(addprefix statistics/bootstrap_, \
                    u1.pdf u2.pdf u3.pdf ex1.pdf ex2.pdf ex3.pdf macros.tex) \
        $(addprefix regression/modeling_, \
                    fig1.pdf fig2.pdf macros.tex)
@@ -54,7 +54,7 @@ rep: $(figs)
 # Univalent Foundations of Mathematics"
 core_econometrics_final.pdf core_econometrics.pdf: %.pdf: %.tex \
   tex/references.bib $(call lsall,.tex) \
-  asymptotics/bootstrap.jl regression/modeling.jl $(figs)
+  statistics/bootstrap.jl regression/modeling.jl $(figs)
 	if $(latexmk) -v > /dev/null 2>&1; \
 	then $(latexmk) $(latexFLAGS) $(<F); \
 	else $(latex) $(latexFLAGS) $(<F) && \

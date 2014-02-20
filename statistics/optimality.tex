@@ -211,6 +211,41 @@
 
 \end{itemize}
 
+\section{Consistency of point estimators}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item Consistency is an asymptotic version of unbiasedness
+  \begin{defn}
+    An estimator $\thetah$ is a \emph{consistent} estimator of the
+    parameter $\theta$ if $\thetah \to^p \theta$ for any value of $\theta$.
+  \end{defn}
+
+  Obviously, if $\E \thetah \to \theta$ and $\var(\thetah) \to 0$ then $\thetah$ is
+  consistent.
+
+\item It is straightforward to show that Method of Moments estimators
+  are consistent as well.  Suppose that
+  \begin{enumerate}
+  \item $X_1,...,X_n$ are independent $p$ vectors
+  \item $(\E X_i,...,\E X_i^k) = g(\theta_1,...,\theta_k)$ and $g^{-1}$ is
+    continuous
+  \item $(1/n) \sum_{i=1}^n X_i^p$ obeys an LLN for $p = 1,...,k$,
+  \end{enumerate}
+  then
+  \begin{equation*}
+    g^{-1}\Big( (1/n) \sum_{i=1}^n X_i,..., (1/n) \sum_{i=1}^n X_i^k \Big)
+    \to^p (\theta_1,...,\theta_k),
+  \end{equation*}
+  so the Method of Moments estimator is consistent.
+
+\item It is less straightforward to show this, but MLEs are typically
+  consistent as well under technical regularity conditions on the
+  distributions of the underlying random variables.  This is one
+  justification for using MLE.
+
+\end{itemize}
+
 %%% Local Variables: 
 %%% mode: latex
 %%% TeX-master: "../core_econometrics"

@@ -9,7 +9,7 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 \chapter{Bootstrap}
-\tryinput{asymptotics/bootstrap_macros.tex}
+\tryinput{statistics/bootstrap_macros.tex}
 \providecommand{\bootquantiles}{?}
 \providecommand{\bootleft}{?}
 \providecommand{\bootright}{?}
@@ -45,7 +45,7 @@
   averages (default 5000), each of \verb|nobs| draws from the
   distribution specified in \verb|dist|, as follows
   \renewcommand*\FancyVerbStartString{## block 2}
-  \VerbatimInput{asymptotics/bootstrap.jl}
+  \VerbatimInput{statistics/bootstrap.jl}
   For example, to draw sample means of two uniform random variables,
   we would use
   \begin{Verbatim}[gobble=4]
@@ -63,20 +63,20 @@
     \begin{tabular}{cc}
       \subfloat[Sampling distribution of the mean of two
       $\uniform(0,1)$
-      r.v.s.]{\tryincludegraphics{asymptotics/bootstrap_u1.pdf}} &
+      r.v.s.]{\tryincludegraphics{statistics/bootstrap_u1.pdf}} &
       \subfloat[Sampling distribution of the mean of two exponential
-      r.v.s.]{\tryincludegraphics{asymptotics/bootstrap_ex1.pdf}} \\
+      r.v.s.]{\tryincludegraphics{statistics/bootstrap_ex1.pdf}} \\
 
       \subfloat[Sampling distribution of the mean of five
       $\uniform(0,1)$
-      r.v.s.]{\tryincludegraphics{asymptotics/bootstrap_u2.pdf}} &
+      r.v.s.]{\tryincludegraphics{statistics/bootstrap_u2.pdf}} &
       \subfloat[Sampling distribution of the mean of five exponential
-      r.v.s.]{\tryincludegraphics{asymptotics/bootstrap_ex2.pdf}} \\
+      r.v.s.]{\tryincludegraphics{statistics/bootstrap_ex2.pdf}} \\
 
       \subfloat[Sampling distribution of the mean of 50 $\uniform(0,1)$
-      r.v.s.]{\tryincludegraphics{asymptotics/bootstrap_u3.pdf}} &
+      r.v.s.]{\tryincludegraphics{statistics/bootstrap_u3.pdf}} &
       \subfloat[Sampling distribution of the mean of 50 exponential
-      r.v.s.]{\tryincludegraphics{asymptotics/bootstrap_ex3.pdf}}
+      r.v.s.]{\tryincludegraphics{statistics/bootstrap_ex3.pdf}}
     \end{tabular}
     \caption{Finite-sample distribution of the mean of uniform and
       exponential random variables, based on 5000 simulations.}
@@ -119,11 +119,11 @@
   simulation.
 
   \renewcommand*\FancyVerbStartString{## block 1}
-  \VerbatimInput{asymptotics/bootstrap.jl}
+  \VerbatimInput{statistics/bootstrap.jl}
 
   We can mimic a testing scenario as follows.
   \renewcommand*\FancyVerbStartString{## block 3}
-  \VerbatimInput{asymptotics/bootstrap.jl}
+  \VerbatimInput{statistics/bootstrap.jl}
   The endpoints for 5\% one-sided intervals based on the bootstrap
   distribution are given by \verb|quantile(boots, [0.05, 0.95])| and
   equal \bootquantiles.  They would have true coverage of \bootleft\
@@ -149,14 +149,14 @@
 
   We can illustrate this for the median with the command
   \renewcommand*\FancyVerbStartString{## block 4}
-  \VerbatimInput{asymptotics/bootstrap.jl}
+  \VerbatimInput{statistics/bootstrap.jl}
   which equals \medv.
 
 \item When the variance is easy to calculate, this isn't a big
   advantage.  But if we (say) want to calculate the variance of the
   median raised to the 1.2 power, our code becomes
   \renewcommand*\FancyVerbStartString{## block 5}
-  \VerbatimInput{asymptotics/bootstrap.jl}
+  \VerbatimInput{statistics/bootstrap.jl}
   which is a trivial code change (the variance estimate is now \powv).
   Now, the bootstrap doesn't always work (you need conditions like you
   need for delta method to work).
@@ -178,7 +178,7 @@
   generate a critical value for the median.  To do this, you need to
   resample from $Y_1 - m(Y),...,Y_n - m(Y)$.
   \renewcommand*\FancyVerbStartString{## block 6}
-  \VerbatimInput{asymptotics/bootstrap.jl}
+  \VerbatimInput{statistics/bootstrap.jl}
   Here the median is \ymedian\ and the 95\% bootstrap quantile is
   \bootinference, so we would reject the null that the median is zero.
 

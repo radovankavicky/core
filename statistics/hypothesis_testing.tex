@@ -180,6 +180,51 @@
 
 \end{itemize}
 
+\section{Hypothesis testing and interval estimation in general}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item Let $\{T_n\}$ be a sequence of test statistics for $\theta \in \theta_0$
+  against $\theta \in \theta_A$.  The sequence of tests has asymptotic size $\alpha$ if
+  \begin{equation*}
+    \lim_{n \to \infty} \sup_{\theta \in \theta_0} \Pr_\theta[T_n \text{ rejects}] = \alpha
+  \end{equation*}
+  It would be great to discuss local alternatives here.
+
+\item Let $\{[L_n, U_n\}$ be a sequence of interval estimators for a
+  parameter $\theta$.  The asymptotic confidence level for this sequence of
+  statistics is
+  \begin{equation*}
+    \lim_{n \to \infty} \inf_\theta \Pr_{\theta}[\theta \in [L_n, U_n]].
+  \end{equation*}
+  It would be great to discuss uniformity here.
+
+\end{itemize}
+
+\section{Specific methods of producing test statistics}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item There are a few key principles that can be used to produce test
+  statistics in very general conditions.
+
+\item The Wald tests is built on the CLT explicitly.  Suppose we want
+  to test the null $\theta = \theta_0$ and we have an asymptotically normal
+  estimator $\thetah_n$, so $\sqrt{n} (\thetah_n - \theta) \to^d N(0,\Sigma)$ for all $\theta$
+  and that $\Sigmah$ is a consistent estimator of $\Sigma$.  Then if the null
+  hypothesis is $\theta = \theta_0$, we know that
+  \begin{equation*}
+    n (\thetah_n - \theta_0)' \Sigmah^{-1} (\thetah_n - \theta_0) \to^d \chi^2_p
+  \end{equation*}
+  where $p$ is the dimension of $\theta_0$.
+
+\item Under appropriate regularity conditions, the Likelihood Ratio
+  Test is asymptotically chi-square as well.  So is a test based on
+  the first order conditions, which is called the \emph{score} or
+  \emph{LM} test.
+
+\end{itemize}
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../core_econometrics"

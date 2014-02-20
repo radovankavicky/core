@@ -1,5 +1,5 @@
 tex/localmod.tex
-asymptotics/*_macros.tex
+statistics/*_macros.tex
 regression/*_macros.tex
 
 *.pdf

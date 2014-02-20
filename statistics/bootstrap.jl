@@ -11,7 +11,7 @@ function rmeans(dist, nobs; nsims = 5000)
 end
 ## end
 function savehist(id, simdata)
-    draw(PDF("asymptotics/bootstrap_$id.pdf", 2.5inch, 1.5inch),
+    draw(PDF("statistics/bootstrap_$id.pdf", 2.5inch, 1.5inch),
          plot(x = simdata, Geom.histogram(bincount = 40),
               Guide.xlabel(""), Guide.ylabel(""),
               Theme(default_color = color("gray"),
@@ -61,7 +61,7 @@ boot4 =
 rboot(Y - median(Y), median)
 ## end
 
-outfile = open("asymptotics/bootstrap_macros.tex", "w")
+outfile = open("statistics/bootstrap_macros.tex", "w")
 
 function texmacro(name, value; fmt = "%s")
     fullfmt = "\\newcommand{\\%s}{$fmt}\n"
