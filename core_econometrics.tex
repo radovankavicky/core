@@ -63,6 +63,11 @@ the date as well.  Thanks!
 \tableofcontents
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 \newcommand*\FancyVerbStopString{## end}
+\newpage
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}} 
+\lhead{\emph{Part \thepart, \parttitle}}
+\rhead{\emph{\nouppercase \leftmark}}
 
 \part{Probability overview}
 \include{probability/random_variables}
@@ -71,6 +76,7 @@ the date as well.  Thanks!
 \include{probability/asymptotics}
 \chapter*{Additional exercises}
 \addcontentsline{toc}{chapter}{Additional exercises}
+\chaptermark{Exercises}
 \input{probability/exercises}
 
 \part{Estimation and inference}
@@ -85,6 +91,7 @@ the date as well.  Thanks!
 \include{statistics/multiple_testing}
 \chapter*{Additional exercises}
 \addcontentsline{toc}{chapter}{Additional exercises}
+\chaptermark{Exercises}
 \input{statistics/exercises}
 
 \part{Statistical properties of regression}
@@ -97,6 +104,7 @@ the date as well.  Thanks!
 \include{regression/systems_of_equations}
 \chapter*{Additional exercises}
 \addcontentsline{toc}{chapter}{Additional exercises}
+\chaptermark{Exercises}
 \input{regression/exercises}
 
 \part{Economic interpretation of regression}
@@ -104,11 +112,13 @@ the date as well.  Thanks!
 \include{interpretation/causality}
 \chapter*{Additional exercises}
 \addcontentsline{toc}{chapter}{Additional exercises}
+\chaptermark{Exercises}
 \input{interpretation/exercises}
 
 \addtocontents{toc}{\string\begin{NoHyper}}%
 \addcontentsline{toc}{part}{Appendices}%
 \addtocontents{toc}{\string\end{NoHyper}}
+\lhead{}
 % Don't put individual sections of the FDL in the table of contents
 \addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
 \chapter*{Complete list of authors}
@@ -116,6 +126,7 @@ the date as well.  Thanks!
 \input{AUTHORS}
 \chapter*{GNU Free Documentation License}
 \addcontentsline{toc}{chapter}{GNU Free Documentation License}
+\chaptermark{GNU Free Documentation License}
 \input{LICENSE}
 \bibliography{tex/references}
 
