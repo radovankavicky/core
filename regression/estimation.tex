@@ -8,9 +8,11 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\section{Point estimation}
+\section{Estimating linear regression}
 
-\subsection{Properties of quadratic forms}
+Start with background material:
+
+\subsubsection{Properties of quadratic forms}
 
 \begin{itemize}[leftmargin=0pt]
 
@@ -82,7 +84,7 @@
 
 \end{itemize}
 
-\subsection{Gaussian random variables}
+\subsubsection{Gaussian random variables}
 
 \begin{itemize}[leftmargin=0pt]
 
@@ -225,6 +227,66 @@
 
   Expect this to come up when $Z$ is multivariate standard normal and
   $X = Z'QZ$, $Y = Z'PZ$ and $Q$ and $P$ are idempotent and orthogonal.
+
+\end{itemize}
+
+\subsubsection{Algebraic and geometric properties of linear regression}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item Before worrying too much about statistical issues, we'll discuss
+  a few issues that come up just because of the math involved in the
+  linear regression estimator.  These issues have no statistical
+  content, but are numeric identities (almost, that's not a fantastic
+  way to say it).
+
+\item Draw pictures in $\RR^n$ for $n = 3$.  A good set of values is
+  \begin{align*}
+    Y &= \begin{pmatrix}1.5 \\ 0.5 \\ 3\end{pmatrix}&
+    X &=
+    \begin{pmatrix}
+      1  &  3 \\
+      1  &  1 \\
+      1  &  2
+    \end{pmatrix}
+  \end{align*}
+
+\item The same pictures can be useful to understand the operations
+  when adding a variable.  Suppose you regress $Y$ on $X_1$ and get an
+  estimate $\betat_1$, then decide to regress $Y$ on $X_1$ and $X_2$, giving
+  $\betah_1$ and $\betah_2$.  There is a relationship between these estimates
+  \begin{thm}[Frisch-Waugh-Lovel Theorem]
+    Let $e = Y - X_1\betat_1$ and define
+    \begin{equation*}
+      Z = (I - X_1(X_1'X_1)X_1')X_2,
+    \end{equation*}
+    (i.e. $Z$ consists of the residuals after regressing each column
+    of $X_2$ on $X_1$.  Then $\betah_2 = (Z'Z)^{-1}Z'e$.
+  \end{thm}
+  Similar formulae exist for getting $\betah_1$ from $\betat_1$
+
+  [Need to scan pictures and add them]
+
+  This result is less useful than it used to be, because computers are
+  far more powerful.  But the intuition is still just as useful---this
+  is what we mean by ``partial out''---and the result itself can still
+  be useful when dealing with very large data sets.
+
+\item We may be interested in knowing how far $Y$ is from $\Yh$; a
+  good comparison is how far relative to the distance between $Y$ and
+  $\iota \Yb$.  This is what the centered $R$-squared measures:
+  \begin{equation*}
+    R^2 = 1 - \frac{ \lVert Y - \Yh \rVert_2^2}{\lVert Y - \iota \Yb \rVert^2}.
+  \end{equation*}
+  As long as the model contains a constant, this will be between zero
+  and one.
+
+  You should realize that $R^2$ is almost useless as a guide to whether
+  or not your model is ``good.''  There are a few specific
+  applications (mostly forecasting) where I was somewhat interested in
+  the model's $R^2$, but that's it (knowing that it's high can
+  sometimes reassure you that there's no need to look for a model with
+  more predictive power).
 
 \end{itemize}
 
@@ -454,6 +516,829 @@
   Similarly, replacing $\sigma^2$ with $s^2$ gives us a $t(n-k)$ distribution.
 
 \end{itemize}
+
+\subsection{Asymptotic properties}
+
+\begin{itemize}[leftmargin=0pt]
+\item Notice that the OLS estimator can be written as a function of
+  averages:
+  \begin{equation*}
+    \betah = \beta + \big( (1/n) \sum_{i=1}^n x_i x_i' \big)^{-1}
+    (1/n) \sum_{i=1}^n x_i \vep_i.
+  \end{equation*}
+  So it is easy to analyze the asymptotic behavior of $\betah$ whenever
+  $(1/n) \sum_{i=1}^n x_i x_i'$ obeys an LLN and $(1/n) \sum_{i=1}^n x_i \vep_i$
+  obeys an LLN or CLT.
+
+  If we maintain the assumption that the observations are independent
+  but not necessarily identically distributed, which is a common
+  working assumption in cross-sectional economics, we can ensure
+  convenient asymptotic properties with the following technical
+  conditions:
+  \begin{asmp}\label{xmoments}
+    The regressors $\{X_i\}$ are independent with uniformly bounded
+    fourth moments and the $\E x_i x_i'$ are uniformly positive
+    definite.
+  \end{asmp}
+  Under Assumption~\ref{xmoments},
+  \begin{equation*}
+    (1/n) \sum_{i=1}^n x_i x_i' \to^p Q
+  \end{equation*}
+  where $Q = \lim_{n\to\infty} (1/n) \sum_{i=1}^n \E x_i x_i'$.
+
+  \begin{asmp}~\label{epmoments}
+    The r.v.s $\{x_i \vep_i\}$ are independent and mean zero with
+    uniformly bounded $2 + \delta$ moments and uniformly positive definite
+    variances.
+  \end{asmp}
+  Under Assumption~\ref{epmoments},
+  \begin{equation*}
+    (1/\sqrt{n}) \sum_{i=1}^n x_i \vep_i \to^d N(0, V)
+  \end{equation*}
+  where $V = \lim_{n\to\infty} (1/n) \sum_{i=1}^n \E x_i x_i' \vep_i^2$
+
+\item Now, under Assumptions~\ref{xmoments} and~\ref{epmoments}, it is
+  straightforward to show that the OLS estimator is consistent and
+  asymptotically normal.
+  \begin{defn}
+    An estimator $\thetah_n$ of the parameter $\theta$ is \emph{consistent} if
+    $\thetah_n \to \theta$ in probability as $n \to \infty$.
+  \end{defn}
+  Consistency can be viewed as the minimal property that an estimator
+  should have: if you have arbitrarily many observations, the
+  estimator should be arbitrarily close to the true
+  parameter.\footnote{Note that econometricians will sometimes use
+    nonstandard asymptotic theory to work with approximations that
+    break consistency: see, e.g., the weak instruments literature.}
+
+\item So, assume that Assumptions~\ref{xmoments} and~\ref{epmoments}
+  hold.  Then
+  \begin{equation*}
+    \betah 
+    = \beta + \big( (1/n) \sum_{i=1}^n x_i x_i' \big)^{-1}
+       (1/n) \sum_{i=1}^n x_i \vep_i
+    = \beta + \big( (1/n) \sum_{i=1}^n x_i x_i' \big)^{-1} o_p.
+  \end{equation*}
+  and, since $(1/n) \sum_{i=1}^n x_i x_i' \to^p Q$ and $Q$ is invertible by
+  assumption, we have $\betah = \beta + o_p$.
+
+\item For asymptotic normality, we have
+  \begin{equation*}
+    \sqrt{n} (\betah - \beta)
+    = \big( (1/n) \sum_{i=1}^n x_i x_i' \big)^{-1}
+      (1/\sqrt{n}) \sum_{i=1}^n x_i \vep_i \to^d Q^{-1} Z
+  \end{equation*}
+  where $Z \sim N(0, V)$, so $\sqrt{n} (\betah - \beta) \sim^a N(0, Q^{-1} V
+  Q^{-1})$, where ``$\sim^a$'' designates asymptotic distribution.
+
+\item This asymptotic distribution is different than the finite sample
+  distribution.  Specifically, the variance is different.  In our
+  finite sample results, we assumed conditional homoskedasticity;
+  namely that $\var(\vep_i \mid X) = \sigma^2$ for all $i$.  Making that
+  assumption here changes $V$:
+  \begin{align*}
+    V
+    &= \lim_{n \to \infty} (1/n) \sum_{i=1}^n \E x_i x_i' \vep_i^2 \\
+    &= \lim_{n \to \infty} (1/n) \sum_{i=1}^n \E \big( x_i x_i' \E(\vep_i^2 \mid X) \big) \\
+    &= \lim_{n \to \infty} (1/n) \sum_{i=1}^n \E( x_i x_i' ) \sigma^2 \\
+    &= \sigma^2 Q.
+  \end{align*}
+  Then we have $\sqrt{n} (\betah - \beta) \sim^a N(0, \sigma^2 Q^{-1})$, which is the
+  limit of the finite sample distribution under homoskedasticity.  The
+  proof that $(1/n) X'X \to Q$ in probability has been done, so it
+  remains to show that $s^2 \to \sigma^2$ in probability:
+  \begin{align*}
+    s^2 &= (1/(n-k)) \sum_i (y_i - x_i'\betah)^2 \\
+    &= (1/(n-k)) \sum_i (\vep_i - x_i'(\betah - \beta))^2 \\
+    &= (1/(n-k)) \sum_i (\vep_i^2 - 2 \vep_i x_i'(\betah-\beta) + (x_i'(\betah-\beta))^2) \\
+    &= (1/(n-k)) \sum_i \vep_i^2
+       - 2 (\betah - \beta)' (1/(n-k)) \sum_i  x_i \vep_i
+       + (\betah - \beta)' (1/(n-k)) \sum_i x_i x_i' (\betah - \beta) \\
+    &= (1/n) \sum_i \vep_i^2 + o_p(1) o_p(1) + o_p(1)'O_p(1)o_p(1) \\
+    &= (1/n) \sum_i \vep_i^2 + o_p(1).
+  \end{align*}
+  And $(1/n) \sum_i \vep_i^2 \to \sigma^2$ through the LLN.
+
+\end{itemize}
+
+\subsection{Making predictions from regression models}
+
+\subsubsection{motivation and setup}
+\begin{itemize}[leftmargin=0pt]
+\item Say we've estimated a regression model.  What do we do with it?
+\item Easiest possible use: make forecasts
+\item Setup:
+\begin{itemize}
+\item have observations $(y_i, x_i)$ for $i = 1,...,n$
+\item observe regressors for period $n+1$
+\item want to predict $y_{n+1}$
+\end{itemize}
+\item model \[ y_i = x_i'\beta + \epsilon_i \]
+\item Estimated by OLS (or, maybe, GLS)
+\end{itemize}
+
+\subsubsection{natural forecast}
+
+\begin{itemize}[leftmargin=0pt]
+\item The natural forecast for $y_{n+1}$ is $x_{n+1}'\betah$
+\begin{itemize}
+\item $x_{n+1}'\beta$ would be the forecast that minimizes expected
+         squared error
+\item $\betah$ is our best (minimum-variance) estimator of $\beta$
+\item Expected value of $\hat y_{n+1}$ is $y_{n+1}$
+\end{itemize}
+\item How reliable is our forecast?
+\begin{itemize}
+\item more precisely, what is the variance of the forecast error?
+\item Define the forecast error as 
+  \[ e_{n+1} = y_{n+1} - \hat y_{n+1} = \epsilon_{n+1} - x_{n+1}'(\betah - \beta) \]
+\end{itemize}
+\item Variance of forecast erro is going to reflect
+\begin{itemize}
+\item variance of $\betah$
+\item variance of $\epsilon_{n+1}$
+\end{itemize}
+\end{itemize}
+
+\subsubsection{calculation of variance}
+
+     We're going to assume that the errors are uncorrelated (like we
+     have) and homoskedastic.
+\begin{itemize}[leftmargin=0pt]
+\item conditionally heteroeskedastic errors can be dealt with by GLS
+\item The usual calculation gives us
+  \[ \var(e_{n+1} \mid X, x_{n+1}) = \E(e_{n+1}^2 \mid X_{n+1}) = \E(\epsilon_{n+1}^2
+  \mid X, x_{n+1}) + \E(((\betah - \beta)'x_{n+1})^2 \mid X, x_{n+1})\]
+\item the first term is just $\sigma^2$
+\item the second is 
+  \[ x_{n+1}' \var(\betah \mid X) x_{n+1} = \sigma^2 x_{n+1}'(X'X)^{-1}x_{n+1}\]
+\item draw a scatterplot to illustrate why $\hat y$ will depend on
+       the particular value of $x$.
+\end{itemize}
+
+\subsubsection{common use of this variance}
+
+\begin{itemize}[leftmargin=0pt]
+\item \textbf{if the errors are normal}, we can construct a confidence
+       interval for $y_{n+1}$ from this result
+\item $\hat y_{n+1} \pm t_{\alpha/2} \sqrt{s^2 (1 + x_{n+1}'(X'X)^{-1}x_{n+1})}$
+\end{itemize}
+
+\subsection{Finite-sample hypothesis testing}
+
+\subsubsection{Estimation under restrictions}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item Let's start with a simple example (one that uses economic
+  variables instead of letters; coincedentally, this is the same
+  example used in \citealp[p. 81]{Gre12}).  Suppose we have a simple
+  model of investment,
+  \begin{equation}\label{eq:1}
+    \log I_t = \beta_1 + \beta_2 i_t + \beta_3 \Delta p_t + \beta_4 \log Y_t + \beta_5 t + \vep_t
+  \end{equation}
+  where
+  \begin{itemize}
+  \item $I_t$ is investment in period $t$
+  \item $i_t$ is the nominal interest rate
+  \item $\Delta p_t$ is the rate of inflation
+  \item $Y_t$ is real output
+  \item $t$ is a time trend.
+  \end{itemize}
+  We might think that the inflation rate and the nominal interest rate
+  don't matter individually, but that the real interest rate is a key
+  driver of investment decisions.  That would imply that the
+  investment equation should be (to a rough approximation),
+  \begin{equation}\label{f11}
+    \log I_t = \beta_1 + \beta_2 (i_t - \Delta p_t) + \beta_4 \log Y_t + \beta_5 t + \vep_t.
+  \end{equation}
+  
+  We can estimate this new model by using $i_t - \Delta p_t$ as a regressor
+  instead of $i_t$ and $\Delta p_t$, but we can also estimate the model by
+  estimating~\eqref{f11} under the constraint $\beta_2 = - \beta_3$.
+
+\item In general, this amounts to solving an optimization problem
+  under a constraint.  We'll focus on linear constraints here for
+  simplicity, so the estimator becomes
+  \begin{equation}\label{f4}
+    \betah = \argmin_\beta \sum_{i=1}^n (y_i - x_i'\beta)^2 = \argmin_\beta (Y - X\beta)(Y-X\beta)
+  \end{equation}
+  subject to the constraint
+  \begin{equation}\label{f5}
+    R \beta = q
+  \end{equation}
+  where $R$ and $q$ are an arbitrary $j \times k$ matrix ($j \leq k$) and $j \times
+  1$ vector respectively that are known and set by the researcher and
+  $R$ is assumed to have rank $j$.
+
+  Most economics graduate students will have solved dozens of
+  constrained optimization problems by the time they read this
+  passage, so we'll just do a sketch of the
+  solution.\footnote{\citet{SB94} is a reasonably comprehensive
+    resource for results like these and it is typically required
+    reading by graduate economics programs.}  Set up the Lagrangian
+  \begin{equation}\label{f6}
+    (Y - X\beta)'(Y - X\beta) + (R\beta - q)' \lambda
+  \end{equation}
+  and take derivatives with respect to $\beta$ to get the first order
+  conditions
+  \begin{equation}\label{f3}
+    0 = 2X'X \beta^* - 2 X'Y + R'\lambda^*
+  \end{equation}
+  and the original constraint~\eqref{f5}, where the star indicates
+  that the variable solves the constrained optimization problem.
+  
+  We can rewrite Equation~\eqref{f3} as
+  \begin{equation}\label{f8}
+    \beta^* = \betah - (1/2) (X'X)^{-1} R'\lambda^*,
+  \end{equation}
+  where $\betah$ is the usual OLS estimator, and premultiplying by $R$
+  gives
+  \begin{equation}\label{f7}
+    R\beta^* = R \betah - (1/2) R (X'X)^{-1} R'\lambda^*.
+  \end{equation}
+  Since $R\beta^* = q$,~\eqref{f7} determines $\lambda^*$:
+  \begin{equation}\label{f9}
+    (1/2) \lambda^* = (R (X'X)^{-1} R')^{-1} (R \betah - q)
+  \end{equation}
+  and substituting~\eqref{f9} into~\eqref{f8} gives the solution,
+  \begin{equation}\label{f10}
+    \beta^* = \betah - (X'X)^{-1} R' (R (X'X)^{-1} R')^{-1} (R \betah - q)
+  \end{equation}
+
+\item Notice that $X\beta^*$ can be interpreted as a projection onto a
+  subspace of the columns of $X$.  If we define $Z = X (X'X)^{-1} R'$
+  then
+  \begin{equation*}
+    X \beta^* = (X(X'X)^{-1}X' - Z(Z'Z)Z') Y \equiv (P_X - P_Z) Y,
+  \end{equation*}
+  and notice that $P_X P_Z = P_Z$.  On reflection this should not be
+  suprising.  If the restriction amounts to imposing that some of the
+  coefficients are zero, it's obvious.  Otherwise, there's a rotation
+  of the design matrix $X$ such that the restriction is equivalent to
+  imposing zero on some of the coefficients in the rotated design
+  matrix.
+
+\item The restricted estimator of $\sigma^2$ under this restriction is going
+  to be
+  \begin{equation*}
+    (1/(n - k + \rank(R))) \sum_i (y_i - x_i'\beta^*)^2.
+  \end{equation*}
+
+\end{itemize}
+
+\subsubsection{Testing}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item Suppose that we want to test an arbitrary linear hypothesis about
+  $\beta$; ie \[R \beta = q\] against the alternative \[R \beta \neq q\]
+\begin{itemize}
+\item ie $R = (1, 0, 0, ...)$ and $q=0$ gives us a test that $\beta_0=0$
+\item $R = I$ and $q = (0,0,...,0)$ gives us a test that all of the
+         coefficients are equal to zero.
+\end{itemize}
+\item for now, assume we have normal errors
+\end{itemize}
+
+\paragraph{change in SSR under the null}
+      we can look at the change in the SSR when we impose the null
+        hypothesis
+\begin{itemize}
+\item ie ${SSR_R - SSR \over SSR}$
+\begin{itemize}
+\item $SSR = \sum_i \veph^2_i$
+\item don't need to present this, but can be written as \[
+  {(R^2 - R^2_R) / J \over (1-R^2) / (n-k-1)} \]
+\end{itemize}
+\item Our test is actually a scaled version of that:
+  \[ F = {(SSR_R - SSR)/J \over SSR / (n-k-1)} \]
+\begin{itemize}
+\item $J$ is the number of restrictions (ie dimension of $q$)
+\end{itemize}
+\end{itemize}
+
+\paragraph{Distribution of F under null}
+      now, suppose the null is true, what is the distribution of $F$?
+
+\paragraph{distribution of numerator}
+\begin{itemize}
+\item reexpress the numerator
+  \begin{align*}
+    SSR_R - SSR
+    &= (Y - X\betah_R)'(Y - X\betah_R) - (Y - X\betah)'(Y - X\betah) \\
+    &= (\betah - \betah_R)'X'X(\betah - \betah_R)
+  \end{align*}
+  (you're proving this for homework).  Remember that
+  \begin{align*}
+    \betah_R &= \betah + (X'X)^{-1} R'(R(X'X)^{-1}R')(q - R\betah) \\
+    &= (q - R\betah)' (R(X'X)^{-1}R')^{-1} R(X'X)^{-1}X'X(X'X)^{-1}R' (R(X'X)^{-1}R')^{-1} (q - R\betah) \\
+    &= (q - R\betah)' (R(X'X)^{-1}R')^{-1} R(X'X)^{-1} R'(R(X'X)^{-1}R')^{-1} (q - R\betah) \\
+    &= (q - R\betah)' (R(X'X)^{-1}R')^{-1} (q - R\betah)
+  \end{align*}
+\item distribution of numerator
+\begin{itemize}
+\item $q - R\betah$ is normal with mean $q - R\beta$ and variance $\sigma^2
+  R(X'X)^{-1}R'$
+\item under the null, this mean is zero.
+\item so we have a normal divided by its variance covariance matrix...
+\item so $(q - R\betah)'(R(X'X)^{-1}R')^{-1}(q - R\betah)$ equals $\sigma^2$
+  chi-square r.v. with $J$ degrees of freedom
+\end{itemize}
+\end{itemize}
+
+\paragraph{distribution of denominator}
+\begin{itemize}
+\item just like earlier, we know that $SSR = (n-k-1) s^2$ and $s^2$
+         and $\betah$ are independent given $X$.
+\item denominator is $\sigma^2$ times a chi-square with $n-k$
+         degrees of freedom and indpendent of the numerator.
+\end{itemize}
+
+\paragraph{distribution of statistic}
+       distribution of $F$
+\begin{itemize}
+\item $F = {\sigma^2 \chi^2_J / J \over \sigma^2 \chi^2_{n-k-1} / (n-k-1)}$ in
+  distribution.
+\item numerator and denominator are independent
+\item so this has an $F_{J, n-k-1}$ distribution under the null.
+\end{itemize}
+
+\paragraph{Distribution of F under alternative}
+\begin{itemize}
+\item Denominator is not affected
+\item Numerator is
+\begin{itemize}
+\item for $R\betah - q$ to have mean zero, we need the null to
+          be true
+\item otherwise the numerator will get larger
+\end{itemize}
+\end{itemize}
+
+\subsubsection{t-test}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item Suppose you wanted to test a single restriction, say $\beta_i = b$
+  for some known $b$.
+\item We know that ${\betah_i - \beta_i \over \sqrt{s^2 q_i}}$ is the ratio of
+  a standard normal r.v. and a chi-square/(n-k-1) random variable
+\item so it is $t$ with (n-k-1) degrees of freedom
+\item under the null, we know $\beta_i = b$, so we also have ${\betah_i - b
+    \over \sqrt{s^2 q_i}}$
+\item we can use this as a test statistic:
+  \begin{itemize}
+  \item calculate the value of the r.v.
+  \item get the appropriate critical values from the t-distribution
+    table (or the computer)
+  \item reject if the statistic is farther from zero than the critical
+    value
+  \end{itemize}
+\item If we're testing an equality, this will give us exactly the same
+  test as the F-test with 1 and $n-k-1$ degrees of freedom
+\item if we're testing an inequality, this test can be a little easier
+  to work with.
+\end{itemize}
+
+\subsubsection{Asymptotic hypothesis testing}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item To be able to use this asymptotic approximation, we need to
+  estimate the parameters $Q$ and $V$.  We already know an estimator
+  for $Q$, simply $(1/n) \sum_{i=1}^n x_i x_i'$ which is consistent under
+  Assumption~\ref{xmoments}.  But we don't observe $\vep_i$, so the
+  obviously correct average $(1/n) \sum_{i=1}^n \vep_i^2 x_i x_i'$ is not
+  an option.
+
+  Of course, since we know $(1/n) \sum_{i=1}^n \vep_i^2 x_i x_i' \to^p V$
+  under Assumption~\ref{epmoments}\footnote{Add the argument later.}
+  it suffices to find a quantity that converges to $(1/n) \sum_{i=1}^n
+  \vep_i^2 x_i x_i'$ in probability.  One option to replace $\vep_i$ with
+  the OLS residual $\veph_i$.  This gives the estimator
+  \begin{equation*}
+    \Vh = (1/n) \sum_{i=1}^n \veph_i^2 x_i x_i',
+  \end{equation*}
+  which was first proposed in the econometrics literature by
+  \citet{Whi80}.
+
+\item Let's define $W_n = (1/n) \sum_{i=1}^n x_i x_i' \vep_i^2$.  We can
+  rewrite the difference between $W_n$ and $\Vh$ as
+  \begin{align*}
+    \Vh - W_n
+    &= (1/n) \sum_{i=1}^n x_i x_i' (\veph^2_i - \vep_i^2) \\
+    &= (1/n) \sum_{i=1}^n x_i x_i' (x_i'(\betah - \beta))^2
+    - (2/n) \sum_{i=1}^n  x_i x_i' \vep_i x_i'(\betah - \beta))
+  \end{align*}
+
+  Now, if we look at the $(j,k)$ element of the first matrix, we see
+  \begin{equation*}
+    (1/n) \sum_{i=1}^n x_{ij} x_{ik}(x_i'(\betah - \beta))^2 =
+    (\betah - \beta)' \big((1/n) \sum_{i=1}^n x_i x_{ij} x_{ik} x_{i}'\big) (\betah- \beta).
+  \end{equation*}
+  Under usual conditions, the term inside the sum is going to converge
+  to its average and each $\betah - \beta$ is going to converge to zero in
+  probability.  So this term is $o_p$.
+
+  If we look at the $(j,k)$ element of the second matrix, we see
+  \begin{equation*}
+    (1/n) \sum_{i=1}^n x_{ij} x_{ik}(\vep_i x_i'(\betah - \beta)) =
+    \big((1/n) \sum_{i=1}^n \vep_i x_{ij} x_{ik} x_{i}'\big) (\betah- \beta).
+  \end{equation*}
+  Again, the term inside the sum converges to its average (zero, in
+  this case) and $\betah - \beta$ converges in probability to zero.
+
+  Consequently, $\Vh = W_n + o_p = V + o_p$.
+
+\item We can test linear restrictions on a single coefficient with a
+  modification of the \ttest.  Instead of normalizing with the $(j,j)$
+  element of $n \cdot s^2 (X'X)^{-1}$, however, we need to normalize with
+  the $(j,j)$ element of $\Qh^{-1} \Vh \Qh^{-1}$ (define $\Omegah =
+  \Qh^{-1} \Vh \Qh^{-1}$) .  So, under the null hypothesis $\beta_j = b_0$,
+  we have
+  \begin{equation*}
+    \sqrt{n} (\betah_j - b_0) / \Omegah_{jj}^{1/2} =
+    \sqrt{n} (\betah_j - b_0) / \Omega_{jj}^{1/2} \times (\Omega_{jj} / \Omegah_{jj})^{1/2}.
+  \end{equation*}
+  Since $\sqrt{n} (\betah_j - b_0) / \Omega_{jj}^{1/2} \to N(0, 1)$ in
+  distribution and $(\Omega_{jj} / \Omegah_{jj})^{1/2} \to 1$ in probability,
+  \begin{equation*}
+    \sqrt{n} (\betah_j - b_0) / \Omegah_{jj}^{1/2} \to^d N(0,1)
+  \end{equation*}
+
+\item Under conditional homoskedasticity, we obviously can use $n \cdot s^2
+  (X'X)^{-1}$ instead of $\Qh^{-1} \Vh \Qh^{-1}$.
+
+\item Also, notice that the $t_{n-k}$ distribution converges to a
+  standard normal as well.
+  \begin{equation*}
+    t_{n-k} =^d \frac{Z_0}{\sqrt{(1/(n-k)) \sum_{i=1}^{n-k} Z_i^2}}
+  \end{equation*}
+  where the $Z_i$ are independent standard normal random variables.
+  Since the denominator obeys an LLN and converges in probability to
+  1, we have $t_{n-k} \to N(0,1)$ in distribution.
+
+  This means that we can compare the test statistic $\sqrt{n} (\betah_j -
+  b_0) / \Omegah_{jj}^{1/2}$ to standard normal critical values or to
+  critical values from the $t_{n-k}$ distribution.  These approaches
+  will almost always give you the same answer, but the $t_{n-k}$
+  critical values will always be slightly larger.
+
+  If the two critical values don't give you the same answer, it is
+  probably best to be conservative and use the larger critical values
+  (which will lead you to not reject the null hypothesis).  The
+  discrepancy is telling you that you don't have enough observations
+  to get reliable asymptotic approximations, so you should probably
+  play it safe and not reject.
+
+\item We can extend the \ftest\ in the same way to test several linear
+  restrictions.  But an easier way to motivate the statistic is to
+  observe that, if the null hypothesis $R \beta = q$ holds, where $R$ and
+  $q$ are both known to the researcher,\footnote{Assume that $q$ has
+  $p$ elements and that $R$ has full rank.} then
+  \begin{equation*}
+    \sqrt{n} (R \betah - q) \to^d N(0, R Q^{-1} V Q^{-1} R').
+  \end{equation*}
+  Using the previous arguments, we have
+  \begin{equation*}
+    \sqrt{n} (R \Omegah R')^{-1/2} (R \betah - q) \to^d N(0, I)
+  \end{equation*}
+  and so
+  \begin{equation*}
+    n (R \betah - q)' (R \Omegah R')^{-1} (R \betah - q) \to^d \chi^2_p.
+  \end{equation*}
+  This is called the Wald test.
+
+  If we are willing to assume conditional homoskedasticity, then $\Omegah$
+  becomes $n \cdot s^2 (X'X)^{-1}$ and the Wald test statistic becomes a
+  scaled \ftest.
+
+\item Notice that we can make the same argument as above: since the
+  $F_{p,n-k}$ converges to a $\chi^2_p$ distribution as $n-k \to \infty$, we can
+  use either $\chi^2$ or $F$ critical values for our test statistic.  Just
+  like with the \ttest, the $F$ critical values will be somewhat more
+  conservative (here it can actually make a noticeable difference), so
+  you should use them.
+
+\item So far, we've discussed testing linear restrictions on the
+  coefficients.  But we can also test nonlinear restrictions of the
+  form $c(\beta) = q$, where $c$ is a function from $\RR^{k+1}$ to
+  $\RR^p$.
+
+  If we are willing to specify a distribution for the errors, we could
+  crank through the algebra and derive the distribution of $c(\betah)$.
+
+  But we can also use the delta method if $c$ is differentiable with
+  nonzero continuous derivative at $\beta$.  Let $C(\beta) = (\partial/\partial\beta) c(\beta)$ and
+  assume that $C(\beta)$ has full rank.  Then
+  \begin{equation*}
+    \sqrt{n} (c(\betah) - q) \to^d N(0, C(\beta)' \Omega C(\beta))
+  \end{equation*}
+  and, since $C(\betah) \to^p C(\beta)$ as $n \to \infty$ by continuity, we have
+  \begin{equation*}
+    \sqrt{n} (C(\betah)' \Omegah C(\betah))^{-1/2} (c(\betah) - q) \to^d N(0, I)
+  \end{equation*}
+  and
+  \begin{equation*}
+    n (c(\betah) - q)' (C(\betah)' \Omegah C(\betah))^{-1} (c(\betah) - q) \to^d \chi^2_p.
+  \end{equation*}
+
+  Again, $\Omegah$ can be estimated under homoskedasticity if the
+  researcher believes that assumption is justified.
+
+  If $C(\beta)$ does not have full rank, the same approach can work but it
+  will be more awkward.
+
+\item We could also take another route.  Instead of correcting the
+  asymptotic distribution of the OLS estimator, we could account for
+  heteroskedasticity in estimating $\beta$.  This would give us a feasible
+  version of the GLS estimator discussed earlier.
+
+  So, suppose that $Y = X \beta + \vep$ and $\vep \sim (0, \Sigma)$ given $X$ (where
+  $\Sigma$ is diagonal for now for convenience).
+  Further assume that $\Sigma$ has only a few unknown parameters,
+  so
+  \begin{equation*}
+    \E(\vep^2_i \mid X) = z_i'\alpha
+  \end{equation*}
+  where $z_i$ is some function of the regressors.  Since $\veph_i$ is
+  consistent for $\vep_i$, we can regress $\veph^2_i$ on $z_i$ to
+  estimate $\alpha$.
+
+  The two-step process is
+  \begin{enumerate}
+  \item Regress $Y$ on $X$ with OLS to get $\veph$
+  \item Regress $\veph$ on $Z$ to estimate $\alpha$
+  \item Regress $Y_i/w_i$ on $X_i/w_i$ to estimate $\betah_{FGLS}$ where
+    $w_i = \sqrt{z_i'\alphah}$
+  \end{enumerate}
+
+  If we let $\Sigmah$ be the estimate of $\Sigma$ that uses $\alphah$, consistency
+  of $\alphah$ ensures that $\Sigmah$ behaves asymptotically like $\Sigma$.  All of
+  the asymptotic results from the GLS estimator then automatically
+  apply to the Feasible GLS estimator.  Note that the finite sample
+  properties of the GLS estimator (efficiency via Gauss-Markov, for
+  example) do not necessarily hold.
+
+\item We can also test for heteroskedasticity.  Note that $\betah$ is
+  consistent even under heteroskedasticity, so $\veph_i \to \vep_i$ for
+  each $i$.  If $\sigma^2_i$ is different for different individuals, it
+  implies that $\vep^2_i$ should be correlated with $x_i$, so we might
+  regress $\vep^2_i$ on $x_i$ and do an F-test for the significance of
+  the overall regression?
+
+  More formally, the null hypothesis of homoskedasticity can be
+  expressed as
+  \begin{equation*}
+    H_0: \quad \sigma^2_i = \sigma^2 \qquad i = 1,...,n.
+  \end{equation*}
+  If the null hypothesis is true, then $n s^2 (X'X)^{-1} \to \Omega$
+  in probability as $n \to \infty$,
+  so
+  \begin{equation*}
+    (1/n) \sum_{i=1}^n (\veph^2_i - s^2) x_i x_i' \to^p 0.
+  \end{equation*}
+  If the null is false, this convergence fails.  Since this looks like
+  an average, we can apply the CLT to get critical values.
+
+  Let $\psi_i$ denote the vector of unique elements of $x_ix_i'$, along
+  with a constant term (if not in $x_i$), and let $p$ denote the
+  length of $\psi_i$.  One can show under some assumptions that
+  \begin{equation*}
+    \sqrt{n} \big( \sum_{i=1}^n (\veph^2_i - s^2) \psi_i \big) \to^d N(0, W)
+  \end{equation*}
+  where $W$ can be estimated.  But an easier way to test for
+  heteroskedasticity is through an equivalent but simpler procedure
+  (derived by \citealp{Whi80}):
+  
+  \begin{enumerate}
+  \item Regress $y_i$ on $x_i$ and save the OLS residuals.
+  \item Regress $\veph_i$ on $\psi_i$ and calculate the $R^2$
+    from this regression.
+  \item $n R^2$ is asymptotically $\chi^2_{p-1}$ under the null
+    hypothesis.
+  \end{enumerate}
+
+\end{itemize}
+
+\subsection{Bayesian estimation and inference}
+
+\begin{itemize}[leftmargin=0pt]
+\item For OLS, we have to specify a joint prior for
+\begin{itemize}
+\item $\sigma$ (ie $\E(\vep^2_i \mid X)$)
+\item $\beta$
+\item For convenience, we'll specify a prior for $\beta$ conditional on $\sigma^2$.
+\end{itemize}
+\item We'll discuss conjugate and noninformative priors
+\item Need to specify distribution of the random variables (Y): $N(X\beta,
+  \sigma^2 I)$ given $X$
+\begin{itemize}
+\item We'll continue to condition on $X$ (assume X and $\beta$ and $\gamma$ are
+  independent).
+\end{itemize}
+\end{itemize}
+
+\subsubsection{densities for beta}
+
+\begin{itemize}[leftmargin=0pt]
+\item Finite sample theory and asymptotics indicate that
+  $\betah$ is going to behave as though it is approximately normal.
+\item Suggests that getting a normal posterior might be a good idea
+\item suggests that starting with a normal prior (for congugate) is too.
+\item Prior :: $p(\beta \mid 1/\sigma^2) = N(\beta_0, \sigma^2 \Sigma_0)$
+\begin{itemize}
+\item ie prior is normal with known mean and variance
+\end{itemize}
+\end{itemize}
+
+\paragraph{posterior distribution}
+\begin{itemize}
+\item Use Bayes' rule to get posterior:
+  \[ p(\beta \mid X, Y, \sigma^{2}) = \frac{p(Y \mid X, \beta, \sigma^{2}) p(\beta \mid X,
+    \sigma^{2})}{p(Y \mid X, \sigma^{2})}\]
+\item $Y$ given $X$, $\beta$, and $\sigma^{2}$ is (obviously) normal
+\begin{itemize}
+\item mean $X\beta$
+\item variance $\sigma^2 I$
+\end{itemize}
+\item posterior is
+  \begin{multline}
+    p(\beta \mid X, Y, \sigma^2) \propto \big(1/\sqrt{2 \pi \sigma^2}\big)^n
+    \exp\big(-(Y - X\beta)'(Y - X\beta)/2\sigma^2\big) \\
+    \times (1/\sqrt{2^k \pi^k \det(\sigma^2 \Sigma_0)})
+    \exp\big(- (1/2) (\beta - \beta_0)'(\sigma^2 \Sigma_0)^{-1} (\beta - \beta_0)\big)
+  \end{multline}
+\begin{itemize}
+\item terms inside the exponentials can be written as ($\sigmah^2$ and
+  $\betah$ are the MLE estimators)
+  \[\exp\big(- (1/2 \sigma^2) (\eh - X(\beta - \betah))' (\eh - X(\beta - \betah))\big)\]
+  and $(\beta - \beta_0)'\Sigma_0^{-1}(\beta - \beta_0)$,
+  which can be rewritten as
+  \begin{equation*}
+    \exp\big(- n \sigmah^2/2 \sigma^2\big)
+    \exp\big(- (1/2\sigma^2) (\beta - \betah)'X'X(\beta - \betah) + (\beta - \beta_0)\Sigma_0^{-1}(\beta - \beta_0)\big)
+  \end{equation*}
+\item To get this into something more useful, we want to rewrite it as
+  \[(\beta - \betah)'X'X(\beta - \betah) + (\beta - \beta_0)\Sigma_0^{-1}(\beta - \beta_0) = (\beta - a \beta_0 - b \betah)'V(\beta - a \beta_0 - b \betah),\]
+  then solve for $a$, $b$, and $V$.  For $V$ we have
+  \begin{align*}
+    \beta'V\beta &= \beta'X'X\beta + \beta \Sigma_0^{-1} \beta & \iff \\
+    V    &= X'X + \Sigma_0^{-1},
+  \end{align*}
+  for $a$,
+  \begin{align*}
+    \beta'V a \beta_0 &= \beta'\Sigma_0^{-1}\beta_0 & \iff \\
+    V a      &= \Sigma_0^{-1}     & \iff \\
+    a        &= V^{-1} \Sigma_0^{-1} \\
+             &= (X'X + \Sigma_0^{-1})^{-1} \Sigma_0^{-1},
+  \end{align*}
+  and for $b$,
+  \begin{align*}
+    \beta'V b \betah &= \beta'X'X \betah & \iff \\
+    V b       &= X'X & \iff \\
+    b         &= V^{-1} X'X \\
+              &= (X'X + \Sigma_0^{-1})^{-1} X'X \\
+              &= I - a.
+  \end{align*}
+  So we have 
+  \[\beta'X'X\beta + \beta \Sigma_0^{-1} \beta  = (\beta - a \beta_0 - (I - a) \betah)'(X'X + \Sigma_0^{-1}) (\beta - a \beta_0 - (I - a) \betah)\] 
+  with $a = (X'X + \Sigma_0^{-1})^{-1}\Sigma_0^{-1}$.
+\item The posterior of $\beta$ is $N(a \beta_0 + (I - a)\betah, \sigma^2 (X'X + \Sigma_0^{-1})^{-1})$
+\end{itemize}
+\end{itemize}
+
+\paragraph{interpretation from a classical perspective}
+\begin{itemize}
+\item We can get a classical estimator by using the posterior mean:
+  \[ \betah_{bayes} = a\beta_0 + (I-a)\betah \]
+\item shrinkage estimator
+\begin{itemize}
+\item ridge is a special case with $\beta_0 = 0$ and $\Sigma_0 \propto I$
+\end{itemize}
+\item Can think of the posterior as an average of the prior and MLE
+\begin{itemize}
+\item Will be biased (in general)
+\item will have smaller variance than the OLS estimator.
+\end{itemize}
+\item In general, as sample size increases and as certainty in
+        prior decreases, the ``Bayesian'' estimator behaves more like the
+        OLS estimator
+\end{itemize}
+
+\paragraph{uninformative prior}
+\begin{itemize}
+\item $\Sigma_0$ denotes how strong our beliefs are
+\begin{itemize}
+\item small value indicates that we are very confident in our
+           prior mean
+\item large value indicates that we don't have a lot of
+           confidence in our prior mean
+\end{itemize}
+\item As $\Sigma_0 \to \infty$, $\Sigma_0^{-1}$ converges to zero
+\begin{itemize}
+\item mean of posterior converges to $\betah$
+\item variance of posterior converges to $\sigma^2(X'X)^{-1}$
+\end{itemize}
+\item ie, the Bayesian estimator converges to OLS as the prior
+         becomes less informative
+\item interpretation makes sense: when you don't have strong
+         beliefs, you should weight the data heavily
+\end{itemize}
+
+\paragraph{asymptotics}
+\begin{itemize}
+\item As $n \to \infty$, $X'X \to \infty$ and $a \to 0$
+\item Same as with uninformative prior; bayesian estimator
+         converges to OLS estimator as $n$ gets large
+\item makes sense: when you have a lot of data, you shouldn't rely
+         too heavily on your prior beliefs.
+\end{itemize}
+
+\subsubsection{densities for sigma-squared}
+
+\begin{itemize}[leftmargin=0pt]
+\item Conjugate prior for $1/\sigma^2$ is the gamma distribution, so $\sigma^2$
+  has an inverse-gamma distribution:
+  \[p_{\sigma^2}(\sigma^2 \mid \alpha, \delta) = (\delta^\alpha/\Gamma(\alpha)) (1/\sigma^2)^{\alpha+1} \exp\big(-\beta/\sigma^2\big)\]
+  with $\alpha,\delta > 0$.
+\begin{itemize}
+\item mean is $\delta / (\alpha - 1)$ for $\alpha > 1$
+\item variance is $\beta^2 / (\alpha-1)^2(\alpha-2)$ for $\alpha > 2$
+\end{itemize}
+\item Joint prior for $\beta$ and $1/\sigma^2$ is called the Normal-Gamma prior:
+  \begin{multline*}
+    p_{\beta,\sigma^2}(\beta, \sigma^2 \mid \Sigma_0, \alpha, \delta) = \Big(1/\sqrt{2^k \pi^k \det(\sigma^2 \Sigma_0)}\Big)
+    \exp\big(- (1/2) (\beta - \beta_0)'(\sigma^2 \Sigma_0)^{-1} (\beta - \beta_0)\big)
+    \\ \times (\delta^\alpha/\Gamma(\alpha)) (1/\sigma^2)^{\alpha+1} \exp(-\delta/\sigma^2)
+  \end{multline*}
+\item We can work out the posterior as before:
+  \begin{align*}
+    p(\beta, \sigma^2 \mid X, Y) 
+    &\propto \big(1/\sqrt{2 \pi \sigma^2}\big)^n
+       \exp(-(1/2\sigma^2) (Y - X\beta)'(Y - X\beta)) \\
+    &\quad \times \big(1/\sqrt{2^k \pi^k \det(\sigma^2 \Sigma_0)}\big) \exp(-(1/2) (\beta - \beta_0)'(\sigma^2 \Sigma_0)^{-1} (\beta - \beta_0)) \\
+    &\quad \times (\delta^\alpha/\Gamma(\alpha)) (1/\sigma^2)^{\alpha+1} \exp(-\delta/\sigma^2) \\
+    &= \big(1/\sqrt{2 \pi \sigma^2}\big)^n \big(1/\sqrt{2^k \pi^k \det(\sigma^2 \Sigma_0)}\big)
+       \exp(- n \sigmah^2/2 \sigma^2)
+       (\delta^\alpha/\Gamma(\alpha)) (1/\sigma^2)^{\alpha+1} \exp\big(- \delta/\sigma^2\big) \\
+    &\quad \times \exp\big(- (1/2\sigma^2) (\beta - \betah)'X'X(\beta - \betah) 
+      + (\beta - \beta_0)\Sigma_0^{-1}(\beta - \beta_0)\big)
+  \end{align*}
+  which is proportional to 
+  \begin{multline*}
+    \Big\{(1/2\pi\sigma^2)^{k/2} \det(X'X + \Sigma_0^{-1}) \\
+          \exp\Big( -(1/2\sigma^2) (\beta - a\beta_0 - (I-a)\betah)' (X'X + \Sigma_0^{-1})(\beta - a\beta_0 - (I-a)\betah)) \Big\} \\
+    \Big\{(1/2\pi\sigma^2)^{n/2} 
+           \exp\Big(- n\sigmah^2/2\sigma^2 \Big) 
+           (\delta^\alpha/\Gamma(\alpha)) (1/\sigma^2)^{\alpha+1} \exp(-\delta/\sigma^2) \Big\}
+  \end{multline*}
+\begin{itemize}
+\item The first part is the posterior of $\beta$ conditional on $\sigma^2$.
+\item We can rewrite the second part to be more interpretable:
+\item combining terms and dropping scale constants gives:
+  \[(\frac{1}{\sigma^2})^{n/2 + \alpha + 1} \exp(- \frac{\sigmah^2 n/2 + \delta}{\sigma^2})\]
+\item after thinking for a bit, we can see that this is the kernel of an inverse
+         gamma with parameters
+\begin{itemize}
+\item $n/2+\alpha$ and
+\item $\sigmah^2 n/2 + \delta$
+\end{itemize}
+\item mean is
+  \[\frac{\sigmah^2 n/2 + \delta}{n/2 + \alpha - 1}
+  = \sigmah^2 \frac{n}{n + 2\alpha - 2} + \delta(\frac{2}{n + 2\alpha - 2})\]
+\item to interpret this,
+\begin{itemize}
+\item define prior mean: $\sigma_0^2 = \frac{\delta}{\alpha - 1}$
+\item $\delta = \sigma^2_0 (\alpha - 1)$
+\item posterior mean becomes 
+  \[\sigmah^2 \frac{n}{n + 2\alpha - 2} + \sigma_0^2(\frac{2 \alpha - 2}{n + 2\alpha - 2}) 
+  = w \sigmah^2 + (1-w) \sigma_0^2\]
+\item Bayes estimate is a weighted average of the MLE and the
+           prior mean
+\item as $n \to \infty$, $w \to 1$ and MLE dominates
+\item we can write prior variance as $\sigma_0^4 / (\alpha - 2)$
+\begin{itemize}
+\item for $\sigma_0$ fixed, as $\alpha \to \infty$ prior
+             variance converges to zero and $w \to 0$ as well, so
+             posterior mean dominates.
+\item for $\sigma_0$ fixed, as $\alpha \to 1$ from above, $w$
+             converges to 1 again and MLE dominates
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+\subsubsection{putting it all together}
+
+After the analysis above, we can write the posterior density of $\beta$
+and $\sigma^2$ explicitly as
+\begin{multline*}
+  (1/2\pi\sigma^2)^{k/2} \det(X'X + \Sigma_0^{-1})
+  \exp\Big(-(1/2\sigma^2) (\beta-a\beta_0-(I-a)\betah)'(X'X+\Sigma_0^{-1})(\beta-a\beta_0-(I-a)\betah)\Big) \\
+  \times \frac{(\sigmah^2 n/2 + \delta)^{\alpha + n/2}}{\Gamma(n/2 + \alpha)}
+    (1/\sigma^2)^{n/2+\alpha+1}\exp\Big(-\sigma^2/(\sigmah^2 n/2 + \delta)\Big)
+\end{multline*}
 
 %%% Local Variables: 
 %%% mode: latex
