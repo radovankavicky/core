@@ -8,7 +8,7 @@
 % LICENSE.tex and is also available online at
 % <http://www.gnu.org/copyleft/fdl.html>.
 
-\section{Deriving point estimators}
+\section{Point estimators}
 
 \subsection{Summarizing data sets}
 
@@ -431,6 +431,241 @@
   is called the \emph{quasi-maximum likelihood} estimator and will be
   (asymptotically) valid as long as the quasi MLE first order
   conditions are true for the correct distribution.
+
+\end{itemize}
+
+\subsection{Optimality focusing on mean and variance}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item In this section, we're going to view estimators as algorithms
+  and evaluate them based on how well they typically perform.  This
+  means that we're going to evaluate estimators on the basis of their
+  distributions, called their \emph{sampling distribution}.  
+
+\item Typically, the class of possible point estimators is too large
+  to make general statements about optimality.  But we can make
+  statements about a restricted class of estimators.  A natural
+  restriction to impose is that the estimator must be correct ``on
+  average,'' i.e. that it should not make systemic and predictable
+  errors.  Such an estimator is called a ``unbiased'' estimator.
+
+  \begin{defn}
+    If $\thetah$ is an estimator of $\theta_0$, the \emph{bias} of $\thetah$ is the
+    quantity $\E \thetah - \theta_0$.  An estimator is \emph{unbiased} if its
+    bias equals zero for every value of $\theta_0$
+  \end{defn}
+
+  It can make sense to compare unbiased estimators through their
+  dispersion: a more disperse estimator is probably worse than one
+  that's more tightly concentrated around the true parameter value
+  $\theta_0$.
+
+  \begin{defn}
+    If $\thetah_1$ and $\thetah_2$ are two unbiased estimators of a parameter
+    $\theta$, $\thetah_1$ is \emph{more efficient} than $\thetah_2$ if the variance
+    of $\thetah_1$ is less than that of $\thetah_2$.
+  \end{defn}
+
+  An estimator $\thetah$ of $\theta$ is said to be the \emph{best unbiased
+  estimator of $\theta$} if it is unbiased and has smaller variance than
+  any other unbiased estimator
+
+\item For parameter vectors, we need the variance of $\gamma'\thetah_1$ to be
+  smaller than that of $\gamma'\thetah_2$ for all nonzero $\gamma$.  This is the same
+  as requiring that $\var(\thetah_2) - \var(\thetah_1)$ is positive definite
+  (you should verify this on your own).
+
+\item A particular result comes up in many different contexts
+  \begin{thm}
+    Suppose $\E \thetah_1 = \theta$; $\thetah_1$ is the best unbiased estimator of
+    $\theta$ iff $\thetah_1$ and $\thetah_1 - \thetah_2$ are uncorrelated for any other
+    unbiased estimator $\thetah_2$ of $\theta$.
+  \end{thm}
+  This also holds when restricted to other classes.
+
+  The first part of the proof is easy.  Assume that $\thetah_1$ and $\thetah_1 -
+  \thetah_2$ are uncorrelated.  Then
+  \begin{align*}
+    \var(\thetah_2) &= \var(\thetah_2 - \thetah_1 + \thetah_1) \\
+    &= \var(\thetah_2 - \thetah_1) + \var(\thetah_1) \\
+    &\geq \var(\thetah_1)
+  \end{align*}
+  as required.
+
+  For the second part of the proof, assume $\thetah_1$ is the best unbiased
+  estimator and consider the variance of the unbiased estimator $a
+  \thetah_1 + (1 - a) \thetah_2$.  Then
+  \begin{align*}
+    \var(a \thetah_1 + (1 - a) \thetah_2)
+    &= \var(\thetah_1 + (1 - a) (\thetah_2 - \thetah_1)) \\
+    &= \var(\thetah_1) + (1 - a)^2 \var(\thetah_2 - \thetah_1)
+    + 2 (1 - a) \cov(\thetah_1, \thetah_2 - \thetah_1).
+  \end{align*}
+
+  We can choose $a$ to minimize this variance and find that it is
+  smallest for
+  \begin{equation*}
+    a = 1 + \frac{\cov(\thetah_1, \thetah_2 - \thetah_1)}{\var(\thetah_2 - \thetah_1)}.
+  \end{equation*}
+  Plugging in above gives
+  \begin{equation*}
+    \var(a \thetah_1 + (1 - a) \thetah_2)
+    = \var(\thetah_1) - \frac{(\cov(\thetah_1, \thetah_2 - \thetah_1))^2}{\var(\thetah_2 - \thetah_1)}.
+  \end{equation*}
+  This last quantity is less than $\var(\thetah_1)$ (a contradiction)
+  unless $\cov(\thetah_1, \thetah_2 - \thetah_1) = 0$, completing the proof.
+
+\item It can also be useful to know the smallest possible variance
+  that an unbiased estimator (or estimator in general) could have in a
+  particular problem.  Then, if we have an unbiased estimator that has
+  that variance, we know that it is ``the best'' estimator possible in
+  a certain sense and can stop looking for better estimators.
+
+  The Cramer-Rao lower bound gives us such a bound.
+  \begin{thm}
+    Suppose $X_1,...,X_n$ have a joint density with likelihood $L(\theta;
+    X)$ and let $\thetah$ be an estimator of $\theta$ with finite variance and
+    \begin{equation*}
+      (d/d\theta) \int_\Xc \thetah(x) L(\theta; x) \dx = \int_\Xc \thetah(x) (d/d\theta) L(\theta; x) \dx
+    \end{equation*}
+    where $\Xc$ is the support of $X_1,...,X_n$.
+    Then 
+    \begin{equation*}
+      \var(\thetah) \geq  \frac{((d/d\theta) \E \thetah(X))^2}{\E ((d/d\theta) \log L(\theta; X))^2}.
+    \end{equation*}
+  \end{thm}
+  If the data are \iid\ then this result can be simplified.
+
+  The proof is relatively straightforward and follows from the
+  Cauchy-Schwarz inequality.  For any random variables $Y$ and $Z$,
+  the CS inequality implies that
+  \begin{equation*}
+    \cov(Y, Z)^2 \leq \var(Y) \var(Z).
+  \end{equation*}
+  If we let $Y = \thetah$ and $Z = (d/d\theta) \log L(\theta; X)$, we get
+  \begin{equation*}
+    \var(\thetah) \geq
+    \frac{\cov(\thetah, (d/d\theta) \log L(\theta; X))^2}
+         {\var((d/d\theta) \log L(\theta; X))}
+  \end{equation*}
+  (as long as $\var((d/d\theta) \log L(\theta; X)) > 0$), and the result holds
+  after we show that
+  \begin{equation*}
+    \cov(\thetah, (d/d\theta) \log L(\theta; X)) = (d/d\theta) \E \thetah
+  \end{equation*}
+  and
+  \begin{equation*}
+    \E (d/d\theta) \log L(\theta; X)) = 0,
+  \end{equation*}
+  which I need to fill in in the future.
+
+  \begin{ex}
+    Suppose that $X_1,...,X_n \sim \iid N(\mu, \sigma^2)$ with $\sigma^2$ known.  We can
+    use the CR lower bound to find the best-case variance of an
+    unbiased estimator.  Since
+    \begin{equation*}
+      d/d\mu \log L(\mu, \sigma^2; X) = \sum_i (x_i - \mu)/\sigma^2,
+    \end{equation*}
+    we have
+    \begin{equation*}
+      \E(d/d\mu \log L(\mu, \sigma^2; X))^2 = n/\sigma^2,
+    \end{equation*}
+    and the CR lower bound for any unbiased estimator of $\mu$ is
+    $\sigma^2/n$.  The sample mean is unbiased and has this variance, so
+    it's the best unbiased estimator.
+  \end{ex}
+
+\item It is possible that no estimator, even the best one, achieves
+  the CR lower bound.
+
+\end{itemize}
+
+\subsection{Loss-function based optimality}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item We can also consider other measures of optimality.  One is to
+  consider the average loss associated with an estimator.  A
+  \emph{loss function} $L$ is a convex function s.t. $L(0) = 0$ that
+  measures the cost associated with misestimating $\theta$: the cost
+  associated with the error $\thetah - \theta$ is $L(\thetah - \theta)$.  An estimator
+  $\thetah_1$ has lower risk than $\thetah_2$ if
+  \begin{equation*}
+    \E L(\thetah_1 - \theta) \leq \E L(\thetah_2 - \theta)
+  \end{equation*}
+  
+  A standard loss criterion is MSE, where $L(x) = x^2$.  Notice that
+  MSE weights (squared) bias and variance equally:
+  \begin{align*}
+    \E (\thetah - \theta)^2 &= \E((\thetah - \E \thetah) + (\E \thetah - \theta))^2 \\
+    &= \E(\thetah - \E \thetah)^2 + 2 \E (\thetah - \E \thetah) (\E \thetah - \theta) + (\E \thetah - \theta)^2 \\
+    &= \var(\thetah) + \bias(\thetah)^2
+  \end{align*}
+  since the middle term in the second to last equation is zero.  Loss
+  functions can also be derived directly from economic criteria like
+  utility functions.
+
+\item Loss-function based criteria are rarely decisive, in the sense
+  that the best estimator can depend on the parameter values, as shown
+  in the next example.
+  \begin{ex}
+    Suppose that $X_1,...,X_n \sim \binomial(p)$ and consider two
+    estimators of $p$, $\Xb$ and $1/2$.  Then
+    \begin{equation*}
+      \mse(\Xb) = \bias(\Xb)^2 + \var(\Xb) = p(1-p)/n
+    \end{equation*}
+    and
+    \begin{equation*}
+      \mse(1/2) = \bias(1/2)^2 + \var(1/2) = (1/2 - p)^2.
+    \end{equation*}
+    When $p$ is near $1/2$, the second estimator has lower MSE.  When
+    $p$ is not near $1/2$, the first estimator will typically have
+    lower MSE.
+  \end{ex}
+
+  For loss-function based optimality to be useful, the researcher
+  needs to weight the parameter space by importance; if $W(\theta)$ is a
+  weighting function for the parameter space, we can choose the
+  estimator $\thetah$ associated with the lowest average risk:
+  \begin{equation*}
+    \int \E L(\thetah - \theta) W(\theta) \dtheta.
+  \end{equation*}
+
+\end{itemize}
+
+\subsection{Consistency of point estimators}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item Consistency is an asymptotic version of unbiasedness
+  \begin{defn}
+    An estimator $\thetah$ is a \emph{consistent} estimator of the
+    parameter $\theta$ if $\thetah \to^p \theta$ for any value of $\theta$.
+  \end{defn}
+
+  Obviously, if $\E \thetah \to \theta$ and $\var(\thetah) \to 0$ then $\thetah$ is
+  consistent.
+
+\item It is straightforward to show that Method of Moments estimators
+  are consistent as well.  Suppose that
+  \begin{enumerate}
+  \item $X_1,...,X_n$ are independent $p$ vectors
+  \item $(\E X_i,...,\E X_i^k) = g(\theta_1,...,\theta_k)$ and $g^{-1}$ is
+    continuous
+  \item $(1/n) \sum_{i=1}^n X_i^p$ obeys an LLN for $p = 1,...,k$,
+  \end{enumerate}
+  then
+  \begin{equation*}
+    g^{-1}\Big( (1/n) \sum_{i=1}^n X_i,..., (1/n) \sum_{i=1}^n X_i^k \Big)
+    \to^p (\theta_1,...,\theta_k),
+  \end{equation*}
+  so the Method of Moments estimator is consistent.
+
+\item It is less straightforward to show this, but MLEs are typically
+  consistent as well under technical regularity conditions on the
+  distributions of the underlying random variables.  This is one
+  justification for using MLE.
 
 \end{itemize}
 

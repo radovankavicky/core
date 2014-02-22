@@ -1,0 +1,498 @@
+% Copyright (c) 2013–2014, authors of "Core Econometrics;" a
+% complete list of authors is available in the file AUTHORS.tex.
+
+% Permission is granted to copy, distribute and/or modify this
+% document under the terms of the GNU Free Documentation License,
+% Version 1.3 or any later version published by the Free Software
+% Foundation; with no Invariant Sections, no Front-Cover Texts, and no
+% Back-Cover Texts.  A copy of the license is included in the file
+% LICENSE.tex and is also available online at
+% <http://www.gnu.org/copyleft/fdl.html>.
+
+\section{Hypothesis testing and confidence intervals}
+
+\subsection{Introduction to interval estimation}
+
+\begin{itemize}[leftmargin=0pt]  
+
+\item Note that our discussion of the sampling distribution lets us
+  think rigorously about the precision associated with a particular
+  estimator of an unknown parameter $\theta$.  But it hasn't helped us
+  model uncertainty about the parameter value itself.  We'll see in
+  this section that confidence intervals are one way to think
+  rigorously about uncertainty of the parameter value, and we'll see
+  how to generate confidence intervals from point estimators.
+
+\item Let's introduce some definitions
+  \begin{defn}
+    An \emph{interval estimator} of a parameter $\theta$ is any pair of
+    functions $L(X)$ and $U(X)$ s.t. $L(x) \leq U(x)$ for all $x$ and,
+    when we observe $x$ we make the inference $\theta \in [L(x), U(x)]$.
+  \end{defn}
+
+  \begin{defn}
+    The \emph{coverage probability} of an interval estimator
+    $[L(X), U(X)]$ is the probability $\Pr_\theta[\theta \in [L(X), U(X)]]$
+  \end{defn}
+
+  \begin{defn}
+    The \emph{confidence coefficient} is $\inf_\theta P_\theta[\theta \in [L(X), U(X)]]$
+  \end{defn}
+
+  Generally, the idea behind an interval estimator is that we want to
+  estimate $\theta$ in a way that accounts for uncertainty.  So the
+  researcher ``agrees'' not to distinguish between values in the
+  interval.  These intervals can be one-sided or two-sided.
+
+\item The idea of a confidence interval can be extended to
+  \emph{confidence regions} or \emph{confidence sets} when the
+  parameter has more than one element.  The extension is obvious.
+
+\item If we have a statistic with known sampling distribution, we can
+  often use that distribution to generate a confidence interval.  This
+  is the idea: suppose you have a statistic $\thetah$ and know that its
+  distribution function, $F(t; \theta)$, is a monotone function of $\theta$.  We
+  can define a $1-\alpha$ confidence interval of the form $[\theta_L(\thetah),
+  \theta_U(\thetah)]$ by solving the following equations for $\theta_L, \theta_U$:
+
+  \begin{itemize}
+  \item If $F(t; \theta)$ is decreasing in $\theta$:
+    \begin{align*}
+      F(\thetah; \theta_U) &= \alpha/2 & F(\thetah; \theta_L) &= 1 - \alpha/2
+    \end{align*}
+  \item If $F(t; \theta)$ is increasing in $\theta$:
+    \begin{align*}
+      F(\thetah; \theta_L) &= \alpha/2 & F(\thetah; \theta_U) &= 1 - \alpha/2
+    \end{align*}
+  \item Note that the $L$ and the $U$ are switched in the two formula.
+  \end{itemize}
+
+  \begin{ex} Let $X_1,...,X_n$ be iid $N(\theta, 1)$ and we want to
+    construct a two-sided 95\% interval for $\theta$.  Let be $\Xb$, which
+    is $N(\theta, 1/n)$.  Then
+    \begin{equation*}
+      \Pr_\theta[\Xb \leq t] = \Phi(\sqrt{n} (t - \theta)) = F(t; \theta)
+    \end{equation*}
+    which is decreasing in $\theta$.
+
+    To construct an interval, we need to solve
+    \begin{align*}
+      \Phi(\sqrt{n} (\Xb - \theta_U)) &= 0.025, &
+      \Phi(\sqrt{n} (\Xb - \theta_L)) &= 0.975
+    \end{align*}
+    which becomes
+    \begin{align*}
+      \Xb - \theta_U &= \Phi^{-1}(0.025) / \sqrt{n}, &
+      \Xb - \theta_L &= \Phi^{-1}(0.975) / \sqrt{n}
+    \end{align*}
+    which then becomes
+    \begin{align*}
+      \Xb - \Phi^{-1}(0.025) / \sqrt{n} &= \theta_U, &
+      \Xb - \Phi^{-1}(0.975) / \sqrt{n} &= \theta_L.
+    \end{align*}
+    Since $\Phi^{-1}(0.025) = -1.96$ and $\Phi^{-1}(0.975) = 1.96$, this
+    finally becomes
+    \begin{align*}
+      \theta_U &= \Xb + 1.96 / \sqrt{n}, &
+      \theta_L &= \Xb - 1.96 / \sqrt{n}
+    \end{align*}
+  \end{ex}
+
+\end{itemize}
+
+\subsection{Interval optimality}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item Generally, as you might assume from above, if you have several
+  estimators to use, you should choose the estimator with the tighter
+  sampling distribution---the more efficient estimator.
+
+\item This is going to lead to a principle better for asymptotic
+  intervals.
+
+\item A second question, for a two sided interval, is how to spit the
+  mass between the tails.  The following theorem can help (this
+  version is taken from \citealp{CB02}):
+
+  \begin{thm}
+    Let $f(x)$ be a unimodal pdf with mode $x^*$.  If $[a,b]$
+    satisfies
+    \begin{enumerate}
+    \item $\int_a^b f(x) dx = 1 - \alpha$,
+    \item $f(a) = f(b) > 0$, and
+    \item $a \leq x^* \leq b$
+    \end{enumerate}
+    then $[a,b]$ is the shortest interval with coverage $1-\alpha$.
+  \end{thm}
+
+  The proof works by showing that any shorter interval has coverage
+  strictly less than $1-\alpha$.  It's pretty easy to see from pictures,
+  which I need to draw.
+
+  \begin{itemize}
+  \item Suppose $b'-a' < b-a$ and $a', b' \leq a$
+  \item Suppose $b'-a' < b-a$ and $a' \leq a < b'$ (so then $b' < b$).
+  \item Suppose $b'-a' < b-a$ and $a < a'$ and $b' < b$.
+  \item Suppose $b'-a' < b-a$ and $a < a'$ and $b \leq b'$.
+  \end{itemize}
+
+\end{itemize}
+
+\subsection{Basic setup for testing}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item Often we don't care about the exact value of a particular
+  unknown parameter, but only care about whether or not it falls in a
+  particular range.  For example, we may only care whether a
+  particular program is cost effective or not.  This is similar
+  conceptually to confidence intervals, and we will see that it is a
+  nearly identical problem mathematically, but the emphasis is
+  somewhat different.  When constructing confidence intervals, the
+  idea is to avoid unnecessarily precise (and wrong) estimates, and
+  the end points are determined by the data.  Here, in hypothesis
+  testing, we know the points we care about in advance, and then look
+  at the data to see whether it is consistent with those parameter
+  values.
+
+\item So the setup is that we have a parameter $\theta$ and are interested
+  in knowing which of two scenarios is true: if $\theta \in \Theta_0$ or if $\theta \in
+  \Theta_a$.  The first is the \emph{null hypothesis}, which is what we
+  would believe (and act on) in the absence of any data, and the
+  second is the \emph{alternative hypothesis}, which is a candidate
+  belief that might be true.  A \emph{hypothesis test} is a statistic
+  with two possible outcomes: (1) reject the null hypothesis or (2)
+  fail to reject/accept the null hypothesis.  It makes the math much
+  easier if we let the test statistic take on the values 0 or 1, where
+  1 indicates rejection.
+
+  There are four possible things that can happen when we conduct a
+  hypothesis test
+  \begin{enumerate}
+  \item We reject the null hypothesis, but it is really true.  This is
+    an error.
+  \item We fail to reject the null hypothesis, but it is false.  This
+    is another error.
+  \item We correctly reject the null hypothesis; it really is false.
+  \item We correctly fail to reject the null hypothesis; it really is true.
+  \end{enumerate}
+  The convention is that the first error, rejecting a true hypothesis,
+  is the worst possible outcome and that failing to reject a false
+  hypothesis is a much less serious mistake.  When I say that this is
+  the convention, it means that you need to set up your problem to
+  conform with this prioritization.  If the consequences of both types
+  of mistake are roughly equal, a hypothesis test may not be
+  appropriate.
+
+  These are called (unhelpfully) \emph{Type I error} and \emph{Type II
+  error}.  One way to remember the difference is to let the Roman
+  numeral ``I'' in Type I error stand for ``I'm screwed,'' because it
+  is the worse one.
+
+\item Some more terminology:
+  \begin{defn}
+    A test's \emph{power function} is the probability that the test
+    will reject for each possible value of the true parameter, $\theta$,
+    i.e., if $\delta$ is a test statistic, then its power function $\beta$
+    satisfies
+    \begin{equation*}
+      \beta(\theta) = \Pr_\theta[\delta = 1].
+    \end{equation*}
+    
+    The test has \emph{size $\alpha$} if
+    \begin{equation*}
+      \sup_{\theta \in \Theta_0} \beta(\theta) = \alpha
+    \end{equation*}
+    and \emph{level $\alpha$} if
+    \begin{equation*}
+      \sup_{\theta \in \Theta_0} \beta(\theta) \leq \alpha.
+    \end{equation*}
+
+    A test is \emph{unbiased} if $\inf_{\theta \in \Theta_a} \beta(\theta) \geq \alpha$
+  \end{defn}
+
+  Note that $\alpha$ should be set in advance of the experiment.  By
+  convention, hypothesis tests that reject with size or level 0.05 are
+  considered \emph{significant} rejections.  A test is \emph{valid} if
+  it actually has the correct size.
+
+\item An example may be helpful.
+  \begin{ex}
+    Suppose $X_1,...,X_n \sim \iid N(\theta,1)$ and we want to test the
+    hypothesis $\theta = 0$ against $\theta = 1$, so $\Theta_0 = \{0\}$ and $\Theta_a =
+    \{1\}$.  We can use the  standard one-sided test statistic that
+    you've seen in undergrad:
+    \begin{equation*}
+      \delta(X) = \ind\{\sqrt{n} \Xb > c\}
+    \end{equation*}
+    where $c$ is a critical value chosen to ensure that $\delta$ has size
+    $\alpha$ (which we haven't set yet).
+
+    We can find $c$ for a given value of $\alpha$, say $\alpha = 0.05$.  Then
+    $c$ must satisfy
+    \begin{equation*}
+      \Pr_\theta[\sqrt{n} \Xb > c] = \alpha
+    \end{equation*}
+    Since $\Pr_\theta[\sqrt{n} \Xb > c] = 1 - \Phi(c)$, this becomes
+    \begin{equation*}
+      c = \Phi^{-1}(1 - \alpha) \approx 1.64
+    \end{equation*}
+    and so $\delta(X) = \ind\{\sqrt{n} \Xb > 1.64\}$ which is probably
+    something you've seen before.
+
+    We can now find the power function, $\beta(\theta)$.  For any $\theta \in \RR$,
+    \begin{align*}
+      \beta(\theta) &= \Pr_\theta[\sqrt{n} \Xb > 1.64] \\
+      &= \Pr_\theta[\sqrt{n} (\Xb - \theta) > 1.64 - \sqrt{n} \theta] \\
+      &= 1 - \Phi(1.64 - \sqrt{n} \theta).
+    \end{align*}
+    Note that as $\theta$ grows towards $\infty$, $\Phi(1.64 - \sqrt{n} \theta)$
+    converges to 0 and the power converges to 1; as $\theta$ goes towards
+    $-\infty$, $\Phi(1.64 - \sqrt{n} \theta)$ converges to 1 and the power
+    converges to 0.  Monotonicity implies that this test is unbiased
+    (the probability that it rejects if $\theta = 1$ is greater than $\alpha$.
+  \end{ex}
+
+\item A brief aside on \pvalue s.  These are useful when you want to
+  present results to an audience which may have people who have
+  different ideas about the correct size of the test.  A \pvalue\
+  tells you the largest size for which the test would reject.
+
+\item There is a fundamental relationship between testing hypotheses
+  and constructing confidence intervals.  Given any hypothesis test, we
+  can construct a corresponding confidence interval as
+  follows \citep[As described in][Section 9.2]{CB02}:
+
+  For each $\theta_0$, let $A(\theta_0)$ be the acceptance region of a level $\alpha$
+  test of $H_0: \theta = \theta_0$.  For each sample $x$, define a set $C(x)$ in
+  the parameter space by \[C(x) = \{\theta_0: x \in A(\theta_0)\}.\]  Then the
+  random set $C(X)$ is a $1-\alpha$ confidence set.\footnote{You should
+    prove this on your own for homework.  The proof follows
+    immediately from the definition of each set, but it can take some
+    thought and work to realize it.  Start by writing out the
+    definition of a $1-\alpha$ confidence set and then verify by set
+    relationships that $C(X)$ satisfies the definition.}
+
+  \begin{ex}
+    Suppose that $X_1,\dots,X_n \sim N(\mu,\sigma^2)$ and we want to construct a
+    two-sided $1-\alpha$ confidence interval for $\mu$; $\sigma^2$ is known.  We
+    can start with the family of tests for the null hypothesis
+    \begin{equation*}
+      H_0:\ \mu = \mu_0 \text{\quad vs \quad} \mu \neq \mu_0
+    \end{equation*}
+    for which we want to use the statistic
+    \begin{equation*}
+      \delta(X) = \ind\{\sqrt{n} |\Xb - \mu_0| / \sigma > c_\alpha\}
+    \end{equation*}
+    where $c_\alpha$ is a critical value chosen so that the test has
+    correct size (see the previous example).
+
+    Then
+    \begin{equation*}
+      A(\mu_0) = \{X : \sqrt{n} |\Xb - \mu_0| / \sigma \leq c_\alpha\}
+    \end{equation*}
+    and
+    \begin{equation*}
+      C(X) = \{\mu_0 : \sqrt{n} |\Xb - \mu_0| / \sigma \leq c_\alpha\}.
+    \end{equation*}
+  \end{ex}
+
+  Notice that
+  \begin{itemize}
+  \item $A(\mu_0)$ has samples as its elements and is different for
+    different parameter values.
+  \item $C(x)$ has parameter values as its elements and is different
+    for different samples.
+  \end{itemize}
+
+\end{itemize}
+
+\subsection{Hypothesis testing and interval estimation in general}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item Let $\{T_n\}$ be a sequence of test statistics for $\theta \in \theta_0$
+  against $\theta \in \theta_A$.  The sequence of tests has asymptotic size $\alpha$ if
+  \begin{equation*}
+    \lim_{n \to \infty} \sup_{\theta \in \theta_0} \Pr_\theta[T_n \text{ rejects}] = \alpha
+  \end{equation*}
+  It would be great to discuss local alternatives here.
+
+\item Let $\{[L_n, U_n\}$ be a sequence of interval estimators for a
+  parameter $\theta$.  The asymptotic confidence level for this sequence of
+  statistics is
+  \begin{equation*}
+    \lim_{n \to \infty} \inf_\theta \Pr_{\theta}[\theta \in [L_n, U_n]].
+  \end{equation*}
+  It would be great to discuss uniformity here.
+
+\end{itemize}
+
+\subsection{Specific methods of producing test statistics}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item There are a few key principles that can be used to produce test
+  statistics in very general conditions.
+
+\item The Wald tests is built on the CLT explicitly.  Suppose we want
+  to test the null $\theta = \theta_0$ and we have an asymptotically normal
+  estimator $\thetah_n$, so $\sqrt{n} (\thetah_n - \theta) \to^d N(0,\Sigma)$ for all $\theta$
+  and that $\Sigmah$ is a consistent estimator of $\Sigma$.  Then if the null
+  hypothesis is $\theta = \theta_0$, we know that
+  \begin{equation*}
+    n (\thetah_n - \theta_0)' \Sigmah^{-1} (\thetah_n - \theta_0) \to^d \chi^2_p
+  \end{equation*}
+  where $p$ is the dimension of $\theta_0$.
+
+\item Under appropriate regularity conditions, the Likelihood Ratio
+  Test is asymptotically chi-square as well.  So is a test based on
+  the first order conditions, which is called the \emph{score} or
+  \emph{LM} test.
+
+\end{itemize}
+
+\subsection{Likelihood Ratio Test}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item If we know the distribution of the random sample, and want to
+  test a hypothesis about the unknown parameters, we can use the
+  likelihood ratio test to get a test statistic.  This can also be
+  effective asymptotically when the likelihood function isn't known.
+
+  The \emph{Likelihood Ratio Test statistic} is given by
+  \begin{equation*}
+    \Lambda(x_1,\dots,x_n) =
+    \frac{\sup_{\theta \in \Theta_0} L(\theta; x_1,\dots,x_n)}{\sup_{\theta \in \Theta_0 \cup \Theta_a} L(\theta; x_1,\dots,x_n)}
+  \end{equation*}
+  and the test rejects if $\Lambda(x_1,...,x_n) \leq c$ where $c$ is chosen so
+  that the test has the correct prespecified size.
+
+  [You can draw some pictures connecting this to the maximum
+  likelihood estimator]
+
+  This is a useful method because it usually gives you a starting
+  approach for a statistic.  As we'll see later, it often gives you
+  the best test.
+
+\item An example can help:
+  \begin{ex}
+    Suppose that $X_1,...,X_n \sim \iid\ \uniform(0, b)$ and we want to
+    test the null hypothesis $b \geq 1$ vs $b < 1$.  (add some pictures).
+    Intuitively, the test should always reject if $\max_i X_i > 1$,
+    but it should also reject for values below but very close to 1.
+    
+    To start, calculate the likelihood:
+    \begin{equation*}
+      L(b; x_1,...,x_n) = b^{-n} \ind\{b \geq \max_i X_i\}.
+    \end{equation*}
+    
+    Then (for the numerator)
+    \begin{equation*}
+      \sup_{b \geq 1} L(b; x_1,\dots,x_n) =
+      \begin{cases}
+        1 & \text{if } 1 > \max_i X_i \\
+        (\max_i X_i)^{-n} & \text{if } 1 \leq \max_i X_i.
+      \end{cases}
+    \end{equation*}
+    and (for the denominator)
+    \begin{equation*}
+      \sup_{b > 0} L(b; x_1,\dots,x_n) = (\max_i X_i)^{-n}.
+    \end{equation*}
+    Putting them together, we get
+    \begin{equation*}
+      \Lambda(x) =
+      \begin{cases}
+        (\max_i X_i)^n & \text{if } \max_i X_i \leq 1. \\
+        1 & \text{if } \max_i X_i > 1 \\
+      \end{cases}
+    \end{equation*}
+
+    Now, to find $c$ so that $\sup_{b \geq 1} \Pr_b[(\max_i X_i)^n \leq c] = \alpha$
+    \begin{align*}
+      \sup_{b \geq 1} \Pr_b[(\max_i X_i)^n \leq c]
+      &= \sup_{b\geq 1} \Pr_b[\max_i X_i/b \leq c^{1/n}/b] \\
+      &= \sup_{b \geq 1} \Pr_b[X_1/b \leq c^{1/n}/b, ..., X_n/b \leq c^{1/n}/b] \\
+      &= \sup_{b \geq 1} \Pr_b[X_1/b \leq c^{1/n}/b] \cdots \Pr_b[X_n/b \leq c^{1/n}/b] \\
+      &= \sup_{b \geq 1} c/b^n \\
+      &= c
+    \end{align*}
+    where we're using the fact that $X_i/b \sim \uniform(0,1)$.  So
+    $c=\alpha$.  This test is obviously equivalent to comparing $\max_i
+    X_i$ to $\alpha^{1/n}$.
+  \end{ex}
+
+\item We can run some simulations to verify that this works and makes
+  sense (code in Julia, \citealp{BKS12}).
+  \begin{Verbatim}
+using Distributions; b = 1; n = 10; crit = 0.05
+
+lrt_stats = [maximum(rand(Uniform(0, b), n)) for i in 1:10000]
+mean(lrt_stats .<= crit^(1/n))
+
+### to plot:
+### plot(x = lrt_stats, Geom.histogram)
+  \end{Verbatim}
+  And repeat for $n = 100$ and $n = 1000$ as well.
+\end{itemize}
+
+\subsection{Neyman-Pearson Lemma}
+
+\begin{itemize}[leftmargin=0pt]
+
+\item Helps us think about the best possible power;
+  \begin{defn}
+    Let $C$ be a class of tests for testing $\theta \in \Theta_0$
+    against $\theta \in \Theta_0^c$.  A test in $C$ with power
+    function $\beta(\theta)$ is a \emph{uniformly most powerful} (UMP)
+    class $C$ test if $\beta(\theta) \geq \beta'(\theta)$ for all
+    $\theta \in \Theta^c$ and all $\beta'$ that are power functions of
+    tests in $C$.
+  \end{defn}
+  (There's a good chance that this statement is verbatim from
+  \citealp{CB02}.)
+
+  The usefulness of this concept really shows up in asymptotic
+  arguments. In finite samples, there is often no UMP test, but one
+  can sometimes be constructed if the class is restricted.
+
+\item A statement of the famous Lemma (this may also be from
+  \citealp{CB02}):
+  \begin{thm}[Neyman-Pearson Lemma]
+    Consider testing $\theta = \theta_0$ vs $\theta = \theta_1$ where
+    the pdf for each parameter value is $f(x; \theta_i)$, $i = 1,2$,
+    using a test with rejection region $R$ such that, for some $k \geq
+    0$,
+    \begin{align*}
+      x &\in R    &&\text{if } f(x; \theta_1) > k f(x; \theta_0) \\
+      x &\notin R &&\text{if } f(x; \theta_1) < k f(x; \theta_0)
+    \end{align*}
+    Then:
+    \begin{enumerate}
+    \item Any size $\alpha$ test with such a rejection region is a UMP
+      level $\alpha$-test.
+    \item If there is a size $\alpha$ test with such a rejection
+      region for $k > 0$, then every UMP level $\alpha$ test has size
+      $\alpha$ and every UMP level $\alpha$ test has this rejection
+      region almost surely.
+    \end{enumerate}
+  \end{thm}
+
+\item Both inequalities are strict to allow for discrete random
+  variables.
+
+\item This Lemma justifies the LRT (at least for simple tests).
+
+\item Most UMP results for more complicated settings are extensions of
+  this lemma.
+
+\item This lemma is more or less how we think of power in econometrics
+
+\end{itemize}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../core_econometrics"
+%%% End:
