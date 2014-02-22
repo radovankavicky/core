@@ -95,9 +95,16 @@
 
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{defn}{Definition}[section]
+\newtheorem{asmp}{Assumption}[section]
+
+\theoremstyle{definition}
+\newtheorem{hwextra}{Problem}[section]
 \newtheorem{ex}{Example}[section]
 \newtheorem{hw}{Problem}[section]
-\newtheorem{asmp}{Assumption}[section]
+\let\Oldendex\endex%
+\def\endex{\qed\Oldendex}%
+\let\Oldendhw\endhw%
+\def\endhw{\qed\Oldendhw}%
  
 %%% Local Variables:
 %%% mode: latex
