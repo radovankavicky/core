@@ -22,6 +22,7 @@
   ,subfig
   ,ragged2e
   ,fancyhdr
+  ,xcolor
 }
 \usepackage[T1]{fontenc}
 \usepackage[utf8x]{inputenc}
@@ -85,8 +86,9 @@
 \renewcommand{\labelitemiv}{\textbullet}
 
 \renewcommand{\FancyVerbFormatLine}[1]{\hspace{\leftmargini}#1}
+\fvset{frame=leftline,rulecolor=\color{lightgray}}
 
-\urlstyle{rm}
+\urlstyle{same}
 \usepackage[hidelinks]{hyperref}
 
 % This will make copy and pasting easier, and will prevent the
