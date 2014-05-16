@@ -90,6 +90,12 @@
 
 \urlstyle{same}
 \usepackage[hidelinks]{hyperref}
+\DeclareUrlCommand\url{%
+\def\UrlLeft{\guilsinglleft}%
+\def\UrlRight{\guilsinglright}%
+\urlstyle{same}}
+\newcommand{\email}[1]{\href{mailto:#1}%
+{\guilsinglleft\nolinkurl{#1}\guilsinglright}}
 
 % This will make copy and pasting easier, and will prevent the
 % abomination that is monospace font ligatures.  Sorry, everyone who
