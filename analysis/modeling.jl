@@ -40,7 +40,7 @@ mcvars2 =
 ## end
 
 function saveplot(id, x, y)
-    draw(PDF("regression/modeling_$id.pdf", 5inch, 3inch),
+    draw(PDF("analysis/modeling_$id.pdf", 5inch, 3inch),
          plot(x = x, y = y, Geom.line,
               Guide.xlabel("μ"), Guide.ylabel("Relative SD"),
               Theme(default_color = color("black"),
@@ -53,6 +53,6 @@ end
 saveplot("fig1", -1:0.01:1, mcvars)
 saveplot("fig2", -1:0.01:1, mcvars2)
 
-outfile = open("regression/modeling_macros.tex", "w")
+outfile = open("analysis/modeling_macros.tex", "w")
 @printf(outfile, "\\newcommand{\\exampleratio}{%.3f}\n", exampleratio)
 close(outfile)
