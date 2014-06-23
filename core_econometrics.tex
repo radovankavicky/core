@@ -17,10 +17,7 @@
 \maketitle
 
 \bigskip\noindent%
-Copyright \textcopyright\ 2013--2014, the authors of \textit{Core Econometrics}.  A
-complete author list is included in the Appendix titled ``Complete
-list of authors.''
-
+Copyright \textcopyright\ 2013--2014, Gray Calhoun.
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
 any later version published by the Free Software Foundation; with no
@@ -29,7 +26,7 @@ copy of the license is included in the Appendix titled ``GNU Free
 Documentation License'' and is also available online at
 \url{http://www.gnu.org/copyleft/fdl.html}.
 
-This text was produced as part of the Econometrics Free Library
+This text is being written as part of the Econometrics Free Library
 Project.  The project's goal is to produce high-quality free and
 open access econometrics textbooks and reference material.  More
 information about this project is available at its homepage,
@@ -61,76 +58,44 @@ It would be helpful if you could refer to the version number listed in
 the date as well.  Thanks!
 
 \tableofcontents
-\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
-\newcommand*\FancyVerbStopString{## end}
-\newpage
-\pagestyle{fancy}
-\renewcommand{\chaptermark}[1]{\markboth{#1}{}} 
-\lhead{\emph{Part \thepart, \parttitle}}
-\rhead{\emph{\nouppercase \leftmark}}
 
-\part{Probability overview}
-\include{probability/random_variables}
-\include{probability/properties}
-\include{probability/bayesian}
-\include{probability/asymptotics}
-\chapter*{Additional exercises}
-\addcontentsline{toc}{chapter}{Additional exercises}
-\chaptermark{Exercises}
+\chapter{Probability overview}
+\input{probability/random_variables}
+\input{probability/properties}
+\input{probability/bayesian}
+\input{probability/asymptotics}
 \input{probability/exercises}
 
-\part{Estimation and inference}
-\include{statistics/introduction}
-\include{statistics/derivation}
-\include{statistics/optimality}
-\include{statistics/intervals}
-\include{statistics/hypothesis_testing}
-\include{statistics/likelihood_ratio_test}
+\chapter{Estimation and inference}
+\input{statistics/introduction}
+\input{statistics/derivation}
+\input{statistics/optimality}
+\input{statistics/intervals}
+\input{statistics/hypothesis_testing}
+\input{statistics/likelihood_ratio_test}
 \newcommand*\FancyVerbStartString{## block}
-\include{statistics/bootstrap}
-\include{statistics/multiple_testing}
-\chapter*{Additional exercises}
-\addcontentsline{toc}{chapter}{Additional exercises}
-\chaptermark{Exercises}
+\input{statistics/bootstrap}
+\input{statistics/multiple_testing}
 \input{statistics/exercises}
 
-\part{Statistical properties of regression}
-\include{regression/introduction}
-\include{regression/properties}
-\include{regression/estimation}
-\include{regression/inference}
-\include{regression/asymptotics}
-\chapter*{Additional exercises}
-\addcontentsline{toc}{chapter}{Additional exercises}
-\chaptermark{Exercises}
+\chapter{Statistical properties of regression}
+\input{regression/introduction}
+\input{regression/properties}
+\input{regression/estimation}
+\input{regression/inference}
+\input{regression/asymptotics}
+\input{regression/nonlinear}
 \input{regression/exercises}
 
-\part{Interpreting and conducting a linear regression analysis}
-\include{analysis/introduction}
-\include{analysis/modeling}
-\include{analysis/systems_of_equations}
-\include{analysis/causality}
-\chapter*{Additional exercises}
-\addcontentsline{toc}{chapter}{Additional exercises}
-\chaptermark{Exercises}
+\chapter{Interpreting and conducting a linear regression analysis}
+\input{analysis/introduction}
+\input{analysis/modeling}
+\input{analysis/systems_of_equations}
+\input{analysis/causality}
 \input{analysis/exercises}
 
-\addtocontents{toc}{\string\begin{NoHyper}}%
-\addcontentsline{toc}{part}{Appendices}%
-\addtocontents{toc}{\string\end{NoHyper}}
-\lhead{}
-% Don't put individual sections of the FDL in the table of contents
-\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
-\chapter*{Complete list of authors}
-\addcontentsline{toc}{chapter}{Complete list of authors}
-\input{AUTHORS}
 \bibliography{tex/references}
-
-\chapter*{GNU Free Documentation License}
-\addcontentsline{toc}{chapter}{GNU Free Documentation License}
-\chaptermark{GNU Free Documentation License}
 \input{LICENSE}
-
 \end{document}
 
 %%% Local Variables:

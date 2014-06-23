@@ -1,5 +1,4 @@
-# Copyright (c) 2013, authors of "Core Econometrics;" a
-# complete list of authors is available in the file AUTHORS.tex.
+# Copyright (c) 2013, Gray Calhoun.
 
 # Permission is granted to copy, distribute and/or modify this
 # document under the terms of the GNU Free Documentation License,

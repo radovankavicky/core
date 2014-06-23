@@ -1,6 +1,5 @@
-% Copyright (c) 2013–2014, authors of the "Core Econometrics;" a
-% complete list of authors is available in the file AUTHORS.tex.
-
+% Copyright (c) 2013–2014, Gray Calhoun.
+%
 % Permission is granted to copy, distribute and/or modify this
 % document under the terms of the GNU Free Documentation License,
 % Version 1.3 or any later version published by the Free Software
@@ -15,6 +14,7 @@
   amsthm,
   bibentry,
   booktabs,
+  chngcntr,
   enumitem,
   fancyhdr,
   fancyvrb,
@@ -38,43 +38,6 @@
 \relpenalty=10000
 \binoppenalty=10000
 \setlength{\parindent}{1em}
-
-\renewcommand{\thepart}{\arabic{part}}
-\makeatletter
-\renewcommand{\section}{\@startsection{section}{1}{0ex}%
-{\baselineskip}{\baselineskip}{\raggedright\bfseries}}
-\renewcommand{\subsection}{\@startsection{subsection}{2}{0pt}%
-{0pt}{0pt}{\emph}}
-% Create a \parttitle command
-\def\@part[#1]#2{%
-  \gdef\parttitle{#1}
-  \ifnum \c@secnumdepth >-2\relax
-    \refstepcounter{part}%
-    \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
-  \else
-    \addcontentsline{toc}{part}{#1}%
-  \fi
-  \markboth{}{}%
-  {\centering
-  \interlinepenalty \@M
-  \normalfont
-  \ifnum \c@secnumdepth >-2\relax
-    \huge\bfseries \partname\nobreakspace\thepart
-    \par
-    \vskip 20\p@
-  \fi
-  \Huge \bfseries #2\par}%
-  \@endpart
-}
-\def\@spart#1{%
-  \gdef\parttitle{#1}
-  {\centering
-  \interlinepenalty \@M
-  \normalfont
-  \Huge \bfseries #1\par}%
-  \@endpart
-}
-\makeatother
 
 \renewcommand{\headrulewidth}{0pt}
 
@@ -108,6 +71,8 @@
 
 \frenchspacing
 \setcounter{secnumdepth}{2}
+\counterwithout{section}{chapter}
+\renewcommand\thesection{\arabic{section}}
 
 \ifoptionfinal{
   % If the 'final' option is set, \try[etc] just includes or inputs
