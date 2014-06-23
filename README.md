@@ -6,7 +6,7 @@ free textbook/research monograph on Econometrics suitable for teaching
 a PhD core course and make it available through the [GNU Free
 Documentation License] (http://www.gnu.org/copyleft/fdl.html).
 
-The project is at version 0.7.1 and is just getting started. Use at
+The project is at version 0.7.2 and is just getting started. Use at
 your own risk!
 
 Downloads
